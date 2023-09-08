@@ -1,5 +1,5 @@
 import "../app/styles/globals.css";
-// import Header from "../app/components/Header";
+import Header from "../app/components/Header";
 import Head from "next/head";
 import Script from "next/script";
 import Providers from "./providers";
@@ -33,6 +33,7 @@ export default function RootLayout({ children }) {
         `}
         </Script>
       </head>
+      <Header />
       <body suppressHydrationWarning={true}>
         <Providers>
           <Navbar />
