@@ -77,11 +77,11 @@ const JntuhTable = () => {
 
       <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto">
         <table className="min-w-full table-auto text-sm text-left ">
-          <thead className="bg-gray-50 text-gray-600 font-medium border-b dark:bg-gray-700 dark:text-white">
+          <thead className="bg-gray-50 text-gray-600 font-medium border-b border-gray-300 dark:bg-gray-700 dark:text-white">
             <tr>
               <th
                 scope="col"
-                className="py-3 pl-4 pr-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500 sm:pl-6"
+                className="py-3 pl-4 pr-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 sm:pl-6 dark:text-white"
                 // className="py-3 px-6 border border-gray-300"
               >
                 S.No
@@ -89,49 +89,49 @@ const JntuhTable = () => {
               <th
                 // className="py-3 px-6 border border-gray-300"
                 scope="col"
-                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500"
+                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
               >
                 Code
               </th>
               <th
                 scope="col"
-                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500"
+                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
               >
                 Institute
               </th>
               <th
                 scope="col"
-                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500"
+                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
               >
                 Place
               </th>
               <th
                 scope="col"
-                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500"
+                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
               >
                 District
               </th>
               <th
                 scope="col"
-                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500"
+                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
               >
                 Region
               </th>
               <th
                 scope="col"
-                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500"
+                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
               >
                 Type
               </th>
               <th
                 scope="col"
-                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500"
+                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
               >
                 Minority
               </th>
               <th
                 scope="col"
-                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500"
+                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
               >
                 Mode
               </th>
@@ -162,17 +162,17 @@ const JntuhTable = () => {
                   <td
                     // className="px-6 py-4 whitespace-nowrap"
 
-                    className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900  sm:pl-6 dark:text-white"
+                    className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900   sm:pl-6 dark:text-white"
                   >
                     {item.S_no}
                   </td>
                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
                     {item.code}
                   </td>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
+                  <td className="whitespace-normal break-words px-3 py-4 text-sm text-gray-500 dark:text-white">
                     {item.Institute}
                   </td>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
+                  <td className="whitespace-normal break-words px-3 py-4 text-sm text-gray-500 dark:text-white">
                     {item.Place}
                   </td>
                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
