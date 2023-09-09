@@ -34,12 +34,12 @@ export default function Newsletter() {
     }
   };
   return (
-    <div className="bg-white py-16 sm:py-24">
+    <div className="bg-white py-16 sm:py-24 dark:bg-gray-900">
 
       {/* <Alert/>c */}
       <div className="relative sm:py-16">
         <div aria-hidden="true" className="hidden sm:block">
-          <div className="absolute inset-y-0 left-0 w-1/2 rounded-r-3xl bg-gray-50" />
+          <div className="absolute inset-y-0 left-0 w-1/2 rounded-r-3xl bg-gray-50 dark:bg-gray-800" />
           <svg
             className="absolute top-8 left-1/2 -ml-3"
             width={404}
