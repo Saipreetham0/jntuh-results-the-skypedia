@@ -1,9 +1,10 @@
 import "../app/styles/globals.css";
-import Header from "../app/components/Header";
+import Header from "./components/Header";
 import Head from "next/head";
 import Script from "next/script";
 import Providers from "./providers";
-import Navbar from "../app/components/NavBar/navBar";
+import Navbar from "./components/NavBar/navBar";
+import Footer from "./components/Footer";
 
 export const metadata = {
   title: "Jntuh Results",
@@ -39,6 +40,7 @@ export default function RootLayout({ children }) {
           <Navbar />
           {children}
         </Providers>
+        <Footer/>
       </body>
     </html>
   );
