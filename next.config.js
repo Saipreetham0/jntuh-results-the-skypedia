@@ -8,8 +8,10 @@ const nextConfig = {
     },
     images: {
       domains: ["www.gstatic.com","*"],
+      domains: ["images.unsplash.com","*"],
     },
    
+
   };
 
   module.exports = nextConfig;

@@ -1,8 +1,9 @@
 "use client";
-import supabase from "@/utils/supabase";
+import supabase from "../../../utils/supabase";
 
 import { useState } from "react";
-import Alert from "../Alert";
+// import Alert from "../Alert";
+// import * as Yup from "yup";
 
 export default function Newsletter() {
   const [email, setEmail] = useState("");

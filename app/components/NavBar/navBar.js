@@ -80,10 +80,10 @@ export default function Navbar() {
             About us
           </Link>
           <Link
-            href="/services"
+            href="/blog"
             className="text-sm font-semibold leading-6 text-gray-900 dark:text-white"
           >
-            Services
+            Blog
           </Link>
           <Link
             href="/contact"
@@ -183,11 +183,11 @@ export default function Navbar() {
                   About us
                 </Link>
                 <Link
-                  href="/services"
+                  href="/blog"
                   onClick={() => setMobileMenuOpen(false)}
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-white dark:hover:bg-gray-700"
                 >
-                  Services
+                  Blog
                 </Link>
                 <Link
                   href="/contact"
