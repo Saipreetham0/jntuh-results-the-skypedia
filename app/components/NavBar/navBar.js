@@ -54,7 +54,7 @@ export default function Navbar() {
         <div className="flex lg:flex-1 ">
           <Link href="/" className="-m-1.5 p-1.5">
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white ">
-              Jntuh Results
+            JNTUH Results
             </span>
             {/* <Image
                 className="h-8 w-auto"
@@ -117,7 +117,7 @@ export default function Navbar() {
             <Link href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Slam Book</span>
               <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                Jntuh Results
+                JNTUH Results
               </span>
               {/* <img
                 className="h-8 w-auto"

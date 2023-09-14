@@ -20,7 +20,7 @@ const cardsData = [
     title: "Calculate Your CGPA",
     content: " Calculate Your Cumulative GPA and Detailed Result Performance",
 
-    url: "http://saipreetham.com",
+    url: "cgpa-calculator",
   },
   {
     title: "Credit Eligibility Check",
