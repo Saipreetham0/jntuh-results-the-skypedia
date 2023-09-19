@@ -7,13 +7,13 @@ const HomePage = () => {
   return (
     <div>
       <Head>
-        <title>Institute-wise Courses offered in Telangana</title>
+        <title>
+          Top Btech Colleges Telangana - Find the Best Engineering Institutes
+        </title>
         <meta
           name="description"
-          content="Discover a comprehensive list of courses offered by various institutes in Telangana. Explore educational opportunities, programs, and specializations to plan your academic journey in the state of Telangana, India."
+          content="Discover the top Btech colleges in Telangana for quality education. Find the best engineering institutes in Telangana for a bright future."
         />
-
-        {/* Add more meta tags, link tags, etc. as needed */}
       </Head>
       {/* <h1>Welcome to the Product List</h1> */}
 
