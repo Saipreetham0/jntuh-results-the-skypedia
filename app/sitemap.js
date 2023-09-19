@@ -18,5 +18,23 @@ export default function sitemap() {
         changeFrequency: 'weekly',
         priority: 0.5,
       },
+      {
+        url: 'https://jntuhresults.theskypedia.com/cgpa-calculator',
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.5,
+      },
+      {
+        url: 'https://jntuhresults.theskypedia.com/btech-colleges-tg',
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.5,
+      },
+      {
+        url: 'https://jntuhresults.theskypedia.com/faq',
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.5,
+      },
     ]
   }
