@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import AdBanner from "../Adsense/AdBanner";
 
 // import { Container } from "@/components/Container";
 import logoLaravel from "../../images/logos/laravel.svg";
@@ -13,7 +14,7 @@ import logoTuple from "../../images/logos/tuple.svg";
 
 export default function Hero() {
   return (
-    <div className="pt-20 pb-16 text-center lg:pt-32">
+    <div className="pt-20 pb-5 text-center lg:pt-32">
       <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl dark:text-white">
         Instant Access to{" "}
         <span className="relative whitespace-nowrap text-blue-600">
@@ -34,6 +35,8 @@ export default function Hero() {
         University Hyderabad) exam results on The Skypedia.
       </p>
       <div className="mt-10 flex justify-center gap-x-6">
+        <AdBanner />
+
         {/* <button
           href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
           variant="outline"
@@ -41,12 +44,14 @@ export default function Hero() {
         >
           Check Now
         </button> */}
-        <Link
+
+        {/* Button */}
+        {/* <Link
             href="/check"
             className="cursor-pointer flex lg:shrink-0 justify-center items-center gap-2 font-semibold transition-all duration-300 rounded-full focus-visible:ring focus-visible:ring-red-800 focus-visible:ring-opacity-10 ring-red-800 focus:outline-none select-none disabled:cursor-not-allowed disabled:opacity-80 text-gray-50 dark:text-gray-900 bg-slate-900 dark:bg-slate-300  hover:bg-slate-700  active:bg-slate-800 active:text-slate-300  lg:px-7 px-6 lg:py-3 py-2 lg:text-md text-sm group relative w-1/4 lg:w-1/4"
           >
             Check Results
-          </Link>
+          </Link> */}
         {/* <Button href="/register">Get 6 months free</Button>
         <Button
           href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
