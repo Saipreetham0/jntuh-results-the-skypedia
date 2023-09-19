@@ -2,7 +2,6 @@
 import React from "react";
 import { useTheme } from "next-themes";
 
-
 const ThemeButton = () => {
   const { systemTheme, theme, setTheme } = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;
@@ -14,7 +13,6 @@ const ThemeButton = () => {
   return (
     <div>
       <button
-        type="button"
         onClick={() => (theme == "dark" ? setTheme("light") : setTheme("dark"))}
         className="flex items-center  dark:bg-gray-800 bg-white    text-white dark:text-gray-800 px-2 py-2 mr-2 rounded-full border bottom-1 border-gray-300 dark:border-gray-600 "
       >

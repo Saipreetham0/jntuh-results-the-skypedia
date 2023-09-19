@@ -30,7 +30,6 @@ export default function ShareButton() {
     <>
       <div className="">
         <button
-          type="button"
           onClick={openModal}
           className="flex items-center  dark:bg-gray-800 bg-white    text-white dark:text-gray-800 px-2 py-2 mr-2 rounded-full border bottom-1 border-gray-300 dark:border-gray-600 "
         >
