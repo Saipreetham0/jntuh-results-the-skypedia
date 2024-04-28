@@ -1,0 +1,42 @@
+[
+    {
+        "Branch": "MBA",
+        "Code": "00"
+    },
+    {
+        "Branch": "MBA (Agribusiness Management/ Entrepreneurship)",
+        "Code": "01"
+    },
+    {
+        "Branch": "MBA (Master in Hospital Administration)",
+        "Code": "02"
+    },
+    {
+        "Branch": "MBA (Logistics and Supply Chain Management)",
+        "Code": "03"
+    },
+    {
+        "Branch": "MBA (Big Data Analysis)",
+        "Code": "04"
+    },
+    {
+        "Branch": "MBA (Digital Marketing)",
+        "Code": "05"
+    },
+    {
+        "Branch": "MBA(Artificial Intelligence Machine Learning and Deep Learning)",
+        "Code": "06"
+    },
+    {
+        "Branch": "MBA (Health Care & Hospital Management)",
+        "Code": "07"
+    },
+    {
+        "Branch": "MBA (Pharmaceutical Management)",
+        "Code": "08"
+    },
+    {
+        "Branch": "MBA (Banking and Financial Services)",
+        "Code": "09"
+    }
+]

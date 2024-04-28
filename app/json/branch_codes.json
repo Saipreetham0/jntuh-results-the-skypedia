@@ -1,0 +1,174 @@
+[
+    {
+        "Branch": "B Pharmacy",
+        "Code": "00"
+    },
+    {
+        "Branch": "Civil Engineering",
+        "Code": "01"
+    },
+    {
+        "Branch": "Electrical & Electronics Engineering",
+        "Code": "02"
+    },
+    {
+        "Branch": "Mechanical Engineering",
+        "Code": "03"
+    },
+    {
+        "Branch": "Electronics & Communication Engineering",
+        "Code": "04"
+    },
+    {
+        "Branch": "Computer Science & Engineering",
+        "Code": "05"
+    },
+    {
+        "Branch": "Chemical Engineering",
+        "Code": "08"
+    },
+    {
+        "Branch": "Electronics & Instrumentation Engineering",
+        "Code": "10"
+    },
+    {
+        "Branch": "BioMedical Engineering",
+        "Code": "11"
+    },
+    {
+        "Branch": "Information Technology",
+        "Code": "12"
+    },
+    {
+        "Branch": "Electronics & Control Engineering",
+        "Code": "13"
+    },
+    {
+        "Branch": "Mechanical Engineering ( Mechatronics )",
+        "Code": "14"
+    },
+    {
+        "Branch": "Electronics and Telematics Engineering",
+        "Code": "17"
+    },
+    {
+        "Branch": "Metallurgical and Materials engineering",
+        "Code": "18"
+    },
+    {
+        "Branch": "Electronics & Computer Engineering",
+        "Code": "19"
+    },
+    {
+        "Branch": "Production Engineering (Mechanical)",
+        "Code": "20"
+    },
+    {
+        "Branch": "Aeronautical Engineering",
+        "Code": "21"
+    },
+    {
+        "Branch": "Instrumentation & Control Engineering",
+        "Code": "22"
+    },
+    {
+        "Branch": "Bio Technology",
+        "Code": "23"
+    },
+    {
+        "Branch": "Automobile Engineering",
+        "Code": "24"
+    },
+    {
+        "Branch": "Mining Engineering",
+        "Code": "25"
+    },
+    {
+        "Branch": "Mining Machinery",
+        "Code": "26"
+    },
+    {
+        "Branch": "Petroleum Engineering",
+        "Code": "27"
+    },
+    {
+        "Branch": "Civil and Environmental Engineering",
+        "Code": "28"
+    },
+    {
+        "Branch": "Mechanical Engineering( MATERIAL SCIENCE AND NANO TECHNOLOGY)",
+        "Code": "29"
+    },
+    {
+        "Branch": "Agriculture Engineering",
+        "Code": "30"
+    },
+    {
+        "Branch": "Pharmaceutical Engineering",
+        "Code": "31"
+    },
+    {
+        "Branch": "CS & Business Systems",
+        "Code": "32"
+    },
+    {
+        "Branch": "CS & IT",
+        "Code": "33"
+    },
+    {
+        "Branch": "IT and Engineering",
+        "Code": "34"
+    },
+    {
+        "Branch": "Artificial Intelligence",
+        "Code": "35"
+    },
+    {
+        "Branch": "CS and Technology",
+        "Code": "36"
+    },
+    {
+        "Branch": "Computer Engineering ( SE ) Technology",
+        "Code": "56"
+    },
+    {
+        "Branch": "CSE ( Cyber Security ) Technology",
+        "Code": "62"
+    },
+    {
+        "Branch": "CSE ( AI and ML )",
+        "Code": "66"
+    },
+    {
+        "Branch": "CSE ( Datascience )",
+        "Code": "67"
+    },
+    {
+        "Branch": "CSE ( IoT )",
+        "Code": "69"
+    },
+    {
+        "Branch": "CSE ( Networks )",
+        "Code": "70"
+    },
+    {
+        "Branch": "Textile Engineering",
+        "Code": "71"
+    },
+    {
+        "Branch": "AI & Data Science",
+        "Code": "72"
+    },
+    {
+        "Branch": "AI & ML",
+        "Code": "73"
+    },
+    {
+        "Branch": "Computer Science and Design",
+        "Code": "74"
+    },
+    {
+        "Branch": "Automation and Robotics",
+        "Code": "75"
+    }
+]

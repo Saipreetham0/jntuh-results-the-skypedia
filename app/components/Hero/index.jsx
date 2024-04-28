@@ -13,6 +13,16 @@ import logoTransistor from "../../images/logos/transistor.svg";
 import logoTuple from "../../images/logos/tuple.svg";
 
 export default function Hero() {
+
+  const handleWhatsAppContact = () => {
+    // Replace 'YOUR_PHONE_NUMBER' with the phone number to contact
+    window.open('https://api.whatsapp.com/send?phone=919550421866', '_blank');
+  };
+
+  const handleWebsiteVisit = () => {
+    // Replace 'YOUR_WEBSITE_URL' with the actual URL of your website
+    window.open('https://kspelectronics.in', '_blank');
+  };
   return (
     <div className="pt-20 pb-5 text-center lg:pt-32">
       <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl dark:text-white">
@@ -34,6 +44,31 @@ export default function Hero() {
         Get quick and easy access to your JNTUH (Jawaharlal Nehru Technological
         University Hyderabad) exam results on The Skypedia.
       </p>
+      <br></br>
+
+      <div className="banner text-center border border-gray-300  rounded-lg p-4 inline-block">
+        <h1 className="text-3xl font-bold">
+          Explore IoT Kit and ML Projects for College Students
+        </h1>
+        <p className="mt-2 text-lg">
+          Unlock the world of innovation and technology!
+        </p>
+        <button
+          className="mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+          onClick={handleWhatsAppContact}
+        >
+          Contact via WhatsApp
+        </button>
+
+        <button
+        className="mt-4 ml-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+        onClick={handleWebsiteVisit}
+
+      >
+        Visit Website
+      </button>
+        {/* <p className="mt-2">Or contact us at: 9550421866</p> */}
+      </div>
       <div className="mt-10 flex justify-center gap-x-6">
         <AdBanner />
 

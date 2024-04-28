@@ -1,0 +1,446 @@
+[
+    {
+        "Branch": "Environmental Engineering & Management",
+        "Code": "01"
+    },
+    {
+        "Branch": "Renewable Energy",
+        "Code": "02"
+    },
+    {
+        "Branch": "Bio-Technology",
+        "Code": "03"
+    },
+    {
+        "Branch": "CAD/CAM",
+        "Code": "04"
+    },
+    {
+        "Branch": "Computer Science",
+        "Code": "05"
+    },
+    {
+        "Branch": "Digital System & Computer Electronics",
+        "Code": "06"
+    },
+    {
+        "Branch": "Pipe Line Engineering",
+        "Code": "07"
+    },
+    {
+        "Branch": "Petroleum Engineering",
+        "Code": "08"
+    },
+    {
+        "Branch": "Computer Aided Design and Manufacturing",
+        "Code": "09"
+    },
+    {
+        "Branch": "Image Processing (IP)",
+        "Code": "10"
+    },
+    {
+        "Branch": "Computer & Communications",
+        "Code": "11"
+    },
+    {
+        "Branch": "Power Electronics & Systems",
+        "Code": "12"
+    },
+    {
+        "Branch": "Advanced Manufacturing and Mechanical Systems Design",
+        "Code": "13"
+    },
+    {
+        "Branch": "Mechanical Engineering Design",
+        "Code": "14"
+    },
+    {
+        "Branch": "Machine Design",
+        "Code": "15"
+    },
+    {
+        "Branch": "Computer Aided Analysis and Design",
+        "Code": "16"
+    },
+    {
+        "Branch": "Advanced Manufacturing Systems",
+        "Code": "17"
+    },
+    {
+        "Branch": "Thermal Sciences and Energy Systems",
+        "Code": "18"
+    },
+    {
+        "Branch": "Soil Mechanics & Foundation Engineering",
+        "Code": "19"
+    },
+    {
+        "Branch": "Geo Technical Engineering",
+        "Code": "20"
+    },
+    {
+        "Branch": "Thermal Engineering",
+        "Code": "21"
+    },
+    {
+        "Branch": "Transportation Engineering",
+        "Code": "22"
+    },
+    {
+        "Branch": "Highway Engineering",
+        "Code": "23"
+    },
+    {
+        "Branch": "Material Science & Technology",
+        "Code": "24"
+    },
+    {
+        "Branch": "Software Engineering",
+        "Code": "25"
+    },
+    {
+        "Branch": "Cyber Security",
+        "Code": "26"
+    },
+    {
+        "Branch": "Instrumentation and Control Systems",
+        "Code": "27"
+    },
+    {
+        "Branch": "Control Engineering",
+        "Code": "28"
+    },
+    {
+        "Branch": "PS with Emphasis on HV Engineering",
+        "Code": "29"
+    },
+    {
+        "Branch": "Power System Engineering",
+        "Code": "30"
+    },
+    {
+        "Branch": "Power System & Control",
+        "Code": "31"
+    },
+    {
+        "Branch": "Spatial Information Technology",
+        "Code": "32"
+    },
+    {
+        "Branch": "Remote Sensing",
+        "Code": "33"
+    },
+    {
+        "Branch": "Product Design & Manufacturing",
+        "Code": "34"
+    },
+    {
+        "Branch": "Computer Aided Structural Analysis and Design Signal Processing & Communications",
+        "Code": "35"
+    },
+    {
+        "Branch": "Digital Electronics & Communication Engineering",
+        "Code": "37"
+    },
+    {
+        "Branch": "Digital Electronics & Communication Systems",
+        "Code": "38"
+    },
+    {
+        "Branch": "Computers and Communications",
+        "Code": "39"
+    },
+    {
+        "Branch": "Information Technology",
+        "Code": "40"
+    },
+    {
+        "Branch": "Aerospace Engineering",
+        "Code": "41"
+    },
+    {
+        "Branch": "Power & Industrial Drives",
+        "Code": "42"
+    },
+    {
+        "Branch": "Power Electronics",
+        "Code": "43"
+    },
+    {
+        "Branch": "Electrical Machine & Drives",
+        "Code": "44"
+    },
+    {
+        "Branch": "Systems and Signal Processing",
+        "Code": "45"
+    },
+    {
+        "Branch": "Communication Engineering & Signal Processing",
+        "Code": "46"
+    },
+    {
+        "Branch": "Communication Systems",
+        "Code": "47"
+    },
+    {
+        "Branch": "Embedded Systems & VLSI",
+        "Code": "48"
+    },
+    {
+        "Branch": "Computers and Communication Engineering",
+        "Code": "49"
+    },
+    {
+        "Branch": "Advanced Power Systems",
+        "Code": "50"
+    },
+    {
+        "Branch": "Chemical",
+        "Code": "51"
+    },
+    {
+        "Branch": "Power Electronics & Drives",
+        "Code": "52"
+    },
+    {
+        "Branch": "Power system control & Automation",
+        "Code": "53"
+    },
+    {
+        "Branch": "Power Electronics & Electric Drives",
+        "Code": "54"
+    },
+    {
+        "Branch": "Embedded Systems",
+        "Code": "55"
+    },
+    {
+        "Branch": "Power systems",
+        "Code": "56"
+    },
+    {
+        "Branch": "VLSI",
+        "Code": "57"
+    },
+    {
+        "Branch": "Computer Science Engineering",
+        "Code": "58"
+    },
+    {
+        "Branch": "Computer Science & Technology",
+        "Code": "59"
+    },
+    {
+        "Branch": "Electrical Power Engineering VLSI System Design",
+        "Code": "60"
+    },
+    {
+        "Branch": "High Voltage Engineering",
+        "Code": "62"
+    },
+    {
+        "Branch": "Digital Image processing",
+        "Code": "63"
+    },
+    {
+        "Branch": "High Voltage and Power Systems Engineering",
+        "Code": "64"
+    },
+    {
+        "Branch": "Electrical Power Systems",
+        "Code": "65"
+    },
+    {
+        "Branch": "Power Systems & Automation",
+        "Code": "66"
+    },
+    {
+        "Branch": "M.S in VLSI Engineering",
+        "Code": "67"
+    },
+    {
+        "Branch": "VLSI & Embedded Systems",
+        "Code": "68"
+    },
+    {
+        "Branch": "Neural Networks",
+        "Code": "69"
+    },
+    {
+        "Branch": "Electronics & Communication Engineering",
+        "Code": "70"
+    },
+    {
+        "Branch": "Tele Communications",
+        "Code": "71"
+    },
+    {
+        "Branch": "VLSI Design",
+        "Code": "72"
+    },
+    {
+        "Branch": "Civil",
+        "Code": "73"
+    },
+    {
+        "Branch": "Geo Informatics",
+        "Code": "74"
+    },
+    {
+        "Branch": "Digital Signal Processing",
+        "Code": "75"
+    },
+    {
+        "Branch": "VLSI & Micro Electronics",
+        "Code": "76"
+    },
+    {
+        "Branch": "VLSI Design & Embedded Systems",
+        "Code": "77"
+    },
+    {
+        "Branch": "Food Processing Technology",
+        "Code": "78"
+    },
+    {
+        "Branch": "MS Occupational Health & Safety Course",
+        "Code": "79"
+    },
+    {
+        "Branch": "Communications & Signal processing",
+        "Code": "80"
+    },
+    {
+        "Branch": "Embedded Systems & VLSI Design",
+        "Code": "81"
+    },
+    {
+        "Branch": "Microwave & Communication Engineering",
+        "Code": "82"
+    },
+    {
+        "Branch": "Telematics",
+        "Code": "83"
+    },
+    {
+        "Branch": "Computer Networks & Information Security",
+        "Code": "84"
+    },
+    {
+        "Branch": "Structural Design",
+        "Code": "85"
+    },
+    {
+        "Branch": "Environmental Engineering",
+        "Code": "86"
+    },
+    {
+        "Branch": "Structural Engineering",
+        "Code": "87"
+    },
+    {
+        "Branch": "Data Science",
+        "Code": "88"
+    },
+    {
+        "Branch": "Bio-Informatics",
+        "Code": "89"
+    },
+    {
+        "Branch": "Bio-Medical Engineering",
+        "Code": "90"
+    },
+    {
+        "Branch": "Infrastructure Engineering & Management",
+        "Code": "91"
+    },
+    {
+        "Branch": "Chemical Engineering",
+        "Code": "92"
+    },
+    {
+        "Branch": "Mechatronics",
+        "Code": "93"
+    },
+    {
+        "Branch": "Computer Networks",
+        "Code": "94"
+    },
+    {
+        "Branch": "Control Systems",
+        "Code": "95"
+    },
+    {
+        "Branch": "Nano Technology",
+        "Code": "96"
+    },
+    {
+        "Branch": "Avionics",
+        "Code": "97"
+    },
+    {
+        "Branch": "M.S. Sports Technology & Health Science",
+        "Code": "98"
+    },
+    {
+        "Branch": "Power Electronics & Power Systems",
+        "Code": "99"
+    },
+    {
+        "Branch": "Automobile Engineering",
+        "Code": "AA"
+    },
+    {
+        "Branch": "Mining Engineering",
+        "Code": "BB"
+    },
+    {
+        "Branch": "Agricultural Engineering",
+        "Code": "CC"
+    },
+    {
+        "Branch": "Agricultural Engineering (Farm Machinery & Power Engineering)",
+        "Code": "C1"
+    },
+    {
+        "Branch": "Artificial Intelligence",
+        "Code": "AB"
+    },
+    {
+        "Branch": "Artificial Intelligence & Machine Learning",
+        "Code": "AC"
+    },
+    {
+        "Branch": "CSE - Internet of Things",
+        "Code": "AD"
+    },
+    {
+        "Branch": "Robotics",
+        "Code": "AE"
+    },
+    {
+        "Branch": "CSE-Artificial Intelligence",
+        "Code": "AF"
+    },
+    {
+        "Branch": "ECE Internet of Things",
+        "Code": "AG"
+    },
+    {
+        "Branch": "Artificial Intelligence & Data Sciences",
+        "Code": "AH"
+    },
+    {
+        "Branch": "CSE - Artificial Intelligence & Machine Learning",
+        "Code": "AI"
+    },
+    {
+        "Branch": "CSE- Data Science",
+        "Code": "AJ"
+    },
+    {
+        "Branch": "CSE-Cyber Security",
+        "Code": "AK"
+    }
+]

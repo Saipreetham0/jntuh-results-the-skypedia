@@ -1,0 +1,74 @@
+[
+    {
+        "Branch": "Pharm. D",
+        "Code": "00"
+    },
+    {
+        "Branch": "Pharm. D (PB)",
+        "Code": "01"
+    },
+    {
+        "Branch": "Pharmaceutical Chemistry",
+        "Code": "02"
+    },
+    {
+        "Branch": "Pharmaceutics",
+        "Code": "03"
+    },
+    {
+        "Branch": "Pharmaceutical Analysis & Quality Assurance",
+        "Code": "04"
+    },
+    {
+        "Branch": "Pharmacology",
+        "Code": "05"
+    },
+    {
+        "Branch": "Pharmacognosy",
+        "Code": "06"
+    },
+    {
+        "Branch": "Pharmacy Practice Course",
+        "Code": "07"
+    },
+    {
+        "Branch": "Industrial Pharmacy",
+        "Code": "08"
+    },
+    {
+        "Branch": "Clinical Pharmacy",
+        "Code": "09"
+    },
+    {
+        "Branch": "Pharmaceutical Technology",
+        "Code": "10"
+    },
+    {
+        "Branch": "Pharmaceutical Analysis and Quality Control",
+        "Code": "11"
+    },
+    {
+        "Branch": "Pharmaceutical Management and Regulatory Affairs",
+        "Code": "12"
+    },
+    {
+        "Branch": "Pharmacology and Toxicology",
+        "Code": "13"
+    },
+    {
+        "Branch": "Quality Assurance and Regulatory Affairs",
+        "Code": "14"
+    },
+    {
+        "Branch": "Pharmaceutical Analysis",
+        "Code": "15"
+    },
+    {
+        "Branch": "Pharmaceutical Regulatory Affairs",
+        "Code": "16"
+    },
+    {
+        "Branch": "Pharmaceutical Regularity Affairs",
+        "Code": "17"
+    }
+]
