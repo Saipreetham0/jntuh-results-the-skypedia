@@ -1,6 +1,6 @@
 import "../app/styles/globals.css";
 import Header from "./components/Header";
-import Head from "next/head";
+// import Head from "next/head";
 import Script from "next/script";
 import Providers from "./providers";
 import Navbar from "./components/NavBar/navBar";
