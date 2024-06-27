@@ -9,7 +9,7 @@ const cardsData = [
     title: "Consolidated Results",
     content: "Access All Your Semester Results in One Place",
 
-    url: "http://saipreetham.com",
+    url: "consolidated-results",
   },
   {
     title: "View Semester-wise Results    ",

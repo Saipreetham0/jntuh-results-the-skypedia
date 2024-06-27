@@ -4,7 +4,7 @@ const AdBanner = ({ adSlot }) => {
   useEffect(() => {
     try {
       window.adsbygoogle = window.adsbygoogle || [];
-      // window.adsbygoogle.push({});
+      window.adsbygoogle.push({});
     } catch (error) {
       console.error("Error loading Google AdSense ads:", error);
     }

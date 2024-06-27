@@ -10,7 +10,7 @@ const nextConfig = {
       domains: ["www.gstatic.com","*"],
       domains: ["images.unsplash.com","*"],
     },
-   
+
 
   };
 

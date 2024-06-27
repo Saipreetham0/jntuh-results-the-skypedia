@@ -12,6 +12,7 @@
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
     "@next-auth/firebase-adapter": "^0.0.2-canary.207",
+    "@next/swc-darwin-arm64": "^14.2.4",
     "@supabase/supabase-js": "^2.33.1",
     "autoprefixer": "^10.4.15",
     "axios": "^1.5.0",

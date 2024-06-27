@@ -139,6 +139,11 @@
   dependencies:
     glob "7.1.7"
 
+"@next/swc-darwin-arm64@^14.2.4":
+  version "14.2.4"
+  resolved "https://registry.npmjs.org/@next/swc-darwin-arm64/-/swc-darwin-arm64-14.2.4.tgz"
+  integrity sha512-AH3mO4JlFUqsYcwFUHb1wAKlebHU/Hv2u2kb1pAuRanDZ7pD/A/KPD98RHZmwsJpdHQwfEc/06mgpSzwrJYnNg==
+
 "@next/swc-darwin-arm64@14.2.3":
   version "14.2.3"
   resolved "https://registry.npmjs.org/@next/swc-darwin-arm64/-/swc-darwin-arm64-14.2.3.tgz"
