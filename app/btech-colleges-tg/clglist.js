@@ -6,6 +6,7 @@ import TableBanner from "../components/Adsense/tableBanner";
 const JntuhTable = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
+  
   const adFrequency = 20; // Define ad frequency here
 
   useEffect(() => {
