@@ -6,10 +6,10 @@ const nextConfig = {
   //   dest: "public",
   //   disable: process.env.NODE_ENV === "development",
   // },
-  // images: {
-  //   domains: ["www.gstatic.com", "*"],
-  //   domains: ["images.unsplash.com", "*"],
-  // },
+  images: {
+    domains: ["www.gstatic.com", "*"],
+    domains: ["images.unsplash.com", "*"],
+  },
 
   experimental: {
     forceSwcTransforms: true,

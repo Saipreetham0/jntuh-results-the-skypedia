@@ -41,5 +41,11 @@
     "encoding": "^0.1.13",
     "schema-dts": "^1.1.2",
     "typescript": "5.2.2"
+  },
+  "optionalDependencies": {
+    "@next/swc-darwin-arm64": "14.2.4"
+  },
+  "resolutions": {
+    "@next/swc-linux-x64": "14.2.4"
   }
 }
