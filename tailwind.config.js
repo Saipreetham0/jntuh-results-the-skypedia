@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -17,4 +18,5 @@ module.exports = {
     require("@tailwindcss/typography"),
     require("tailwindcss-dark-mode")(),
   ],
+ 
 };
