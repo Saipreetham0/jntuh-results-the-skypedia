@@ -1,4 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
+import Image from 'next/image'
+
 const stats = [
     { label: 'Founded', value: '2021' },
     { label: 'Employees', value: '5' },
@@ -38,16 +40,16 @@ const stats = [
             <div className="relative mx-auto max-w-md px-6 sm:max-w-3xl lg:max-w-none lg:px-0 lg:py-20">
               {/* Testimonial card*/}
               <div className="relative overflow-hidden rounded-2xl pt-64 pb-10 shadow-xl">
-                <img
+                <Image
                   className="absolute inset-0 h-full w-full object-cover"
                   src="https://images.unsplash.com/photo-1521510895919-46920266ddb3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&fp-x=0.5&fp-y=0.6&fp-z=3&width=1440&height=1440&sat=-100"
                   alt=""
-                />
+                  Image />
                 <div className="absolute inset-0 bg-indigo-500 mix-blend-multiply" />
                 <div className="absolute inset-0 bg-gradient-to-t from-indigo-600 via-indigo-600 opacity-90" />
                 <div className="relative px-8">
                   <div>
-                    <img
+                    <Image
                       className="h-12"
                       src="https://tailwindui.com/img/logos/workcation.svg?color=white"
                       alt="Workcation"
