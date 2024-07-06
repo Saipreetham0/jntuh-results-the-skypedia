@@ -54,7 +54,7 @@ export default function Navbar() {
         <div className="flex lg:flex-1 ">
           <Link href="/" className="-m-1.5 p-1.5">
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white ">
-            JNTUH Results
+              JNTUH Results
             </span>
             {/* <Image
                 className="h-8 w-auto"
@@ -73,12 +73,12 @@ export default function Navbar() {
         <Popover.Group className="hidden lg:flex lg:gap-x-12">
           {/* Add your Popover content here */}
 
-          <Link
+          {/* <Link
             href="/about-us"
             className="text-sm font-semibold leading-6 text-gray-900 dark:text-white"
           >
             About us
-          </Link>
+          </Link> */}
           <Link
             href="/blog"
             className="text-sm font-semibold leading-6 text-gray-900 dark:text-white"
@@ -104,6 +104,8 @@ export default function Navbar() {
           </Link>
         </div>
       </nav>
+      <div className="w-full border-t border-gray-300" />
+
       <Dialog
         as="div"
         className="lg:hidden"

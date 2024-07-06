@@ -1,3 +1,11 @@
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
+// import './globals.css'
 import "../app/styles/globals.css";
 import Header from "./components/Header";
 // import Head from "next/head";
@@ -13,35 +21,43 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <head>
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4870864326886980"
-          crossOrigin="anonymous"
-          strategy="lazyOnload"
-        />
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-N1FJ0X03GL"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
+    <ClerkProvider>
+      <html lang="en">
+        <head>
+          <Script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4870864326886980"
+            crossOrigin="anonymous"
+            strategy="lazyOnload"
+          />
+          <Script
+            src="https://www.googletagmanager.com/gtag/js?id=G-N1FJ0X03GL"
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
         window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', 'G-N1FJ0X03GL');
         `}
-        </Script>
-      </head>
-      <Header />
-      <body suppressHydrationWarning={true}>
-        <Providers>
-          <Navbar />
-          {children}
-        </Providers>
-        <Footer/>
-      </body>
-    </html>
+          </Script>
+        </head>
+        <Header />
+        <body suppressHydrationWarning={true}>
+          <Providers>
+            {/* <SignedOut>
+              <SignInButton />
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn> */}
+            <Navbar />
+            {children}
+          </Providers>
+          <Footer />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
