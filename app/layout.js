@@ -1,11 +1,3 @@
-// import {
-//   ClerkProvider,
-//   SignInButton,
-//   SignedIn,
-//   SignedOut,
-//   UserButton,
-// } from "@clerk/nextjs";
-// import './globals.css'
 import "../app/styles/globals.css";
 import Header from "./components/Header";
 // import Head from "next/head";
@@ -22,42 +14,51 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     // <ClerkProvider>
-      <html lang="en">
-        <head>
-          <Script
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4870864326886980"
-            crossOrigin="anonymous"
-            strategy="lazyOnload"
-          />
-          <Script
-            src="https://www.googletagmanager.com/gtag/js?id=G-N1FJ0X03GL"
-            strategy="afterInteractive"
-          />
-          <Script id="google-analytics" strategy="afterInteractive">
-            {`
+    <html lang="en">
+      <head>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4870864326886980"
+          crossOrigin="anonymous"
+          strategy="lazyOnload"
+        />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-N1FJ0X03GL"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
         window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', 'G-N1FJ0X03GL');
         `}
-          </Script>
-        </head>
-        <Header />
-        <body suppressHydrationWarning={true}>
-          <Providers>
-            {/* <SignedOut>
+        </Script>
+        <Script id="clarity-script" strategy="afterInteractive">
+          {`
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "${process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID}");
+          `}
+        </Script>
+      </head>
+      <Header />
+      <body suppressHydrationWarning={true}>
+        <Providers>
+          {/* <SignedOut>
               <SignInButton />
             </SignedOut>
             <SignedIn>
               <UserButton />
             </SignedIn> */}
-            <Navbar />
-            {children}
-          </Providers>
-          <Footer />
-        </body>
-      </html>
+          <Navbar />
+          {children}
+        </Providers>
+        <Footer />
+      </body>
+    </html>
     // </ClerkProvider>
   );
 }
