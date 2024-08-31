@@ -16,6 +16,10 @@ export default function RootLayout({ children }) {
     // <ClerkProvider>
     <html lang="en">
       <head>
+        <meta
+          name="google-site-verification"
+          content="w6urUAImoYyrv-5UIio0rfpmxsgVLwTlDg6KxWyeV_o"
+        />
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4870864326886980"
