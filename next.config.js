@@ -9,12 +9,14 @@ const nextConfig = {
   images: {
     domains: ["www.gstatic.com", "*"],
     domains: ["images.unsplash.com", "*"],
+    domains: ['www.facebook.com', "*"], // Add Facebook as an allowed domain
+
   },
 
   experimental: {
     forceSwcTransforms: true,
   },
-  
+
 };
 
 module.exports = nextConfig;
