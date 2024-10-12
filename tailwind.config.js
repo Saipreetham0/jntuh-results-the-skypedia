@@ -9,7 +9,7 @@ module.exports = {
     // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: "class",
+  darkMode: ["class",],
   theme: {
     extend: {},
   },
@@ -17,6 +17,6 @@ module.exports = {
     require("@tailwindcss/forms"),
     require("@tailwindcss/typography"),
     require("tailwindcss-dark-mode")(),
+    require("tailwindcss-animate"),
   ],
- 
 };
