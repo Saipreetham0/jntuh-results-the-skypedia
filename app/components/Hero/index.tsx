@@ -1,18 +1,10 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import AdBanner from "../Adsense/AdBanner";
 
-// import { Container } from "@/components/Container";
-import logoLaravel from "../../images/logos/laravel.svg";
-// import logoLaravel from "../../images/logos/laravel.svg";
-import logoMirage from "../../images/logos/mirage.svg";
-import logoStatamic from "../../images/logos/statamic.svg";
-import logoStaticKit from "../../images/logos/statickit.svg";
-import logoTransistor from "../../images/logos/transistor.svg";
-import logoTuple from "../../images/logos/tuple.svg";
-
-export default function Hero() {
+const Hero: React.FC = () => {
   const handleWhatsAppContact = () => {
     // Replace 'YOUR_PHONE_NUMBER' with the phone number to contact
     window.open("https://api.whatsapp.com/send?phone=919550421866", "_blank");
@@ -25,6 +17,7 @@ export default function Hero() {
       "_blank"
     );
   };
+
   return (
     <div className="pt-20 pb-5 text-center lg:pt-32">
       <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl dark:text-white">
@@ -40,15 +33,14 @@ export default function Hero() {
           </svg>
           <span className="relative">JNTUH Results</span>
         </span>{" "}
-        {/* for small businesses. */}
       </h1>
       <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700 dark:text-slate-300">
         Get quick and easy access to your JNTUH (Jawaharlal Nehru Technological
         University Hyderabad) exam results on The Skypedia.
       </p>
-      <br></br>
+      <br />
 
-      <div className="banner text-center border border-gray-300  rounded-lg p-4 inline-block">
+      <div className="banner text-center border border-gray-300 rounded-lg p-4 inline-block">
         <h1 className="text-3xl font-bold">
           Explore IoT Kit and ML Projects for College Students
         </h1>
@@ -70,13 +62,10 @@ export default function Hero() {
         </button>
       </div>
       <div className="mt-10 flex justify-center gap-x-6">
-        <AdBanner />
-      </div>
-      <div className="mt-36 lg:mt-44">
-        <p className="font-display text-base text-slate-900">
-          Trusted by these six companies so far
-        </p>
+        <AdBanner adSlot={undefined}/>
       </div>
     </div>
   );
-}
+};
+
+export default Hero;

@@ -1,5 +1,4 @@
-
-export default function Example() {
+export default function Login() {
   return (
     <>
       {/*
@@ -152,10 +151,6 @@ export default function Example() {
                     Sign in with Google
                   </a>
                 </div>
-
-
-
-
               </div>
             </div>
           </div>

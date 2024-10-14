@@ -3,7 +3,7 @@ import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-export default function Example() {
+export default function NoFound(): JSX.Element {
   const router = useRouter();
 
   return (
@@ -18,7 +18,7 @@ export default function Example() {
         </p>
         <div className="mt-10 flex items-center justify-center gap-x-6">
           <button
-            href="/"
+
             onClick={() => router.back()}
             className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
@@ -28,9 +28,9 @@ export default function Example() {
             href="/help"
             className="text-sm font-semibold text-gray-900 dark:text-white"
           >
-            <spam>
+            <span>
               Contact support <span aria-hidden="true">&rarr;</span>
-            </spam>
+            </span>
           </Link>
         </div>
       </div>

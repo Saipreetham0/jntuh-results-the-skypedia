@@ -9,7 +9,8 @@ const nextConfig = {
   images: {
     domains: ["www.gstatic.com"],
     domains: ["images.unsplash.com"],
-    domains: ["www.facebook.com"], // Add Facebook as an allowed domain
+    domains: ['www.facebook.com'],
+    domains: ["studentservices.jntuh.ac.in"],
   },
 
   experimental: {

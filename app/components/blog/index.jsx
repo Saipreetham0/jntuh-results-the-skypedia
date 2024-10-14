@@ -70,10 +70,7 @@ export default function HomepageBlog() {
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl dark:text-white">
             Colleges List
           </h2>
-          {/* <p className="mt-3 text-xl text-gray-500 sm:mt-4">
-            Nullam risus blandit ac aliquam justo ipsum. Quam mauris volutpat
-            massa dictumst amet. Sapien tortor lacus arcu.
-          </p> */}
+      
         </div>
         <div className="mt-12 grid gap-16 pt-12 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-12">
           {posts.map((post) => (
