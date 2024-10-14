@@ -44,8 +44,8 @@ const ContactForm: React.FC = () => {
           <div>
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">Get in touch</h2>
             <p className="mt-4 text-lg text-gray-500 dark:text-gray-300">
-              We'd love to hear from you! Please feel free to reach out with any questions or inquiries.
-              We'll get back to you as soon as possible.
+              We&apos;d love to hear from you! Please feel free to reach out with any questions or inquiries.
+              We&apos;ll get back to you as soon as possible.
             </p>
             <dl className="mt-8 text-base text-gray-500 dark:text-gray-300">
               <div className="mt-3">
@@ -112,7 +112,7 @@ const ContactForm: React.FC = () => {
               </button>
             </div>
             {submitStatus === 'success' && (
-              <div className="text-green-600 dark:text-green-400">Thank you for your message. We'll be in touch soon!</div>
+              <div className="text-green-600 dark:text-green-400">Thank you for your message. We&apos;ll be in touch soon!</div>
             )}
             {submitStatus === 'error' && (
               <div className="text-red-600 dark:text-red-400">An error occurred. Please try again later.</div>
