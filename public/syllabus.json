@@ -1,0 +1,30 @@
+{
+  "course": "B.Tech",
+  "link": "https://studentservices.jntuh.ac.in/oss/syllabus_action.html?level=1.B.Tech&l123=0&type=syllabus",
+  "children": [
+    {
+      "course": "R22",
+      "link": "https://studentservices.jntuh.ac.in/oss/syllabus_action.html?type=syllabus&level=1.R22&l123=1",
+      "children": [
+        {
+          "syllabusName": "B.Tech I Year R22 Syllabus",
+          "link": "https://studentservices.jntuh.ac.in/oss/syllabus_action.html?type=syllabus&level=1.B.Tech%20I%20Year%20R22%20Syllabus&l123=2",
+          "children": [
+            {
+              "name": "R22 B.Tech. AI&DS I Year Syllabus.pdf",
+              "link": "https://studentservices.jntuh.ac.in/oss/resources/files/SYLLABUS/1.B.Tech/1.R22/1.B.Tech I Year R22 Syllabus/R22 B.Tech. AI&DS I Year Syllabus.pdf"
+            },
+            {
+              "name": "R22 B.Tech. AI&ML I Year Syllabus.pdf",
+              "link": "https://studentservices.jntuh.ac.in/oss/resources/files/SYLLABUS/1.B.Tech/1.R22/1.B.Tech I Year R22 Syllabus/R22 B.Tech. AI&ML I Year Syllabus.pdf"
+            },
+            {
+              "name": "R22 B.Tech. CE (Software Engineering) I Year Syllabus.pdf",
+              "link": "https://studentservices.jntuh.ac.in/oss/resources/files/SYLLABUS/1.B.Tech/1.R22/1.B.Tech I Year R22 Syllabus/R22 B.Tech. CE (Software Engineering) I Year Syllabus.pdf"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

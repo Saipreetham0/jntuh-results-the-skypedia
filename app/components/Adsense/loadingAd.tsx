@@ -1,40 +1,42 @@
-import React, { useEffect } from "react";
+// components/Adsense/loadingAd.tsx
 
-interface LoadingAdProps {
-  adSlot: string;
-  adClient?: string;
-}
+// import React, { useEffect } from "react";
 
-declare global {
-  interface Window {
-    adsbygoogle: any[];
-  }
-}
+// interface LoadingAdProps {
+//   adSlot: string;
+//   adClient?: string;
+// }
 
-const LoadingAd: React.FC<LoadingAdProps> = ({
-  adSlot,
-  adClient = "ca-pub-4870864326886980",
-}) => {
-  useEffect(() => {
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (error) {
-      console.error("Error loading Google AdSense ads:", error);
-    }
-  }, []);
+// declare global {
+//   interface Window {
+//     adsbygoogle: any[];
+//   }
+// }
 
-  return (
-    <div className="ads-container">
-      <ins
-        className="adsbygoogle"
-        style={{ display: "block" }}
-        data-ad-client={adClient}
-        data-ad-slot={adSlot}
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      />
-    </div>
-  );
-};
+// const LoadingAd: React.FC<LoadingAdProps> = ({
+//   adSlot,
+//   adClient = "ca-pub-4870864326886980",
+// }) => {
+//   useEffect(() => {
+//     try {
+//       (window.adsbygoogle = window.adsbygoogle || []).push({});
+//     } catch (error) {
+//       console.error("Error loading Google AdSense ads:", error);
+//     }
+//   }, []);
 
-export default LoadingAd;
+//   return (
+//     <div className="ads-container">
+//       <ins
+//         className="adsbygoogle"
+//         style={{ display: "block" }}
+//         data-ad-client={adClient}
+//         data-ad-slot={adSlot}
+//         data-ad-format="auto"
+//         data-full-width-responsive="true"
+//       />
+//     </div>
+//   );
+// };
+
+// export default LoadingAd;

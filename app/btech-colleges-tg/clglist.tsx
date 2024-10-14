@@ -46,7 +46,7 @@ const JntuhTable: React.FC = () => {
         adRows.push(
           <tr key={`ad-${i}`}>
             <td className="px-6 py-4 whitespace-nowrap" colSpan={9}>
-              <TableBanner adSlot={undefined} />
+              <TableBanner adSlot="8279758421" />
             </td>
           </tr>
         );

@@ -31,6 +31,6 @@
     "app/api/hello.js",
     "app/components/Adsense/AdBanner.tsx",
     "route.tXT"
-  ],
+, "app/api/redisdata/route.js", "app/api/scraperesult/route.js"  ],
   "exclude": ["node_modules"]
 }

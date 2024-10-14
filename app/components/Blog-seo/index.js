@@ -5,7 +5,7 @@ const SEO = ({ title, description, image, url }) => {
   const siteName = 'Your Blog Name';
   const defaultDescription = 'Your default meta description';
   const defaultImage = '/default-image.jpg'; // Path to your default image
-  const defaultUrl = 'https://yourblog.com';
+  const defaultUrl = 'https://jntuhresults.theskypedia.com';
 
   return (
     <Head>
