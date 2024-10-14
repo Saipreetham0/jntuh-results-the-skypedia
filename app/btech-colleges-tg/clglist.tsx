@@ -1,12 +1,24 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import supabase from "../../utils/supabase";
 import TableBanner from "../components/Adsense/tableBanner";
 
-const JntuhTable = () => {
-  const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
-  
+// Define the type for the data fetched from Supabase
+interface College {
+  S_no: number;
+  code: string;
+  Institute: string;
+  Place: string;
+  Dist: string;
+  Region: string;
+  Type: string;
+  Minority: string;
+  Mode: string;
+}
+
+const JntuhTable: React.FC = () => {
+  const [data, setData] = useState<College[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
   const adFrequency = 20; // Define ad frequency here
 
   useEffect(() => {
@@ -14,7 +26,7 @@ const JntuhTable = () => {
       const { data, error } = await supabase.from("college_list").select("*");
 
       if (error) {
-        console.error("Superbase Error fetching data:", error);
+        console.error("Supabase Error fetching data:", error);
         setError(error.message);
       } else {
         setData(data);
@@ -25,20 +37,16 @@ const JntuhTable = () => {
     fetchData();
   }, []);
 
-  const insertAds = (list) => {
-    const adRows = [];
+  const insertAds = (list: College[]) => {
+    const adRows: JSX.Element[] = [];
     let adCount = 0;
 
     for (let i = adFrequency; i < list.length; i += adFrequency) {
       if (adCount === 0) {
         adRows.push(
           <tr key={`ad-${i}`}>
-            <td className="px-6 py-4 whitespace-nowrap" colSpan="9">
-              {/* Your ad content goes here */}
-              {/* <div className="text-center py-4 text-gray-600">
-                Advertisement
-              </div> */}
-              <TableBanner />
+            <td className="px-6 py-4 whitespace-nowrap" colSpan={9}>
+              <TableBanner adSlot={undefined} />
             </td>
           </tr>
         );
@@ -50,26 +58,17 @@ const JntuhTable = () => {
 
   return (
     <div className="max-w-screen-xl mx-auto px-4 md:px-8">
-      <div className="">
+      <div>
         <h3 className="text-gray-800 text-xl font-bold sm:text-2xl dark:text-white">
           Institute-wise Courses offered in Telangana
         </h3>
         <p className="text-gray-600 mt-2 dark:text-white">
-          {/* OU = Osmania University, NA = Not Applicable, SW = State-wide, COED =
-          Co-Education */}
-
           <span className="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
             OU = Osmania University
           </span>
-
           <span className="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
             NA = Not Applicable
           </span>
-
-          {/* <span className="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">
-            SW = State-wide
-          </span> */}
-
           <span className="bg-indigo-100 text-indigo-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">
             COED = Co-Education
           </span>
@@ -83,12 +82,10 @@ const JntuhTable = () => {
               <th
                 scope="col"
                 className="py-3 pl-4 pr-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 sm:pl-6 dark:text-white"
-                // className="py-3 px-6 border border-gray-300"
               >
                 S.No
               </th>
               <th
-                // className="py-3 px-6 border border-gray-300"
                 scope="col"
                 className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
               >
@@ -139,32 +136,16 @@ const JntuhTable = () => {
             </tr>
           </thead>
 
-          <tbody className="text-gray-600 divide-y border  border-gray-200 dark:bg-gray-800 dark:text-white">
+          <tbody className="text-gray-600 divide-y border border-gray-200 dark:bg-gray-800 dark:text-white">
             {data.map((item, idx) => (
               <React.Fragment key={idx}>
-                {/* {idx === Math.floor(data.length / 10) && (
-                  <tr>
-                    <td className="px-6 py-4 whitespace-nowrap" colSpan="9">
-
-                      <div className="text-center py-4 text-gray-600">
-                        Advertisement
-                      </div>
-                    </td>
-                  </tr>
-                )} */}
-
                 {idx % adFrequency === 0 &&
                   idx > 0 &&
                   insertAds(data).length > 0 &&
-                  /* Insert ads after every 25 rows except for the first row */
                   insertAds(data)}
 
                 <tr>
-                  <td
-                    // className="px-6 py-4 whitespace-nowrap"
-
-                    className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900   sm:pl-6 dark:text-white"
-                  >
+                  <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 dark:text-white">
                     {item.S_no}
                   </td>
                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
@@ -181,22 +162,21 @@ const JntuhTable = () => {
                   </td>
                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
                     <span
-                      className={` ${
-                        item.Region == "OU"
+                      className={`${
+                        item.Region === "OU"
                           ? "bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"
-                          : "bg-pink-100 text-pink-800  mr-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300"
+                          : "bg-pink-100 text-pink-800 mr-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300"
                       }`}
                     >
                       {item.Region}
                     </span>
                   </td>
                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
-                    {/* {item.Type} */}
                     <span
-                      className={` ${
-                        item.Type == "PVT"
+                      className={`${
+                        item.Type === "PVT"
                           ? "bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300"
-                          : "bg-pink-100 text-pink-800  mr-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300"
+                          : "bg-pink-100 text-pink-800 mr-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300"
                       }`}
                     >
                       {item.Type}
@@ -204,8 +184,8 @@ const JntuhTable = () => {
                   </td>
                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
                     <span
-                      className={` ${
-                        item.Minority == "NA"
+                      className={`${
+                        item.Minority === "NA"
                           ? "bg-green-100 text-green-800 mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"
                           : "bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300"
                       }`}
@@ -215,10 +195,10 @@ const JntuhTable = () => {
                   </td>
                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
                     <span
-                      className={` ${
-                        item.Mode == "COED"
-                          ? "bg-indigo-100 text-indigo-800  mr-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300"
-                          : "bg-pink-100 text-pink-800  mr-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300"
+                      className={`${
+                        item.Mode === "COED"
+                          ? "bg-indigo-100 text-indigo-800 mr-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300"
+                          : "bg-pink-100 text-pink-800 mr-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300"
                       }`}
                     >
                       {item.Mode}

@@ -115,7 +115,7 @@ async function fetchHtml(url: string): Promise<string> {
 
 async function scrapeYears(url: string): Promise<SyllabusItem[]> {
   try {
-    console.log("Scraping years from:", url);
+    // console.log("Scraping years from:", url);
     const html = await fetchHtml(url);
     const $ = cheerio.load(html);
     const items: SyllabusItem[] = [];
@@ -129,7 +129,7 @@ async function scrapeYears(url: string): Promise<SyllabusItem[]> {
       items.push(item);
     });
 
-    console.log(`Found ${items.length} year items`);
+    // console.log(`Found ${items.length} year items`);
     return items;
   } catch (error) {
     console.error(`Error scraping years from ${url}:`, error.message);

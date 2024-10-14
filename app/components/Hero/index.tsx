@@ -1,17 +1,16 @@
 "use client";
 
+import React from 'react';
 import Image from "next/image";
 import Link from "next/link";
 import AdBanner from "../Adsense/AdBanner";
 
 const Hero: React.FC = () => {
   const handleWhatsAppContact = () => {
-    // Replace 'YOUR_PHONE_NUMBER' with the phone number to contact
     window.open("https://api.whatsapp.com/send?phone=919550421866", "_blank");
   };
 
   const handleWebsiteVisit = () => {
-    // Replace 'YOUR_WEBSITE_URL' with the actual URL of your website
     window.open(
       "https://kspelectronics.in/?utm_source=website&utm_medium=button&utm_campaign=jntuh_results",
       "_blank"
@@ -38,12 +37,10 @@ const Hero: React.FC = () => {
         Get quick and easy access to your JNTUH (Jawaharlal Nehru Technological
         University Hyderabad) exam results on The Skypedia.
       </p>
-      <br />
-
-      <div className="banner text-center border border-gray-300 rounded-lg p-4 inline-block">
-        <h1 className="text-3xl font-bold">
+      <div className="mt-10 banner text-center border border-gray-300 rounded-lg p-4 inline-block">
+        <h2 className="text-3xl font-bold">
           Explore IoT Kit and ML Projects for College Students
-        </h1>
+        </h2>
         <p className="mt-2 text-lg">
           Unlock the world of innovation and technology!
         </p>
@@ -53,7 +50,6 @@ const Hero: React.FC = () => {
         >
           Contact via WhatsApp
         </button>
-
         <button
           className="mt-4 ml-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
           onClick={handleWebsiteVisit}
@@ -61,8 +57,11 @@ const Hero: React.FC = () => {
           Visit Website
         </button>
       </div>
-      <div className="mt-10 flex justify-center gap-x-6">
-        <AdBanner adSlot={undefined}/>
+      <div className="mt-10 flex justify-center">
+        <AdBanner
+          adSlot="5967398818"
+          adClient="ca-pub-4870864326886980"
+        />
       </div>
     </div>
   );
