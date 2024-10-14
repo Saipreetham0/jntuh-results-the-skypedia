@@ -39,3 +39,11 @@
 //     return NextResponse.json({ error: 'Failed to fetch syllabus data' }, { status: 500 });
 //   }
 // }
+
+
+// app/api/hello/route.ts
+import { NextResponse } from 'next/server';
+
+export async function GET() {
+  return NextResponse.json({ message: 'Hello World' });
+}
