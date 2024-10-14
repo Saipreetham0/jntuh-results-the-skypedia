@@ -23,6 +23,14 @@
     ],
     "target": "ES2017"
   },
-  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx", "app/api/hello.js", "app/components/Adsense/AdBanner.tsx"],
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "app/api/hello.js",
+    "app/components/Adsense/AdBanner.tsx",
+    "route.tXT"
+  ],
   "exclude": ["node_modules"]
 }
