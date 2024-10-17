@@ -164,6 +164,8 @@ const ShareButton: React.FC<ShareButtonProps> = ({ url }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [copied, setCopied] = useState(false);
   const [shareUrl, setShareUrl] = useState("");
+  const [isSharing, setIsSharing] = useState(false); // New state for tracking sharing status
+
 
   useEffect(() => {
     setShareUrl(url || window.location.href);
@@ -175,9 +177,27 @@ const ShareButton: React.FC<ShareButtonProps> = ({ url }) => {
     return () => window.removeEventListener("resize", checkMobile);
   }, [url]);
 
-  const handleShare = () => {
+  // const handleShare = () => {
+  //   if (isMobile && navigator.share) {
+  //     navigator.share({ url: shareUrl });
+  //   } else {
+  //     setIsOpen(true);
+  //   }
+  // };
+
+
+  const handleShare = async () => {
+    if (isSharing) return; // Prevent further sharing if already sharing
     if (isMobile && navigator.share) {
-      navigator.share({ url: shareUrl });
+      setIsSharing(true); // Set sharing state to true
+      try {
+        await navigator.share({ url: shareUrl });
+        console.log("Shared successfully");
+      } catch (error) {
+        console.error("Error sharing:", error);
+      } finally {
+        setIsSharing(false); // Reset sharing state
+      }
     } else {
       setIsOpen(true);
     }
@@ -235,10 +255,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({ url }) => {
                 {copied ? <Check size={20} /> : <Copy size={20} />}
               </button>
             </div>
-            {/* <div className="flex justify-around mt-4">
-              <span className="text-sm text-gray-500 dark:text-gray-400">Link:</span>
-              <span className="text-sm font-semibold text-gray-800 dark:text-white">{shareUrl}</span>
-            </div> */}
+
           </div>
         </div>
       )}
