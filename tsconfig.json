@@ -28,9 +28,12 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx",
-    "app/api/hello.js",
-    "app/components/Adsense/AdBanner.tsx",
-    "route.tXT"
-, "app/api/redisdata/route.js", "app/api/scraperesult/route.js"  ],
+    "src/app/api/hello.js",
+    "src/components/Adsense/AdBanner.tsx",
+    "route.tXT",
+    "src/app/api/redisdata/route.js",
+    "src/app/api/scraperesult/route.js",
+    "src/app/api/results/route.js"
+  ],
   "exclude": ["node_modules"]
 }

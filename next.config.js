@@ -19,19 +19,14 @@ const nextConfig = {
     forceSwcTransforms: true,
   },
 
-  async headers() {
-    return [
-      {
-        source: "/:path*",
-        headers: [
-          {
-            key: "Content-Security-Policy",
-            value:
-              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://pagead2.googlesyndication.com https://partner.googleadservices.com https://www.google-analytics.com https://www.googletagservices.com https://tpc.googlesyndication.com https://www.google.com https://www.gstatic.com;",
-          },
-        ],
-      },
-    ];
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        punycode: false,
+      };
+    }
+    return config;
   },
 };
 
