@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
 import * as SibApiV3Sdk from "@getbrevo/brevo";
 
+export const runtime = "nodejs";
+
 // Initialize API instance
 const apiInstance = new SibApiV3Sdk.ContactsApi();
 
-
 // Set API key
-const apiKey = apiInstance.authentications['apiKey'];
-apiKey.apiKey = process.env.BREVO_API_KEY || '';
+apiInstance.setApiKey(SibApiV3Sdk.ContactsApiApiKeys.apiKey, process.env.BREVO_API_KEY || '');
 
 export async function POST(request: Request) {
   try {

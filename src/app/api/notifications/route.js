@@ -1,6 +1,6 @@
 // app/api/notifications/route.js
 
-import notificationdata from "../../../public/Notification.json"; // Adjust the path as necessary
+import notificationdata from "../../../../public/Notification.json"; // Adjust the path as necessary
 
 export async function GET(req) {
   try {
