@@ -8,6 +8,22 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+      MAILCHIMP_API_KEY: ${{ secrets.MAILCHIMP_API_KEY }}
+      MAILCHIMP_API_SERVER: ${{ secrets.MAILCHIMP_API_SERVER }}
+      MAILCHIMP_AUDIENCE_ID: ${{ secrets.MAILCHIMP_AUDIENCE_ID }}
+      NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+      CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
+      NEXT_PUBLIC_CLARITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_CLARITY_PROJECT_ID }}
+      REDIS_URL: ${{ secrets.REDIS_URL }}
+      REDIS_HOST: ${{ secrets.REDIS_HOST }}
+      REDIS_PORT: ${{ secrets.REDIS_PORT }}
+      REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+      BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -27,17 +43,24 @@ jobs:
         run: pnpm install
 
       - name: Build the project
-        env:
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
         run: pnpm run build
 
       - name: Deploy to Vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          # VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          # VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: |
           npx vercel --token $VERCEL_TOKEN --prod \
             -e NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }} \
-            -e NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+            -e NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }} \
+            -e MAILCHIMP_API_KEY=${{ secrets.MAILCHIMP_API_KEY }} \
+            -e MAILCHIMP_API_SERVER=${{ secrets.MAILCHIMP_API_SERVER }} \
+            -e MAILCHIMP_AUDIENCE_ID=${{ secrets.MAILCHIMP_AUDIENCE_ID }} \
+            -e NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }} \
+            -e CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }} \
+            -e NEXT_PUBLIC_CLARITY_PROJECT_ID=${{ secrets.NEXT_PUBLIC_CLARITY_PROJECT_ID }} \
+            -e REDIS_URL=${{ secrets.REDIS_URL }} \
+            -e REDIS_HOST=${{ secrets.REDIS_HOST }} \
+            -e REDIS_PORT=${{ secrets.REDIS_PORT }} \
+            -e REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }} \
+            -e RESEND_API_KEY=${{ secrets.RESEND_API_KEY }} \
+            -e BREVO_API_KEY=${{ secrets.BREVO_API_KEY }}
