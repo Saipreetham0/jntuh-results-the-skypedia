@@ -3,6 +3,8 @@ import React from 'react';
 import Script from 'next/script';
 import { Metadata } from 'next';
 
+const GTM_ID = 'GTM-W6TSKNVX';
+
 export const metadata: Metadata = {
   title: "JNTUH RESULTS",
   description: "You can find the Results Of Your Entire UG & PG Courses (JNTUH).",
@@ -28,8 +30,8 @@ export const metadata: Metadata = {
     images: ["https://jntuhresults.theskypedia.com/homepage.jpg"],
   },
   robots: "index, follow",
-  authors: [{ name: "The Skypedia" }, { name: "Mohd Moiz Uddin" }],
-  keywords: ["jntuh Results", "results jntuh"],
+  authors: [{ name: "The Skypedia" }, { name: "Sai Preetham" }],
+  keywords: ["jntuh Results", "results jntuh", "cgpa to percentage"],
   icons: {
     icon: [
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
@@ -41,13 +43,39 @@ export const metadata: Metadata = {
     google: "w6urUAImoYyrv-5UIio0rfpmxsgVLwTlDg6KxWyeV_o",
   },
   alternates: {
-    canonical: "https://jntuhresults.theskypedia.com/",
+    canonical: "https://jntuhresults.theskypedia.com",
   },
 };
 
 const Header: React.FC = () => {
   return (
     <>
+      {/* Google Tag Manager Script */}
+      <Script
+        id="gtm-script"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','${GTM_ID}');
+          `,
+        }}
+      />
+
+      {/* Google Tag Manager NoScript (add this part) */}
+      <noscript>
+        <iframe
+          src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+          height="0"
+          width="0"
+          style={{ display: 'none', visibility: 'hidden' }}
+        />
+      </noscript>
+
+      {/* JSON-LD Schema */}
       <Script
         id="website-jsonld"
         type="application/ld+json"
@@ -69,6 +97,7 @@ const Header: React.FC = () => {
         }}
       />
 
+      {/* Microsoft Clarity */}
       <Script
         id="clarity-script"
         strategy="afterInteractive"
@@ -83,6 +112,7 @@ const Header: React.FC = () => {
         }}
       />
 
+      {/* Meta Pixel */}
       <Script
         id="meta-pixel"
         strategy="afterInteractive"
@@ -102,6 +132,7 @@ const Header: React.FC = () => {
         }}
       />
 
+      {/* Meta Pixel NoScript */}
       <noscript>
         <img
           height="1"
@@ -112,6 +143,7 @@ const Header: React.FC = () => {
         />
       </noscript>
 
+      {/* Google Analytics */}
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-N1FJ0X03GL"
         strategy="afterInteractive"
