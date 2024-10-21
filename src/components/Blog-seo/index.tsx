@@ -1,7 +1,14 @@
-// components/SEO.js
+// components/SEO.tsx
 import Head from 'next/head';
 
-const SEO = ({ title, description, image, url }) => {
+interface SEOProps {
+  title?: string;
+  description?: string;
+  image?: string;
+  url?: string;
+}
+
+const SEO: React.FC<SEOProps> = ({ title, description, image, url }) => {
   const siteName = 'Your Blog Name';
   const defaultDescription = 'Your default meta description';
   const defaultImage = '/default-image.jpg'; // Path to your default image
