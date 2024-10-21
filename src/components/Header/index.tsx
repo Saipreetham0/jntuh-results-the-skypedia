@@ -1,23 +1,51 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react';
-import Script from 'next/script';
-import { Metadata } from 'next';
+import React from "react";
+import Script from "next/script";
+import { Metadata } from "next";
 
-const GTM_ID = 'GTM-W6TSKNVX';
+const GTM_ID = "GTM-W6TSKNVX";
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
 
 export const metadata: Metadata = {
-  title: "JNTUH RESULTS",
-  description: "You can find the Results Of Your Entire UG & PG Courses (JNTUH).",
+  title: "JNTUH RESULTS - Theskypedia",
+  description:
+    "You can find the Results Of Your Entire UG & PG Courses (JNTUH).",
+  applicationName: "JNTUH RESULTS",
+  generator: "Next.js",
+  referrer: "origin-when-cross-origin",
+  keywords: [
+    "jntuh Results",
+    "results jntuh",
+    "cgpa to percentage",
+    "engineering results",
+    "JNTUH",
+    "semester results",
+  ],
+  authors: [{ name: "The Skypedia" }, { name: "Sai Preetham" }],
+  creator: "The Skypedia",
+  publisher: "The Skypedia",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: {
     title: "JNTUH RESULTS",
-    description: "You can find the Results Of Your Entire UG & PG Courses (JNTUH).",
-    url: "https://jntuhresults.theskypedia.com/",
+    description:
+      "You can find the Results Of Your Entire UG & PG Courses (JNTUH).",
+    url: "https://jntuhresults.theskypedia.com",
     siteName: "JNTUH RESULTS",
     images: [
       {
         url: "https://jntuhresults.theskypedia.com/homepage.jpg",
         width: 1200,
         height: 630,
+        alt: "JNTUH Results Homepage",
       },
     ],
     locale: "en_US",
@@ -26,24 +54,84 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "JNTUH RESULTS",
-    description: "You can find the Results Of Your Entire UG & PG Courses (JNTUH).",
+    description:
+      "You can find the Results Of Your Entire UG & PG Courses (JNTUH).",
     images: ["https://jntuhresults.theskypedia.com/homepage.jpg"],
+    creator: "@theskypedia",
+    site: "@theskypedia",
   },
-  robots: "index, follow",
-  authors: [{ name: "The Skypedia" }, { name: "Sai Preetham" }],
-  keywords: ["jntuh Results", "results jntuh", "cgpa to percentage"],
+
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
     icon: [
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
     ],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+    other: [
+      {
+        url: "/android-chrome-192x192.png",
+        sizes: "192x192",
+        rel: "icon",
+        type: "image/png",
+      },
+      {
+        url: "/android-chrome-512x512.png",
+        sizes: "512x512",
+        rel: "icon",
+        type: "image/png",
+      },
+    ],
   },
+  manifest: "/site.webmanifest",
   verification: {
     google: "w6urUAImoYyrv-5UIio0rfpmxsgVLwTlDg6KxWyeV_o",
   },
   alternates: {
     canonical: "https://jntuhresults.theskypedia.com",
+  },
+
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "JNTUH RESULTS",
+    startupImage: [
+      {
+        url: "/splashscreens/apple-splash-2048-2732.jpg",
+        media:
+          "(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)",
+      },
+      {
+        url: "/splashscreens/apple-splash-1668-2388.jpg",
+        media:
+          "(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)",
+      },
+      {
+        url: "/splashscreens/apple-splash-1536-2048.jpg",
+        media:
+          "(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)",
+      },
+      {
+        url: "/splashscreens/apple-splash-1125-2436.jpg",
+        media:
+          "(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)",
+      },
+    ],
+  },
+
+  other: {
+    "msapplication-TileColor": "#ffffff",
+    "theme-color": "#ffffff",
   },
 };
 
@@ -71,7 +159,7 @@ const Header: React.FC = () => {
           src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
           height="0"
           width="0"
-          style={{ display: 'none', visibility: 'hidden' }}
+          style={{ display: "none", visibility: "hidden" }}
         />
       </noscript>
 

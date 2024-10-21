@@ -1,4 +1,19 @@
+import withPWAInit from "next-pwa";
+
+const withPWA = withPWAInit({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === "development",
+  // disable:false
+  buildExcludes: [/middleware-manifest.json$/], // Exclude middleware manifest
+  workboxOptions: {
+    disableDevLogs: true, // Disable workbox logs in development
+  },
+});
+
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
@@ -7,10 +22,7 @@ const nextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
-  // pwa: {
-  //   dest: "public",
-  //   disable: process.env.NODE_ENV === "development",
-  // },
+
   images: {
     domains: [
       "www.gstatic.com",
@@ -49,4 +61,5 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+// module.exports = nextConfig;
+export default withPWA(nextConfig);
