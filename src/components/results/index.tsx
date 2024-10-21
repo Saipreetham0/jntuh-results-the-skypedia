@@ -1,16 +1,3 @@
-// "use client";
-// import React from "react";
-// import Link from "next/link";
-// import Card from "../resultscard";
-// import HomepageBlog from "../blog";
-
-// // Define the type for the card data
-// interface CardData {
-//   title: string;
-//   content: string;
-//   url: string;
-// }
-
 const cardsData: CardData[] = [
   {
     title: "Consolidated Results",
@@ -45,12 +32,12 @@ const cardsData: CardData[] = [
   {
     title: "Compare Performance",
     content: "Compare Your Overall Performance with Classmates",
-    url: "http://saipreetham.com",
+    url: "compare-performance",
   },
   {
     title: "Check Backlogs",
     content: "View Your Complete List of Pending Courses",
-    url: "http://saipreetham.com",
+    url: "check-backlogs",
   },
   {
     title: "Syllabus",
@@ -64,21 +51,18 @@ const cardsData: CardData[] = [
       "Download or view previous years' question papers to help with exam preparation.",
     url: "/previous-question-papers",
   },
-];
 
-// export default function ResultsBox() {
-//   return (
-//     <div className="flex-col flex items-center justify-center">
-//       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-10">
-//         {cardsData.map((card, index) => (
-//           <div key={index}>
-//             <Card {...card} />
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
+  {
+    title: "Marks Percentage Calculator",
+    content: "Calculate your percentage based on marks obtained.",
+    url: "/marks-percentage-calculator",
+  },
+  {
+    title: "SGPA to CGPA Calculator",
+    content: "Convert your SGPA to CGPA easily and accurately.",
+    url: "/sgpa-to-cgpa-calculator",
+  },
+];
 
 import React from "react";
 import Card from "../Card";
@@ -115,7 +99,7 @@ const ResultsBox: React.FC = () => {
       <h2 className="text-3xl font-bold text-center mb-8 text-gray-800 dark:text-white">
         Student Resources
       </h2>
-      {/* <div className="mb-6">
+      <div className="mb-6">
         <input
           type="text"
           placeholder="Search resources..."
@@ -123,7 +107,7 @@ const ResultsBox: React.FC = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-      </div> */}
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredCards.map((card, index) => (
           <Card key={index} {...card} />

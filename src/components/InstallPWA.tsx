@@ -15,6 +15,7 @@ export function InstallPWA() {
   const [deferredPrompt, setDeferredPrompt] = useState<InstallPromptEvent | null>(null)
   const [showInstallButton, setShowInstallButton] = useState<boolean>(false)
   const [isInstalled, setIsInstalled] = useState<boolean>(false)
+  const [isMobile, setIsMobile] = useState<boolean>(false)
 
   useEffect(() => {
     const handleInstallPrompt = (e: Event) => {
@@ -28,15 +29,22 @@ export function InstallPWA() {
       setShowInstallButton(false)
     }
 
+    const checkMobile = () => {
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches)
+    }
+
     // Check if app is already installed
     if (window.matchMedia('(display-mode: standalone)').matches) {
       setIsInstalled(true)
     }
 
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
     window.addEventListener('beforeinstallprompt', handleInstallPrompt)
     window.addEventListener('appinstalled', handleAppInstalled)
 
     return () => {
+      window.removeEventListener('resize', checkMobile)
       window.removeEventListener('beforeinstallprompt', handleInstallPrompt)
       window.removeEventListener('appinstalled', handleAppInstalled)
     }
@@ -57,7 +65,7 @@ export function InstallPWA() {
     setShowInstallButton(false)
   }
 
-  if (!showInstallButton || isInstalled) return null
+  if (!showInstallButton || isInstalled || !isMobile) return null
 
   return (
     <Card className="fixed bottom-4 right-4 w-80 z-50">
