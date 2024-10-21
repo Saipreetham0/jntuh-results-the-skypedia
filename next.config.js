@@ -7,9 +7,7 @@ const withPWA = withPWAInit({
   disable: process.env.NODE_ENV === "development",
   // disable:false
   buildExcludes: [/middleware-manifest.json$/], // Exclude middleware manifest
-  workboxOptions: {
-    disableDevLogs: true, // Disable workbox logs in development
-  },
+
 });
 
 /** @type {import('next').NextConfig} */
