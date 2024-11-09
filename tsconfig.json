@@ -34,6 +34,6 @@
     "src/app/api/redisdata/route.js",
     "src/app/api/scraperesult/route.js",
     "src/app/api/results/route.js"
-  ],
+, "src/app/(student-res)/test1/page.js"  ],
   "exclude": ["node_modules"]
 }
