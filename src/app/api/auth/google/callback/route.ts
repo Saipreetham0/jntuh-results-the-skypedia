@@ -26,7 +26,7 @@ export async function GET(request: Request) {
 
     // Store the refresh token in your database associated with the user
     // This is just an example - implement your own token storage logic
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     cookieStore.set('google_refresh_token', tokens.refresh_token || '', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',

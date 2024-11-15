@@ -31,7 +31,8 @@ const nextConfig = {
     ],
   },
   experimental: {
-    forceSwcTransforms: true,
+    // forceSwcTransforms: true,
+    turbopack: true,
   },
 
   webpack: (config, { isServer }) => {

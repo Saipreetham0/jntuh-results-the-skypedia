@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, type JSX } from "react";
 import supabase from "../../utils/supabase";
 import TableBanner from "../../components/Adsense/tableBanner";
 

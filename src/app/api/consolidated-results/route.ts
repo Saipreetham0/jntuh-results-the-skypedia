@@ -23,7 +23,7 @@ export async function GET(request: Request) {
 
     const response = await axios.get(
       `https://jntuhresults.up.railway.app/api/academicresult?htno=${htno}`,
-    // `https://jntuhresults.up.railway.app`,
+
       { httpsAgent }
     );
 

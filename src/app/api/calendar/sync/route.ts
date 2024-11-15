@@ -15,7 +15,7 @@ interface ExamEvent {
 export async function POST(request: Request) {
   try {
     const { events }: { events: ExamEvent[] } = await request.json();
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const refreshToken = cookieStore.get('google_refresh_token')?.value;
 
     if (!refreshToken) {

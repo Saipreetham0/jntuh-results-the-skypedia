@@ -1,7 +1,7 @@
 "use client";
 
 import { ThemeProvider } from "next-themes";
-import { ReactNode } from "react";
+import { ReactNode, type JSX } from "react";
 
 // Define the type for the props
 interface ProvidersProps {

@@ -10,7 +10,8 @@
 import BlogLayout from "../layout";
 import BlogTemplate from "../template";
 
-export default function BlogPostPage({ params }) {
+export default async function BlogPostPage(props) {
+  const params = await props.params;
   const { slug } = params;
 
   // Fetch blog post content based on slug
