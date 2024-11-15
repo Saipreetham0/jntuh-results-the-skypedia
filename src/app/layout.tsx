@@ -85,6 +85,7 @@ import Navbar from "../components/NavBar/navBar";
 import Footer from "../components/Footer";
 import AdScript from "../components/Adsense/AdScript";
 import { InstallPWA } from "@/components/InstallPWA";
+import { ThemeProvider } from "@/components/theme-provider";
 
 import "./styles/globals.css";
 
@@ -96,7 +97,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" >
+    <html lang="en">
+      <AdScript />
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -105,15 +107,23 @@ export default function RootLayout({
         <Header />
       </head>
       <body suppressHydrationWarning={true}>
-        <Providers>
+        {/* <Providers> */}
+
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <div className="flex flex-col min-h-screen">
             <Navbar />
             <main className="flex-grow">{children}</main>
             <Footer />
           </div>
-          <AdScript />
+
           <InstallPWA />
-        </Providers>
+        </ThemeProvider>
+        {/* </Providers> */}
       </body>
     </html>
   );
