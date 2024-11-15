@@ -136,7 +136,7 @@ const ResultsSearch = () => {
                   )}
 
                   <div className="text-center text-sm text-gray-500 dark:text-gray-400 mt-4">
-                    <p>Example format: 21U81A0528</p>
+                    <p>Example format: 20J25A0201</p>
                   </div>
                 </div>
               </form>

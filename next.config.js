@@ -7,14 +7,13 @@ const withPWA = withPWAInit({
   disable: process.env.NODE_ENV === "development",
   // disable:false
   buildExcludes: [/middleware-manifest.json$/], // Exclude middleware manifest
-
 });
 
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
+
   eslint: {
     // Warning: This allows production builds to successfully complete even if
     // your project has ESLint errors.
@@ -22,17 +21,48 @@ const nextConfig = {
   },
 
   images: {
-    domains: [
-      "www.gstatic.com",
-      "images.unsplash.com",
-      "www.facebook.com",
-      "studentservices.jntuh.ac.in",
-      "pagead2.googlesyndication.com",
+    // domains: [
+    //   "www.gstatic.com",
+    //   "images.unsplash.com",
+    //   "tailwindui.com",
+    //   "www.facebook.com",
+    //   "studentservices.jntuh.ac.in",
+    //   "pagead2.googlesyndication.com",
+    // ],
+
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "www.gstatic.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "tailwindui.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.facebook.com",
+      },
+      {
+        protocol: "https",
+        hostname: "studentservices.jntuh.ac.in",
+      },
+      {
+        protocol: "https",
+        hostname: "pagead2.googlesyndication.com",
+      },
     ],
   },
   experimental: {
     // forceSwcTransforms: true,
-    turbopack: true,
+    // turbopack: true,
+    turbo: {
+      // ...
+    },
   },
 
   webpack: (config, { isServer }) => {
