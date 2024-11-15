@@ -119,6 +119,9 @@ importers:
       googleapis:
         specifier: ^144.0.0
         version: 144.0.0(encoding@0.1.13)
+      https-proxy-agent:
+        specifier: ^7.0.5
+        version: 7.0.5
       ioredis:
         specifier: ^5.4.1
         version: 5.4.1
