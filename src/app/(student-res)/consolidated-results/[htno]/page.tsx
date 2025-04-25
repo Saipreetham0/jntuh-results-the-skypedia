@@ -8,7 +8,7 @@ import StudentResultsTables from "@/components/StudentResultsTables";
 export default function StudentPage(props: { params: Promise<{ htno: string }> }) {
   const params = use(props.params);
   return (
-    <div className="container mx-auto  p-2">
+    <div className="container mx-auto  ">
       <StudentResultsTables htno={params.htno} />
       {/* <PrintableStudentResultsTables htno={params.htno} /> */}
 

@@ -232,6 +232,9 @@
 
 "use client";
 
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+
 import React, { useEffect, useState, useRef } from "react";
 import {
   Table,
@@ -255,7 +258,7 @@ const LoadingState = () => (
       <div className="h-8 bg-gray-200 rounded w-64 mx-auto mb-4"></div>
       <div className="h-4 bg-gray-200 rounded w-48 mx-auto"></div>
     </div>
-   <p className="text-center">Loading....</p>
+    <p className="text-center">Loading....</p>
     <AdBanner adSlot="8973292958" adFormat="rectangle" className="my-4" />
   </div>
 );
@@ -399,18 +402,74 @@ const StudentResultsTables: React.FC<{ htno: string }> = ({ htno }) => {
   //   }
   // };
 
+  const handleDownloadPDF = async () => {
+    if (printRef.current && studentResult?.Details) {
+      // Generate file name using student's name and roll number
+      const studentName = studentResult.Details.NAME.replace(/\s+/g, "_");
+      const rollNumber = studentResult.Details.Roll_No;
+      const fileName = `${studentName}_${rollNumber}.pdf`;
+
+      const element = printRef.current;
+
+      // A4 size dimensions in points (mm converted to points for jsPDF)
+      const A4_WIDTH = 210; // A4 width in mm
+      const A4_HEIGHT = 297; // A4 height in mm
+
+      // Use html2canvas to render the content
+      const canvas = await html2canvas(element, {
+        scale: 2, // Increase scale for better quality
+        useCORS: true, // To handle cross-origin images
+      });
+
+      // Convert the canvas to an image
+      const imgData = canvas.toDataURL("image/png");
+
+      // Create jsPDF instance
+      const pdf = new jsPDF("p", "mm", "a4");
+
+      // Calculate the image height to maintain aspect ratio
+      const imgWidth = A4_WIDTH;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      // Add the image to the PDF
+      let y = 0; // Y-axis offset
+      if (imgHeight <= A4_HEIGHT) {
+        // If content fits on one page
+        pdf.addImage(imgData, "PNG", 0, y, imgWidth, imgHeight);
+      } else {
+        // If content spans multiple pages
+        while (y < imgHeight) {
+          pdf.addImage(imgData, "PNG", 0, y ? 0 : y, imgWidth, A4_HEIGHT);
+          y += A4_HEIGHT; // Move to the next page
+          if (y < imgHeight) {
+            pdf.addPage();
+          }
+        }
+      }
+
+      // Save the generated PDF
+      pdf.save(fileName);
+    } else {
+      console.error("Content or student details not available for download.");
+    }
+  };
+
 
   const handlePrint = () => {
     const printContents = printRef.current?.innerHTML;
 
-    if (printContents) {
+    if (printContents && studentResult?.Details) {
+      // Get student name and roll number
+      const studentName = studentResult.Details.NAME.replace(/\s+/g, "_"); // Replace spaces with underscores
+      const rollNumber = studentResult.Details.Roll_No;
+      const title = `${studentName}_${rollNumber}`; // Combine name and roll number
 
       const printWindow = window.open("", "_blank");
 
       printWindow?.document.write(`
         <html>
           <head>
-            <title>Print Results</title>
+            <title>${title}</title> <!-- Dynamically set the title -->
             <link
               href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
               rel="stylesheet"
@@ -452,9 +511,10 @@ const StudentResultsTables: React.FC<{ htno: string }> = ({ htno }) => {
       printWindow?.document.close();
       printWindow?.focus();
       printWindow?.print();
+    } else {
+      console.error("Student details not found for printing.");
     }
   };
-
 
   useEffect(() => {
     const handlePrintShortcut = (event: KeyboardEvent) => {
@@ -472,7 +532,25 @@ const StudentResultsTables: React.FC<{ htno: string }> = ({ htno }) => {
     return () => {
       window.removeEventListener("keydown", handlePrintShortcut);
     };
-  }, []);
+  }, [handlePrint]); // Add handlePrint to the dependency array
+
+  // useEffect(() => {
+  //   const handlePrintShortcut = (event: KeyboardEvent) => {
+  //     // Check if the user pressed Ctrl+P or Cmd+P
+  //     if ((event.ctrlKey || event.metaKey) && event.key === "p") {
+  //       event.preventDefault(); // Prevent default browser print behavior
+  //       handlePrint(); // Trigger the custom print handler
+  //     }
+  //   };
+
+  //   // Add the event listener
+  //   window.addEventListener("keydown", handlePrintShortcut);
+
+  //   // Cleanup the event listener on component unmount
+  //   return () => {
+  //     window.removeEventListener("keydown", handlePrintShortcut);
+  //   };
+  // }, );
 
   if (isLoading) {
     // return <div className="text-center p-8">Loading...</div>;
@@ -500,7 +578,7 @@ const StudentResultsTables: React.FC<{ htno: string }> = ({ htno }) => {
       {/* <Button onClick={handlePrint} className="mb-4">
         Print Results
       </Button> */}
-       {/* Top Ad */}
+      {/* Top Ad */}
       <AdBanner adSlot="8973292958" adFormat="horizontal" className="mb-6" />
       <div ref={printRef} className="bg-white p-4">
         <style type="text/css">{`
@@ -571,6 +649,16 @@ const StudentResultsTables: React.FC<{ htno: string }> = ({ htno }) => {
       <Button onClick={handlePrint} className="mb-4">
         Print Results
       </Button>
+
+      {/* Download Button for Mobile View */}
+      {/* <div className="fixed bottom-4 left-4 right-4 md:hidden">
+        <Button
+          onClick={handleDownloadPDF}
+          className="w-full bg-blue-500 text-white hover:bg-blue-600"
+        >
+          Download PDF
+        </Button>
+      </div> */}
     </div>
   );
 };
