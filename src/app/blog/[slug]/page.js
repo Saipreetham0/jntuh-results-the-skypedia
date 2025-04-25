@@ -19,7 +19,7 @@ export default async function BlogPostPage(props) {
   return (
     <BlogLayout>
       <BlogTemplate>
-        <h2>{slug}</h2>
+        <h1>{slug}</h1>
         My Post: {params.slug}
         {/* Render blog post content here */}
       </BlogTemplate>
