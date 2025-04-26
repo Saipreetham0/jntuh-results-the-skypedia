@@ -151,9 +151,9 @@ const quickLinks: FooterLink[] = [
 const resourceLinks: FooterLink[] = [
   { name: "CGPA Calculator", href: "/cgpa-calculator" },
   { name: "Syllabus", href: "/syllabus" },
-  { name: "Question Papers", href: "/question-papers" },
-  { name: "Credit Eligibility", href: "/credit-eligibility" },
-  { name: "Academic Calendar", href: "/academic-calendar" },
+  { name: "Question Papers", href: "/previous-question-papers" },
+  { name: "Credit Eligibility", href: "/credit-eligibility-check" },
+  { name: "Academic Calendar", href: "/calendar" },
 ];
 
 const Footer: React.FC = () => {

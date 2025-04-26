@@ -183,7 +183,6 @@
 
 // export default Navbar;
 
-
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -201,43 +200,43 @@ interface NavItem {
 const navItems: NavItem[] = [
   {
     name: "Home",
-    href: "/"
+    href: "/",
   },
   {
     name: "Results",
     href: "#",
     submenu: [
       { name: "Consolidated Results", href: "/consolidated-results" },
-      { name: "Semester Results", href: "/semester-results" },
-      { name: "Backlogs", href: "/backlogs" },
-      { name: "Credits Check", href: "/credits-check" },
-    ]
+      { name: "Semester Results", href: "/semester-wise-results" },
+      { name: "Backlogs", href: "/check-backlogs" },
+      { name: "Credits Check", href: "/credit-eligibility-check" },
+    ],
   },
   {
     name: "Calculators",
     href: "#",
     submenu: [
       { name: "CGPA Calculator", href: "/cgpa-calculator" },
-      { name: "CGPA to Percentage", href: "/cgpa-percentage" },
-      { name: "SGPA to CGPA", href: "/sgpa-cgpa" },
-    ]
+      { name: "CGPA to Percentage", href: "/cgpa-percentage-converter" },
+      { name: "SGPA to CGPA", href: "/sgpa-to-cgpa-calculator" },
+    ],
   },
   {
     name: "Resources",
     href: "#",
     submenu: [
       { name: "Syllabus", href: "/syllabus" },
-      { name: "Question Papers", href: "/question-papers" },
+      { name: "Question Papers", href: "/previous-question-papers" },
       { name: "Academic Calendar", href: "/academic-calendar" },
-    ]
+    ],
   },
   {
     name: "Blog",
-    href: "/blog"
+    href: "/blog",
   },
   {
     name: "Contact",
-    href: "/contact"
+    href: "/contact",
   },
 ];
 
@@ -245,7 +244,9 @@ const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
-  const [mobileOpenSubmenu, setMobileOpenSubmenu] = useState<string | null>(null);
+  const [mobileOpenSubmenu, setMobileOpenSubmenu] = useState<string | null>(
+    null
+  );
   const { systemTheme, theme, setTheme } = useTheme();
 
   const currentTheme = theme === "system" ? systemTheme : theme;
@@ -287,7 +288,10 @@ const Navbar: React.FC = () => {
       }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <nav className="flex items-center justify-between h-16" aria-label="Global">
+        <nav
+          className="flex items-center justify-between h-16"
+          aria-label="Global"
+        >
           {/* Logo section */}
           <div className="flex lg:flex-1">
             <Link href="/" className="flex items-center gap-1.5">
@@ -307,7 +311,9 @@ const Navbar: React.FC = () => {
               type="button"
               className="inline-flex items-center justify-center p-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full"
               onClick={toggleDarkMode}
-              aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+              aria-label={
+                isDarkMode ? "Switch to light mode" : "Switch to dark mode"
+              }
             >
               {isDarkMode ? (
                 <Sun className="h-5 w-5" />
@@ -343,9 +349,11 @@ const Navbar: React.FC = () => {
                       aria-expanded={openSubmenu === item.name}
                     >
                       {item.name}
-                      <ChevronDown className={`ml-1 h-4 w-4 transition-transform ${
-                        openSubmenu === item.name ? "rotate-180" : ""
-                      }`} />
+                      <ChevronDown
+                        className={`ml-1 h-4 w-4 transition-transform ${
+                          openSubmenu === item.name ? "rotate-180" : ""
+                        }`}
+                      />
                     </button>
 
                     {/* Dropdown menu */}
@@ -386,7 +394,9 @@ const Navbar: React.FC = () => {
             <button
               onClick={toggleDarkMode}
               className="p-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full"
-              aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+              aria-label={
+                isDarkMode ? "Switch to light mode" : "Switch to dark mode"
+              }
             >
               {isDarkMode ? (
                 <Sun className="h-5 w-5" />
@@ -440,7 +450,11 @@ const Navbar: React.FC = () => {
           >
             <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
               <div className="flex items-center justify-between">
-                <Link href="/" className="flex items-center gap-1" onClick={closeMobileMenu}>
+                <Link
+                  href="/"
+                  className="flex items-center gap-1"
+                  onClick={closeMobileMenu}
+                >
                   <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                     JNTUH
                   </span>
@@ -475,7 +489,9 @@ const Navbar: React.FC = () => {
                               {item.name}
                               <ChevronDown
                                 className={`ml-1 h-5 w-5 transition-transform ${
-                                  mobileOpenSubmenu === item.name ? "rotate-180" : ""
+                                  mobileOpenSubmenu === item.name
+                                    ? "rotate-180"
+                                    : ""
                                 }`}
                               />
                             </button>
