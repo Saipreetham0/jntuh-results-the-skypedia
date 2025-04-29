@@ -57,6 +57,8 @@ import AdScript from "../components/Adsense/AdScript";
 import { InstallPWA } from "@/components/InstallPWA";
 import { ThemeProvider } from "@/components/theme-provider";
 import AnnouncementBar from "../components/AnnouncementBar";
+import { SpeedInsights } from '@vercel/speed-insights/next'
+
 
 import "./styles/globals.css";
 
@@ -78,6 +80,8 @@ export default function RootLayout({
         <Header />
       </head>
       <body suppressHydrationWarning={true}>
+      <SpeedInsights />
+
         {/* <Providers> */}
 
         <ThemeProvider
