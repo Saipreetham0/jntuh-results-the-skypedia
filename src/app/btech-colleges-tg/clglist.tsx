@@ -1,5 +1,5 @@
 import React, { useEffect, useState, type JSX } from "react";
-import supabase from "../../utils/supabase";
+import supabase from "../../utils/supabase/client";
 import TableBanner from "../../components/Adsense/tableBanner";
 
 // Define the type for the data fetched from Supabase
