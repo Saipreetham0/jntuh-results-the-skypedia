@@ -57,7 +57,7 @@ import { Results, SemesterResult, StudentResult, Subject } from "./types";
 export class JNTUHService {
   static async getStudentResults(htno: string): Promise<StudentResult> {
     try {
-      const response = await fetch(`/api/consolidated-results?htno=${htno}`);
+      const response = await fetch(`/api/consolidated-results${htno}`);
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);

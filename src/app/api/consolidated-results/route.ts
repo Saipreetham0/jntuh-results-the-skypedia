@@ -118,21 +118,21 @@ export async function GET(request: Request) {
     }
 
     // Validate roll number format (basic validation for demonstration)
-    const rollNumberRegex = /^[0-9]{1,2}[A-Z][0-9]{2}[A-Z][0-9]{4}$/;
-    if (!rollNumberRegex.test(rollNumber)) {
-      return NextResponse.json(
-        {
-          detail: [
-            {
-              loc: ["query", "htno"],
-              msg: "Invalid hall ticket number format. Expected pattern: 20J25A0501",
-              type: "value_error.pattern"
-            }
-          ]
-        } as APIErrorResponse,
-        { status: 422 }
-      );
-    }
+    // const rollNumberRegex = /^[0-9]{1,2}[A-Z][0-9]{2}[A-Z][0-9]{4}$/;
+    // if (!rollNumberRegex.test(rollNumber)) {
+    //   return NextResponse.json(
+    //     {
+    //       detail: [
+    //         {
+    //           loc: ["query", "htno"],
+    //           msg: "Invalid hall ticket number format. Expected pattern: 20J25A0501",
+    //           type: "value_error.pattern"
+    //         }
+    //       ]
+    //     } as APIErrorResponse,
+    //     { status: 422 }
+    //   );
+    // }
 
     // Make request to external API
     const response = await axios.get(
