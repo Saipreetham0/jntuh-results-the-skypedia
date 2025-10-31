@@ -1,9 +1,13 @@
 // app/api/auth/google/url/route.ts
-import { google } from 'googleapis';
 import { OAuth2Client } from 'google-auth-library';
 import { NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
+  // Dynamic import to avoid build-time issues with googleapis
+  const { google } = await import('googleapis');
+
   const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,

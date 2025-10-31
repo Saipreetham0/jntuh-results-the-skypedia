@@ -2,9 +2,15 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     },
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -15,7 +21,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "plugins": [
       {
         "name": "next"
@@ -33,7 +39,13 @@
     "route.tXT",
     "src/app/api/redisdata/route.js",
     "src/app/api/scraperesult/route.js",
-    "src/app/api/results/route.js"
-, "src/app/(student-res)/test1/page.js", "src/app/faq/page.js", "src/app/faq/page.jsx"  ],
-  "exclude": ["node_modules"]
+    "src/app/api/results/route.js",
+    "src/app/(student-res)/test1/page.js",
+    "src/app/faq/page.js",
+    "src/app/faq/page.jsx",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

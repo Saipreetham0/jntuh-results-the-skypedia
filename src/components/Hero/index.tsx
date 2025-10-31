@@ -79,24 +79,12 @@
 
 // export default Hero;
 
+"use client";
+
 import React from "react";
 import Link from "next/link";
-import { MessageSquare, Globe } from "lucide-react";
+import { MessageSquare, Globe, Search, TrendingUp, Award, Users } from "lucide-react";
 import AdBanner from "../Adsense/AdBanner";
-
-
-// interface AdBannerProps {
-//   adSlot: string;
-// }
-
-// const AdBanner: React.FC<AdBannerProps> = ({ adSlot }) => {
-//   // Implementation remains the same or use your actual AdBanner component
-//   return (
-//     <div className="w-full py-4 bg-gray-100 dark:bg-gray-800 rounded-lg text-center">
-//       Ad Banner Slot: {adSlot}
-//     </div>
-//   );
-// };
 
 const Hero: React.FC = () => {
   const handleWhatsAppContact = () => {
@@ -116,20 +104,31 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <section className="py-12 md:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-blue-50 to-blue-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-700">
-      <div className="max-w-5xl mx-auto">
+    <section className="relative overflow-hidden bg-white dark:bg-black">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-[#1C61E7]/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-[#21C15E]/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-32">
         {/* Hero title with animation */}
-        <div className="text-center">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">
+        <div className="text-center mb-12 md:mb-16 animate-fade-in">
+          <div className="inline-flex items-center px-4 py-2 mb-6 bg-[#1C61E7]/10 rounded-full text-[#1C61E7] text-sm font-medium">
+            <Award className="w-4 h-4 mr-2" />
+            Trusted by 100,000+ students
+          </div>
+
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 dark:text-white mb-6 tracking-tight">
             Instant Access to{" "}
             <span className="relative inline-block mt-2">
-              <span className="relative z-10 text-blue-600 dark:text-blue-400">
+              <span className="relative z-10 text-[#1C61E7]">
                 JNTUH Results
               </span>
               <svg
                 aria-hidden="true"
                 viewBox="0 0 418 42"
-                className="absolute top-3/4 left-0 h-12 w-full fill-blue-300 dark:fill-blue-500 opacity-70"
+                className="absolute top-3/4 left-0 h-[0.58em] w-full fill-[#1C61E7]/40"
                 preserveAspectRatio="none"
               >
                 <path d="M203.371.916c-26.013-2.078-76.686 1.963-124.73 9.946L67.3 12.749C35.421 18.062 18.2 21.766 6.004 25.934 1.244 27.561.828 27.778.874 28.61c.07 1.214.828 1.121 9.595-1.176 9.072-2.377 17.15-3.92 39.246-7.496C123.565 7.986 157.869 4.492 195.942 5.046c7.461.108 19.25 1.696 19.17 2.582-.107 1.183-7.874 4.31-25.75 10.366-21.992 7.45-35.43 12.534-36.701 13.884-2.173 2.308-.202 4.407 4.442 4.734 2.654.187 3.263.157 15.593-.78 35.401-2.686 57.944-3.488 88.365-3.143 46.327.526 75.721 2.23 130.788 7.584 19.787 1.924 20.814 1.98 24.557 1.332l.066-.011c1.201-.203 1.53-1.825.399-2.335-2.911-1.31-4.893-1.604-22.048-3.261-57.509-5.556-87.871-7.36-132.059-7.842-23.239-.254-33.617-.116-50.627.674-11.629.54-42.371 2.494-46.696 2.967-2.359.259 8.133-3.625 26.504-9.81 23.239-7.825 27.934-10.149 28.304-14.005.417-4.348-3.529-6-16.878-7.066Z" />
@@ -137,78 +136,104 @@ const Hero: React.FC = () => {
             </span>
           </h1>
 
-          <p className="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-gray-600 dark:text-gray-300">
+          <p className="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
             Get quick and easy access to your Jawaharlal Nehru Technological
-            University Hyderabad exam results on The Skypedia.
+            University Hyderabad exam results with advanced analytics and insights.
           </p>
+
+          {/* CTA Buttons */}
+          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link
+              href="/consolidated-results"
+              className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-[#1C61E7] rounded-full hover:bg-[#1C61E7]/90 transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
+            >
+              <Search className="w-5 h-5 mr-2" />
+              Check Results Now
+              <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </Link>
+
+            <Link
+              href="/cgpa-calculator"
+              className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-[#1C61E7] bg-white dark:bg-gray-800 border-2 border-[#1C61E7] rounded-full hover:bg-[#1C61E7]/5 dark:hover:bg-gray-700 transform transition-all duration-300 hover:scale-105"
+            >
+              <TrendingUp className="w-5 h-5 mr-2" />
+              Calculate CGPA
+            </Link>
+          </div>
         </div>
 
-        {/* Call to action card with subtle hover effects */}
-        <div className="mt-12 bg-white dark:bg-gray-800 shadow-lg rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl">
-          <div className="p-6 sm:p-8">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-3">
-              Explore IoT Kit and ML Projects
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-              Unlock the world of innovation and technology for your college
-              projects!
-            </p>
+        {/* Stats Section */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+          {[
+            { icon: Users, label: "Active Students", value: "100K+" },
+            { icon: Search, label: "Result Searches", value: "500K+" },
+            { icon: Award, label: "Success Stories", value: "50K+" },
+            { icon: TrendingUp, label: "Avg. Response", value: "<2s" },
+          ].map((stat, index) => (
+            <div
+              key={index}
+              className="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center transform transition-all duration-300 hover:scale-105 hover:shadow-lg border border-gray-200 dark:border-gray-700"
+            >
+              <stat.icon className="w-8 h-8 mx-auto mb-3 text-[#1C61E7]" />
+              <div className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1">
+                {stat.value}
+              </div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">
+                {stat.label}
+              </div>
+            </div>
+          ))}
+        </div>
 
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <button
-                onClick={handleWhatsAppContact}
-                className="flex items-center justify-center py-3 px-6 bg-green-500 hover:bg-green-600 text-white font-medium rounded-full transition-colors duration-300 shadow-md hover:shadow-lg"
-                aria-label="Contact via WhatsApp"
-              >
-                <MessageSquare className="w-5 h-5 mr-2" />
-                <span>Contact via WhatsApp</span>
-              </button>
+        {/* Promotional Card */}
+        <div className="relative bg-[#1C61E7] rounded-2xl overflow-hidden shadow-2xl">
+          <div className="absolute inset-0 bg-grid-white/10"></div>
+          <div className="relative p-8 md:p-10">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="text-center md:text-left flex-1">
+                <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+                  Explore IoT Kit and ML Projects
+                </h2>
+                <p className="text-lg text-white/90 mb-6">
+                  Unlock the world of innovation and technology for your college projects!
+                </p>
 
-              <button
-                onClick={handleWebsiteVisit}
-                className="flex items-center justify-center py-3 px-6 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-full transition-colors duration-300 shadow-md hover:shadow-lg"
-                aria-label="Visit Website"
-              >
-                <Globe className="w-5 h-5 mr-2" />
-                <span>Visit Website</span>
-              </button>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <button
+                    onClick={handleWhatsAppContact}
+                    className="group flex items-center justify-center py-3 px-6 bg-[#21C15E] text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl hover:bg-[#21C15E]/90"
+                    aria-label="Contact via WhatsApp"
+                  >
+                    <MessageSquare className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
+                    <span>Contact via WhatsApp</span>
+                  </button>
+
+                  <button
+                    onClick={handleWebsiteVisit}
+                    className="flex items-center justify-center py-3 px-6 bg-white text-[#1C61E7] font-semibold rounded-full hover:bg-white/90 transition-all duration-300"
+                    aria-label="Visit Website"
+                  >
+                    <Globe className="w-5 h-5 mr-2" />
+                    <span>Visit Website</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Decorative element */}
+              <div className="hidden lg:block">
+                <div className="w-32 h-32 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm">
+                  <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center">
+                    <TrendingUp className="w-12 h-12 text-white" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Results search box - a new feature for better UX */}
-        {/* <div className="mt-12 bg-white dark:bg-gray-800 shadow-lg rounded-xl overflow-hidden p-6 sm:p-8">
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            Check Your Results
-          </h2>
-
-          <form className="flex flex-col sm:flex-row gap-4">
-            <div className="flex-1">
-              <label htmlFor="hallTicket" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Hall Ticket Number
-              </label>
-              <input
-                type="text"
-                id="hallTicket"
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-                placeholder="Enter your hall ticket number"
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="mt-6 sm:mt-0 sm:self-end px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-300"
-            >
-              Get Results
-            </button>
-          </form>
-        </div> */}
-
         {/* Ad banner */}
-        {/* <div className="mt-12">
-          <AdBanner adSlot="5967398818" />
-        </div> */}
-
         <div className="mt-12">
           <AdBanner adSlot="5967398818" />
         </div>

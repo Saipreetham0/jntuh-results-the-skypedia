@@ -14,11 +14,8 @@ const withPWA = withPWAInit({
 const nextConfig = {
   reactStrictMode: true,
 
-  eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
-    ignoreDuringBuilds: true,
-  },
+  // Note: Use 'next lint' command with --no-eslint flag instead
+  // eslint config in next.config.js is no longer supported in Next.js 16
 
   images: {
     // domains: [
@@ -57,15 +54,13 @@ const nextConfig = {
       },
     ],
   },
-  experimental: {
-    // forceSwcTransforms: true,
-    // turbopack: true,
-    turbo: {
-      // ...
-    },
-  },
+  // Turbopack is now stable and default in Next.js 16
+  turbopack: {},
+
+  serverExternalPackages: ['googleapis', 'google-auth-library'],
 
   webpack: (config, { isServer }) => {
+    // This webpack config will be used only when building with --webpack flag
     if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,

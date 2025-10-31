@@ -1,10 +1,13 @@
 
 // app/api/auth/google/callback/route.ts
-import { google } from 'googleapis';
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: Request) {
+  // Dynamic import to avoid build-time issues with googleapis
+  const { google } = await import('googleapis');
   const { searchParams } = new URL(request.url);
   const code = searchParams.get('code');
 

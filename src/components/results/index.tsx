@@ -257,42 +257,47 @@ const ResultsBox: React.FC = () => {
   }, [searchTerm, activeCategory]);
 
   return (
-    <section className="py-12 px-4 bg-gray-50 dark:bg-gray-900">
-      <div className="container mx-auto">
+    <section className="py-16 md:py-20 px-4 bg-gray-50 dark:bg-gray-900">
+      <div className="container mx-auto max-w-7xl">
         {/* Header section */}
-        <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        <div className="text-center mb-12 animate-fade-in">
+          <div className="inline-flex items-center px-4 py-2 mb-4 bg-[#1C61E7]/10 rounded-full text-[#1C61E7] text-sm font-medium">
+            <BookOpen className="w-4 h-4 mr-2" />
+            Everything you need in one place
+          </div>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             Student Resources
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Access tools and resources to help you track and improve your academic performance.
+          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            Access powerful tools and resources to track, analyze, and improve your academic performance.
           </p>
         </div>
 
         {/* Search and filters */}
-        <div className="mb-8 max-w-3xl mx-auto">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+        <div className="mb-12 max-w-4xl mx-auto animate-slide-up">
+          <div className="relative group">
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-[#1C61E7] transition-colors" />
             <input
               type="text"
-              placeholder="Search resources..."
-              className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white shadow-sm"
+              placeholder="Search for calculators, results, and more..."
+              className="w-full pl-12 pr-4 py-4 rounded-2xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1C61E7] focus:border-transparent dark:bg-gray-800 dark:border-gray-700 dark:text-white shadow-lg transition-all duration-300"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
 
           {/* Category filter tabs */}
-          <div className="flex flex-wrap justify-center mt-6 gap-2">
-            {categories.map((category) => (
+          <div className="flex flex-wrap justify-center mt-8 gap-3">
+            {categories.map((category, index) => (
               <button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                className={`px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 transform hover:scale-105 ${
                   activeCategory === category.id
-                    ? "bg-blue-600 text-white"
-                    : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    ? "bg-[#1C61E7] text-white shadow-lg"
+                    : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-md"
                 }`}
+                style={{ animationDelay: `${index * 50}ms` }}
               >
                 {category.name}
               </button>
@@ -300,10 +305,25 @@ const ResultsBox: React.FC = () => {
           </div>
         </div>
 
-        {/* Cards grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {/* Result count */}
+        {filteredCards.length > 0 && (
+          <div className="mb-6 text-center">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              Showing <span className="font-semibold text-[#1C61E7]">{filteredCards.length}</span> {filteredCards.length === 1 ? 'resource' : 'resources'}
+            </p>
+          </div>
+        )}
+
+        {/* Cards grid with staggered animation */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {filteredCards.map((card, index) => (
-            <Card key={index} {...card} />
+            <div
+              key={index}
+              className="animate-fade-in"
+              style={{ animationDelay: `${index * 50}ms`, animationFillMode: 'backwards' }}
+            >
+              <Card {...card} />
+            </div>
           ))}
         </div>
 
@@ -325,7 +345,7 @@ const ResultsBox: React.FC = () => {
                 setSearchTerm('');
                 setActiveCategory('all');
               }}
-              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="mt-4 px-4 py-2 bg-[#1C61E7] text-white rounded-lg hover:bg-[#1C61E7]/90 transition-colors"
             >
               Clear Filters
             </button>

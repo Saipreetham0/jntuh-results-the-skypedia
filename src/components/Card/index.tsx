@@ -61,48 +61,40 @@ const Card: React.FC<CardProps> = ({ title, content, url, icon }) => {
   // Determine if URL is external (starts with http or https)
   const isExternal = url.startsWith('http');
 
-  // Generate a dynamic background color based on the title's first character
-  // This creates visual variety in the cards
-  const getCardAccentColor = (title: string) => {
-    const colors = [
-      'from-blue-500 to-blue-600',
-      'from-indigo-500 to-indigo-600',
-      'from-purple-500 to-purple-600',
-      'from-green-500 to-green-600',
-      'from-cyan-500 to-cyan-600',
-      'from-teal-500 to-teal-600',
-    ];
-
-    const index = title.charCodeAt(0) % colors.length;
-    return colors[index];
-  };
-
   const cardContent = (
-    <div className="group h-full flex flex-col bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg border border-gray-200 dark:border-gray-700">
-      {/* Card header with colorful accent */}
-      <div className={`h-2 bg-gradient-to-r ${getCardAccentColor(title)}`}></div>
+    <div className="group h-full flex flex-col bg-white dark:bg-gray-800 rounded-2xl shadow-sm overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border border-gray-200 dark:border-gray-700">
+      {/* Card header with brand color accent */}
+      <div className="h-1 bg-[#1C61E7]"></div>
 
-      <div className="p-5 flex flex-col flex-grow">
+      <div className="p-6 flex flex-col flex-grow">
         {/* Card icon */}
-        <div className="mb-3">
-          {icon || (
-            <div className={`w-10 h-10 rounded-full bg-gradient-to-r ${getCardAccentColor(title)} flex items-center justify-center text-white font-bold text-lg`}>
+        <div className="mb-4">
+          {icon ? (
+            <div className="w-12 h-12 rounded-xl bg-[#1C61E7]/10 flex items-center justify-center text-[#1C61E7]">
+              {icon}
+            </div>
+          ) : (
+            <div className="w-12 h-12 rounded-xl bg-[#1C61E7]/10 flex items-center justify-center text-[#1C61E7] font-bold text-xl">
               {title.charAt(0)}
             </div>
           )}
         </div>
 
         {/* Card title */}
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{title}</h3>
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-[#1C61E7] transition-colors line-clamp-2">
+          {title}
+        </h3>
 
         {/* Card content */}
-        <p className="text-gray-600 dark:text-gray-300 mb-4 flex-grow">{content}</p>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-grow line-clamp-3">
+          {content}
+        </p>
 
         {/* Card action */}
-        <div className="mt-auto flex items-center text-blue-600 dark:text-blue-400 font-medium">
+        <div className="mt-auto flex items-center text-[#1C61E7] font-semibold text-sm">
           <span>Access Now</span>
-          <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
-          {isExternal && <ExternalLink className="w-4 h-4 ml-1" />}
+          <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-2" />
+          {isExternal && <ExternalLink className="w-4 h-4 ml-2" />}
         </div>
       </div>
     </div>

@@ -119,7 +119,7 @@ export async function GET(request: Request) {
 
     // Validate roll number format (basic validation for demonstration)
     // const rollNumberRegex = /^[0-9]{1,2}[A-Z][0-9]{2}[A-Z][0-9]{4}$/;
-    // if (!rollNumberRegex.test(rollNumber)) {
+    // if (!q.test(rollNumber)) {
     //   return NextResponse.json(
     //     {
     //       detail: [

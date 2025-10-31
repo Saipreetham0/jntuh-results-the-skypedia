@@ -1,8 +1,9 @@
 // app/api/calendar/sync/route.ts
-import { google } from 'googleapis';
 import type { calendar_v3 } from 'googleapis';
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+
+export const dynamic = 'force-dynamic';
 
 interface ExamEvent {
   id: string;
@@ -14,6 +15,9 @@ interface ExamEvent {
 
 export async function POST(request: Request) {
   try {
+    // Dynamic import to avoid build-time issues with googleapis
+    const { google } = await import('googleapis');
+
     const { events }: { events: ExamEvent[] } = await request.json();
     const cookieStore = await cookies();
     const refreshToken = cookieStore.get('google_refresh_token')?.value;

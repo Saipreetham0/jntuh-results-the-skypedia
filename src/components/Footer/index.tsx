@@ -81,7 +81,7 @@
 
 import React, { type JSX } from 'react';
 import Link from 'next/link';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, MapPin, ArrowRight, Heart } from 'lucide-react';
 
 interface SocialLink {
   name: string;
@@ -158,29 +158,35 @@ const resourceLinks: FooterLink[] = [
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
-      <div className="mx-auto max-w-7xl">
+    <footer className="relative bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 border-t-4 border-[#1C61E7]">
+      {/* Decorative elements */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-[#1C61E7]/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#21C15E]/5 rounded-full blur-3xl" />
+
+      <div className="relative mx-auto max-w-7xl">
         {/* Main footer content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-6 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-6 py-16">
           {/* Column 1: About */}
-          <div>
-            <div className="mb-5">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">THE SKYPEDIA</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">
-                Helping students access educational resources and academic information with ease.
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-[#1C61E7] to-[#21C15E] bg-clip-text text-transparent mb-3">
+                THE SKYPEDIA
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                Empowering JNTUH students with instant access to results, academic resources, and powerful calculation tools.
               </p>
             </div>
-            <div className="flex space-x-4">
+            <div className="flex space-x-3">
               {socialLinks.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors duration-300"
+                  className="group w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-[#1C61E7] dark:hover:bg-[#1C61E7] flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-[#1C61E7]/25"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${item.name} (opens in a new tab)`}
                 >
-                  <item.icon className="h-6 w-6" aria-hidden="true" />
+                  <item.icon className="h-5 w-5 text-gray-600 dark:text-gray-400 group-hover:text-white transition-colors" aria-hidden="true" />
                 </a>
               ))}
             </div>
@@ -188,17 +194,21 @@ const Footer: React.FC = () => {
 
           {/* Column 2: Quick Links */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-4">
+            <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-6 flex items-center gap-2">
+              <div className="w-1 h-5 bg-[#1C61E7] rounded-full" />
               Quick Links
             </h3>
-            <ul className="space-y-2">
+            <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 text-sm transition-colors duration-200"
+                    className="group flex items-center text-gray-600 hover:text-[#1C61E7] dark:text-gray-400 dark:hover:text-[#1C61E7] text-sm transition-all duration-200"
                   >
-                    {link.name}
+                    <ArrowRight className="w-4 h-4 mr-2 opacity-0 -ml-6 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200" />
+                    <span className="group-hover:translate-x-1 transition-transform duration-200">
+                      {link.name}
+                    </span>
                   </Link>
                 </li>
               ))}
@@ -207,17 +217,21 @@ const Footer: React.FC = () => {
 
           {/* Column 3: Resources */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-4">
+            <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-6 flex items-center gap-2">
+              <div className="w-1 h-5 bg-[#21C15E] rounded-full" />
               Student Resources
             </h3>
-            <ul className="space-y-2">
+            <ul className="space-y-3">
               {resourceLinks.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 text-sm transition-colors duration-200"
+                    className="group flex items-center text-gray-600 hover:text-[#21C15E] dark:text-gray-400 dark:hover:text-[#21C15E] text-sm transition-all duration-200"
                   >
-                    {link.name}
+                    <ArrowRight className="w-4 h-4 mr-2 opacity-0 -ml-6 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200" />
+                    <span className="group-hover:translate-x-1 transition-transform duration-200">
+                      {link.name}
+                    </span>
                   </Link>
                 </li>
               ))}
@@ -226,78 +240,100 @@ const Footer: React.FC = () => {
 
           {/* Column 4: Contact */}
           <div>
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-4">
-              Contact Us
+            <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-6 flex items-center gap-2">
+              <div className="w-1 h-5 bg-[#1C61E7] rounded-full" />
+              Get In Touch
             </h3>
             <ul className="space-y-4">
-              <li className="flex items-start">
-                <Mail className="h-5 w-5 text-gray-500 dark:text-gray-400 mr-3 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-600 dark:text-gray-400 text-sm">
-                  info@theskypedia.com
-                </span>
+              <li className="group">
+                <a
+                  href="mailto:info@theskypedia.com"
+                  className="flex items-start hover:text-[#1C61E7] transition-colors duration-200"
+                >
+                  <div className="w-8 h-8 rounded-lg bg-[#1C61E7]/10 group-hover:bg-[#1C61E7] flex items-center justify-center mr-3 flex-shrink-0 transition-colors duration-200">
+                    <Mail className="h-4 w-4 text-[#1C61E7] group-hover:text-white transition-colors" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 dark:text-gray-500 mb-0.5">Email</p>
+                    <span className="text-gray-700 dark:text-gray-300 text-sm font-medium">
+                      info@theskypedia.com
+                    </span>
+                  </div>
+                </a>
               </li>
-              {/* <li className="flex items-start">
-                <Phone className="h-5 w-5 text-gray-500 dark:text-gray-400 mr-3 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-600 dark:text-gray-400 text-sm">
-                  +91 9550421866
-                </span>
-              </li> */}
-              <li className="flex items-start">
-                <MapPin className="h-5 w-5 text-gray-500 dark:text-gray-400 mr-3 flex-shrink-0 mt-0.5" />
-                <span className="text-gray-600 dark:text-gray-400 text-sm">
-                  Hyderabad, Telangana, India
-                </span>
+              <li className="group">
+                <div className="flex items-start">
+                  <div className="w-8 h-8 rounded-lg bg-[#21C15E]/10 flex items-center justify-center mr-3 flex-shrink-0">
+                    <MapPin className="h-4 w-4 text-[#21C15E]" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-gray-500 dark:text-gray-500 mb-0.5">Location</p>
+                    <span className="text-gray-700 dark:text-gray-300 text-sm font-medium">
+                      Hyderabad, Telangana
+                    </span>
+                  </div>
+                </div>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Newsletter subscription (optional) */}
-        <div className="bg-gray-50 dark:bg-gray-800 px-6 py-8">
+        {/* Newsletter subscription */}
+        <div className="relative bg-gradient-to-r from-[#1C61E7]/5 via-[#21C15E]/5 to-[#1C61E7]/5 px-6 py-12">
           <div className="max-w-3xl mx-auto text-center">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-              Subscribe to Our Newsletter
+            <div className="inline-flex items-center px-4 py-2 mb-3 bg-white dark:bg-gray-800 rounded-full shadow-sm">
+              <Mail className="w-4 h-4 text-[#1C61E7] mr-2" />
+              <span className="text-sm font-semibold text-gray-900 dark:text-white">Stay Updated</span>
+            </div>
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-3">
+              Get Latest Updates
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
-              Get the latest updates, resources and tips delivered to your inbox.
+            <p className="text-gray-600 dark:text-gray-400 text-sm mb-6 max-w-xl mx-auto">
+              Subscribe to receive notifications about new results, resources, and features directly in your inbox.
             </p>
-            <form className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
+            <form className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
               <input
                 type="email"
-                placeholder="Enter your email"
-                className="px-4 py-2 w-full sm:flex-1 border border-gray-300 dark:border-gray-700 rounded-md text-gray-900 dark:text-white bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter your email address"
+                className="px-5 py-3 w-full sm:flex-1 border-2 border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-[#1C61E7] focus:border-transparent transition-all"
                 required
               />
               <button
                 type="submit"
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-300"
+                className="group px-6 py-3 bg-[#1C61E7] hover:bg-[#1C61E7]/90 text-white font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-[#1C61E7]/25 hover:shadow-xl hover:shadow-[#1C61E7]/30 hover:scale-105"
               >
                 Subscribe
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
             </form>
           </div>
         </div>
 
         {/* Copyright bar */}
-        <div className="border-t border-gray-200 dark:border-gray-800 px-6 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              &copy; {new Date().getFullYear()} THE SKYPEDIA. All rights reserved.
-            </p>
-            <div className="flex space-x-6">
-              {/* <Link
+        <div className="border-t-2 border-gray-200 dark:border-gray-800 px-6 py-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+              <span>&copy; {new Date().getFullYear()} THE SKYPEDIA. All rights reserved.</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+              <span>Made with</span>
+              <Heart className="w-4 h-4 text-[#21C15E] fill-[#21C15E] animate-pulse" />
+              <span>for JNTUH Students</span>
+            </div>
+            {/* <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+              <Link
                 href="/privacy"
-                className="text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                className="text-sm text-gray-500 hover:text-[#1C61E7] dark:text-gray-400 dark:hover:text-[#1C61E7] transition-colors"
               >
                 Privacy Policy
               </Link>
               <Link
                 href="/terms"
-                className="text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                className="text-sm text-gray-500 hover:text-[#1C61E7] dark:text-gray-400 dark:hover:text-[#1C61E7] transition-colors"
               >
                 Terms of Service
-              </Link> */}
-            </div>
+              </Link>
+            </div> */}
           </div>
         </div>
       </div>

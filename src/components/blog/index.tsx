@@ -149,7 +149,7 @@ const posts: Post[] = [
     category: {
       name: "Education",
       href: "#",
-      color: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
+      color: "bg-[#1C61E7]/10 text-[#1C61E7]",
     },
     description:
       "Discover the Btech colleges in Telangana for quality education. Find the best engineering institutes in Telangana for a bright future.",
@@ -170,7 +170,7 @@ const extendedPosts = [
     category: {
       name: "Career",
       href: "#",
-      color: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+      color: "bg-[#21C15E]/10 text-[#21C15E]",
     },
     description:
       "Explore the most sought-after engineering disciplines that offer excellent career prospects and opportunities in the evolving job market.",
@@ -185,7 +185,7 @@ const extendedPosts = [
     category: {
       name: "Admissions",
       href: "#",
-      color: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+      color: "bg-[#1C61E7]/10 text-[#1C61E7]",
     },
     description:
       "A comprehensive guide to the admission process, important dates, eligibility criteria, and required documents for engineering colleges in Telangana.",
@@ -209,28 +209,33 @@ const HomepageBlog: React.FC = () => {
     : extendedPosts.filter(post => post.category.name === activeTab);
 
   return (
-    <section className="bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 py-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+    <section className="bg-white dark:bg-gray-800 py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-16 animate-fade-in">
+          <div className="inline-flex items-center px-4 py-2 mb-4 bg-[#21C15E]/10 rounded-full text-[#21C15E] text-sm font-medium">
+            <BookOpen className="w-4 h-4 mr-2" />
+            Explore & Learn
+          </div>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             College Resources & Guides
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Discover comprehensive guides and information about colleges, admissions, and career opportunities.
           </p>
         </div>
 
         {/* Category tabs */}
-        <div className="flex flex-wrap justify-center mb-10 gap-2">
-          {categories.map((category) => (
+        <div className="flex flex-wrap justify-center mb-12 gap-3">
+          {categories.map((category, index) => (
             <button
               key={category}
               onClick={() => setActiveTab(category)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+              className={`px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 transform hover:scale-105 ${
                 activeTab === category
-                  ? "bg-blue-600 text-white shadow-md"
-                  : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  ? "bg-[#21C15E] text-white shadow-lg"
+                  : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-md border border-gray-200 dark:border-gray-700"
               }`}
+              style={{ animationDelay: `${index * 50}ms` }}
             >
               {category}
             </button>
@@ -277,7 +282,7 @@ const HomepageBlog: React.FC = () => {
 
                 {/* Content section */}
                 <div className="p-6 flex-grow flex flex-col">
-                  <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                  <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white group-hover:text-[#1C61E7] transition-colors">
                     {post.title}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300 mb-4 flex-grow">
@@ -297,7 +302,7 @@ const HomepageBlog: React.FC = () => {
                       </span>
                     </div>
 
-                    <div className="text-blue-600 dark:text-blue-400 flex items-center font-medium">
+                    <div className="text-[#1C61E7] flex items-center font-medium">
                       <span className="mr-1 group-hover:mr-2 transition-all">Read</span>
                       <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                     </div>
