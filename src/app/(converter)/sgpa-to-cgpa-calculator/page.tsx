@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/select";
 import { Plus, Trash2, Calculator, TrendingUp, Info, Award, RefreshCw, GraduationCap } from "lucide-react";
 import Link from "next/link";
+import { ResponsiveAd, InContentAd, StickyAd } from "@/components/Adsense";
+import AD_SLOTS from "@/config/adSlots";
 
 interface SemesterData {
   sgpa: string;
@@ -168,9 +170,15 @@ export default function SGPAToCGPACalculator() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        {/* Header Section */}
-        <div className="text-center mb-10 animate-fade-in">
+      <div className="max-w-7xl mx-auto relative">
+        {/* Sticky Sidebar Ad - Desktop Only */}
+        <div className="hidden lg:block absolute -right-32 top-0 w-32">
+          <StickyAd adSlot={AD_SLOTS.CALCULATOR.SIDEBAR_STICKY} position="sidebar" />
+        </div>
+
+        <div className="max-w-4xl mx-auto">
+          {/* Header Section */}
+          <div className="text-center mb-10 animate-fade-in">
           <div className="inline-flex items-center px-4 py-2 mb-4 bg-[#1C61E7]/10 rounded-full text-[#1C61E7] text-sm font-medium">
             <GraduationCap className="w-4 h-4 mr-2" />
             Academic Performance Calculator
@@ -181,11 +189,14 @@ export default function SGPAToCGPACalculator() {
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             Calculate your cumulative GPA by converting multiple semester GPAs with weighted credits
           </p>
-        </div>
+          </div>
 
-        {/* Calculator Card */}
-        <Card className="shadow-xl border-t-4 border-[#1C61E7] animate-slide-up">
-          <CardHeader className="space-y-1 pb-4">
+          {/* Top Ad Banner */}
+          <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.TOP_BANNER} format="horizontal" className="mb-8" />
+
+          {/* Calculator Card */}
+          <Card className="shadow-xl border-t-4 border-[#1C61E7] animate-slide-up">
+            <CardHeader className="space-y-1 pb-4">
             <CardTitle className="text-2xl font-bold flex items-center gap-2">
               <div className="w-10 h-10 rounded-lg bg-[#1C61E7]/10 flex items-center justify-center">
                 <Calculator className="w-5 h-5 text-[#1C61E7]" />
@@ -426,10 +437,13 @@ export default function SGPAToCGPACalculator() {
               </div>
             </CardContent>
           </Card>
-        )}
+          )}
 
-        {/* Related Calculators */}
-        <Card className="mt-8 bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 border-2">
+          {/* Mid Ad */}
+          <InContentAd adSlot={AD_SLOTS.CALCULATOR.MID_RECTANGLE} className="my-8" />
+
+          {/* Related Calculators */}
+          <Card className="mt-8 bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 border-2">
           <CardHeader>
             <CardTitle className="text-xl font-bold">Related Calculators</CardTitle>
             <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -497,6 +511,10 @@ export default function SGPAToCGPACalculator() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Bottom Ad */}
+        <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.BOTTOM_RECTANGLE} format="auto" className="mt-8" />
+        </div>
       </div>
     </div>
   );

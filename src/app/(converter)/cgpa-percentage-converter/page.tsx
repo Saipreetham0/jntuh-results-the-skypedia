@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Calculator, ArrowRight, TrendingUp, Info, Award, Percent, RefreshCw } from "lucide-react";
 import Link from "next/link";
+import { ResponsiveAd, InContentAd, StickyAd } from "@/components/Adsense";
+import AD_SLOTS from "@/config/adSlots";
 
 interface CalculationResult {
   cgpa: number;
@@ -110,8 +112,14 @@ export default function CGPACalculator() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        {/* Header Section */}
+      <div className="max-w-4xl mx-auto relative">
+        {/* Sticky Sidebar Ad - Desktop Only */}
+        <div className="hidden lg:block absolute -right-32 top-0 w-32">
+          <StickyAd adSlot={AD_SLOTS.CALCULATOR.SIDEBAR_STICKY} position="sidebar" />
+        </div>
+
+        <div className="max-w-4xl mx-auto">
+          {/* Header Section */}
         <div className="text-center mb-10 animate-fade-in">
           <div className="inline-flex items-center px-4 py-2 mb-4 bg-[#1C61E7]/10 rounded-full text-[#1C61E7] text-sm font-medium">
             <Calculator className="w-4 h-4 mr-2" />
@@ -124,6 +132,9 @@ export default function CGPACalculator() {
             Convert your CGPA to percentage across multiple international grading scales with instant results
           </p>
         </div>
+
+        {/* Top Ad Banner */}
+        <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.TOP_BANNER} format="horizontal" className="mb-8" />
 
         {/* Calculator Card */}
         <Card className="shadow-xl border-t-4 border-[#1C61E7] animate-slide-up">
@@ -363,6 +374,9 @@ export default function CGPACalculator() {
           </Card>
         )}
 
+        {/* Mid Ad */}
+        <InContentAd adSlot={AD_SLOTS.CALCULATOR.MID_RECTANGLE} className="my-8" />
+
         {/* Related Calculators */}
         <Card className="mt-8 bg-gradient-to-br from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 border-2">
           <CardHeader>
@@ -432,6 +446,10 @@ export default function CGPACalculator() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Bottom Ad */}
+        <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.BOTTOM_RECTANGLE} format="auto" className="mt-8" />
+        </div>
       </div>
     </div>
   );

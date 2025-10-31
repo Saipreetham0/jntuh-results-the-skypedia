@@ -178,7 +178,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useRouter } from 'next/navigation';
-import AdBanner from '@/components/Adsense/AdBanner';
+import { ResponsiveAd, InContentAd } from '@/components/Adsense';
+import AD_SLOTS from '@/config/adSlots';
 
 const ResultsSearch = () => {
   const [hallTicket, setHallTicket] = useState('');
@@ -231,14 +232,12 @@ const ResultsSearch = () => {
           </p>
         </div>
 
-        {/* Middle Ad Banner */}
-        <div className="mb-6">
-          <AdBanner
-            adSlot="4312571525"
-            adFormat="horizontal"
-            fullWidthResponsive={true}
-          />
-        </div>
+        {/* Top Ad Banner */}
+        <ResponsiveAd
+          adSlot={AD_SLOTS.CONSOLIDATED.TOP_BANNER}
+          format="horizontal"
+          className="mb-6"
+        />
 
         {/* Search Card */}
         <Card className="shadow-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg">
@@ -320,14 +319,18 @@ const ResultsSearch = () => {
           </CardFooter>
         </Card>
 
+        {/* Inline Ad */}
+        <InContentAd
+          adSlot={AD_SLOTS.CONSOLIDATED.INLINE_1}
+          className="my-6"
+        />
+
         {/* Bottom Advertisement */}
-        <div className="mt-6">
-          <AdBanner
-            adSlot="8113957727"
-            adFormat="horizontal"
-            fullWidthResponsive={true}
-          />
-        </div>
+        <ResponsiveAd
+          adSlot={AD_SLOTS.CONSOLIDATED.BOTTOM_RECTANGLE}
+          format="auto"
+          className="mt-6"
+        />
       </div>
     </div>
   );

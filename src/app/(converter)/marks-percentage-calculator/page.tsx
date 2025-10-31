@@ -4,6 +4,8 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { ResponsiveAd, InContentAd, StickyAd } from "@/components/Adsense";
+import AD_SLOTS from "@/config/adSlots";
 
 interface CalculationResult {
   totalMarks: number;
@@ -94,22 +96,31 @@ export default function MarksPercentageCalculator() {
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-200">
-      <div className="max-w-3xl mx-auto">
-        <div className="flex flex-col gap-4 mb-8">
+      <div className="max-w-3xl mx-auto relative">
+        {/* Sticky Sidebar Ad - Desktop Only */}
+        <div className="hidden lg:block absolute -right-32 top-0 w-32">
+          <StickyAd adSlot={AD_SLOTS.CALCULATOR.SIDEBAR_STICKY} position="sidebar" />
+        </div>
+
+        <div className="max-w-3xl mx-auto">
+          <div className="flex flex-col gap-4 mb-8">
           <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white text-center">
             Marks Percentage Calculator
           </h1>
           <p className="text-center text-gray-600 dark:text-gray-400">
             Calculate your percentage and grade based on your marks
           </p>
-        </div>
+          </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Calculate Your Result</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
+          {/* Top Ad Banner */}
+          <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.TOP_BANNER} format="horizontal" className="mb-8" />
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Calculate Your Result</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
               <div>
                 <label
                   htmlFor="totalMarks"
@@ -160,17 +171,17 @@ export default function MarksPercentageCalculator() {
                   Reset
                 </Button>
               </div>
-            </div>
-          </CardContent>
-        </Card>
+              </div>
+            </CardContent>
+          </Card>
 
-        {result && (
-          <Card className="mt-8">
-            <CardHeader>
-              <CardTitle>Your Results</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {result && (
+            <Card className="mt-8">
+              <CardHeader>
+                <CardTitle>Your Results</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
                   <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">
                     Total Marks
@@ -211,11 +222,18 @@ export default function MarksPercentageCalculator() {
                     {result.remarks}
                   </p>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-        )}
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Mid Ad */}
+          <InContentAd adSlot={AD_SLOTS.CALCULATOR.MID_RECTANGLE} className="my-8" />
+        </div>
       </div>
+
+      {/* Bottom Ad */}
+      <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.BOTTOM_RECTANGLE} format="auto" className="mt-8" />
     </div>
   );
 }

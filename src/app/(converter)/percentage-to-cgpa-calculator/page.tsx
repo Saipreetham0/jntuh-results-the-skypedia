@@ -9,6 +9,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { ResponsiveAd, InContentAd, StickyAd } from "@/components/Adsense";
+import AD_SLOTS from "@/config/adSlots";
 
 interface CalculationResult {
   percentage: number;
@@ -100,23 +102,32 @@ export default function PercentageToCGPACalculator() {
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-200">
-      <div className="max-w-3xl mx-auto">
-        <div className="flex flex-col gap-4 mb-8">
+      <div className="max-w-3xl mx-auto relative">
+        {/* Sticky Sidebar Ad - Desktop Only */}
+        <div className="hidden lg:block absolute -right-32 top-0 w-32">
+          <StickyAd adSlot={AD_SLOTS.CALCULATOR.SIDEBAR_STICKY} position="sidebar" />
+        </div>
+
+        <div className="max-w-3xl mx-auto">
+          <div className="flex flex-col gap-4 mb-8">
           <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white text-center">
             Percentage to CGPA Calculator
           </h1>
           <p className="text-center text-gray-600 dark:text-gray-400">
             Convert your percentage to CGPA across different grading scales
           </p>
-        </div>
+          </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Calculate Your CGPA</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div>
+          {/* Top Ad Banner */}
+          <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.TOP_BANNER} format="horizontal" className="mb-8" />
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Calculate Your CGPA</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Select Target CGPA Scale
                 </label>
@@ -236,8 +247,15 @@ export default function PercentageToCGPACalculator() {
               </div>
             </CardContent>
           </Card>
-        )}
+          )}
+
+          {/* Mid Ad */}
+          <InContentAd adSlot={AD_SLOTS.CALCULATOR.MID_RECTANGLE} className="my-8" />
+        </div>
       </div>
+
+      {/* Bottom Ad */}
+      <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.BOTTOM_RECTANGLE} format="auto" className="mt-8" />
     </div>
   );
 }

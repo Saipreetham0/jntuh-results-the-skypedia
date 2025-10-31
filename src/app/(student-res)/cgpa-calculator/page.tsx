@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Calculator, School, ChevronRight, Trash2, Plus, TrendingUp, Award, Info } from "lucide-react";
+import { ResponsiveAd, InContentAd, StickyAd } from "@/components/Adsense";
+import AD_SLOTS from "@/config/adSlots";
 
 interface CalculatorCard {
   title: string;
@@ -136,24 +138,33 @@ const CGPACalculator = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-5xl mx-auto">
-        {/* Header Section */}
-        <div className="text-center mb-12 animate-fade-in">
-          <div className="inline-flex items-center px-4 py-2 mb-4 bg-[#1C61E7]/10 rounded-full text-[#1C61E7] text-sm font-medium">
-            <Calculator className="w-4 h-4 mr-2" />
-            Academic Performance Tool
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            CGPA Calculator
-          </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Calculate your Cumulative Grade Point Average automatically or manually with detailed insights
-          </p>
+      <div className="max-w-7xl mx-auto relative">
+        {/* Sticky Sidebar Ad - Desktop Only */}
+        <div className="hidden lg:block absolute -right-32 top-0 w-32">
+          <StickyAd adSlot={AD_SLOTS.CALCULATOR.SIDEBAR_STICKY} position="sidebar" />
         </div>
 
-        {/* Main Calculator Card */}
-        <div className="mb-8 animate-slide-up">
-          <Tabs defaultValue="manual" className="space-y-6">
+        <div className="max-w-5xl mx-auto">
+          {/* Header Section */}
+          <div className="text-center mb-12 animate-fade-in">
+            <div className="inline-flex items-center px-4 py-2 mb-4 bg-[#1C61E7]/10 rounded-full text-[#1C61E7] text-sm font-medium">
+              <Calculator className="w-4 h-4 mr-2" />
+              Academic Performance Tool
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+              CGPA Calculator
+            </h1>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              Calculate your Cumulative Grade Point Average automatically or manually with detailed insights
+            </p>
+          </div>
+
+          {/* Top Ad Banner */}
+          <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.TOP_BANNER} format="horizontal" className="mb-8" />
+
+          {/* Main Calculator Card */}
+          <div className="mb-8 animate-slide-up">
+            <Tabs defaultValue="manual" className="space-y-6">
             <TabsList className="grid w-full grid-cols-2 bg-white dark:bg-gray-800 p-1 rounded-xl shadow-sm">
               <TabsTrigger
                 value="auto"
@@ -372,11 +383,14 @@ const CGPACalculator = () => {
                 </CardContent>
               </Card>
             </TabsContent>
-          </Tabs>
-        </div>
+            </Tabs>
+          </div>
 
-        {/* Related Calculators */}
-        <div className="mt-12">
+          {/* Mid Ad */}
+          <InContentAd adSlot={AD_SLOTS.CALCULATOR.MID_RECTANGLE} className="my-8" />
+
+          {/* Related Calculators */}
+          <div className="mt-12">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
             Related Calculators
           </h2>
@@ -395,6 +409,10 @@ const CGPACalculator = () => {
               </Link>
             ))}
           </div>
+          </div>
+
+          {/* Bottom Ad */}
+          <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.BOTTOM_RECTANGLE} format="auto" className="mt-8" />
         </div>
       </div>
     </div>
