@@ -76,7 +76,7 @@ const AdScript: React.FC<AdScriptProps> = ({
     <Script
       id="google-ads-script"
       async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${publisherId}`}
       crossOrigin="anonymous"
       strategy="lazyOnload"
     />

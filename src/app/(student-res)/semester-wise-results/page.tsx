@@ -408,7 +408,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import AdBanner from "@/components/Adsense/AdBanner";
+import { ResponsiveAd, InContentAd } from "@/components/Adsense";
+import AD_SLOTS from "@/config/adSlots";
 
 interface Subject {
   subjectCode: string;
@@ -541,7 +542,7 @@ export default function SemesterResults() {
         </motion.div>
 
         {/* Top Ad Banner */}
-        <AdBanner adSlot="8973292958" adFormat="rectangle" className="my-4" />
+        <ResponsiveAd adSlot={AD_SLOTS.SEMESTER.TOP_BANNER} format="horizontal" className="my-4" />
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -613,7 +614,7 @@ export default function SemesterResults() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <AdBanner adSlot="8973292958" adFormat="rectangle" className="my-8" />
+            <InContentAd adSlot={AD_SLOTS.SEMESTER.INLINE_1} className="my-8" />
           </motion.div>
         )}
 
@@ -659,7 +660,7 @@ export default function SemesterResults() {
               </motion.div>
 
               {/* Ad Banner between student details and overview */}
-              <AdBanner adSlot="8973292958" adFormat="rectangle" className="my-4" />
+              <InContentAd adSlot={AD_SLOTS.SEMESTER.INLINE_2} className="my-4" />
 
               {/* Overall Performance Card */}
               <motion.div
@@ -817,7 +818,7 @@ export default function SemesterResults() {
               </motion.div>
 
               {/* Bottom Ad Banner */}
-              <AdBanner adSlot="8973292958" adFormat="rectangle" className="mt-8 mb-4" />
+              <ResponsiveAd adSlot={AD_SLOTS.SEMESTER.BOTTOM_BANNER} format="auto" className="mt-8 mb-4" />
             </motion.div>
           )}
         </AnimatePresence>
