@@ -5,27 +5,50 @@ const withPWA = withPWAInit({
   register: true,
   skipWaiting: true,
   disable: process.env.NODE_ENV === "development",
-  // disable:false
-  buildExcludes: [/middleware-manifest.json$/], // Exclude middleware manifest
+  buildExcludes: [/middleware-manifest.json$/],
+  // Cache optimization
+  runtimeCaching: [
+    {
+      urlPattern: /^https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/i,
+      handler: 'CacheFirst',
+      options: {
+        cacheName: 'google-fonts',
+        expiration: {
+          maxEntries: 10,
+          maxAgeSeconds: 365 * 24 * 60 * 60, // 1 year
+        },
+      },
+    },
+    {
+      urlPattern: /\.(?:jpg|jpeg|png|gif|webp|svg|ico)$/i,
+      handler: 'CacheFirst',
+      options: {
+        cacheName: 'static-images',
+        expiration: {
+          maxEntries: 100,
+          maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+        },
+      },
+    },
+  ],
 });
 
 /** @type {import('next').NextConfig} */
-
 const nextConfig = {
   reactStrictMode: true,
 
-  // Note: Use 'next lint' command with --no-eslint flag instead
-  // eslint config in next.config.js is no longer supported in Next.js 16
+  // Compression
+  compress: true,
 
+  // Optimize images
   images: {
-    // domains: [
-    //   "www.gstatic.com",
-    //   "images.unsplash.com",
-    //   "tailwindui.com",
-    //   "www.facebook.com",
-    //   "studentservices.jntuh.ac.in",
-    //   "pagead2.googlesyndication.com",
-    // ],
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
 
     remotePatterns: [
       {
@@ -54,22 +77,14 @@ const nextConfig = {
       },
     ],
   },
-  // Turbopack is now stable and default in Next.js 16
-  turbopack: {},
 
-  serverExternalPackages: ['googleapis', 'google-auth-library'],
-
-  webpack: (config, { isServer }) => {
-    // This webpack config will be used only when building with --webpack flag
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        punycode: false,
-      };
-    }
-    return config;
+  // Experimental features for better performance
+  experimental: {
+    optimizeCss: true,
+    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
   },
 
+  // Headers for better caching and security
   headers: async () => {
     return [
       {
@@ -79,11 +94,65 @@ const nextConfig = {
             key: "Service-Worker-Allowed",
             value: "/",
           },
+          {
+            key: "Cache-Control",
+            value: "public, max-age=0, must-revalidate",
+          },
+        ],
+      },
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: "X-DNS-Prefetch-Control",
+            value: "on",
+          },
+          {
+            key: "X-Frame-Options",
+            value: "SAMEORIGIN",
+          },
+          {
+            key: "X-Content-Type-Options",
+            value: "nosniff",
+          },
+          {
+            key: "Referrer-Policy",
+            value: "origin-when-cross-origin",
+          },
+        ],
+      },
+      {
+        source: "/fonts/(.*)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/_next/static/(.*)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
         ],
       },
     ];
   },
+
+  serverExternalPackages: ['googleapis', 'google-auth-library'],
+
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        punycode: false,
+      };
+    }
+    return config;
+  },
 };
 
-// module.exports = nextConfig;
 export default withPWA(nextConfig);

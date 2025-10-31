@@ -134,43 +134,43 @@ const cardsData: CardData[] = [
     title: "Consolidated Results",
     content: "Access All Your Semester Results in One Place",
     url: "consolidated-results",
-    icon: <FileText className="w-8 h-8 text-blue-500" />,
+    icon: <FileText className="w-8 h-8 text-[#1C61E7]" />,
   },
   {
     title: "View Semester-wise Results",
     content: "Access Results for Specific Semesters",
     url: "semester-wise-results",
-    icon: <BookOpen className="w-8 h-8 text-indigo-500" />,
+    icon: <BookOpen className="w-8 h-8 text-[#21C15E]" />,
   },
   {
     title: "Calculate Your CGPA",
     content: "Calculate Your Cumulative GPA and Detailed Result Performance",
     url: "cgpa-calculator",
-    icon: <Calculator className="w-8 h-8 text-purple-500" />,
+    icon: <Calculator className="w-8 h-8 text-[#1C61E7]" />,
   },
   {
     title: "CGPA to Percentage Converter",
     content: "Convert CGPA to percentage and calculate GPA easily.",
     url: "cgpa-percentage-converter",
-    icon: <RefreshCw className="w-8 h-8 text-green-500" />,
+    icon: <RefreshCw className="w-8 h-8 text-[#21C15E]" />,
   },
   {
     title: "Percentage to CGPA Calculator",
     content: "Convert percentage to CGPA quickly and accurately.",
     url: "percentage-to-cgpa-calculator",
-    icon: <Percent className="w-8 h-8 text-cyan-500" />,
+    icon: <Percent className="w-8 h-8 text-[#1C61E7]" />,
   },
   {
     title: "Credit Eligibility Check",
     content: "Verify Your Eligibility for Course Credits Here",
     url: "credit-eligibility-check",
-    icon: <CheckCircle className="w-8 h-8 text-teal-500" />,
+    icon: <CheckCircle className="w-8 h-8 text-[#21C15E]" />,
   },
   {
     title: "Compare Performance",
     content: "Compare Your Overall Performance with Classmates",
     url: "compare-performance",
-    icon: <BarChart2 className="w-8 h-8 text-amber-500" />,
+    icon: <BarChart2 className="w-8 h-8 text-[#1C61E7]" />,
   },
   {
     title: "Check Backlogs",
@@ -182,25 +182,25 @@ const cardsData: CardData[] = [
     title: "Syllabus",
     content: "Access the syllabus for each course or semester to plan your studies.",
     url: "/syllabus",
-    icon: <BookOpen className="w-8 h-8 text-blue-500" />,
+    icon: <BookOpen className="w-8 h-8 text-[#21C15E]" />,
   },
   {
     title: "Previous Question Papers",
     content: "Download or view previous years' question papers to help with exam preparation.",
     url: "/previous-question-papers",
-    icon: <FileQuestion className="w-8 h-8 text-purple-500" />,
+    icon: <FileQuestion className="w-8 h-8 text-[#1C61E7]" />,
   },
   {
     title: "Marks Percentage Calculator",
     content: "Calculate your percentage based on marks obtained.",
     url: "/marks-percentage-calculator",
-    icon: <Calculator className="w-8 h-8 text-green-500" />,
+    icon: <Calculator className="w-8 h-8 text-[#21C15E]" />,
   },
   {
     title: "SGPA to CGPA Calculator",
     content: "Convert your SGPA to CGPA easily and accurately.",
     url: "/sgpa-to-cgpa-calculator",
-    icon: <RefreshCw className="w-8 h-8 text-indigo-500" />,
+    icon: <RefreshCw className="w-8 h-8 text-[#1C61E7]" />,
   },
 ];
 
@@ -292,10 +292,10 @@ const ResultsBox: React.FC = () => {
               <button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 transform hover:scale-105 ${
+                className={`px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-300 transform hover:scale-105 ${
                   activeCategory === category.id
-                    ? "bg-[#1C61E7] text-white shadow-lg"
-                    : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-md"
+                    ? "bg-[#1C61E7] text-white shadow-lg shadow-[#1C61E7]/25"
+                    : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-[#1C61E7]/5 dark:hover:bg-[#1C61E7]/10 hover:text-[#1C61E7] border-2 border-gray-200 dark:border-gray-700"
                 }`}
                 style={{ animationDelay: `${index * 50}ms` }}
               >
@@ -345,7 +345,7 @@ const ResultsBox: React.FC = () => {
                 setSearchTerm('');
                 setActiveCategory('all');
               }}
-              className="mt-4 px-4 py-2 bg-[#1C61E7] text-white rounded-lg hover:bg-[#1C61E7]/90 transition-colors"
+              className="mt-6 px-6 py-3 bg-[#1C61E7] text-white rounded-xl hover:bg-[#1C61E7]/90 transition-all font-semibold shadow-lg shadow-[#1C61E7]/25 hover:scale-105"
             >
               Clear Filters
             </button>

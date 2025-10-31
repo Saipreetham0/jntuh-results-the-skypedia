@@ -1,83 +1,161 @@
-import { MetadataRoute } from "next";
+import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = 'https://jntuhresults.theskypedia.com';
+  const currentDate = new Date();
+
   return [
+    // Homepage - Highest priority
     {
-      url: "https://jntuhresults.theskypedia.com",
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 1,
+      url: baseUrl,
+      lastModified: currentDate,
+      changeFrequency: 'daily',
+      priority: 1.0,
+    },
+
+    // Main Result Pages - Very High Priority
+    {
+      url: `${baseUrl}/consolidated-results`,
+      lastModified: currentDate,
+      changeFrequency: 'daily',
+      priority: 0.9,
     },
     {
-      url: "https://jntuhresults.theskypedia.com/about",
-      lastModified: new Date(),
-      changeFrequency: "monthly",
+      url: `${baseUrl}/semester-wise-results`,
+      lastModified: currentDate,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/check-backlogs`,
+      lastModified: currentDate,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+
+    // Calculator Pages - High Priority (Main Money Keywords)
+    {
+      url: `${baseUrl}/cgpa-calculator`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/cgpa-percentage-converter`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/sgpa-to-cgpa-calculator`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/percentage-to-cgpa-calculator`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/marks-percentage-calculator`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+
+    // Academic Resources - High Priority
+    {
+      url: `${baseUrl}/previous-question-papers`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
-      url: "https://jntuhresults.theskypedia.com/blog",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.5,
+      url: `${baseUrl}/syllabus`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.8,
     },
     {
-      url: "https://jntuhresults.theskypedia.com/cgpa-calculator",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.5,
+      url: `${baseUrl}/calendar`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+
+    // Information Pages - Medium Priority
+    {
+      url: `${baseUrl}/btech-colleges-tg`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.7,
     },
     {
-      url: "https://jntuhresults.theskypedia.com/btech-colleges-tg",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.5,
+      url: `${baseUrl}/faq`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.7,
     },
     {
-      url: "https://jntuhresults.theskypedia.com/faq",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.5,
+      url: `${baseUrl}/about-us`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.6,
     },
     {
-      url: "https://jntuhresults.theskypedia.com/login",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.5,
+      url: `${baseUrl}/contact`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+
+    // Blog - Medium Priority
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
+
+    // User Features - Lower Priority
+    {
+      url: `${baseUrl}/login`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.3,
     },
     {
-      url: "https://jntuhresults.theskypedia.com/syllabus",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.5,
+      url: `${baseUrl}/signup`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.3,
     },
     {
-      url: "https://jntuhresults.theskypedia.com/cgpa-percentage-converter",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.5,
+      url: `${baseUrl}/dashboard`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.3,
+    },
+
+    // Additional Tools
+    {
+      url: `${baseUrl}/compare-performance`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.6,
     },
     {
-      url: "https://jntuhresults.theskypedia.com/percentage-to-cgpa-calculator",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.5,
+      url: `${baseUrl}/credit-eligibility-check`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.6,
     },
     {
-      url: "https://jntuhresults.theskypedia.com/previous-question-papers",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.5,
-    },
-    {
-      url: "https://jntuhresults.theskypedia.com/marks-percentage-calculator",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.5,
-    },
-    {
-      url: "https://jntuhresults.theskypedia.com/sgpa-to-cgpa-calculator",
-      lastModified: new Date(),
-      changeFrequency: "weekly",
+      url: `${baseUrl}/notifications`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
       priority: 0.5,
     },
   ];
