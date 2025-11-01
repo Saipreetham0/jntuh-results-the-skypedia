@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -11,6 +13,7 @@ import {
 } from "@/components/ui/select";
 import { ResponsiveAd, InContentAd, StickyAd } from "@/components/Adsense";
 import AD_SLOTS from "@/config/adSlots";
+import { Calculator, Trophy, TrendingUp, AlertCircle } from "lucide-react";
 
 interface CalculationResult {
   percentage: number;
@@ -101,7 +104,7 @@ export default function PercentageToCGPACalculator() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-200">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-200">
       <div className="max-w-3xl mx-auto relative">
         {/* Sticky Sidebar Ad - Desktop Only */}
         <div className="hidden lg:block absolute -right-32 top-0 w-32">
@@ -109,144 +112,175 @@ export default function PercentageToCGPACalculator() {
         </div>
 
         <div className="max-w-3xl mx-auto">
-          <div className="flex flex-col gap-4 mb-8">
-          <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white text-center">
-            Percentage to CGPA Calculator
-          </h1>
-          <p className="text-center text-gray-600 dark:text-gray-400">
-            Convert your percentage to CGPA across different grading scales
-          </p>
+          {/* Header Section */}
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center justify-center mb-4 p-5 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border-2 border-gray-100 dark:border-gray-700">
+              <div className="w-14 h-14 rounded-xl bg-[#1C61E7] flex items-center justify-center mr-4 shadow-md">
+                <Calculator className="w-7 h-7 text-white" />
+              </div>
+              <div className="text-left">
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white leading-tight">
+                  CGPA Calculator
+                </h1>
+                <p className="text-sm text-[#1C61E7] font-semibold mt-0.5">Percentage to CGPA</p>
+              </div>
+            </div>
+            <p className="text-gray-600 dark:text-gray-300 text-base max-w-2xl mx-auto">
+              Convert your percentage to CGPA across different grading scales
+            </p>
           </div>
 
           {/* Top Ad Banner */}
           <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.TOP_BANNER} format="horizontal" className="mb-8" />
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Calculate Your CGPA</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Select Target CGPA Scale
-                </label>
-                <Select
-                  value={scale}
-                  onValueChange={(value) => {
-                    setScale(value);
-                    handleReset();
-                  }}
-                >
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select scale" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="4.0">4.0 Scale</SelectItem>
-                    <SelectItem value="5.0">5.0 Scale</SelectItem>
-                    <SelectItem value="10.0">10.0 Scale</SelectItem>
-                  </SelectContent>
-                </Select>
+          {/* Calculator Card */}
+          <Card className="shadow-xl border-l-4 border-l-[#1C61E7] rounded-xl overflow-hidden">
+            <CardHeader className="bg-gray-50 dark:bg-gray-800/50 border-b-2 border-gray-200 dark:border-gray-700 pb-6">
+              <div className="flex items-center gap-3">
+                <div className="p-3 bg-[#1C61E7] rounded-lg shadow-md">
+                  <Calculator className="w-6 h-6 text-white" />
+                </div>
+                <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">
+                  Calculate Your CGPA
+                </CardTitle>
               </div>
+            </CardHeader>
+            <CardContent className="pt-6">
+              <div className="space-y-5">
+                <div>
+                  <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 uppercase tracking-wide">
+                    Select Target CGPA Scale
+                  </label>
+                  <Select
+                    value={scale}
+                    onValueChange={(value) => {
+                      setScale(value);
+                      handleReset();
+                    }}
+                  >
+                    <SelectTrigger className="h-12 text-base font-semibold border-2 focus:border-[#1C61E7] focus:ring-2 focus:ring-[#1C61E7]/20">
+                      <SelectValue placeholder="Select scale" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="4.0">4.0 Scale</SelectItem>
+                      <SelectItem value="5.0">5.0 Scale</SelectItem>
+                      <SelectItem value="10.0">10.0 Scale</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
 
-              <div>
-                <label
-                  htmlFor="percentage"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-                >
-                  Percentage (0-100)
-                </label>
-                <div className="relative rounded-md shadow-sm">
-                  <input
-                    type="number"
-                    id="percentage"
-                    value={percentage}
-                    onChange={(e) => setPercentage(e.target.value)}
-                    step="0.01"
-                    min="0"
-                    max="100"
-                    className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm pr-12"
-                    placeholder="Enter your percentage (e.g., 85.5)"
-                  />
-                  <div className="absolute inset-y-0 right-0 flex items-center pr-3 mt-1 pointer-events-none">
-                    <span className="text-gray-500 dark:text-gray-400 sm:text-sm">
-                      %
-                    </span>
+                <div>
+                  <label
+                    htmlFor="percentage"
+                    className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 uppercase tracking-wide"
+                  >
+                    Percentage (0-100)
+                  </label>
+                  <div className="relative">
+                    <Input
+                      type="number"
+                      id="percentage"
+                      value={percentage}
+                      onChange={(e) => setPercentage(e.target.value)}
+                      step="0.01"
+                      min="0"
+                      max="100"
+                      placeholder="Enter your percentage (e.g., 85.5)"
+                      className="h-12 text-base font-semibold border-2 focus:border-[#1C61E7] focus:ring-2 focus:ring-[#1C61E7]/20 pr-12"
+                    />
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+                      <span className="text-gray-500 dark:text-gray-400 text-base font-semibold">
+                        %
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {warning && (
-                <Alert variant="destructive">
-                  <AlertDescription>{warning}</AlertDescription>
-                </Alert>
-              )}
+                {warning && (
+                  <Alert variant="destructive" className="border-2">
+                    <AlertCircle className="h-5 w-5" />
+                    <AlertDescription className="font-semibold">{warning}</AlertDescription>
+                  </Alert>
+                )}
 
-              <div className="flex gap-3">
-                <button
-                  onClick={handleSubmit}
-                  disabled={loading}
-                  className={`flex-1 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
-                    loading
-                      ? "bg-indigo-400 dark:bg-indigo-500"
-                      : "bg-indigo-600 dark:bg-indigo-500 hover:bg-indigo-700 dark:hover:bg-indigo-600"
-                  } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
-                >
-                  {loading ? "Calculating..." : "Calculate"}
-                </button>
-                <button
-                  onClick={handleReset}
-                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  Reset
-                </button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {result && (
-          <Card className="mt-8">
-            <CardHeader>
-              <CardTitle>Your Results</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                  <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                    Percentage
-                  </h3>
-                  <p className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">
-                    {result.percentage.toFixed(2)}%
-                  </p>
-                </div>
-                <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                  <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                    CGPA ({scale} scale)
-                  </h3>
-                  <p className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">
-                    {result.cgpa.toFixed(2)}
-                  </p>
-                </div>
-                <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                  <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                    Grade
-                  </h3>
-                  <p className="mt-1 text-2xl font-semibold text-gray-900 dark:text-white">
-                    {result.grade}
-                  </p>
-                </div>
-                <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                  <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                    Remarks
-                  </h3>
-                  <p className="mt-1 text-lg font-medium text-gray-900 dark:text-white">
-                    {result.remarks}
-                  </p>
+                <div className="flex gap-3 pt-2">
+                  <Button
+                    onClick={handleSubmit}
+                    disabled={loading}
+                    className="flex-1 h-12 bg-[#1C61E7] hover:bg-[#1C61E7]/90 text-white font-bold text-base shadow-lg hover:shadow-xl transition-all"
+                  >
+                    {loading ? "Calculating..." : "Calculate"}
+                  </Button>
+                  <Button
+                    onClick={handleReset}
+                    variant="outline"
+                    className="h-12 px-8 border-2 border-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 font-semibold"
+                  >
+                    Reset
+                  </Button>
                 </div>
               </div>
             </CardContent>
           </Card>
+
+          {result && (
+            <Card className="mt-8 shadow-xl border-l-4 border-l-[#21C15E] rounded-xl overflow-hidden animate-fade-in">
+              <CardHeader className="bg-gray-50 dark:bg-gray-800/50 border-b-2 border-gray-200 dark:border-gray-700 pb-6">
+                <div className="flex items-center gap-3">
+                  <div className="p-3 bg-[#21C15E] rounded-lg shadow-md">
+                    <Trophy className="w-6 h-6 text-white" />
+                  </div>
+                  <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">
+                    Your Results
+                  </CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent className="pt-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div className="bg-blue-50 dark:bg-blue-900/20 p-5 rounded-xl border-2 border-blue-200 dark:border-blue-800 shadow-md">
+                    <div className="flex items-center gap-2 mb-2">
+                      <TrendingUp className="w-4 h-4 text-[#1C61E7]" />
+                      <h3 className="text-xs font-bold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
+                        Percentage
+                      </h3>
+                    </div>
+                    <p className="text-4xl font-bold text-[#1C61E7]">
+                      {result.percentage.toFixed(2)}%
+                    </p>
+                  </div>
+                  <div className="bg-green-50 dark:bg-green-900/20 p-5 rounded-xl border-2 border-green-200 dark:border-green-800 shadow-md">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Calculator className="w-4 h-4 text-[#21C15E]" />
+                      <h3 className="text-xs font-bold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
+                        CGPA ({scale} scale)
+                      </h3>
+                    </div>
+                    <p className="text-4xl font-bold text-[#21C15E]">
+                      {result.cgpa.toFixed(2)}
+                    </p>
+                  </div>
+                  <div className="bg-white dark:bg-gray-800 p-5 rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-md">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Trophy className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                      <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                        Grade
+                      </h3>
+                    </div>
+                    <p className="text-4xl font-bold text-gray-900 dark:text-white">
+                      {result.grade}
+                    </p>
+                  </div>
+                  <div className="bg-gray-50 dark:bg-gray-800/50 p-5 rounded-xl border-2 border-gray-200 dark:border-gray-700 shadow-md">
+                    <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
+                      Performance Remarks
+                    </h3>
+                    <p className="text-xl font-bold text-gray-900 dark:text-white">
+                      {result.remarks}
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           )}
 
           {/* Mid Ad */}

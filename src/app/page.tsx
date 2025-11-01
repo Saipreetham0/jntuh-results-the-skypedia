@@ -9,33 +9,39 @@ import type { JSX } from "react";
 
 export default function Home(): JSX.Element {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Hero Section */}
       <Hero />
 
       {/* Top Ad Banner */}
-      <ResponsiveAd adSlot={AD_SLOTS.HOMEPAGE.TOP_BANNER} format="horizontal" className="my-6" />
+      <div className="container mx-auto px-4">
+        <ResponsiveAd adSlot={AD_SLOTS.HOMEPAGE.TOP_BANNER} format="horizontal" className="my-8" />
+      </div>
 
       {/* Divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-700 to-transparent"></div>
+      <div className="h-px bg-gray-200 dark:bg-gray-700"></div>
 
       {/* Results/Resources Section */}
       <ResultsBox />
 
       {/* Mid Ad Rectangle */}
-      <InContentAd adSlot={AD_SLOTS.HOMEPAGE.MID_RECTANGLE} className="my-8" />
+      <div className="container mx-auto px-4">
+        <InContentAd adSlot={AD_SLOTS.HOMEPAGE.MID_RECTANGLE} className="my-8" />
+      </div>
 
       {/* Divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-700 to-transparent"></div>
+      <div className="h-px bg-gray-200 dark:bg-gray-700"></div>
 
       {/* Blog Section */}
       <HomepageBlog />
 
       {/* Divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-700 to-transparent"></div>
+      <div className="h-px bg-gray-200 dark:bg-gray-700"></div>
 
       {/* Bottom Ad Banner */}
-      <ResponsiveAd adSlot={AD_SLOTS.HOMEPAGE.BOTTOM_BANNER} format="auto" className="my-6" />
+      <div className="container mx-auto px-4">
+        <ResponsiveAd adSlot={AD_SLOTS.HOMEPAGE.BOTTOM_BANNER} format="auto" className="my-8" />
+      </div>
     </main>
   );
 }

@@ -217,18 +217,23 @@ const ResultsSearch = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 transition-colors duration-300">
-      <div className="container mx-auto px-4 max-w-2xl">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 transition-colors duration-300">
+      <div className="container mx-auto px-4 max-w-3xl">
         {/* Header Section */}
-        <div className="text-center space-y-3 mb-8">
-          <div className="inline-flex items-center justify-center mb-2">
-            <GraduationCap className="w-8 h-8 text-indigo-600 dark:text-indigo-400 mr-2" />
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-              JNTUH <span className="text-indigo-600 dark:text-indigo-400">Results</span>
-            </h1>
+        <div className="text-center space-y-4 mb-10 animate-fade-in">
+          <div className="inline-flex items-center justify-center mb-4 p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border-2 border-gray-100 dark:border-gray-700">
+            <div className="w-16 h-16 rounded-xl bg-[#1C61E7] flex items-center justify-center mr-4 shadow-lg">
+              <GraduationCap className="w-8 h-8 text-white" />
+            </div>
+            <div className="text-left">
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white leading-tight">
+                Consolidated Results
+              </h1>
+              <p className="text-sm text-[#1C61E7] dark:text-[#1C61E7] font-semibold mt-0.5">JNTUH Results Portal</p>
+            </div>
           </div>
-          <p className="text-gray-600 dark:text-gray-300 text-lg">
-            Check your consolidated academic results
+          <p className="text-gray-600 dark:text-gray-300 text-base font-medium max-w-2xl mx-auto">
+            Access your complete academic performance with detailed semester-wise breakdown
           </p>
         </div>
 
@@ -240,27 +245,37 @@ const ResultsSearch = () => {
         />
 
         {/* Search Card */}
-        <Card className="shadow-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 rounded-lg">
-          <CardHeader>
-            <CardTitle className="text-xl font-bold text-gray-800 dark:text-gray-100">
-              Consolidated Results
-            </CardTitle>
-            <CardDescription className="text-gray-500 dark:text-gray-400">
-              Enter your hall ticket number to view your complete results
-            </CardDescription>
+        <Card className="shadow-xl border-l-4 border-l-[#1C61E7] bg-white dark:bg-gray-800 rounded-xl overflow-hidden animate-slide-up">
+          <CardHeader className="bg-gray-50 dark:bg-gray-800/50 border-b-2 border-gray-200 dark:border-gray-700 pb-6 pt-8">
+            <div className="flex items-center gap-4 mb-2">
+              <div className="p-4 bg-[#1C61E7] rounded-xl shadow-lg">
+                <Search className="w-7 h-7 text-white" />
+              </div>
+              <div>
+                <CardTitle className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+                  Find Your Results
+                </CardTitle>
+                <CardDescription className="text-gray-600 dark:text-gray-400 text-base mt-1.5 font-medium">
+                  Enter your hall ticket number to view consolidated results
+                </CardDescription>
+              </div>
+            </div>
           </CardHeader>
 
-          <CardContent>
-            <form onSubmit={handleSearch} className="space-y-4">
-              <div className="space-y-2">
+          <CardContent className="pt-8 pb-6">
+            <form onSubmit={handleSearch} className="space-y-5">
+              <div className="space-y-3">
                 <label
                   htmlFor="hallTicket"
-                  className="text-sm font-medium text-gray-700 dark:text-gray-300"
+                  className="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide"
                 >
                   Hall Ticket Number
                 </label>
-                <div className="flex space-x-2">
+                <div className="flex flex-col sm:flex-row gap-3">
                   <div className="relative flex-1">
+                    <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                      <Search size={22} />
+                    </div>
                     <Input
                       id="hallTicket"
                       type="text"
@@ -269,51 +284,54 @@ const ResultsSearch = () => {
                         setHallTicket(e.target.value.toUpperCase());
                         setError('');
                       }}
-                      placeholder="Enter hall ticket number..."
-                      className="pl-10 uppercase bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600"
+                      placeholder="Enter Hall Ticket Number"
+                      className="pl-12 uppercase bg-white dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 focus:border-[#1C61E7] focus:ring-4 focus:ring-[#1C61E7]/20 h-14 text-lg font-bold rounded-xl shadow-md transition-all"
                       maxLength={10}
-                    />
-                    <Search
-                      className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                      size={18}
                     />
                   </div>
                   <Button
                     type="submit"
                     disabled={isLoading}
-                    className="bg-indigo-600 hover:bg-indigo-700 text-white"
+                    className="bg-[#1C61E7] hover:bg-[#1C61E7]/90 text-white h-14 px-10 font-bold text-base rounded-xl shadow-xl hover:shadow-2xl transition-all duration-200 w-full sm:w-auto"
                   >
                     {isLoading ? (
                       <span className="flex items-center gap-2">
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                        <span>Searching</span>
+                        <Loader2 className="h-5 w-5 animate-spin" />
+                        <span>Searching...</span>
                       </span>
                     ) : (
-                      'Search'
+                      <span className="flex items-center gap-2">
+                        <Search className="h-5 w-5" />
+                        <span>Search</span>
+                      </span>
                     )}
                   </Button>
                 </div>
 
                 {error && (
-                  <Alert variant="destructive" className="mt-2">
-                    <AlertCircle className="h-4 w-4" />
-                    <AlertDescription>{error}</AlertDescription>
+                  <Alert variant="destructive" className="mt-3 border-2">
+                    <AlertCircle className="h-5 w-5" />
+                    <AlertDescription className="font-semibold">{error}</AlertDescription>
                   </Alert>
                 )}
               </div>
             </form>
           </CardContent>
 
-          <CardFooter className="bg-gray-50 dark:bg-gray-700/50 border-t border-gray-200 dark:border-gray-700 px-6 py-4">
-            <div className="w-full">
-              <div className="text-sm text-gray-600 dark:text-gray-300">
-                <p className="font-medium mb-1">Example Format:</p>
-                <div className="bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 px-3 py-2 font-mono">
-                20J25A0201
+          <CardFooter className="bg-gray-50 dark:bg-gray-800/50 border-t-2 border-gray-200 dark:border-gray-700 px-8 py-7">
+            <div className="w-full space-y-5">
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-2 h-2 rounded-full bg-[#1C61E7]"></div>
+                  <p className="font-bold text-gray-700 dark:text-gray-200 text-sm uppercase tracking-wide">Example Format</p>
                 </div>
-                {/* <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                  Format: YY[Branch Code]YYAXXX where YY = Year, A = College Code, XXX = Number
-                </p> */}
+                <div className="bg-white dark:bg-gray-700 rounded-xl border-2 border-[#1C61E7] px-6 py-4 font-mono text-2xl font-bold text-[#1C61E7] dark:text-[#1C61E7] shadow-lg text-center">
+                  20J25A0201
+                </div>
+              </div>
+              <div className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400 bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 border border-blue-100 dark:border-blue-800">
+                <AlertCircle className="h-5 w-5 mt-0.5 text-[#1C61E7] flex-shrink-0" />
+                <p className="font-medium">Enter your 10-digit JNTUH hall ticket number exactly as it appears on your admit card</p>
               </div>
             </div>
           </CardFooter>

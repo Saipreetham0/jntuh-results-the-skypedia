@@ -23,8 +23,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle, Search, Download, Printer, Calendar, School, RefreshCw } from "lucide-react";
-import AdBanner from "@/components/Adsense/AdBanner";
+import { AlertCircle, Search, Download, Printer, Calendar, School, RefreshCw, GraduationCap, Trophy, XCircle } from "lucide-react";
+import { ResponsiveAd, InContentAd } from "@/components/Adsense";
+import AD_SLOTS from "@/config/adSlots";
 
 // Site domain constant
 const SITE_DOMAIN = "https://jntuhresults.theskypedia.com";
@@ -81,12 +82,12 @@ interface BacklogsResponse {
 
 const LoadingState = () => (
   <div className="space-y-6">
-    <div className="text-center p-8 animate-pulse">
-      <div className="h-8 bg-gray-200 rounded w-64 mx-auto mb-4"></div>
-      <div className="h-4 bg-gray-200 rounded w-48 mx-auto"></div>
+    <div className="text-center p-8">
+      <div className="animate-spin w-16 h-16 border-4 border-[#1C61E7] border-t-transparent rounded-full mx-auto mb-4"></div>
+      <p className="text-lg font-semibold text-gray-700">Checking backlogs...</p>
+      <p className="text-sm text-gray-500 mt-2">Please wait while we fetch your results</p>
     </div>
-    <p className="text-center">Checking backlogs...</p>
-    <AdBanner adSlot="8973292958" adFormat="rectangle" className="my-4" />
+    <ResponsiveAd adSlot={AD_SLOTS.RESULTS.INLINE_1} format="horizontal" className="my-4" />
   </div>
 );
 
@@ -644,20 +645,35 @@ const downloadResults = async () => {
       <PrintStyles />
       <div className="max-w-4xl mx-auto p-4 print-container">
         {/* Header */}
-        <div className="text-center mb-8 print-header">
-          <h1 className="text-2xl font-bold mb-2">JNTUH Backlogs Checker</h1>
-          <p className="text-gray-600">Check your current backlogs status</p>
+        <div className="text-center mb-10 print-header animate-fade-in">
+          <div className="inline-flex items-center justify-center mb-4 p-5 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border-2 border-gray-100 dark:border-gray-700">
+            <div className="w-16 h-16 rounded-xl bg-[#1C61E7] flex items-center justify-center mr-4 shadow-md">
+              <GraduationCap className="w-8 h-8 text-white" />
+            </div>
+            <div className="text-left">
+              <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-1">
+                Backlogs Checker
+              </h1>
+              <p className="text-sm text-[#1C61E7] font-semibold">JNTUH Results Portal</p>
+            </div>
+          </div>
+          <p className="text-gray-600 dark:text-gray-300 text-base">Check your current backlogs status instantly</p>
         </div>
 
         {/* Search Form - Hide in print */}
-        <Card className="mb-8 print-hide">
-          <CardHeader>
-            <CardTitle>Enter Roll Number</CardTitle>
-            <CardDescription>
-              Enter your JNTUH hall ticket number to check backlogs
+        <Card className="mb-8 print-hide shadow-xl border-l-4 border-l-[#1C61E7] rounded-xl overflow-hidden animate-slide-up">
+          <CardHeader className="bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700 pb-6">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-3 bg-[#1C61E7] rounded-lg shadow-md">
+                <Search className="w-6 h-6 text-white" />
+              </div>
+              <CardTitle className="text-2xl text-gray-900 dark:text-white">Enter Hall Ticket Number</CardTitle>
+            </div>
+            <CardDescription className="text-base">
+              Enter your JNTUH hall ticket number to check your backlog status
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-6">
             <form onSubmit={fetchBacklogs} className="flex space-x-2">
               <div className="flex-1">
                 <Input
@@ -665,19 +681,23 @@ const downloadResults = async () => {
                   placeholder="e.g., 20J25A0501"
                   value={rollNumber}
                   onChange={(e) => setRollNumber(e.target.value)}
-                  className="uppercase"
+                  className="uppercase h-12 text-lg font-medium border-2 focus:border-[#1C61E7] focus:ring-2 focus:ring-[#1C61E7]/20"
                 />
               </div>
-              <Button type="submit" disabled={loading}>
+              <Button
+                type="submit"
+                disabled={loading}
+                className="bg-[#1C61E7] hover:bg-[#1C61E7]/90 text-white h-12 px-8 font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
+              >
                 {loading ? (
                   <>
-                    <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                    <RefreshCw className="h-5 w-5 mr-2 animate-spin" />
                     Checking...
                   </>
                 ) : (
                   <>
-                    <Search className="h-4 w-4 mr-2" />
-                    Check
+                    <Search className="h-5 w-5 mr-2" />
+                    Check Backlogs
                   </>
                 )}
               </Button>
@@ -687,7 +707,7 @@ const downloadResults = async () => {
 
         {/* Top Ad Banner - Hide in print */}
         <div className="print-hide">
-          <AdBanner adSlot="8973292958" adFormat="horizontal" className="mb-6" />
+          <ResponsiveAd adSlot={AD_SLOTS.RESULTS.TOP_BANNER} format="horizontal" className="mb-6" />
         </div>
 
         {/* Error Message - Hide in print */}
@@ -710,39 +730,71 @@ const downloadResults = async () => {
             </div>
 
             {/* Student Details Card */}
-            <Card className="mb-6 print-break-inside-avoid">
-              <CardHeader>
-                <div className="flex justify-between items-center flex-wrap">
-                  <CardTitle>{backlogsData.details.name}</CardTitle>
-                  <span className="text-lg font-semibold text-red-600">
-                    {backlogsData.results.totalBacklogs} Total Backlogs
-                  </span>
-                </div>
-                <CardDescription>
-                  Roll Number: {backlogsData.details.rollNumber} | College Code: {backlogsData.details.collegeCode}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                  <div className="flex items-center">
-                    <School className="h-4 w-4 mr-2 text-gray-500" />
-                    <span className="font-medium mr-2">Father's Name:</span>
-                    {backlogsData.details.fatherName}
+            <Card className="mb-6 print-break-inside-avoid border-l-4 border-l-[#1C61E7] shadow-xl overflow-hidden">
+              <CardHeader className="bg-white dark:bg-gray-800 border-b-2 border-gray-200 dark:border-gray-700 pb-6">
+                <div className="flex justify-between items-start flex-wrap gap-4">
+                  <div className="flex items-center gap-4">
+                    <div className="p-4 bg-[#1C61E7]/10 rounded-xl border-2 border-[#1C61E7]/20">
+                      <GraduationCap className="h-8 w-8 text-[#1C61E7]" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-2xl text-gray-900 dark:text-white">{backlogsData.details.name}</CardTitle>
+                      <CardDescription className="mt-1 text-base">
+                        Roll Number: <span className="font-semibold text-gray-700 dark:text-gray-300">{backlogsData.details.rollNumber}</span> | College: <span className="font-semibold text-gray-700 dark:text-gray-300">{backlogsData.details.collegeCode}</span>
+                      </CardDescription>
+                    </div>
                   </div>
-                  <div className="flex items-center">
-                    <Calendar className="h-4 w-4 mr-2 text-gray-500" />
-                    <span className="font-medium mr-2">Report Date:</span>
-                    {new Date().toLocaleDateString()}
+                  <div className={`px-6 py-4 rounded-xl border-2 shadow-lg ${
+                    backlogsData.results.totalBacklogs > 0
+                      ? 'bg-red-50 border-red-200 dark:bg-red-900/20 dark:border-red-800'
+                      : 'bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-800'
+                  }`}>
+                    <div className="flex items-center gap-3">
+                      {backlogsData.results.totalBacklogs > 0 ? (
+                        <XCircle className="h-6 w-6 text-red-600 dark:text-red-400" />
+                      ) : (
+                        <Trophy className="h-6 w-6 text-green-600 dark:text-green-400" />
+                      )}
+                      <div>
+                        <p className={`text-3xl font-bold ${
+                          backlogsData.results.totalBacklogs > 0
+                            ? 'text-red-600 dark:text-red-400'
+                            : 'text-green-600 dark:text-green-400'
+                        }`}>{backlogsData.results.totalBacklogs}</p>
+                        <p className="text-xs text-gray-600 dark:text-gray-400 font-medium">Total Backlogs</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="pt-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                  <div className="flex items-center p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                    <School className="h-5 w-5 mr-3 text-[#1C61E7]" />
+                    <span className="font-medium mr-2 text-gray-600 dark:text-gray-400">Father's Name:</span>
+                    <span className="text-gray-900 dark:text-white font-semibold">{backlogsData.details.fatherName}</span>
+                  </div>
+                  <div className="flex items-center p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
+                    <Calendar className="h-5 w-5 mr-3 text-[#1C61E7]" />
+                    <span className="font-medium mr-2 text-gray-600 dark:text-gray-400">Report Date:</span>
+                    <span className="text-gray-900 dark:text-white font-semibold">{new Date().toLocaleDateString()}</span>
                   </div>
                 </div>
               </CardContent>
-              <CardFooter className="bg-gray-50 border-t print-hide">
-                <div className="flex flex-wrap gap-2">
-                  <Button variant="outline" size="sm" onClick={printResults}>
+              <CardFooter className="bg-gray-50 dark:bg-gray-800/50 border-t border-gray-200 dark:border-gray-700 print-hide">
+                <div className="flex flex-wrap gap-3">
+                  <Button
+                    onClick={printResults}
+                    className="bg-[#1C61E7] hover:bg-[#1C61E7]/90 text-white shadow-lg hover:shadow-xl transition-all"
+                  >
                     <Printer className="h-4 w-4 mr-2" />
-                    Print
+                    Print Results
                   </Button>
-                  <Button variant="outline" size="sm" onClick={downloadResults}>
+                  <Button
+                    onClick={downloadResults}
+                    variant="outline"
+                    className="border-2 border-[#21C15E] text-[#21C15E] hover:bg-[#21C15E] hover:text-white shadow-lg hover:shadow-xl transition-all"
+                  >
                     <Download className="h-4 w-4 mr-2" />
                     Download PDF
                   </Button>
@@ -752,22 +804,23 @@ const downloadResults = async () => {
 
             {/* Semesters with Backlogs */}
             <div className="space-y-4">
-              <h2 className="text-xl font-semibold">Semester Backlogs</h2>
+              <div className="flex items-center gap-3 mb-4 pb-3 border-b-2 border-[#1C61E7]">
+                <div className="w-1.5 h-7 bg-[#1C61E7] rounded-full"></div>
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Semester Backlogs</h2>
+              </div>
 
               {backlogsData.results.semesters.length > 0 ? (
                 backlogsData.results.semesters.map((semester) => (
                   <SemesterBacklogsCard key={semester.semester} semesterData={semester} />
                 ))
               ) : (
-                <Card className="p-8 text-center">
+                <Card className="p-10 text-center border-2 border-[#21C15E] bg-green-50 dark:bg-green-900/20 shadow-xl">
                   <div className="flex flex-col items-center justify-center">
-                    <div className="text-green-500 mb-4">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
+                    <div className="w-24 h-24 rounded-2xl bg-[#21C15E] flex items-center justify-center mb-5 shadow-lg">
+                      <Trophy className="h-12 w-12 text-white" />
                     </div>
-                    <h3 className="text-xl font-medium text-gray-900 mb-2">No Backlogs Found</h3>
-                    <p className="text-gray-600">Congratulations! You have no pending backlogs.</p>
+                    <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">No Backlogs Found!</h3>
+                    <p className="text-gray-700 dark:text-gray-300 text-lg font-medium">Congratulations! You have no pending backlogs.</p>
                   </div>
                 </Card>
               )}
@@ -787,7 +840,7 @@ const downloadResults = async () => {
 
         {/* Bottom Ad Banner - Hide in print */}
         <div className="print-hide">
-          <AdBanner adSlot="8973292958" adFormat="horizontal" className="mt-8" />
+          <InContentAd adSlot={AD_SLOTS.RESULTS.BOTTOM_BANNER} className="mt-8" />
         </div>
       </div>
     </>

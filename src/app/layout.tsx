@@ -254,16 +254,16 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex flex-col min-h-screen">
+          <div className="flex flex-col min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
             <AnnouncementBar
               message="🚀 NEW: Check your Backlogs & Consolidated Results now available!"
               link="/check-backlogs"
-              bgColor="bg-blue-600"
+              bgColor="bg-[#1C61E7]"
               textColor="text-white"
               isDismissible={true}
             />
             <Navbar />
-            <main className="flex-grow">{children}</main>
+            <main className="flex-grow bg-gray-50 dark:bg-gray-900">{children}</main>
             <Footer />
           </div>
 

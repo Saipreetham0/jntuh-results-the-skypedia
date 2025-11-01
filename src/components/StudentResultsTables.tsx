@@ -809,10 +809,11 @@ import {
 } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Download, Printer, FileText, AlertTriangle } from "lucide-react";
+import { Download, Printer, FileText, AlertTriangle, GraduationCap, Trophy, TrendingUp, Award } from "lucide-react";
 import { JNTUHService } from "@/lib/api";
 import { Progress } from "@/components/ui/progress";
-import AdBanner from "@/components/Adsense/AdBanner";
+import { ResponsiveAd, InContentAd } from "@/components/Adsense";
+import AD_SLOTS from "@/config/adSlots";
 
 // Loading State with improved UI
 const LoadingState = () => (
@@ -835,7 +836,6 @@ const LoadingState = () => (
         </div>
       </CardContent>
     </Card>
-    <AdBanner adSlot="8973292958" adFormat="rectangle" className="my-4" />
   </div>
 );
 
@@ -864,7 +864,6 @@ const ErrorState = ({ message, debug }: { message: string; debug?: string }) => 
         </Button>
       </CardFooter>
     </Card>
-    <AdBanner adSlot="8973292958" adFormat="horizontal" className="my-4" />
   </div>
 );
 
@@ -872,11 +871,11 @@ type Grade = "O" | "A+" | "A" | "B+" | "B" | "C" | "F";
 
 const getGradeColor = (grade: Grade): string => {
   const colors: Record<Grade, string> = {
-    O: "text-green-600",
-    "A+": "text-green-500",
-    A: "text-green-400",
-    "B+": "text-blue-500",
-    B: "text-blue-400",
+    O: "text-[#21C15E]",      // Brand green for excellent
+    "A+": "text-[#21C15E]",   // Brand green
+    A: "text-[#1C61E7]",       // Brand blue
+    "B+": "text-[#1C61E7]",    // Brand blue
+    B: "text-blue-500",
     C: "text-yellow-500",
     F: "text-red-500",
   };
@@ -909,29 +908,45 @@ interface ResultsTableProps {
   showAd?: boolean;
 }
 
-// SGPA Gauge Component
+// SGPA Gauge Component with brand colors
 const SGPAGauge: React.FC<{ sgpa: string }> = ({ sgpa }) => {
   const sgpaValue = parseFloat(sgpa);
-  let color = "bg-red-500";
+  let color = "from-red-500 to-red-600";
+  let bgColor = "bg-red-50";
+  let textColor = "text-red-700";
 
-  if (sgpaValue >= 9) color = "bg-green-500";
-  else if (sgpaValue >= 8) color = "bg-green-400";
-  else if (sgpaValue >= 7) color = "bg-blue-500";
-  else if (sgpaValue >= 6) color = "bg-yellow-500";
+  if (sgpaValue >= 9) {
+    color = "from-[#21C15E] to-[#21C15E]/80";
+    bgColor = "bg-[#21C15E]/10";
+    textColor = "text-[#21C15E]";
+  } else if (sgpaValue >= 8) {
+    color = "from-[#1C61E7] to-[#1C61E7]/80";
+    bgColor = "bg-[#1C61E7]/10";
+    textColor = "text-[#1C61E7]";
+  } else if (sgpaValue >= 7) {
+    color = "from-blue-500 to-blue-600";
+    bgColor = "bg-blue-50";
+    textColor = "text-blue-700";
+  } else if (sgpaValue >= 6) {
+    color = "from-yellow-500 to-yellow-600";
+    bgColor = "bg-yellow-50";
+    textColor = "text-yellow-700";
+  }
 
   return (
-    <div className="w-full mt-2">
-      <div className="flex justify-between text-xs mb-1">
-        <span>0</span>
-        <span>10</span>
+    <div className="w-full mt-3">
+      <div className="relative">
+        <div className="h-3 w-full bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden shadow-inner">
+          <div
+            className={`h-3 rounded-full bg-gradient-to-r ${color} transition-all duration-500 ease-out shadow-sm`}
+            style={{ width: `${(sgpaValue/10)*100}%` }}
+          ></div>
+        </div>
+        <div className="flex justify-between text-xs text-gray-500 mt-1 px-0.5">
+          <span>0.0</span>
+          <span>10.0</span>
+        </div>
       </div>
-      <div className="h-2 w-full bg-gray-200 rounded-full">
-        <div
-          className={`h-2 rounded-full ${color}`}
-          style={{ width: `${(sgpaValue/10)*100}%` }}
-        ></div>
-      </div>
-      <div className="text-center font-semibold mt-1">{sgpa}</div>
     </div>
   );
 };
@@ -941,17 +956,56 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
   semesterData,
   showAd,
 }) => {
+  const sgpaValue = parseFloat(semesterData.semesterSGPA);
+  const hasFailed = semesterData.backlogs > 0;
+
   return (
-    <div className="mb-8 break-inside-avoid">
-      <Card>
-        <CardHeader className="pb-2">
-          <div className="flex justify-between items-center">
-            <CardTitle className="text-lg">
-              Semester {semesterData.semester}
-            </CardTitle>
-            <Badge variant={parseFloat(semesterData.semesterSGPA) >= 7 ? "outline" : parseFloat(semesterData.semesterSGPA) >= 6 ? "default" : "destructive"}>
-              SGPA: {semesterData.semesterSGPA}
-            </Badge>
+    <div className="mb-6 break-inside-avoid">
+      <Card className={`transition-all duration-200 hover:shadow-lg border-l-4 ${
+        hasFailed
+          ? 'border-l-red-500'
+          : sgpaValue >= 9
+            ? 'border-l-[#21C15E]'
+            : sgpaValue >= 8
+              ? 'border-l-[#1C61E7]'
+              : 'border-l-blue-500'
+      }`}>
+        <CardHeader className="pb-4 bg-gradient-to-r from-gray-50/50 to-transparent dark:from-gray-800/50">
+          <div className="flex justify-between items-start flex-wrap gap-3">
+            <div>
+              <CardTitle className="text-xl font-bold flex items-center gap-2">
+                <span className="text-gray-700 dark:text-gray-200">Semester {semesterData.semester}</span>
+                {hasFailed && (
+                  <span className="text-xs px-2 py-0.5 bg-red-100 text-red-700 rounded-full font-medium">
+                    {semesterData.backlogs} Backlog{semesterData.backlogs > 1 ? 's' : ''}
+                  </span>
+                )}
+              </CardTitle>
+              <div className="flex gap-4 mt-2 text-sm text-gray-600">
+                <span className="flex items-center gap-1">
+                  <span className="font-medium">Credits:</span> {semesterData.semesterCredits}
+                </span>
+                <span className="flex items-center gap-1">
+                  <span className="font-medium">Grade Points:</span> {semesterData.semesterGrades}
+                </span>
+              </div>
+            </div>
+            <div className={`px-4 py-2 rounded-lg text-center min-w-[80px] ${
+              sgpaValue >= 9
+                ? 'bg-gradient-to-br from-[#21C15E]/20 to-[#21C15E]/10 border border-[#21C15E]/30'
+                : sgpaValue >= 8
+                  ? 'bg-gradient-to-br from-[#1C61E7]/20 to-[#1C61E7]/10 border border-[#1C61E7]/30'
+                  : sgpaValue >= 7
+                    ? 'bg-gradient-to-br from-blue-100 to-blue-50 border border-blue-200'
+                    : 'bg-gradient-to-br from-yellow-100 to-yellow-50 border border-yellow-200'
+            }`}>
+              <div className="text-xs font-medium text-gray-600 uppercase tracking-wide">SGPA</div>
+              <div className={`text-2xl font-bold ${
+                sgpaValue >= 9 ? 'text-[#21C15E]' : sgpaValue >= 8 ? 'text-[#1C61E7]' : sgpaValue >= 7 ? 'text-blue-700' : 'text-yellow-700'
+              }`}>
+                {semesterData.semesterSGPA}
+              </div>
+            </div>
           </div>
           <SGPAGauge sgpa={semesterData.semesterSGPA} />
         </CardHeader>
@@ -959,20 +1013,25 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
           <div className="overflow-x-auto -mx-6">
             <Table className="w-full">
               <TableHeader>
-                <TableRow className="bg-gray-50">
-                  <TableHead className="w-20 font-medium">Code</TableHead>
-                  <TableHead className="w-40 md:w-48 font-medium">Subject</TableHead>
-                  <TableHead className="w-16 text-center font-medium">Internal</TableHead>
-                  <TableHead className="w-16 text-center font-medium">External</TableHead>
-                  <TableHead className="w-16 text-center font-medium">Credits</TableHead>
-                  <TableHead className="w-16 text-center font-medium">Grade</TableHead>
-                  <TableHead className="w-20 text-center font-medium">Total</TableHead>
+                <TableRow className="bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-900 border-b-2 border-gray-200">
+                  <TableHead className="w-20 font-semibold text-gray-700 dark:text-gray-300">Code</TableHead>
+                  <TableHead className="w-40 md:w-48 font-semibold text-gray-700 dark:text-gray-300">Subject Name</TableHead>
+                  <TableHead className="w-16 text-center font-semibold text-gray-700 dark:text-gray-300">Int.</TableHead>
+                  <TableHead className="w-16 text-center font-semibold text-gray-700 dark:text-gray-300">Ext.</TableHead>
+                  <TableHead className="w-16 text-center font-semibold text-gray-700 dark:text-gray-300">Credits</TableHead>
+                  <TableHead className="w-16 text-center font-semibold text-gray-700 dark:text-gray-300">Grade</TableHead>
+                  <TableHead className="w-20 text-center font-semibold text-gray-700 dark:text-gray-300">Total</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {semesterData.subjects.map((subject) => (
-                  <TableRow key={subject.subjectCode} className="hover:bg-gray-50">
-                    <TableCell className="font-mono text-xs">
+                {semesterData.subjects.map((subject, index) => (
+                  <TableRow
+                    key={subject.subjectCode}
+                    className={`hover:bg-blue-50/50 dark:hover:bg-blue-900/20 transition-colors ${
+                      subject.grades === 'F' ? 'bg-red-50/50 dark:bg-red-900/20' : ''
+                    } ${index % 2 === 0 ? 'bg-white dark:bg-gray-900' : 'bg-gray-50/50 dark:bg-gray-800/50'}`}
+                  >
+                    <TableCell className="font-mono text-xs font-medium text-gray-600 dark:text-gray-400">
                       {subject.subjectCode}
                     </TableCell>
                     <TableCell
@@ -997,22 +1056,18 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
                     <TableCell className="text-center">
                       {subject.internalMarks}
                     </TableCell>
-                    <TableCell className="text-center">
+                    <TableCell className="text-center font-medium text-gray-700 dark:text-gray-300">
                       {subject.externalMarks}
                     </TableCell>
-                    <TableCell className="text-center">
+                    <TableCell className="text-center font-medium text-gray-700 dark:text-gray-300">
                       {subject.credits}
                     </TableCell>
                     <TableCell className="text-center">
-                      <span
-                        className={`font-bold ${getGradeColor(
-                          subject.grades as Grade
-                        )}`}
-                      >
+                      <span className={`inline-block px-2 py-1 rounded-md font-bold text-sm ${getGradeColor(subject.grades as Grade)}`}>
                         {subject.grades}
                       </span>
                     </TableCell>
-                    <TableCell className="text-center">
+                    <TableCell className="text-center font-bold text-gray-900 dark:text-gray-100">
                       {subject.totalMarks || "-"}
                     </TableCell>
                   </TableRow>
@@ -1033,7 +1088,7 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
       </Card>
 
       {showAd && (
-        <AdBanner adSlot="8973292958" adFormat="horizontal" className="my-6" />
+        <InContentAd adSlot={AD_SLOTS.RESULTS.INLINE_2} className="my-4" />
       )}
     </div>
   );
@@ -1536,66 +1591,108 @@ const StudentResultsTables: React.FC<{ htno: string }> = ({ htno }) => {
   return (
     <div className="max-w-4xl mx-auto p-4">
       {/* Top Ad */}
-      <AdBanner adSlot="8973292958" adFormat="horizontal" className="mb-6 ad-banner" />
+      <ResponsiveAd adSlot={AD_SLOTS.RESULTS.TOP_BANNER} format="horizontal" className="mb-6" />
 
       <div ref={printRef} className="bg-white">
         {/* Student Details Card */}
-        <Card className="mb-6">
-          <CardHeader>
-            <div className="flex justify-between items-center">
-              <CardTitle>Student Results</CardTitle>
-              <Badge variant={totalBacklogs > 0 ? "outline" : "default"}>
+        <Card className="mb-6 overflow-hidden border-none shadow-lg">
+          <CardHeader className="bg-gradient-to-r from-[#1C61E7] to-[#21C15E] text-white pb-6">
+            <div className="flex justify-between items-start mb-2">
+              <div className="flex items-center gap-3">
+                <div className="p-3 bg-white/20 rounded-lg backdrop-blur-sm">
+                  <GraduationCap className="h-6 w-6" />
+                </div>
+                <div>
+                  <CardTitle className="text-2xl font-bold text-white">Student Results</CardTitle>
+                  <CardDescription className="text-white/90 mt-1">
+                    Comprehensive academic performance report
+                  </CardDescription>
+                </div>
+              </div>
+              <Badge className="bg-white/20 text-white border-white/30 backdrop-blur-sm px-4 py-2">
+                <Trophy className="h-4 w-4 mr-1 inline" />
                 CGPA: {cgpa}
               </Badge>
             </div>
-            <CardDescription>
-              Comprehensive academic performance report
-            </CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-              <div className="space-y-2">
-                <div className="flex justify-between border-b pb-1">
-                  <span className="font-medium">Name:</span>
-                  <span>{studentResult.details.name}</span>
+          <CardContent className="pt-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div className="space-y-3">
+                <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+                  <div className="p-2 bg-[#1C61E7]/10 rounded-lg">
+                    <GraduationCap className="h-4 w-4 text-[#1C61E7]" />
+                  </div>
+                  <div className="flex-1">
+                    <span className="text-xs text-gray-500 block">Student Name</span>
+                    <span className="font-semibold text-gray-900">{studentResult.details.name}</span>
+                  </div>
                 </div>
-                <div className="flex justify-between border-b pb-1">
-                  <span className="font-medium">Father's Name:</span>
-                  <span>{studentResult.details.fatherName}</span>
+                <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+                  <div className="p-2 bg-[#21C15E]/10 rounded-lg">
+                    <GraduationCap className="h-4 w-4 text-[#21C15E]" />
+                  </div>
+                  <div className="flex-1">
+                    <span className="text-xs text-gray-500 block">Father&apos;s Name</span>
+                    <span className="font-semibold text-gray-900">{studentResult.details.fatherName}</span>
+                  </div>
                 </div>
               </div>
-              <div className="space-y-2">
-                <div className="flex justify-between border-b pb-1">
-                  <span className="font-medium">Hall Ticket:</span>
-                  <span className="font-mono">{studentResult.details.rollNumber}</span>
+              <div className="space-y-3">
+                <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+                  <div className="p-2 bg-[#1C61E7]/10 rounded-lg">
+                    <Award className="h-4 w-4 text-[#1C61E7]" />
+                  </div>
+                  <div className="flex-1">
+                    <span className="text-xs text-gray-500 block">Hall Ticket Number</span>
+                    <span className="font-mono font-semibold text-gray-900">{studentResult.details.rollNumber}</span>
+                  </div>
                 </div>
-                <div className="flex justify-between border-b pb-1">
-                  <span className="font-medium">College Code:</span>
-                  <span>{studentResult.details.collegeCode}</span>
+                <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+                  <div className="p-2 bg-[#21C15E]/10 rounded-lg">
+                    <Award className="h-4 w-4 text-[#21C15E]" />
+                  </div>
+                  <div className="flex-1">
+                    <span className="text-xs text-gray-500 block">College Code</span>
+                    <span className="font-semibold text-gray-900">{studentResult.details.collegeCode}</span>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Summary Statistics */}
-            <div className="mt-6 grid grid-cols-3 gap-4 text-center">
-              <div className="p-3 bg-blue-50 rounded-lg">
-                <p className="text-2xl font-bold text-blue-700">{cgpa}</p>
-                <p className="text-xs text-blue-600">CGPA</p>
+            <div className="grid grid-cols-3 gap-4 mb-6">
+              <div className="p-4 bg-[#1C61E7]/10 rounded-xl hover:bg-[#1C61E7]/20 transition-all hover:scale-105 duration-200 border border-[#1C61E7]/20">
+                <div className="flex items-center justify-center mb-2">
+                  <Trophy className="h-5 w-5 text-[#1C61E7]" />
+                </div>
+                <p className="text-3xl font-bold text-[#1C61E7] text-center">{cgpa}</p>
+                <p className="text-xs text-[#1C61E7] font-medium text-center mt-1">CGPA</p>
               </div>
-              <div className="p-3 bg-green-50 rounded-lg">
-                <p className="text-2xl font-bold text-green-700">{totalCredits}</p>
-                <p className="text-xs text-green-600">Total Credits</p>
+              <div className="p-4 bg-[#21C15E]/10 rounded-xl hover:bg-[#21C15E]/20 transition-all hover:scale-105 duration-200 border border-[#21C15E]/20">
+                <div className="flex items-center justify-center mb-2">
+                  <Award className="h-5 w-5 text-[#21C15E]" />
+                </div>
+                <p className="text-3xl font-bold text-[#21C15E] text-center">{totalCredits}</p>
+                <p className="text-xs text-[#21C15E] font-medium text-center mt-1">Total Credits</p>
               </div>
-              <div className="p-3 bg-orange-50 rounded-lg">
-                <p className="text-2xl font-bold text-orange-700">{totalBacklogs}</p>
-                <p className="text-xs text-orange-600">Total Backlogs</p>
+              <div className="p-4 bg-orange-50 rounded-xl hover:bg-orange-100 transition-all hover:scale-105 duration-200 border border-orange-200">
+                <div className="flex items-center justify-center mb-2">
+                  <AlertTriangle className="h-5 w-5 text-orange-600" />
+                </div>
+                <p className="text-3xl font-bold text-orange-700 text-center">{totalBacklogs}</p>
+                <p className="text-xs text-orange-600 font-medium text-center mt-1">Total Backlogs</p>
               </div>
             </div>
 
-            <div className="mt-4 p-3 rounded-lg bg-gray-50">
-              <div className="flex justify-between items-center">
-                <span className="text-sm font-medium">Overall Performance:</span>
-                <span className="text-sm font-semibold">{gradeStatus}</span>
+            <div className="p-4 rounded-xl bg-gradient-to-r from-[#1C61E7]/5 to-[#21C15E]/5 border border-gray-200">
+              <div className="flex justify-between items-center mb-2">
+                <div className="flex items-center gap-2">
+                  <TrendingUp className="h-4 w-4 text-[#1C61E7]" />
+                  <span className="text-sm font-semibold text-gray-700">Overall Performance</span>
+                </div>
+                <Badge className="bg-gradient-to-r from-[#1C61E7] to-[#21C15E] text-white border-0">
+                  {gradeStatus}
+                </Badge>
               </div>
               <SGPAGauge sgpa={cgpa} />
             </div>
@@ -1605,10 +1702,25 @@ const StudentResultsTables: React.FC<{ htno: string }> = ({ htno }) => {
         {/* Filter tabs for semesters */}
         <div className="mb-6 print:hidden">
           <Tabs defaultValue="all" onValueChange={setActiveTab}>
-            <TabsList className="grid grid-cols-3">
-              <TabsTrigger value="all">All Semesters</TabsTrigger>
-              <TabsTrigger value="passed">Passed</TabsTrigger>
-              <TabsTrigger value="backlogs">With Backlogs</TabsTrigger>
+            <TabsList className="grid grid-cols-3 bg-gray-100 p-1 rounded-lg">
+              <TabsTrigger
+                value="all"
+                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#1C61E7] data-[state=active]:to-[#21C15E] data-[state=active]:text-white rounded-md transition-all duration-200"
+              >
+                All Semesters
+              </TabsTrigger>
+              <TabsTrigger
+                value="passed"
+                className="data-[state=active]:bg-[#21C15E] data-[state=active]:text-white rounded-md transition-all duration-200"
+              >
+                Passed
+              </TabsTrigger>
+              <TabsTrigger
+                value="backlogs"
+                className="data-[state=active]:bg-[#1C61E7] data-[state=active]:text-white rounded-md transition-all duration-200"
+              >
+                With Backlogs
+              </TabsTrigger>
             </TabsList>
           </Tabs>
         </div>
@@ -1631,43 +1743,66 @@ const StudentResultsTables: React.FC<{ htno: string }> = ({ htno }) => {
         )}
 
         {/* Overall Summary Card */}
-        <Card className="mt-6">
-          <CardHeader>
-            <CardTitle className="text-xl text-center">Academic Summary</CardTitle>
+        <Card className="mt-6 overflow-hidden border-none shadow-lg">
+          <CardHeader className="bg-gradient-to-r from-[#1C61E7]/10 via-[#21C15E]/10 to-[#1C61E7]/10 border-b-2 border-gradient-to-r border-[#1C61E7]">
+            <div className="flex items-center justify-center gap-3">
+              <Trophy className="h-6 w-6 text-[#1C61E7]" />
+              <CardTitle className="text-2xl text-center bg-gradient-to-r from-[#1C61E7] to-[#21C15E] bg-clip-text text-transparent font-bold">
+                Academic Summary
+              </CardTitle>
+              <Award className="h-6 w-6 text-[#21C15E]" />
+            </div>
           </CardHeader>
-          <CardContent>
-            <div className="flex justify-center items-center space-x-6 text-center">
-              <div>
-                <p className="text-3xl font-bold">{cgpa}</p>
-                <p className="text-sm text-gray-600">CGPA</p>
+          <CardContent className="pt-6">
+            <div className="flex justify-center items-center space-x-8 text-center">
+              <div className="flex flex-col items-center">
+                <div className="p-4 bg-gradient-to-br from-[#1C61E7]/20 to-[#1C61E7]/5 rounded-2xl mb-2 border-2 border-[#1C61E7]/30">
+                  <Trophy className="h-6 w-6 text-[#1C61E7] mb-2 mx-auto" />
+                  <p className="text-4xl font-bold text-[#1C61E7]">{cgpa}</p>
+                </div>
+                <p className="text-sm font-semibold text-gray-700">CGPA</p>
               </div>
-              <div className="h-12 w-px bg-gray-200"></div>
-              <div>
-                <p className="text-3xl font-bold">{totalCredits}</p>
-                <p className="text-sm text-gray-600">Credits</p>
+              <div className="h-16 w-px bg-gradient-to-b from-[#1C61E7] to-[#21C15E]"></div>
+              <div className="flex flex-col items-center">
+                <div className="p-4 bg-gradient-to-br from-[#21C15E]/20 to-[#21C15E]/5 rounded-2xl mb-2 border-2 border-[#21C15E]/30">
+                  <Award className="h-6 w-6 text-[#21C15E] mb-2 mx-auto" />
+                  <p className="text-4xl font-bold text-[#21C15E]">{totalCredits}</p>
+                </div>
+                <p className="text-sm font-semibold text-gray-700">Credits</p>
               </div>
-              <div className="h-12 w-px bg-gray-200"></div>
-              <div>
-                <p className="text-3xl font-bold">{totalBacklogs}</p>
-                <p className="text-sm text-gray-600">Backlogs</p>
+              <div className="h-16 w-px bg-gradient-to-b from-[#1C61E7] to-[#21C15E]"></div>
+              <div className="flex flex-col items-center">
+                <div className="p-4 bg-gradient-to-br from-orange-100 to-orange-50 rounded-2xl mb-2 border-2 border-orange-300">
+                  <AlertTriangle className="h-6 w-6 text-orange-600 mb-2 mx-auto" />
+                  <p className="text-4xl font-bold text-orange-700">{totalBacklogs}</p>
+                </div>
+                <p className="text-sm font-semibold text-gray-700">Backlogs</p>
               </div>
             </div>
           </CardContent>
-          <CardFooter className="flex justify-center text-xs text-gray-500">
-            <p>Performance status: {gradeStatus}</p>
+          <CardFooter className="flex justify-center bg-gradient-to-r from-[#1C61E7]/5 to-[#21C15E]/5 border-t">
+            <div className="flex items-center gap-2 py-2">
+              <TrendingUp className="h-4 w-4 text-[#1C61E7]" />
+              <p className="text-sm font-semibold text-gray-700">
+                Performance Status:
+                <span className="ml-2 bg-gradient-to-r from-[#1C61E7] to-[#21C15E] bg-clip-text text-transparent font-bold">
+                  {gradeStatus}
+                </span>
+              </p>
+            </div>
           </CardFooter>
         </Card>
       </div>
 
       {/* Bottom Ad */}
-      <AdBanner adSlot="8973292958" adFormat="horizontal" className="my-6 ad-banner" />
+      <InContentAd adSlot={AD_SLOTS.RESULTS.BOTTOM_BANNER} className="my-6" />
 
       {/* Action Buttons */}
       <div className="flex flex-wrap gap-4 mt-6">
         <Button
           onClick={handlePrint}
           disabled={isPrinting}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 bg-[#1C61E7] hover:bg-[#1C61E7]/90 text-white shadow-lg hover:shadow-xl transition-all duration-200"
         >
           <Printer size={16} />
           {isPrinting ? "Preparing..." : "Print Results"}
@@ -1676,8 +1811,7 @@ const StudentResultsTables: React.FC<{ htno: string }> = ({ htno }) => {
         <Button
           onClick={handleDownloadPDF}
           disabled={isPdfLoading}
-          variant="secondary"
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 bg-[#21C15E] hover:bg-[#21C15E]/90 text-white shadow-lg hover:shadow-xl transition-all duration-200"
         >
           <Download size={16} />
           {isPdfLoading ? "Generating..." : "Download PDF"}
@@ -1685,7 +1819,7 @@ const StudentResultsTables: React.FC<{ htno: string }> = ({ htno }) => {
 
         <Button
           variant="outline"
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 border-2 border-[#1C61E7] text-[#1C61E7] hover:bg-[#1C61E7]/10 shadow-lg hover:shadow-xl transition-all duration-200"
           onClick={() => {
             // Copy results link
             const url = window.location.href;
