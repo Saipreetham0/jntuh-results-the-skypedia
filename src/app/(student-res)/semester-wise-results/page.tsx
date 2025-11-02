@@ -405,11 +405,16 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ResponsiveAd, InContentAd } from "@/components/Adsense";
 import AD_SLOTS from "@/config/adSlots";
+
+// Module-level cache to prevent duplicate fetches across component remounts
+const fetchCache = new Map<string, { data: any; timestamp: number }>();
+const pendingFetches = new Map<string, Promise<any>>();
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 
 interface Subject {
   subjectCode: string;
@@ -449,28 +454,97 @@ export default function SemesterResults() {
   const [expandedSemester, setExpandedSemester] = useState<string | null>(null);
   const [searchFocus, setSearchFocus] = useState(false);
 
+  // Track if we've already fetched to prevent duplicate calls
+  const hasFetchedRef = useRef(false);
+  const lastFetchedRollNumber = useRef<string>('');
+
   // Load results if rollNumber is in URL params
   useEffect(() => {
     const urlRollNumber = searchParams?.get('rollNumber');
-    if (urlRollNumber) {
+
+    // Only fetch if we haven't fetched yet
+    if (urlRollNumber && !hasFetchedRef.current) {
       setRollNumber(urlRollNumber);
+      hasFetchedRef.current = true;
       fetchResults(urlRollNumber);
     }
-  }, [searchParams]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const fetchResults = async (roll: string) => {
+    // Check module-level cache first
+    const cached = fetchCache.get(roll);
+    if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+      setResults(cached.data);
+      lastFetchedRollNumber.current = roll;
+
+      // Update URL
+      const url = new URL(window.location.href);
+      url.searchParams.set('rollNumber', roll);
+      window.history.pushState({}, '', url);
+
+      // Expand the latest semester
+      if (cached.data.results && cached.data.results.length > 0) {
+        setExpandedSemester(cached.data.results[cached.data.results.length - 1].semester);
+      }
+      return;
+    }
+
+    // Check if there's already a pending fetch for this roll number
+    if (pendingFetches.has(roll)) {
+      setLoading(true);
+      try {
+        const data = await pendingFetches.get(roll);
+        setResults(data);
+        lastFetchedRollNumber.current = roll;
+
+        // Update URL
+        const url = new URL(window.location.href);
+        url.searchParams.set('rollNumber', roll);
+        window.history.pushState({}, '', url);
+
+        // Expand the latest semester
+        if (data.results && data.results.length > 0) {
+          setExpandedSemester(data.results[data.results.length - 1].semester);
+        }
+      } catch (err: any) {
+        setError(err.message || 'An error occurred while fetching results');
+      } finally {
+        setLoading(false);
+      }
+      return;
+    }
+
     setLoading(true);
     setError('');
+    lastFetchedRollNumber.current = roll;
+
+    // Create a promise for this fetch and store it
+    const fetchPromise = (async () => {
+      try {
+        const response = await fetch(`/api/semester-wise-results?rollNumber=${roll}`);
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.detail || 'Failed to fetch results');
+        }
+
+        const data = await response.json();
+
+        // Cache the result
+        fetchCache.set(roll, { data, timestamp: Date.now() });
+
+        return data;
+      } finally {
+        // Remove from pending fetches
+        pendingFetches.delete(roll);
+      }
+    })();
+
+    pendingFetches.set(roll, fetchPromise);
 
     try {
-      const response = await fetch(`/api/semester-wise-results?rollNumber=${roll}`);
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || 'Failed to fetch results');
-      }
-
-      const data = await response.json();
+      const data = await fetchPromise;
       setResults(data);
 
       // Update URL with the roll number parameter without navigation
@@ -484,6 +558,7 @@ export default function SemesterResults() {
       }
     } catch (err: any) {
       setError(err.message || 'An error occurred while fetching results');
+      lastFetchedRollNumber.current = ''; // Reset on error to allow retry
     } finally {
       setLoading(false);
     }
@@ -497,6 +572,8 @@ export default function SemesterResults() {
       return;
     }
 
+    // Reset the ref to allow manual search
+    hasFetchedRef.current = false;
     fetchResults(rollNumber);
   };
 
