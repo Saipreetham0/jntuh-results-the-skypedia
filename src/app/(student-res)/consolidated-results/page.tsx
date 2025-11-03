@@ -709,7 +709,7 @@ export default function ConsolidatedResults() {
                     ) : null;
                   })()}
                 </div>
-              </div>
+              </motion.div>
 
               {/* Bottom Ad */}
               <div className="print:hidden mt-6">
