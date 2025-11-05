@@ -5,15 +5,12 @@ import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ResponsiveAd, InContentAd } from "@/components/Adsense";
 import AD_SLOTS from "@/config/adSlots";
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import {
   MagnifyingGlassIcon,
-  AcademicCapIcon,
   ExclamationCircleIcon,
   ArrowPathIcon,
-  PrinterIcon,
-  DocumentTextIcon,
-  CheckCircleIcon,
-  XCircleIcon
+  PrinterIcon
 } from '@heroicons/react/24/outline';
 
 // Module-level cache to prevent duplicate fetches
@@ -56,7 +53,7 @@ interface ConsolidatedResult {
   results: SemesterResult[];
 }
 
-export default function ConsolidatedResults() {
+function ConsolidatedResultsContent() {
   const searchParams = useSearchParams();
   const [rollNumber, setRollNumber] = useState(searchParams?.get('rollNumber') || '');
   const [loading, setLoading] = useState(false);
@@ -252,45 +249,22 @@ export default function ConsolidatedResults() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 print:p-0 print:bg-white">
-      <div className="max-w-7xl mx-auto space-y-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8 px-4 print:p-0 print:bg-white">
+      <div className="max-w-6xl mx-auto space-y-6">
         {/* Search Section - Hide on print */}
         <div className="print:hidden">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-10"
+            className="text-center mb-6"
           >
-            {/* Icon with solid background */}
-            <div className="inline-flex items-center justify-center p-5 bg-[#1C61E7] rounded-3xl shadow-2xl mb-6 transform hover:scale-105 transition-transform duration-300">
-              <DocumentTextIcon className="h-16 w-16 text-white" strokeWidth={2} />
-            </div>
-
-            {/* Title with solid color */}
-            <h1 className="text-5xl md:text-6xl font-black mb-4 tracking-tight text-[#1C61E7] dark:text-[#21C15E]">
+            {/* Title */}
+            <h1 className="text-3xl md:text-4xl font-bold mb-2 text-gray-900 dark:text-white">
               Consolidated Results
             </h1>
-
-            <p className="text-gray-600 dark:text-gray-300 text-xl max-w-3xl mx-auto font-medium leading-relaxed">
-              Access your complete academic transcript with all semester results,
-              grades, and credits in one comprehensive view
+            <p className="text-gray-600 dark:text-gray-400">
+              View your complete academic record
             </p>
-
-            {/* Feature badges */}
-            <div className="flex flex-wrap justify-center gap-3 mt-6">
-              <span className="inline-flex items-center px-4 py-2 rounded-full bg-white dark:bg-gray-800 shadow-md text-sm font-semibold text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
-                <CheckCircleIcon className="h-4 w-4 mr-2 text-green-500" />
-                All Semesters
-              </span>
-              <span className="inline-flex items-center px-4 py-2 rounded-full bg-white dark:bg-gray-800 shadow-md text-sm font-semibold text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
-                <CheckCircleIcon className="h-4 w-4 mr-2 text-green-500" />
-                Print Ready
-              </span>
-              <span className="inline-flex items-center px-4 py-2 rounded-full bg-white dark:bg-gray-800 shadow-md text-sm font-semibold text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
-                <CheckCircleIcon className="h-4 w-4 mr-2 text-green-500" />
-                Instant Access
-              </span>
-            </div>
           </motion.div>
 
           {/* Top Ad */}
@@ -303,121 +277,56 @@ export default function ConsolidatedResults() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="max-w-3xl mx-auto"
+            className="max-w-2xl mx-auto"
           >
-            {/* Card with glassmorphism effect */}
-            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl p-10 border border-gray-200/50 dark:border-gray-700/50">
-              {/* Header */}
-              <div className="flex items-center justify-center mb-8">
-                <div className="flex items-center gap-3 bg-blue-50 dark:bg-blue-900/30 px-6 py-3 rounded-full border-2 border-[#1C61E7]/30">
-                  <MagnifyingGlassIcon className="h-6 w-6 text-[#1C61E7]" strokeWidth={2.5} />
-                  <h2 className="text-2xl font-black text-gray-900 dark:text-white">
-                    Get Your Results
-                  </h2>
-                </div>
-              </div>
-
-              <form onSubmit={handleSearch} className="space-y-6">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+              <form onSubmit={handleSearch} className="space-y-4">
                 <div>
-                  <label
-                    htmlFor="rollNumber"
-                    className="block text-base font-bold text-gray-900 dark:text-white mb-4"
-                  >
-                    Enter JNTUH Roll Number
+                  <label htmlFor="rollNumber" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                    Roll Number
                   </label>
-
-                  {/* Input with enhanced styling */}
-                  <div className={`relative rounded-2xl transition-all duration-300 ${searchFocus ? 'ring-4 ring-[#1C61E7]/30 scale-[1.02]' : ''}`}>
-                    <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
-                      <AcademicCapIcon className={`h-6 w-6 transition-colors duration-300 ${searchFocus ? 'text-[#1C61E7]' : 'text-gray-400'}`} />
-                    </div>
-                    <input
-                      id="rollNumber"
-                      type="text"
-                      value={rollNumber}
-                      onChange={(e) => setRollNumber(e.target.value.toUpperCase())}
-                      onFocus={() => setSearchFocus(true)}
-                      onBlur={() => setSearchFocus(false)}
-                      placeholder="20J25A0201"
-                      className="block w-full pl-14 pr-6 py-6 border-2 border-gray-300 dark:border-gray-600 rounded-2xl focus:outline-none focus:border-[#1C61E7] bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 text-xl font-bold uppercase tracking-widest transition-all duration-300"
-                      maxLength={10}
-                    />
-                  </div>
-
-                  {/* Helper text */}
-                  <div className="mt-3 flex items-start gap-2">
-                    <div className="flex-shrink-0 mt-0.5">
-                      <svg className="h-4 w-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-                      </svg>
-                    </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
-                      Enter your 10-digit roll number (e.g., 20J25A0201) to view your complete academic record
-                    </p>
-                  </div>
+                  <input
+                    id="rollNumber"
+                    type="text"
+                    value={rollNumber}
+                    onChange={(e) => setRollNumber(e.target.value.toUpperCase())}
+                    placeholder="e.g., 20J25A0201"
+                    className="block w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1C61E7] focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 text-base font-mono"
+                    maxLength={10}
+                  />
                 </div>
 
-                {/* Error message */}
                 {error && (
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.95, y: -10 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    className="rounded-2xl bg-red-50 dark:bg-red-900/30 p-5 border-2 border-red-200 dark:border-red-800/50"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="rounded-lg bg-red-50 dark:bg-red-900/30 p-3 border border-red-200 dark:border-red-800"
                   >
-                    <div className="flex items-start gap-3">
-                      <ExclamationCircleIcon className="h-6 w-6 text-red-500 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <h4 className="text-sm font-bold text-red-900 dark:text-red-200 mb-1">Error</h4>
-                        <p className="text-sm font-medium text-red-800 dark:text-red-300">{error}</p>
-                      </div>
+                    <div className="flex gap-2">
+                      <ExclamationCircleIcon className="h-5 w-5 text-red-500 flex-shrink-0" />
+                      <p className="text-sm text-red-800 dark:text-red-200">{error}</p>
                     </div>
                   </motion.div>
                 )}
 
-                {/* Submit button with solid color */}
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-[#1C61E7] hover:bg-[#1552c4] text-white font-black py-6 px-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center text-lg transform hover:scale-[1.02] active:scale-[0.98]"
+                  className="w-full bg-[#1C61E7] hover:bg-[#1552c4] text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center"
                 >
                   {loading ? (
                     <>
-                      <ArrowPathIcon className="animate-spin h-6 w-6 mr-3" strokeWidth={2.5} />
-                      <span>Fetching Your Results...</span>
+                      <ArrowPathIcon className="animate-spin h-5 w-5 mr-2" />
+                      <span>Loading...</span>
                     </>
                   ) : (
                     <>
-                      <MagnifyingGlassIcon className="h-6 w-6 mr-3" strokeWidth={2.5} />
-                      <span>View Consolidated Results</span>
+                      <MagnifyingGlassIcon className="h-5 w-5 mr-2" />
+                      <span>Get Results</span>
                     </>
                   )}
                 </button>
               </form>
-
-              {/* Additional info */}
-              <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-                <div className="grid grid-cols-3 gap-4 text-center">
-                  <div className="space-y-1">
-                    <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30">
-                      <DocumentTextIcon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-                    </div>
-                    <p className="text-xs font-semibold text-gray-600 dark:text-gray-400">All Subjects</p>
-                  </div>
-                  <div className="space-y-1">
-                    <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/30">
-                      <CheckCircleIcon className="h-5 w-5 text-green-600 dark:text-green-400" />
-                    </div>
-                    <p className="text-xs font-semibold text-gray-600 dark:text-gray-400">All Semesters</p>
-                  </div>
-                  <div className="space-y-1">
-                    <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/30">
-                      <PrinterIcon className="h-5 w-5 text-purple-600 dark:text-purple-400" />
-                    </div>
-                    <p className="text-xs font-semibold text-gray-600 dark:text-gray-400">Download PDF</p>
-                  </div>
-                </div>
-              </div>
             </div>
           </motion.div>
         </div>
@@ -434,140 +343,37 @@ export default function ConsolidatedResults() {
               {/* Statistics Cards - Hide on print */}
               {(() => {
                 const stats = getOverallStats();
-                const completionPercentage = stats ? Math.round((stats.earnedCredits / stats.totalCredits) * 100) : 0;
-
                 return stats && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="print:hidden mb-8"
-                  >
-                    {/* Statistics header */}
-                    <div className="text-center mb-6">
-                      <h3 className="text-2xl font-black text-gray-900 dark:text-white mb-2">
-                        Your Academic Overview
-                      </h3>
-                      <p className="text-gray-600 dark:text-gray-400">
-                        Quick summary of your academic performance
-                      </p>
+                  <div className="print:hidden grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                      <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Total Subjects</p>
+                      <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.totalSubjects}</p>
                     </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                      {/* Total Subjects Card */}
-                      <motion.div
-                        whileHover={{ scale: 1.05, y: -5 }}
-                        className="bg-blue-500 dark:bg-blue-600 rounded-3xl p-6 shadow-xl relative overflow-hidden group"
-                      >
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500" />
-                        <div className="relative z-10">
-                          <div className="flex items-center justify-between mb-4">
-                            <div className="p-3 bg-white/20 backdrop-blur-sm rounded-2xl">
-                              <DocumentTextIcon className="h-8 w-8 text-white" strokeWidth={2} />
-                            </div>
-                          </div>
-                          <p className="text-white/80 text-sm font-bold uppercase tracking-wide mb-1">Total Subjects</p>
-                          <p className="text-4xl font-black text-white">{stats.totalSubjects}</p>
-                          <p className="text-white/70 text-xs mt-2 font-medium">Across all semesters</p>
-                        </div>
-                      </motion.div>
-
-                      {/* Passed Subjects Card */}
-                      <motion.div
-                        whileHover={{ scale: 1.05, y: -5 }}
-                        className="bg-green-500 dark:bg-emerald-600 rounded-3xl p-6 shadow-xl relative overflow-hidden group"
-                      >
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500" />
-                        <div className="relative z-10">
-                          <div className="flex items-center justify-between mb-4">
-                            <div className="p-3 bg-white/20 backdrop-blur-sm rounded-2xl">
-                              <CheckCircleIcon className="h-8 w-8 text-white" strokeWidth={2} />
-                            </div>
-                            <div className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full">
-                              <span className="text-xs font-bold text-white">
-                                {stats.totalSubjects > 0 ? Math.round((stats.passedSubjects / stats.totalSubjects) * 100) : 0}%
-                              </span>
-                            </div>
-                          </div>
-                          <p className="text-white/80 text-sm font-bold uppercase tracking-wide mb-1">Passed</p>
-                          <p className="text-4xl font-black text-white">{stats.passedSubjects}</p>
-                          <p className="text-white/70 text-xs mt-2 font-medium">Successfully cleared</p>
-                        </div>
-                      </motion.div>
-
-                      {/* Failed Subjects Card */}
-                      <motion.div
-                        whileHover={{ scale: 1.05, y: -5 }}
-                        className="bg-red-500 dark:bg-rose-600 rounded-3xl p-6 shadow-xl relative overflow-hidden group"
-                      >
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500" />
-                        <div className="relative z-10">
-                          <div className="flex items-center justify-between mb-4">
-                            <div className="p-3 bg-white/20 backdrop-blur-sm rounded-2xl">
-                              <XCircleIcon className="h-8 w-8 text-white" strokeWidth={2} />
-                            </div>
-                            {stats.failedSubjects > 0 && (
-                              <div className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full">
-                                <span className="text-xs font-bold text-white">Needs attention</span>
-                              </div>
-                            )}
-                          </div>
-                          <p className="text-white/80 text-sm font-bold uppercase tracking-wide mb-1">Failed</p>
-                          <p className="text-4xl font-black text-white">{stats.failedSubjects}</p>
-                          <p className="text-white/70 text-xs mt-2 font-medium">Requires reappearance</p>
-                        </div>
-                      </motion.div>
-
-                      {/* Credits Card */}
-                      <motion.div
-                        whileHover={{ scale: 1.05, y: -5 }}
-                        className="bg-[#1C61E7] dark:bg-indigo-600 rounded-3xl p-6 shadow-xl relative overflow-hidden group"
-                      >
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-500" />
-                        <div className="relative z-10">
-                          <div className="flex items-center justify-between mb-4">
-                            <div className="p-3 bg-white/20 backdrop-blur-sm rounded-2xl">
-                              <AcademicCapIcon className="h-8 w-8 text-white" strokeWidth={2} />
-                            </div>
-                            <div className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full">
-                              <span className="text-xs font-bold text-white">{completionPercentage}%</span>
-                            </div>
-                          </div>
-                          <p className="text-white/80 text-sm font-bold uppercase tracking-wide mb-1">Credits Earned</p>
-                          <p className="text-4xl font-black text-white">{stats.earnedCredits}</p>
-                          <p className="text-white/70 text-xs mt-2 font-medium">Out of {stats.totalCredits} total</p>
-
-                          {/* Progress bar */}
-                          <div className="mt-4 h-2 bg-white/20 rounded-full overflow-hidden">
-                            <motion.div
-                              initial={{ width: 0 }}
-                              animate={{ width: `${completionPercentage}%` }}
-                              transition={{ duration: 1, delay: 0.5 }}
-                              className="h-full bg-white rounded-full"
-                            />
-                          </div>
-                        </div>
-                      </motion.div>
+                    <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                      <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Passed</p>
+                      <p className="text-2xl font-bold text-green-600">{stats.passedSubjects}</p>
                     </div>
-                  </motion.div>
+                    <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                      <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Failed</p>
+                      <p className="text-2xl font-bold text-red-600">{stats.failedSubjects}</p>
+                    </div>
+                    <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                      <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">Credits</p>
+                      <p className="text-2xl font-bold text-[#1C61E7]">{stats.earnedCredits}/{stats.totalCredits}</p>
+                    </div>
+                  </div>
                 );
               })()}
 
               {/* Print Button */}
-              <div className="print:hidden flex justify-center mb-8">
-                <motion.button
+              <div className="print:hidden flex justify-end mb-4">
+                <button
                   onClick={handlePrint}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center gap-3 px-10 py-5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl shadow-2xl hover:shadow-3xl transition-all font-black text-lg relative overflow-hidden group"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg shadow-md transition-all text-sm font-medium"
                 >
-                  <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
-                  <PrinterIcon className="h-7 w-7 relative z-10" strokeWidth={2.5} />
-                  <span className="relative z-10">Download PDF / Print</span>
-                  <svg className="h-5 w-5 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-                  </svg>
-                </motion.button>
+                  <PrinterIcon className="h-4 w-4" />
+                  <span>Print</span>
+                </button>
               </div>
 
               {/* Ad - Hide on print */}
@@ -576,34 +382,16 @@ export default function ConsolidatedResults() {
               </div>
 
               {/* A4 Result Sheet */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="bg-white dark:bg-gray-800 shadow-2xl print:shadow-none rounded-3xl print:rounded-none overflow-hidden print:w-full print:max-w-none print:m-0 border border-gray-200 dark:border-gray-700 print:border-0"
-              >
+              <div className="bg-white dark:bg-gray-800 shadow-lg print:shadow-none rounded-lg print:rounded-none overflow-hidden print:w-full print:max-w-none print:m-0 border border-gray-200 dark:border-gray-700 print:border-0">
                 {/* Header Section */}
-                <div className="bg-[#1C61E7] text-white p-8 print:bg-white print:text-black print:border-b-2 print:border-black print:p-1 relative overflow-hidden">
-                  {/* Decorative background pattern */}
-                  <div className="absolute inset-0 opacity-10 print:hidden">
-                    <div className="absolute top-0 left-0 w-64 h-64 bg-white rounded-full -translate-x-32 -translate-y-32" />
-                    <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full translate-x-48 translate-y-48" />
-                  </div>
-
-                  <div className="text-center relative z-10">
-                    <div className="inline-flex items-center justify-center mb-4 print:hidden">
-                      <div className="p-3 bg-white/20 backdrop-blur-sm rounded-2xl">
-                        <AcademicCapIcon className="h-12 w-12 text-white" strokeWidth={2} />
-                      </div>
-                    </div>
-                    <h1 className="text-2xl md:text-3xl font-black print:text-black print:text-[10px] print:mb-0 tracking-tight">
+                <div className="bg-[#1C61E7] text-white p-4 print:bg-white print:text-black print:border-b-2 print:border-black print:p-1">
+                  <div className="text-center">
+                    <h2 className="text-lg md:text-xl font-bold print:text-black print:text-[10px]">
                       JAWAHARLAL NEHRU TECHNOLOGICAL UNIVERSITY HYDERABAD
-                    </h1>
-                    <div className="mt-3 print:mt-0">
-                      <span className="inline-block px-6 py-2 bg-white/20 backdrop-blur-sm rounded-full text-base md:text-lg font-bold print:bg-transparent print:px-0 print:py-0 print:text-black print:text-[8px]">
-                        Consolidated Academic Results
-                      </span>
-                    </div>
+                    </h2>
+                    <p className="text-sm print:text-black print:text-[8px] mt-1 print:mt-0">
+                      Consolidated Academic Results
+                    </p>
                   </div>
                 </div>
 
@@ -709,7 +497,7 @@ export default function ConsolidatedResults() {
                     ) : null;
                   })()}
                 </div>
-              </motion.div>
+              </div>
 
               {/* Bottom Ad */}
               <div className="print:hidden mt-6">
@@ -833,5 +621,14 @@ export default function ConsolidatedResults() {
         }
       `}</style>
     </div>
+  );
+}
+
+// Wrap with Error Boundary to handle HMR errors
+export default function ConsolidatedResults() {
+  return (
+    <ErrorBoundary>
+      <ConsolidatedResultsContent />
+    </ErrorBoundary>
   );
 }

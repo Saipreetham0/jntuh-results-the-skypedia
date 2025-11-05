@@ -81,7 +81,7 @@ const nextConfig = {
   // Experimental features for better performance
   experimental: {
     optimizeCss: true,
-    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
+    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons', '@heroicons/react'],
   },
 
   // Headers for better caching and security
@@ -153,6 +153,9 @@ const nextConfig = {
     }
     return config;
   },
+
+  // Turbopack config (empty to silence Next.js 16 warning)
+  turbopack: {},
 };
 
 export default withPWA(nextConfig);
