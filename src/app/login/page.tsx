@@ -117,6 +117,22 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      {/* Temporary Notice */}
+      <div className="sm:mx-auto sm:w-full sm:max-w-2xl mb-6 px-4">
+        <div className="bg-yellow-50 dark:bg-yellow-900/30 border-l-4 border-yellow-400 p-4 rounded-lg">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <ExclamationCircleIcon className="h-5 w-5 text-yellow-400" aria-hidden="true" />
+            </div>
+            <div className="ml-3">
+              <p className="text-sm text-yellow-700 dark:text-yellow-200">
+                <strong className="font-semibold">Notice:</strong> Login functionality is temporarily disabled.
+                All pages are accessible without authentication.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         {/* Logo/Icon */}

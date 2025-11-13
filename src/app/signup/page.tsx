@@ -179,6 +179,23 @@ export default function Signup() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-blue-100 dark:from-gray-900 dark:to-indigo-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      {/* Temporary Notice */}
+      <div className="sm:mx-auto sm:w-full sm:max-w-2xl mb-6 px-4">
+        <div className="bg-yellow-50 dark:bg-yellow-900/30 border-l-4 border-yellow-400 p-4 rounded-lg">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <ExclamationCircleIcon className="h-5 w-5 text-yellow-400" aria-hidden="true" />
+            </div>
+            <div className="ml-3">
+              <p className="text-sm text-yellow-700 dark:text-yellow-200">
+                <strong className="font-semibold">Notice:</strong> Signup functionality is temporarily disabled.
+                All pages are accessible without authentication.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
           <div className="h-20 w-20 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg">

@@ -37,6 +37,10 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
+  // TEMPORARILY DISABLED: Authentication check
+  // This allows all users to access all pages without logging in
+  // TODO: Re-enable authentication when ready
+  /*
   if (
     !user &&
     !request.nextUrl.pathname.startsWith('/login') &&
@@ -47,6 +51,7 @@ export async function updateSession(request: NextRequest) {
     url.pathname = '/login'
     return NextResponse.redirect(url)
   }
+  */
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is.
   // If you're creating a new response object with NextResponse.next() make sure to:
