@@ -1,174 +1,6 @@
-// "use client";
-// import React, { useState } from "react";
-// import { EnvelopeIcon } from "@heroicons/react/24/outline";
-
-// interface FormData {
-//   fullName: string;
-//   email: string;
-//   message: string;
-// }
-
-// const ContactForm: React.FC = () => {
-//   const [formData, setFormData] = useState<FormData>({
-//     fullName: "",
-//     email: "",
-//     message: "",
-//   });
-
-//   const [isSubmitting, setIsSubmitting] = useState(false);
-//   const [submitStatus, setSubmitStatus] = useState<
-//     "idle" | "success" | "error"
-//   >("idle");
-
-//   const handleChange = (
-//     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-//   ) => {
-//     const { name, value } = e.target;
-//     setFormData((prev) => ({ ...prev, [name]: value }));
-//   };
-
-//   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-//     e.preventDefault();
-//     setIsSubmitting(true);
-//     setSubmitStatus("idle");
-
-//     try {
-//       const response = await fetch("/api/contact", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(formData),
-//       });
-
-//       if (!response.ok) {
-//         throw new Error("Failed to send message");
-//       }
-
-//       setSubmitStatus("success");
-//       // Clear form after successful submission
-//       setFormData({
-//         fullName: "",
-//         email: "",
-//         message: "",
-//       });
-//     } catch (error) {
-//       setSubmitStatus("error");
-//     } finally {
-//       setIsSubmitting(false);
-//     }
-//   };
-//   return (
-//     <div className="bg-white dark:bg-gray-900">
-//       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-//         <div className="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:gap-x-8">
-//           <div>
-//             <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-//               Get in touch
-//             </h2>
-//             <p className="mt-4 text-lg text-gray-500 dark:text-gray-300">
-//               We&apos;d love to hear from you! Please feel free to reach out
-//               with any questions or inquiries. We&apos;ll get back to you as
-//               soon as possible.
-//             </p>
-//             <dl className="mt-8 text-base text-gray-500 dark:text-gray-300">
-//               <div className="mt-3">
-//                 <dt className="sr-only">Email</dt>
-//                 <dd className="flex">
-//                   <EnvelopeIcon
-//                     className="h-6 w-6 flex-shrink-0 text-indigo-400"
-//                     aria-hidden="true"
-//                   />
-//                   <span className="ml-3">jntuhresults@theskypedia.com</span>
-//                 </dd>
-//               </div>
-//             </dl>
-//           </div>
-//           <form onSubmit={handleSubmit} className="space-y-6">
-//             <div>
-//               <label
-//                 htmlFor="full-name"
-//                 className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-//               >
-//                 Full name
-//               </label>
-//               <input
-//                 type="text"
-//                 name="fullName"
-//                 id="full-name"
-//                 autoComplete="name"
-//                 required
-//                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600"
-//                 value={formData.fullName}
-//                 onChange={handleChange}
-//               />
-//             </div>
-//             <div>
-//               <label
-//                 htmlFor="email"
-//                 className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-//               >
-//                 Email
-//               </label>
-//               <input
-//                 id="email"
-//                 name="email"
-//                 type="email"
-//                 autoComplete="email"
-//                 required
-//                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600"
-//                 value={formData.email}
-//                 onChange={handleChange}
-//               />
-//             </div>
-//             <div>
-//               <label
-//                 htmlFor="message"
-//                 className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-//               >
-//                 Message
-//               </label>
-//               <textarea
-//                 id="message"
-//                 name="message"
-//                 rows={4}
-//                 required
-//                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600"
-//                 value={formData.message}
-//                 onChange={handleChange}
-//               />
-//             </div>
-//             <div>
-//               <button
-//                 type="submit"
-//                 disabled={isSubmitting}
-//                 className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-6 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-150 ease-in-out disabled:opacity-50"
-//               >
-//                 {isSubmitting ? "Submitting..." : "Submit"}
-//               </button>
-//             </div>
-//             {submitStatus === "success" && (
-//               <div className="text-green-600 dark:text-green-400">
-//                 Thank you for your message. We&apos;ll be in touch soon!
-//               </div>
-//             )}
-//             {submitStatus === "error" && (
-//               <div className="text-red-600 dark:text-red-400">
-//                 An error occurred. Please try again later.
-//               </div>
-//             )}
-//           </form>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ContactForm;
-
 "use client";
 import React, { useState } from "react";
-import { EnvelopeIcon, PaperAirplaneIcon, UserIcon, ChatBubbleOvalLeftIcon } from "@heroicons/react/24/outline";
+import { EnvelopeIcon, CheckCircleIcon, XCircleIcon, UserIcon, ChatBubbleLeftRightIcon } from "@heroicons/react/24/outline";
 
 interface FormData {
   fullName: string;
@@ -184,13 +16,9 @@ const ContactForm: React.FC = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<
-    "idle" | "success" | "error"
-  >("idle");
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -203,23 +31,14 @@ const ContactForm: React.FC = () => {
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to send message");
-      }
+      if (!response.ok) throw new Error("Failed to send message");
 
       setSubmitStatus("success");
-      // Clear form after successful submission
-      setFormData({
-        fullName: "",
-        email: "",
-        message: "",
-      });
+      setFormData({ fullName: "", email: "", message: "" });
     } catch (error) {
       setSubmitStatus("error");
     } finally {
@@ -228,179 +47,185 @@ const ContactForm: React.FC = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-      <div className="mx-auto max-w-7xl px-6 py-24">
-        <div className="rounded-3xl bg-white dark:bg-gray-800 shadow-xl overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-5">
-            {/* Left Content Section */}
-            <div className="px-8 py-12 lg:col-span-2 bg-blue-600 text-white">
-              <h2 className="text-3xl font-bold tracking-tight">
-                Let's connect
-              </h2>
-              <p className="mt-4 text-blue-100">
-                We'd love to hear from you! Reach out with any questions or inquiries and we'll get back to you as soon as possible.
-              </p>
+    <div className="min-h-screen bg-gray-50 dark:from-gray-950 dark:bg-gray-900 py-16 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-5xl">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-blue-600 shadow-xl mb-6 transform hover:scale-110 transition-transform duration-300">
+            <ChatBubbleLeftRightIcon className="w-10 h-10 text-white" />
+          </div>
+          <h1 className="text-5xl sm:text-6xl font-extrabold mb-4 text-gray-900 dark:text-white">
+            Let's Talk
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+            Have questions about JNTUH results or need assistance? Drop us a message and we'll get back to you within 24 hours.
+          </p>
+        </div>
 
-              <div className="mt-12">
-                <div className="flex items-center">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500/20">
-                    <EnvelopeIcon className="h-5 w-5 text-white" aria-hidden="true" />
-                  </div>
-                  <div className="ml-4 text-base">
-                    <p>jntuhresults@theskypedia.com</p>
-                  </div>
-                </div>
-              </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+          <div className="group bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700">
+            <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-blue-600 shadow-lg mb-4 group-hover:scale-110 transition-transform duration-300">
+              <EnvelopeIcon className="w-7 h-7 text-white" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Email Support</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Quick email response</p>
+            <a href="mailto:jntuhresults@theskypedia.com" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold text-sm transition-colors break-all">
+              jntuhresults@theskypedia.com
+            </a>
+          </div>
 
-              <div className="mt-12">
-                <div className="space-y-4">
-                  <p className="text-sm uppercase tracking-wider text-blue-300 font-medium">Follow us</p>
-                  <div className="flex space-x-4">
-                    {/* Social icons placeholders */}
-                    <a href="#" className="rounded-full bg-blue-500/20 p-2 hover:bg-blue-500/30 transition-colors">
-                      <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
-                      </svg>
-                    </a>
-                    <a href="#" className="rounded-full bg-blue-500/20 p-2 hover:bg-blue-500/30 transition-colors">
-                      <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-                      </svg>
-                    </a>
-                    <a href="#" className="rounded-full bg-blue-500/20 p-2 hover:bg-blue-500/30 transition-colors">
-                      <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path fillRule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clipRule="evenodd" />
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
+          <div className="group bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700">
+            <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-indigo-600 shadow-lg mb-4 group-hover:scale-110 transition-transform duration-300">
+              <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Response Time</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">We typically reply within</p>
+            <p className="text-indigo-600 dark:text-indigo-400 font-bold text-lg">24 Hours</p>
+          </div>
+
+          <div className="group bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700">
+            <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-purple-600 shadow-lg mb-4 group-hover:scale-110 transition-transform duration-300">
+              <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Support Hours</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Monday to Friday</p>
+            <p className="text-purple-600 dark:text-purple-400 font-bold text-lg">9 AM - 6 PM IST</p>
+          </div>
+        </div>
+
+        <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-700">
+          <div className="p-8 sm:p-12">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Send us a Message</h2>
+              <p className="text-gray-600 dark:text-gray-400">Fill out the form and we'll respond as soon as possible</p>
             </div>
 
-            {/* Right Form Section */}
-            <div className="px-8 py-12 lg:col-span-3">
-              <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">Send us a message</h3>
-
-              <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="relative">
-                  <label htmlFor="full-name" className="absolute -top-2 left-2 inline-block bg-white dark:bg-gray-800 px-1 text-xs font-medium text-gray-600 dark:text-gray-400">
-                    Full name
+                  <label htmlFor="fullName" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                    Full Name
                   </label>
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus-within:ring-2 focus-within:ring-blue-600">
-                    <span className="flex select-none items-center pl-3 text-gray-500 dark:text-gray-400 sm:text-sm">
-                      <UserIcon className="h-5 w-5" aria-hidden="true" />
-                    </span>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                      <UserIcon className="h-5 w-5 text-gray-400" />
+                    </div>
                     <input
                       type="text"
                       name="fullName"
-                      id="full-name"
-                      autoComplete="name"
+                      id="fullName"
                       required
-                      className="block flex-1 border-0 bg-transparent py-3 pl-2 text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-0 sm:text-sm"
-                      placeholder="John Doe"
                       value={formData.fullName}
                       onChange={handleChange}
+                      className="block w-full pl-12 pr-4 py-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white placeholder-gray-400 transition-all hover:border-gray-300 dark:hover:border-gray-500 font-medium"
+                      placeholder="John Doe"
                     />
                   </div>
                 </div>
 
                 <div className="relative">
-                  <label htmlFor="email" className="absolute -top-2 left-2 inline-block bg-white dark:bg-gray-800 px-1 text-xs font-medium text-gray-600 dark:text-gray-400">
-                    Email
+                  <label htmlFor="email" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                    Email Address
                   </label>
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus-within:ring-2 focus-within:ring-blue-600">
-                    <span className="flex select-none items-center pl-3 text-gray-500 dark:text-gray-400 sm:text-sm">
-                      <EnvelopeIcon className="h-5 w-5" aria-hidden="true" />
-                    </span>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                      <EnvelopeIcon className="h-5 w-5 text-gray-400" />
+                    </div>
                     <input
                       type="email"
                       name="email"
                       id="email"
-                      autoComplete="email"
                       required
-                      className="block flex-1 border-0 bg-transparent py-3 pl-2 text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-0 sm:text-sm"
-                      placeholder="you@example.com"
                       value={formData.email}
                       onChange={handleChange}
+                      className="block w-full pl-12 pr-4 py-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white placeholder-gray-400 transition-all hover:border-gray-300 dark:hover:border-gray-500 font-medium"
+                      placeholder="you@example.com"
                     />
                   </div>
                 </div>
+              </div>
 
+              <div className="relative">
+                <label htmlFor="message" className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
+                  Your Message
+                </label>
                 <div className="relative">
-                  <label htmlFor="message" className="absolute -top-2 left-2 inline-block bg-white dark:bg-gray-800 px-1 text-xs font-medium text-gray-600 dark:text-gray-400">
-                    Message
-                  </label>
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus-within:ring-2 focus-within:ring-blue-600">
-                    <span className="flex select-none items-center pl-3 text-gray-500 dark:text-gray-400 sm:text-sm">
-                      <ChatBubbleOvalLeftIcon className="h-5 w-5" aria-hidden="true" />
-                    </span>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows={4}
-                      required
-                      className="block flex-1 border-0 bg-transparent py-3 pl-2 text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-0 sm:text-sm"
-                      placeholder="How can we help you?"
-                      value={formData.message}
-                      onChange={handleChange}
-                    />
+                  <div className="absolute top-4 left-4 pointer-events-none">
+                    <ChatBubbleLeftRightIcon className="h-5 w-5 text-gray-400" />
                   </div>
+                  <textarea
+                    name="message"
+                    id="message"
+                    rows={6}
+                    required
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="block w-full pl-12 pr-4 py-4 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white placeholder-gray-400 transition-all hover:border-gray-300 dark:hover:border-gray-500 resize-none font-medium"
+                    placeholder="Tell us how we can help you..."
+                  ></textarea>
                 </div>
+              </div>
 
-                <div>
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="flex w-full items-center justify-center rounded-md bg-blue-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-150 ease-in-out disabled:opacity-50"
-                  >
-                    {isSubmitting ? (
-                      <span className="flex items-center">
-                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        Submitting...
-                      </span>
-                    ) : (
-                      <span className="flex items-center">
-                        Send Message
-                        <PaperAirplaneIcon className="ml-2 h-5 w-5" aria-hidden="true" />
-                      </span>
-                    )}
-                  </button>
-                </div>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full group rounded-xl bg-blue-600 hover:bg-blue-700 px-8 py-5 text-lg font-bold text-white shadow-xl hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98]"
+              >
+                <span className="flex items-center justify-center gap-3">
+                  {isSubmitting ? (
+                    <>
+                      <svg className="animate-spin h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Sending Your Message...
+                    </>
+                  ) : (
+                    <>
+                      Send Message
+                      <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </>
+                  )}
+                </span>
+              </button>
 
-                {submitStatus === "success" && (
-                  <div className="rounded-md bg-green-50 dark:bg-green-900/30 p-4">
-                    <div className="flex">
-                      <div className="flex-shrink-0">
-                        <svg className="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" />
-                        </svg>
-                      </div>
-                      <div className="ml-3">
-                        <p className="text-sm font-medium text-green-800 dark:text-green-200">Thank you for your message. We'll be in touch soon!</p>
+              {submitStatus === "success" && (
+                <div className="rounded-2xl bg-green-50 dark:bg-green-900/20 p-6 border-2 border-green-200 dark:border-green-800/50 shadow-lg">
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <div className="flex items-center justify-center w-12 h-12 rounded-full bg-green-500 shadow-lg">
+                        <CheckCircleIcon className="h-7 w-7 text-white" />
                       </div>
                     </div>
-                  </div>
-                )}
-
-                {submitStatus === "error" && (
-                  <div className="rounded-md bg-red-50 dark:bg-red-900/30 p-4">
-                    <div className="flex">
-                      <div className="flex-shrink-0">
-                        <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clipRule="evenodd" />
-                        </svg>
-                      </div>
-                      <div className="ml-3">
-                        <p className="text-sm font-medium text-red-800 dark:text-red-200">An error occurred. Please try again later.</p>
-                      </div>
+                    <div className="ml-4">
+                      <h3 className="text-lg font-bold text-green-900 dark:text-green-100">Message Sent Successfully!</h3>
+                      <p className="text-sm text-green-800 dark:text-green-200 mt-1">Thank you for reaching out. We've received your message and will respond within 24 hours.</p>
                     </div>
                   </div>
-                )}
-              </form>
-            </div>
+                </div>
+              )}
+
+              {submitStatus === "error" && (
+                <div className="rounded-2xl bg-red-50 dark:bg-red-900/20 p-6 border-2 border-red-200 dark:border-red-800/50 shadow-lg">
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <div className="flex items-center justify-center w-12 h-12 rounded-full bg-red-500 shadow-lg">
+                        <XCircleIcon className="h-7 w-7 text-white" />
+                      </div>
+                    </div>
+                    <div className="ml-4">
+                      <h3 className="text-lg font-bold text-red-900 dark:text-red-100">Oops! Something went wrong</h3>
+                      <p className="text-sm text-red-800 dark:text-red-200 mt-1">Unable to send your message. Please try again or contact us at jntuhresults@theskypedia.com</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </form>
           </div>
         </div>
       </div>

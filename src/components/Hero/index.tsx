@@ -165,11 +165,10 @@ const Hero: React.FC = () => {
         </div>
 
         {/* Stats Section */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-16">
           {[
             { icon: Users, label: "Active Students", value: "100K+" },
             { icon: Search, label: "Result Searches", value: "500K+" },
-            { icon: Award, label: "Success Stories", value: "50K+" },
             { icon: TrendingUp, label: "Avg. Response", value: "<2s" },
           ].map((stat, index) => (
             <div
