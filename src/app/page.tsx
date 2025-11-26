@@ -4,6 +4,7 @@ import Hero from "../components/Hero";
 import ResultsBox from "../components/results";
 import HomepageBlog from "../components/blog";
 import { ResponsiveAd, InContentAd } from "@/components/Adsense";
+import { SubscriptionForm } from "@/components/ResultAlerts";
 import AD_SLOTS from "@/config/adSlots";
 import type { JSX } from "react";
 
@@ -23,6 +24,11 @@ export default function Home(): JSX.Element {
 
       {/* Results/Resources Section */}
       <ResultsBox />
+
+      {/* Result Alerts Subscription */}
+      <div className="container mx-auto px-4 py-12">
+        <SubscriptionForm compact />
+      </div>
 
       {/* Mid Ad Rectangle */}
       <div className="container mx-auto px-4">
