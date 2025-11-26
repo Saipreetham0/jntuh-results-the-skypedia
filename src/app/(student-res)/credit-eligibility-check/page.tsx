@@ -100,7 +100,8 @@ export default function CreditEligibilityCheck() {
     // Create a promise for this fetch and store it
     const fetchPromise = (async () => {
       try {
-        const response = await fetch(`https://jntuhresults.dhethi.com/api/getCreditsChecker?rollNumber=${roll}`);
+        // Use internal API route to avoid CORS issues
+        const response = await fetch(`/api/credit-eligibility?htno=${roll}`);
 
         if (!response.ok) {
           const errorData = await response.json();
