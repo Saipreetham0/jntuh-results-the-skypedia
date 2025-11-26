@@ -1,12 +1,14 @@
 import Navbar from "../components/NavBar/navBar";
 import Footer from "../components/Footer";
 import AdScript from "../components/Adsense/AdScript";
+import { AnchorAd } from "@/components/Adsense";
 import { InstallPWA } from "@/components/InstallPWA";
 import { ThemeProvider } from "@/components/theme-provider";
 import AnnouncementBar from "../components/AnnouncementBar";
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Metadata } from 'next';
 import Script from 'next/script';
+import AD_SLOTS from "@/config/adSlots";
 
 import "./styles/globals.css";
 
@@ -268,6 +270,9 @@ export default function RootLayout({
           </div>
 
           <InstallPWA />
+
+          {/* Mobile Anchor Ad - Shows only on mobile devices */}
+          <AnchorAd adSlot={AD_SLOTS.MOBILE.ANCHOR_BOTTOM} />
         </ThemeProvider>
       </body>
     </html>

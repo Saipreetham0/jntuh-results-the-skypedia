@@ -11,3 +11,5 @@ export { default as StickyAd } from './StickyAd';
 export { default as InContentAd } from './InContentAd';
 export { default as InArticleAd } from './InArticleAd';
 export { default as ResponsiveAd } from './ResponsiveAd';
+export { default as AnchorAd } from './AnchorAd';
+export { default as MultiplexAd } from './MultiplexAd';
