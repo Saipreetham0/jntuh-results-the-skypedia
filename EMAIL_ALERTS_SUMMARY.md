@@ -25,6 +25,9 @@
 ### ✅ Homepage
 - [src/app/page.tsx](src/app/page.tsx) - Added subscription form
 
+### ✅ Shared Storage
+- [src/lib/subscribers-storage.ts](src/lib/subscribers-storage.ts) - Shared storage singleton
+
 ### ✅ Documentation
 - [docs/features/EMAIL_ALERTS_IMPLEMENTATION.md](docs/features/EMAIL_ALERTS_IMPLEMENTATION.md) - Complete guide
 
@@ -124,6 +127,18 @@ pnpm dev
 8. ✅ Dark mode support
 9. ✅ Mobile responsive
 10. ✅ Proper error handling
+11. ✅ Shared storage (subscribe & verify use same data)
+12. ✅ Console logging for debugging
+
+---
+
+## 🐛 Bug Fixes
+
+### Fixed: "Subscription not found" Error
+- **Issue**: Subscribe and verify routes were using separate Map instances
+- **Solution**: Created shared storage singleton (`subscribersStorage`)
+- **Result**: Verification now works correctly - both routes access same data
+- **Note**: Still in-memory (cleared on restart), needs database for production
 
 ---
 

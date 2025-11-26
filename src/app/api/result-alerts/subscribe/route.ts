@@ -1,12 +1,9 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import crypto from 'crypto';
+import { subscribersStorage } from '@/lib/subscribers-storage';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-
-// In-memory storage for demo (replace with database in production)
-// Use Supabase, MySQL, or any database you prefer
-const subscribers = new Map<string, any>();
 
 interface SubscriptionRequest {
   rollNumber: string;
@@ -81,7 +78,7 @@ export async function POST(request: Request) {
     };
 
     // Store subscription (replace with database in production)
-    subscribers.set(subscriptionId, subscription);
+    subscribersStorage.set(subscriptionId, subscription);
 
     // Send verification email
     const verificationUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://jntuhresults.theskypedia.com'}/result-alerts/verify?token=${verificationToken}&id=${encodeURIComponent(subscriptionId)}`;
@@ -252,7 +249,7 @@ export async function GET(request: Request) {
     }
 
     const subscriptionId = `${rollNumber}-${email}`;
-    const subscription = subscribers.get(subscriptionId);
+    const subscription = subscribersStorage.get(subscriptionId);
 
     if (subscription) {
       return NextResponse.json({

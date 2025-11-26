@@ -335,6 +335,38 @@ import { AD_SLOTS } from '@/config/adSlots';
 - **SEO_IMPLEMENTATION_COMPLETE.md**: SEO audit and implementation details
 - **ADSENSE_*.md**: AdSense implementation and troubleshooting guides
 - **UPGRADE_SUMMARY.md**: Recent upgrade notes
+- **EMAIL_ALERTS_SUMMARY.md**: Email alerts feature implementation
+- **VERIFICATION_BUG_FIX.md**: Fixed "Subscription not found" verification error
+- **docs/**: Organized documentation (adsense/, features/, archived/)
+
+---
+
+## Email Alerts Feature
+
+**Status:** ✅ Implemented and Working
+
+**Key Components:**
+- `src/components/ResultAlerts/SubscriptionForm.tsx` - Subscription form
+- `src/app/api/result-alerts/subscribe/route.ts` - Subscription API
+- `src/app/api/result-alerts/verify/route.ts` - Verification API
+- `src/lib/subscribers-storage.ts` - **Shared storage singleton** (critical!)
+
+**Important:** The subscribe and verify routes **must use the same storage instance**. This is handled by the `subscribersStorage` singleton in `src/lib/subscribers-storage.ts`. Never create separate Map instances in API routes.
+
+**Current Storage:** In-memory (cleared on restart) - needs database for production
+
+**Setup Required:**
+```env
+RESEND_API_KEY=your_resend_api_key
+NEXT_PUBLIC_SITE_URL=https://jntuhresults.theskypedia.com
+```
+
+**Pages:**
+- `/` - Homepage with compact subscription form
+- `/result-alerts` - Dedicated subscription page
+- `/result-alerts/verify?token=xxx&id=xxx` - Email verification page
+
+**Bug Fix Applied:** Fixed "Subscription not found" error by using shared storage singleton instead of separate Map instances per route. See `VERIFICATION_BUG_FIX.md` for details.
 
 ---
 

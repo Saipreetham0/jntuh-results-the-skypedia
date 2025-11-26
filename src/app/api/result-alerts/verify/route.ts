@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server';
-
-// In-memory storage (same as subscribe route - replace with database)
-const subscribers = new Map<string, any>();
+import { subscribersStorage } from '@/lib/subscribers-storage';
 
 /**
  * GET /api/result-alerts/verify?token=xxx&id=xxx
@@ -24,7 +22,7 @@ export async function GET(request: Request) {
     }
 
     // Get subscription from storage
-    const subscription = subscribers.get(subscriptionId);
+    const subscription = subscribersStorage.get(subscriptionId);
 
     if (!subscription) {
       return NextResponse.json(
@@ -79,7 +77,7 @@ export async function GET(request: Request) {
     subscription.verificationToken = undefined; // Remove token after verification
 
     // Update in storage
-    subscribers.set(subscriptionId, subscription);
+    subscribersStorage.set(subscriptionId, subscription);
 
     return NextResponse.json({
       success: true,
