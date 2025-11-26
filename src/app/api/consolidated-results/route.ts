@@ -134,11 +134,11 @@ export async function GET(request: Request) {
     //   );
     // }
 
-    // Make request to external API
+    // Make request to external API (using getAllResult endpoint for consolidated results)
     const response = await axios.get(
-      `https://jntuhresults.dhethi.com/api/getAcademicResult?rollNumber=${rollNumber}`,
+      `https://jntuhresults.dhethi.com/api/getAllResult?rollNumber=${rollNumber}`,
       {
-        timeout: 10000, // 10 second timeout
+        timeout: 15000, // 15 second timeout (consolidated results may take longer)
         headers: {
           'User-Agent': 'JNTUHResultsPortal/1.0'
         }
