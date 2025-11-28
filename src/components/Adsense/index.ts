@@ -2,7 +2,7 @@
  * AdSense Components - Central Export
  *
  * Provides clean imports for all AdSense components
- * Usage: import { AdBanner, StickyAd, InContentAd, InArticleAd } from '@/components/Adsense';
+ * Usage: import { AdBanner, StickyAd, InContentAd, InArticleAd } from '@/components/adsense';
  */
 
 export { default as AdBanner } from './AdBanner';

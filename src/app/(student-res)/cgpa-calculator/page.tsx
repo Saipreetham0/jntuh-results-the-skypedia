@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Calculator, School, ChevronRight, Trash2, Plus, TrendingUp, Award, Info } from "lucide-react";
-import { ResponsiveAd, InContentAd, StickyAd } from "@/components/Adsense";
+import { ResponsiveAd, InContentAd, StickyAd } from "@/components/adsense";
 import AD_SLOTS from "@/config/adSlots";
 
 interface CalculatorCard {

@@ -1,5 +1,5 @@
 // Example usage in your pages:
-import ComingSoon from "@/components/ComingSoon";
+import ComingSoon from "@/components/coming-soon";
 
 // page.tsx
 export default function FeaturePage() {

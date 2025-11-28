@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Calculator, TrendingUp, Trophy, AlertCircle } from "lucide-react";
 import Link from "next/link";
-import { ResponsiveAd, InContentAd, StickyAd } from "@/components/Adsense";
+import { ResponsiveAd, InContentAd, StickyAd } from "@/components/adsense";
 import AD_SLOTS from "@/config/adSlots";
 
 interface CalculationResult {

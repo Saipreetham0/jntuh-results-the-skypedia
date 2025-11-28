@@ -3,9 +3,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ResponsiveAd, InContentAd } from "@/components/Adsense";
+import { ResponsiveAd, InContentAd } from "@/components/adsense";
 import AD_SLOTS from "@/config/adSlots";
-import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { ErrorBoundary } from '@/components/common/ErrorBoundary';
 import {
   MagnifyingGlassIcon,
   ExclamationCircleIcon,

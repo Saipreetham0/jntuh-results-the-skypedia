@@ -4,7 +4,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { ResponsiveAd, InContentAd, StickyAd } from "@/components/Adsense";
+import { ResponsiveAd, InContentAd, StickyAd } from "@/components/adsense";
 import AD_SLOTS from "@/config/adSlots";
 import { Calculator, Trophy, TrendingUp, AlertCircle, BookOpen } from "lucide-react";
 import Link from "next/link";

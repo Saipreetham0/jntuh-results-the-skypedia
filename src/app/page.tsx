@@ -1,10 +1,10 @@
 "use client";
 
-import Hero from "../components/Hero";
+import Hero from "../components/hero";
 import ResultsBox from "../components/results";
 import HomepageBlog from "../components/blog";
-import { ResponsiveAd, InContentAd } from "@/components/Adsense";
-import { SubscriptionForm } from "@/components/ResultAlerts";
+import { ResponsiveAd, InContentAd } from "@/components/adsense";
+import { SubscriptionForm } from "@/components/features/result-alerts";
 import AD_SLOTS from "@/config/adSlots";
 import type { JSX } from "react";
 

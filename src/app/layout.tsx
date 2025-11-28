@@ -1,16 +1,16 @@
-import Navbar from "../components/NavBar/navBar";
-import Footer from "../components/Footer";
-import AdScript from "../components/Adsense/AdScript";
-import { AnchorAd } from "@/components/Adsense";
-import { InstallPWA } from "@/components/InstallPWA";
-import { ThemeProvider } from "@/components/theme-provider";
-import AnnouncementBar from "../components/AnnouncementBar";
+import Navbar from "../components/layout/nav-bar/navBar";
+import Footer from "../components/layout/footer";
+import AdScript from "../components/adsense/AdScript";
+import { AnchorAd } from "@/components/adsense";
+import { InstallPWA } from "@/components/layout/InstallPWA";
+import { ThemeProvider } from "@/components/common/theme-provider";
+import AnnouncementBar from "../components/layout/announcement-bar";
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Metadata } from 'next';
 import Script from 'next/script';
 import AD_SLOTS from "@/config/adSlots";
 
-import "./styles/globals.css";
+import "./_shared/styles/globals.css";
 
 // Import SEO schemas
 import { generateWebsiteSchema, generateOrganizationSchema } from '@/lib/seo/schema';

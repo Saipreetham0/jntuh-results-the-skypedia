@@ -2,8 +2,8 @@
 "use client";;
 import { use } from "react";
 
-import StudentResultsTables from "@/components/StudentResultsTables";
-// import PrintableStudentResultsTables from "@/components/StudentResultsTables";
+import StudentResultsTables from "@/components/features/StudentResultsTables";
+// import PrintableStudentResultsTables from "@/components/features/StudentResultsTables";
 
 export default function StudentPage(props: { params: Promise<{ htno: string }> }) {
   const params = use(props.params);

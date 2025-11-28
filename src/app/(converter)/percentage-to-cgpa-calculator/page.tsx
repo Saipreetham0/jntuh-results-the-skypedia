@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ResponsiveAd, InContentAd, StickyAd } from "@/components/Adsense";
+import { ResponsiveAd, InContentAd, StickyAd } from "@/components/adsense";
 import AD_SLOTS from "@/config/adSlots";
 import { Calculator, Trophy, TrendingUp, AlertCircle } from "lucide-react";
 

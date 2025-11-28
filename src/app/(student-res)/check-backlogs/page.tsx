@@ -1,6 +1,6 @@
 // // Example usage in your pages:
-// import ComingSoon from "@/components/ComingSoon";
-// import BacklogsPage from '@/components/BacklogsPage';
+// import ComingSoon from "@/components/coming-soon";
+// import BacklogsPage from '@/components/features/backlogs-page';
 
 
 // // page.tsx
@@ -22,7 +22,7 @@
 
 
 // app/backlogs/page.tsx
-import BacklogsPage from '@/components/BacklogsPage';
+import BacklogsPage from '@/components/features/backlogs-page';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

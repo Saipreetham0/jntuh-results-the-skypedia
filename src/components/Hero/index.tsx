@@ -1,5 +1,5 @@
 // import React from 'react';
-// import AdBanner from "../Adsense/AdBanner";
+// import AdBanner from "../adsense/AdBanner";
 
 // const Hero: React.FC = () => {
 //   const handleWhatsAppContact = () => {
@@ -84,7 +84,7 @@
 import React from "react";
 import Link from "next/link";
 import { MessageSquare, Globe, Search, TrendingUp, Award, Users } from "lucide-react";
-import AdBanner from "../Adsense/AdBanner";
+import AdBanner from "../adsense/AdBanner";
 
 const Hero: React.FC = () => {
   const handleWhatsAppContact = () => {

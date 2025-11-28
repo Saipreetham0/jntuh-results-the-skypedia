@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/select";
 import { Plus, Trash2, Calculator, TrendingUp, Info, Award, RefreshCw, GraduationCap, Trophy } from "lucide-react";
 import Link from "next/link";
-import { ResponsiveAd, InContentAd, StickyAd } from "@/components/Adsense";
+import { ResponsiveAd, InContentAd, StickyAd } from "@/components/adsense";
 import AD_SLOTS from "@/config/adSlots";
 
 interface SemesterData {

@@ -119,7 +119,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import Card from '../Card';
+import Card from '../card';
 import { Search, BookOpen, Calculator, FileText, BarChart2, CheckCircle, Users, AlertCircle, FileQuestion, Percent, RefreshCw } from 'lucide-react';
 
 interface CardData {
