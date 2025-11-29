@@ -320,20 +320,32 @@ const Footer: React.FC = () => {
               <Heart className="w-4 h-4 text-[#21C15E] fill-[#21C15E] animate-pulse" />
               <span>for JNTUH Students</span>
             </div>
-            {/* <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+            <div className="flex flex-wrap justify-center gap-4 md:gap-6">
               <Link
-                href="/privacy"
+                href="/privacy-policy"
                 className="text-sm text-gray-500 hover:text-[#1C61E7] dark:text-gray-400 dark:hover:text-[#1C61E7] transition-colors"
               >
                 Privacy Policy
               </Link>
               <Link
-                href="/terms"
+                href="/terms-of-service"
                 className="text-sm text-gray-500 hover:text-[#1C61E7] dark:text-gray-400 dark:hover:text-[#1C61E7] transition-colors"
               >
                 Terms of Service
               </Link>
-            </div> */}
+              <Link
+                href="/disclaimer"
+                className="text-sm text-gray-500 hover:text-[#1C61E7] dark:text-gray-400 dark:hover:text-[#1C61E7] transition-colors"
+              >
+                Disclaimer
+              </Link>
+              <Link
+                href="/cookie-policy"
+                className="text-sm text-gray-500 hover:text-[#1C61E7] dark:text-gray-400 dark:hover:text-[#1C61E7] transition-colors"
+              >
+                Cookie Policy
+              </Link>
+            </div>
           </div>
         </div>
       </div>

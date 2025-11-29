@@ -1,261 +1,51 @@
-import Navbar from "../components/layout/nav-bar/navBar";
-import Footer from "../components/layout/footer";
-import AdScript from "../components/adsense/AdScript";
-import { AnchorAd } from "@/components/adsense";
-import { InstallPWA } from "@/components/layout/InstallPWA";
-import { ThemeProvider } from "@/components/common/theme-provider";
-import AnnouncementBar from "../components/layout/announcement-bar";
+import type { ReactNode } from 'react';
+import type { Metadata } from 'next';
+
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { Metadata } from 'next';
-import Script from 'next/script';
-import AD_SLOTS from "@/config/adSlots";
 
-import "./_shared/styles/globals.css";
+import { generateMetadata } from '@/lib/metadata';
 
-// Import SEO schemas
-import { generateWebsiteSchema, generateOrganizationSchema } from '@/lib/seo/schema';
+import Navbar from '@/components/layout/nav-bar/navBar';
+import Footer from '@/components/layout/footer';
+import AnnouncementBar from '@/components/layout/announcement-bar';
+import { InstallPWA } from '@/components/layout/InstallPWA';
 
-const GTM_ID = "GTM-W6TSKNVX";
+import { Providers } from '@/components/layout/providers';
 
-export const metadata: Metadata = {
-  metadataBase: new URL('https://jntuhresults.theskypedia.com'),
+import { GoogleTagManager, GoogleTagManagerNoScript } from '@/components/layout/scripts/GoogleTagManager';
+import { StructuredData } from '@/components/layout/scripts/StructuredData';
 
-  title: {
-    default: 'JNTUH Results - Check B.Tech, M.Tech Results | CGPA Calculator',
-    template: '%s | JNTUH Results - TheSkypedia',
-  },
+import AnalyticsProvider from '@/components/analytics';
+import AdScript from '@/components/adsense/AdScript';
+import { AnchorAd } from '@/components/adsense';
 
-  description: 'Official JNTUH Results portal by TheSkypedia. Check B.Tech, M.Tech semester results, calculate CGPA/SGPA, convert grades to percentage, access previous papers, syllabus & academic resources for all regulations (R22, R20, R18).',
+import AD_SLOTS from '@/config/adSlots';
 
-  keywords: [
-    'JNTUH Results',
-    'JNTUH CGPA Calculator',
-    'CGPA to Percentage JNTUH',
-    'JNTUH R22 Results',
-    'JNTUH B.Tech Results',
-    'JNTUH M.Tech Results',
-    'SGPA to CGPA Calculator',
-    'JNTUH Previous Papers',
-    'JNTUH Syllabus',
-    'JNTUH Academic Calendar',
-    'JNTUH Consolidated Results',
-    'JNTUH Backlog Check',
-  ],
+import '@/app/_shared/styles/globals.css';
 
-  authors: [{ name: 'TheSkypedia', url: 'https://theskypedia.com' }],
-  creator: 'TheSkypedia',
-  publisher: 'TheSkypedia',
+export const metadata: Metadata = generateMetadata();
 
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-
-  openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: 'https://jntuhresults.theskypedia.com',
-    siteName: 'JNTUH Results - TheSkypedia',
-    title: 'JNTUH Results - Check B.Tech, M.Tech Results | CGPA Calculator',
-    description: 'Check JNTUH Results, calculate CGPA/SGPA, convert grades, and access academic resources for all JNTUH regulations.',
-    images: [
-      {
-        url: '/homepage.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'JNTUH Results Portal',
-        type: 'image/jpeg',
-      },
-    ],
-  },
-
-  twitter: {
-    card: 'summary_large_image',
-    title: 'JNTUH Results - Check Results & Calculate CGPA',
-    description: 'Check JNTUH Results, calculate CGPA/SGPA, convert grades, and access academic resources.',
-    images: ['/homepage.jpg'],
-    creator: '@theskypedia',
-    site: '@theskypedia',
-  },
-
-  robots: {
-    index: true,
-    follow: true,
-    nocache: false,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-
-  icons: {
-    icon: [
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-    ],
-    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
-    other: [
-      { url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
-      { url: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
-    ],
-  },
-
-  manifest: '/site.webmanifest',
-
-  verification: {
-    google: 'w6urUAImoYyrv-5UIio0rfpmxsgVLwTlDg6KxWyeV_o',
-  },
-
-  alternates: {
-    canonical: 'https://jntuhresults.theskypedia.com',
-  },
-
-  category: 'education',
-
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'default',
-    title: 'JNTUH RESULTS',
-  },
-
-  other: {
-    'theme-color': '#1C61E7',
-    'mobile-web-app-capable': 'yes',
-    'apple-mobile-web-app-status-bar-style': 'default',
-    'msapplication-TileColor': '#ffffff',
-  },
-};
+interface RootLayoutProps {
+  readonly children: ReactNode;
+}
 
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
-  const websiteSchema = generateWebsiteSchema();
-  const organizationSchema = generateOrganizationSchema();
-
+}: RootLayoutProps) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
-        {/* JSON-LD Schemas */}
-        <Script
-          id="website-schema"
-          type="application/ld+json"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(websiteSchema),
-          }}
-        />
-        <Script
-          id="organization-schema"
-          type="application/ld+json"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema),
-          }}
-        />
-
-        {/* GTM */}
-        <Script
-          id="gtm-script"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','${GTM_ID}');
-            `,
-          }}
-        />
-
-        {/* Clarity */}
-        <Script
-          id="clarity-script"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function(c,l,a,r,i,t,y){
-                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-              })(window, document, "clarity", "script", "n6vruy6vlg");
-            `,
-          }}
-        />
-
-        {/* Google Analytics */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-N1FJ0X03GL"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-N1FJ0X03GL');
-          `}
-        </Script>
-
-        {/* Meta Pixel */}
-        <Script
-          id="meta-pixel"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              !function(f,b,e,v,n,t,s)
-              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-              n.queue=[];t=b.createElement(e);t.async=!0;
-              t.src=v;s=b.getElementsByTagName(e)[0];
-              s.parentNode.insertBefore(t,s)}(window, document,'script',
-              'https://connect.facebook.net/en_US/fbevents.js');
-              fbq('init', '27624496020475115');
-              fbq('track', 'PageView');
-            `,
-          }}
-        />
-
+        <StructuredData />
+        <GoogleTagManager />
         <AdScript />
       </head>
 
-      <body suppressHydrationWarning={true}>
+      <body suppressHydrationWarning>
         <SpeedInsights />
+        <AnalyticsProvider />
+        <GoogleTagManagerNoScript />
 
-        {/* GTM NoScript */}
-        <noscript>
-          <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          />
-        </noscript>
-
-        {/* Meta Pixel NoScript */}
-        <noscript>
-          <img
-            height="1"
-            width="1"
-            style={{ display: "none" }}
-            src="https://www.facebook.com/tr?id=27624496020475115&ev=PageView&noscript=1"
-            alt=""
-          />
-        </noscript>
-
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <Providers>
           <div className="flex flex-col min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
             <AnnouncementBar
               message="🚀 NEW: Check your Backlogs & Consolidated Results now available!"
@@ -264,16 +54,19 @@ export default function RootLayout({
               textColor="text-white"
               isDismissible={true}
             />
+
             <Navbar />
-            <main className="flex-grow bg-gray-50 dark:bg-gray-900">{children}</main>
+
+            <main className="flex-grow bg-gray-50 dark:bg-gray-900">
+              {children}
+            </main>
+
             <Footer />
           </div>
 
           <InstallPWA />
-
-          {/* Mobile Anchor Ad - Shows only on mobile devices */}
           <AnchorAd adSlot={AD_SLOTS.MOBILE.ANCHOR_BOTTOM} />
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

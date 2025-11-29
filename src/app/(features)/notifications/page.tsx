@@ -10,6 +10,7 @@ import {
   RefreshCcw,
   ChevronLeft,
   ChevronRight,
+  Mail,
 } from "lucide-react";
 import Link from "next/link";
 import AdBanner from "@/components/adsense/AdBanner";
@@ -31,6 +32,12 @@ const NotificationsPage = () => {
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
+
+  // Email subscription states
+  const [email, setEmail] = useState("");
+  const [isSubscribing, setIsSubscribing] = useState(false);
+  const [subscriptionStatus, setSubscriptionStatus] = useState<"idle" | "success" | "error">("idle");
+  const [subscriptionMessage, setSubscriptionMessage] = useState("");
 
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
@@ -94,6 +101,39 @@ const NotificationsPage = () => {
       );
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  // Handle email subscription
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubscribing(true);
+    setSubscriptionStatus("idle");
+    setSubscriptionMessage("");
+
+    try {
+      const response = await fetch("/api/notifications/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to subscribe");
+      }
+
+      setSubscriptionStatus("success");
+      setSubscriptionMessage("Subscription successful! Please check your email to verify.");
+      setEmail("");
+    } catch (err) {
+      setSubscriptionStatus("error");
+      setSubscriptionMessage(
+        err instanceof Error ? err.message : "An error occurred. Please try again."
+      );
+    } finally {
+      setIsSubscribing(false);
     }
   };
 
@@ -249,6 +289,56 @@ const NotificationsPage = () => {
           </p>
         </div>
 
+        {/* Email Subscription Section */}
+        <div className="mb-8 bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-950/30 dark:to-blue-950/30 rounded-lg border border-indigo-200 dark:border-indigo-800 p-6">
+          <div className="flex items-start gap-4">
+            <div className="flex-shrink-0">
+              <div className="w-12 h-12 bg-indigo-600 rounded-lg flex items-center justify-center">
+                <Mail className="w-6 h-6 text-white" />
+              </div>
+            </div>
+            <div className="flex-1">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                Get Notifications via Email
+              </h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                Subscribe to receive instant email alerts when new JNTUH notifications are published.
+              </p>
+
+              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email address"
+                  required
+                  className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400"
+                />
+                <button
+                  type="submit"
+                  disabled={isSubscribing}
+                  className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+                >
+                  {isSubscribing ? "Subscribing..." : "Subscribe"}
+                </button>
+              </form>
+
+              {/* Subscription Status Messages */}
+              {subscriptionStatus === "success" && (
+                <div className="mt-3 text-sm text-green-700 dark:text-green-300 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg p-3">
+                  ✓ {subscriptionMessage}
+                </div>
+              )}
+
+              {subscriptionStatus === "error" && (
+                <div className="mt-3 text-sm text-red-700 dark:text-red-300 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg p-3">
+                  ✗ {subscriptionMessage}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
         {/* Ad Banner */}
         <div className="mb-6">
           <AdBanner
@@ -362,7 +452,6 @@ const NotificationsPage = () => {
           </div>
         </div>
 
-        {/* Search Controls */}
         {/* Search Controls */}
         <div className="mb-6 flex flex-col sm:flex-row gap-4">
           <div className="relative flex-1">
