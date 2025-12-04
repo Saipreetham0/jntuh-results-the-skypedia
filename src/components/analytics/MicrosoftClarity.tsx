@@ -20,8 +20,8 @@ interface MicrosoftClarityProps {
  * - Excessive scrolling detection
  */
 export default function MicrosoftClarity({ projectId }: MicrosoftClarityProps) {
-  if (!projectId || projectId === "n6vruy6vlg") {
-    console.warn("MicrosoftClarity: No valid project ID provided");
+  if (!projectId) {
+    console.warn("MicrosoftClarity: No project ID provided");
     return null;
   }
 

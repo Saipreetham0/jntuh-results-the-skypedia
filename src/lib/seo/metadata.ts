@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 interface PageMetadata {
   title: string;
@@ -78,33 +78,41 @@ export function generatePageMetadata({
 // Specific metadata generators for calculator pages
 export const calculatorMetadata = {
   cgpaCalculator: (): Metadata => generatePageMetadata({
-    title: 'JNTUH CGPA Calculator - Calculate Your Cumulative GPA Online',
-    description: 'Free JNTUH CGPA Calculator for R22, R20, R18, R16 regulations. Calculate your cumulative GPA with semester-wise grades. Instant results with grade breakdown and performance analysis.',
+    title: 'JNTUH CGPA Calculator Online - Free GPA Calculator for R22, R20, R18',
+    description: 'Calculate JNTUH CGPA instantly with our free online calculator. Supports R22, R20, R18, R16 regulations. Get semester-wise CGPA, percentage conversion, and grade analysis for B.Tech & M.Tech students.',
     keywords: [
       'JNTUH CGPA Calculator',
       'CGPA Calculator JNTUH',
+      'JNTUH CGPA Calculator Online',
+      'Free JNTUH CGPA Calculator',
+      'JNTU CGPA Calculator',
       'JNTUH R22 CGPA Calculator',
       'JNTUH R20 CGPA Calculator',
       'Calculate CGPA JNTUH',
       'JNTUH B.Tech CGPA',
       'Semester wise CGPA',
       'JNTUH Grade Calculator',
+      'CGPA Calculator for JNTUH Students',
     ],
     canonical: 'https://jntuhresults.theskypedia.com/cgpa-calculator',
     ogImage: 'https://jntuhresults.theskypedia.com/og-cgpa-calculator.jpg',
   }),
 
   cgpaToPercentage: (): Metadata => generatePageMetadata({
-    title: 'CGPA to Percentage Converter - JNTUH Grade Conversion Tool',
-    description: 'Convert JNTUH CGPA to Percentage instantly. Accurate conversion formula for R22, R20, R18 regulations. Free online tool with grade breakdown and performance level.',
+    title: 'CGPA to Percentage Converter - JNTUH Grade to Marks Calculator',
+    description: 'Convert JNTUH CGPA to Percentage instantly with accurate formula. Supports 10.0, 4.0, 5.0 grading scales. Free converter for R22, R20, R18 regulations with detailed grade breakdown and performance analysis.',
     keywords: [
       'CGPA to Percentage JNTUH',
+      'JNTUH CGPA to Percentage',
+      'CGPA to Percentage Calculator JNTUH',
+      'JNTUH Percentage Calculator',
       'JNTUH CGPA to Percentage Converter',
       'CGPA Percentage Conversion',
       'JNTUH Grade to Percentage',
       'Convert CGPA to Marks',
       'JNTUH R22 CGPA to Percentage',
       'GPA to Percentage',
+      'CGPA to Percentage Conversion Formula',
     ],
     canonical: 'https://jntuhresults.theskypedia.com/cgpa-percentage-converter',
     ogImage: 'https://jntuhresults.theskypedia.com/og-cgpa-percentage.jpg',
@@ -141,15 +149,20 @@ export const calculatorMetadata = {
   }),
 
   marksPercentage: (): Metadata => generatePageMetadata({
-    title: 'Marks to Percentage Calculator - JNTUH Score Converter',
-    description: 'Calculate percentage from marks for JNTUH exams. Convert obtained marks to percentage with grade analysis. Free online tool for B.Tech, M.Tech students.',
+    title: 'Marks to Percentage Calculator - JNTUH Exam Score Converter',
+    description: 'Calculate percentage from marks instantly for JNTUH exams. Free online marks calculator with grade analysis, letter grades, and performance remarks. Perfect for B.Tech & M.Tech students.',
     keywords: [
       'Marks to Percentage Calculator',
+      'Marks Percentage Calculator JNTUH',
       'JNTUH Marks Calculator',
+      'JNTUH Percentage Calculator',
       'Convert Marks to Percentage',
       'Percentage Calculator',
       'JNTUH Score Calculator',
+      'Calculate Percentage from Marks',
+      'Exam Marks Calculator',
     ],
     canonical: 'https://jntuhresults.theskypedia.com/marks-percentage-calculator',
+    ogImage: 'https://jntuhresults.theskypedia.com/og-marks-percentage.jpg',
   }),
 };
