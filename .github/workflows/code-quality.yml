@@ -1,0 +1,122 @@
+name: Code Quality Checks
+
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main, develop]
+
+jobs:
+  quality-gate:
+    name: Code Quality Gate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run ESLint with report
+        run: |
+          pnpm lint --format json --output-file eslint-report.json || true
+          echo "ESLint report generated"
+
+      - name: Check code formatting
+        run: |
+          echo "Checking code formatting..."
+          npx prettier --check "src/**/*.{ts,tsx,js,jsx,json,css,md}" || echo "Some files need formatting"
+
+      - name: Count TODO comments
+        run: |
+          echo "## TODO Comments" > quality-report.md
+          echo "" >> quality-report.md
+          grep -r "TODO\|FIXME\|XXX\|HACK" src/ --include="*.ts" --include="*.tsx" --include="*.js" --include="*.jsx" -n || echo "No TODO comments found" >> quality-report.md
+
+      - name: Check file sizes
+        run: |
+          echo "" >> quality-report.md
+          echo "## Large Files (>100KB)" >> quality-report.md
+          find src -type f -size +100k -exec ls -lh {} \; | awk '{print $9, $5}' >> quality-report.md || echo "No large files found" >> quality-report.md
+
+      - name: Check for console logs
+        run: |
+          echo "" >> quality-report.md
+          echo "## Console Logs Found" >> quality-report.md
+          grep -r "console\\.log\|console\\.warn\|console\\.error" src/ --include="*.ts" --include="*.tsx" --include="*.js" --include="*.jsx" -n | head -20 >> quality-report.md || echo "No console logs found" >> quality-report.md
+
+      - name: Upload quality report
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-quality-report
+          path: |
+            quality-report.md
+            eslint-report.json
+          retention-days: 30
+
+      - name: Comment PR with summary
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('quality-report.md', 'utf8');
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## 📊 Code Quality Report\n\n${report}`
+            });
+
+  bundle-size:
+    name: Check Bundle Size
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build application
+        run: pnpm build
+
+      - name: Analyze bundle size
+        run: |
+          echo "## Bundle Size Analysis" > bundle-report.md
+          echo "" >> bundle-report.md
+          du -sh .next/static/* >> bundle-report.md || true
+
+      - name: Upload bundle report
+        uses: actions/upload-artifact@v4
+        with:
+          name: bundle-size-report
+          path: bundle-report.md
+          retention-days: 30

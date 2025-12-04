@@ -1,0 +1,134 @@
+name: SEO & Performance Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 0 * * 1' # Weekly on Monday
+
+jobs:
+  seo-audit:
+    name: SEO Audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build application
+        run: pnpm build
+
+      - name: Check meta tags
+        run: |
+          echo "Checking for essential meta tags..."
+          grep -r "metadata" src/app --include="*.tsx" --include="*.ts" || echo "No metadata exports found"
+
+      - name: Check sitemap exists
+        run: |
+          if [ -f "src/app/sitemap.ts" ]; then
+            echo "✅ Sitemap generator found"
+          else
+            echo "❌ Sitemap generator not found"
+            exit 1
+          fi
+
+      - name: Check robots.txt
+        run: |
+          if [ -f "public/robots.txt" ]; then
+            echo "✅ robots.txt found"
+            cat public/robots.txt
+          else
+            echo "❌ robots.txt not found"
+            exit 1
+          fi
+
+      - name: Validate structured data
+        run: |
+          echo "Checking for structured data implementation..."
+          grep -r "@type" src/lib/seo --include="*.ts" || echo "No structured data found"
+
+  broken-links:
+    name: Check Broken Links
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build and start server
+        run: |
+          pnpm build
+          pnpm start &
+          sleep 10
+
+      - name: Check internal links
+        run: |
+          npx linkinator http://localhost:3000 --recurse --skip "^(?!http://localhost:3000)" --format json > links-report.json || true
+
+      - name: Upload link check results
+        uses: actions/upload-artifact@v4
+        with:
+          name: broken-links-report
+          path: links-report.json
+          retention-days: 30
+
+  accessibility:
+    name: Accessibility Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build application
+        run: pnpm build
+
+      - name: Run accessibility tests
+        run: |
+          echo "Checking for accessibility attributes..."
+          grep -r "aria-" src/components --include="*.tsx" || echo "Consider adding ARIA attributes"
+          grep -r "alt=" src/app --include="*.tsx" || echo "Consider adding alt text to images"
