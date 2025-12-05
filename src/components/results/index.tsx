@@ -257,87 +257,115 @@ const ResultsBox: React.FC = () => {
   }, [searchTerm, activeCategory]);
 
   return (
-    <section className="py-16 md:py-20 px-4 bg-gray-50 dark:bg-gray-900">
-      <div className="container mx-auto max-w-7xl">
-        {/* Header section */}
-        <div className="text-center mb-12 animate-fade-in">
-          <div className="inline-flex items-center px-4 py-2 mb-4 bg-[#1C61E7]/10 rounded-full text-[#1C61E7] text-sm font-medium">
+    <section className="relative py-16 md:py-24 px-4 bg-gradient-to-b from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-[#1C61E7]/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#21C15E]/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+
+      <div className="container mx-auto max-w-7xl relative z-10">
+        {/* Header section with enhanced styling */}
+        <div className="text-center mb-14 animate-fade-in">
+          <div className="inline-flex items-center px-5 py-2.5 mb-6 bg-gradient-to-r from-[#1C61E7]/10 via-[#1C61E7]/5 to-[#21C15E]/10 rounded-full text-[#1C61E7] dark:text-[#1C61E7] text-sm font-semibold shadow-lg shadow-[#1C61E7]/10 border border-[#1C61E7]/20">
             <BookOpen className="w-4 h-4 mr-2" />
             Everything you need in one place
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-100 dark:to-white bg-clip-text text-transparent mb-5 leading-tight">
             Student Resources
           </h2>
-          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
             Access powerful tools and resources to track, analyze, and improve your academic performance.
           </p>
         </div>
 
-        {/* Search and filters */}
-        <div className="mb-12 max-w-4xl mx-auto animate-slide-up">
-          <div className="relative group">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-[#1C61E7] transition-colors" />
-            <input
-              type="text"
-              placeholder="Search for calculators, results, and more..."
-              className="w-full pl-12 pr-4 py-4 rounded-2xl border-2 border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1C61E7] focus:border-transparent dark:bg-gray-800 dark:border-gray-700 dark:text-white shadow-lg transition-all duration-300"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
+        {/* Enhanced search and filters */}
+        <div className="mb-14 max-w-4xl mx-auto animate-slide-up">
+          {/* Search bar with glassmorphism */}
+          <div className="relative group mb-8">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1C61E7]/20 to-[#21C15E]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="relative">
+              <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-[#1C61E7] transition-colors duration-300 w-5 h-5" />
+              <input
+                type="text"
+                placeholder="Search for calculators, results, and more..."
+                className="w-full pl-14 pr-6 py-5 rounded-2xl border-2 border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-4 focus:ring-[#1C61E7]/20 focus:border-[#1C61E7] dark:bg-gray-800/50 dark:text-white backdrop-blur-sm shadow-xl transition-all duration-300 text-base placeholder:text-gray-400"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              {searchTerm && (
+                <button
+                  onClick={() => setSearchTerm('')}
+                  className="absolute right-5 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                  aria-label="Clear search"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
+            </div>
           </div>
 
-          {/* Category filter tabs */}
-          <div className="flex flex-wrap justify-center mt-8 gap-3">
+          {/* Enhanced category filter tabs */}
+          <div className="flex flex-wrap justify-center gap-3">
             {categories.map((category, index) => (
               <button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-300 transform hover:scale-105 ${
+                className={`relative px-7 py-3.5 rounded-xl text-sm font-bold transition-all duration-300 transform hover:scale-105 overflow-hidden ${
                   activeCategory === category.id
-                    ? "bg-[#1C61E7] text-white shadow-lg shadow-[#1C61E7]/25"
-                    : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-[#1C61E7]/5 dark:hover:bg-[#1C61E7]/10 hover:text-[#1C61E7] border-2 border-gray-200 dark:border-gray-700"
+                    ? "bg-gradient-to-r from-[#1C61E7] to-[#1C61E7]/90 text-white shadow-xl shadow-[#1C61E7]/30"
+                    : "bg-white dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 hover:bg-[#1C61E7]/5 dark:hover:bg-[#1C61E7]/10 hover:text-[#1C61E7] border-2 border-gray-200 dark:border-gray-700 shadow-md"
                 }`}
                 style={{ animationDelay: `${index * 50}ms` }}
               >
-                {category.name}
+                <span className="relative">{category.name}</span>
               </button>
             ))}
           </div>
         </div>
 
-        {/* Result count */}
+        {/* Result count with enhanced styling */}
         {filteredCards.length > 0 && (
-          <div className="mb-6 text-center">
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              Showing <span className="font-semibold text-[#1C61E7]">{filteredCards.length}</span> {filteredCards.length === 1 ? 'resource' : 'resources'}
-            </p>
+          <div className="mb-8 text-center">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-white dark:bg-gray-800 shadow-md border border-gray-200 dark:border-gray-700">
+              <div className="w-2 h-2 rounded-full bg-[#21C15E] mr-2 animate-pulse"></div>
+              <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                Showing <span className="font-bold text-[#1C61E7]">{filteredCards.length}</span> {filteredCards.length === 1 ? 'resource' : 'resources'}
+              </p>
+            </div>
           </div>
         )}
 
-        {/* Cards grid with staggered animation */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        {/* Cards grid with enhanced staggered animation */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-9">
           {filteredCards.map((card, index) => (
             <div
               key={index}
-              className="animate-fade-in"
-              style={{ animationDelay: `${index * 50}ms`, animationFillMode: 'backwards' }}
+              className="animate-fade-in transform"
+              style={{
+                animationDelay: `${index * 75}ms`,
+                animationFillMode: 'backwards'
+              }}
             >
               <Card {...card} />
             </div>
           ))}
         </div>
 
-        {/* Empty state */}
+        {/* Enhanced empty state */}
         {filteredCards.length === 0 && (
-          <div className="text-center py-12">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-800 mb-4">
-              <Search className="w-8 h-8 text-gray-500 dark:text-gray-400" />
+          <div className="text-center py-16 animate-fade-in">
+            <div className="relative inline-flex items-center justify-center w-24 h-24 rounded-3xl bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 mb-6 shadow-xl">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#1C61E7]/10 to-[#21C15E]/10 rounded-3xl animate-pulse"></div>
+              <Search className="w-12 h-12 text-gray-400 dark:text-gray-500 relative z-10" />
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
               No results found
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
-              We couldn't find any resources matching your search.
+            <p className="text-base text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-8 leading-relaxed">
+              We couldn't find any resources matching{' '}
+              <span className="font-semibold text-[#1C61E7]">"{searchTerm || activeCategory}"</span>.
+              <br />
               Try a different search term or browse by category.
             </p>
             <button
@@ -345,9 +373,15 @@ const ResultsBox: React.FC = () => {
                 setSearchTerm('');
                 setActiveCategory('all');
               }}
-              className="mt-6 px-6 py-3 bg-[#1C61E7] text-white rounded-xl hover:bg-[#1C61E7]/90 transition-all font-semibold shadow-lg shadow-[#1C61E7]/25 hover:scale-105"
+              className="group relative px-8 py-4 bg-gradient-to-r from-[#1C61E7] to-[#1C61E7]/90 text-white rounded-xl hover:shadow-2xl transition-all duration-300 font-bold shadow-xl shadow-[#1C61E7]/30 hover:scale-105 overflow-hidden"
             >
-              Clear Filters
+              <span className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+              <span className="relative flex items-center gap-2">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                Clear All Filters
+              </span>
             </button>
           </div>
         )}
