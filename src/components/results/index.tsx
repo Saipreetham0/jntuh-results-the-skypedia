@@ -279,25 +279,25 @@ const ResultsBox: React.FC = () => {
 
         {/* Enhanced search and filters */}
         <div className="mb-14 max-w-4xl mx-auto animate-slide-up">
-          {/* Search bar with glassmorphism */}
-          <div className="relative group mb-8">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#1C61E7]/20 to-[#21C15E]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          {/* Search bar with glassmorphism - mobile optimized */}
+          <div className="relative group mb-6 md:mb-8">
+            <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-[#1C61E7]/20 to-[#21C15E]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <div className="relative">
-              <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-[#1C61E7] transition-colors duration-300 w-5 h-5" />
+              <Search className="absolute left-4 md:left-5 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-[#1C61E7] transition-colors duration-300 w-6 h-6 md:w-5 md:h-5" />
               <input
                 type="text"
-                placeholder="Search for calculators, results, and more..."
-                className="w-full pl-14 pr-6 py-5 rounded-2xl border-2 border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-4 focus:ring-[#1C61E7]/20 focus:border-[#1C61E7] dark:bg-gray-800/50 dark:text-white backdrop-blur-sm shadow-xl transition-all duration-300 text-base placeholder:text-gray-400"
+                placeholder="Search calculators, results..."
+                className="w-full pl-14 md:pl-14 pr-14 md:pr-6 py-4 md:py-5 rounded-2xl border-2 border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-4 focus:ring-[#1C61E7]/20 focus:border-[#1C61E7] dark:bg-gray-800/50 dark:text-white backdrop-blur-sm shadow-xl transition-all duration-300 text-base md:text-base placeholder:text-gray-400"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
               {searchTerm && (
                 <button
                   onClick={() => setSearchTerm('')}
-                  className="absolute right-5 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                  className="absolute right-4 md:right-5 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors p-2 -m-2"
                   aria-label="Clear search"
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
@@ -305,16 +305,16 @@ const ResultsBox: React.FC = () => {
             </div>
           </div>
 
-          {/* Enhanced category filter tabs */}
-          <div className="flex flex-wrap justify-center gap-3">
+          {/* Enhanced category filter tabs - mobile optimized */}
+          <div className="flex flex-wrap justify-center gap-2.5 md:gap-3">
             {categories.map((category, index) => (
               <button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`relative px-7 py-3.5 rounded-xl text-sm font-bold transition-all duration-300 transform hover:scale-105 overflow-hidden ${
+                className={`relative px-5 py-3 md:px-7 md:py-3.5 rounded-xl text-sm md:text-sm font-bold transition-all duration-300 transform active:scale-95 md:hover:scale-105 overflow-hidden min-h-[44px] ${
                   activeCategory === category.id
-                    ? "bg-gradient-to-r from-[#1C61E7] to-[#1C61E7]/90 text-white shadow-xl shadow-[#1C61E7]/30"
-                    : "bg-white dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 hover:bg-[#1C61E7]/5 dark:hover:bg-[#1C61E7]/10 hover:text-[#1C61E7] border-2 border-gray-200 dark:border-gray-700 shadow-md"
+                    ? "bg-gradient-to-r from-[#1C61E7] to-[#1C61E7]/90 text-white shadow-xl shadow-[#1C61E7]/30 scale-100"
+                    : "bg-white dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 md:hover:bg-[#1C61E7]/5 dark:md:hover:bg-[#1C61E7]/10 md:hover:text-[#1C61E7] active:bg-[#1C61E7]/10 border-2 border-gray-200 dark:border-gray-700 shadow-md"
                 }`}
                 style={{ animationDelay: `${index * 50}ms` }}
               >
@@ -336,8 +336,8 @@ const ResultsBox: React.FC = () => {
           </div>
         )}
 
-        {/* Cards grid with enhanced staggered animation */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-9">
+        {/* Cards grid with enhanced staggered animation - mobile optimized */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-7 lg:gap-9">
           {filteredCards.map((card, index) => (
             <div
               key={index}
@@ -352,31 +352,31 @@ const ResultsBox: React.FC = () => {
           ))}
         </div>
 
-        {/* Enhanced empty state */}
+        {/* Enhanced empty state - mobile optimized */}
         {filteredCards.length === 0 && (
-          <div className="text-center py-16 animate-fade-in">
-            <div className="relative inline-flex items-center justify-center w-24 h-24 rounded-3xl bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 mb-6 shadow-xl">
+          <div className="text-center py-12 md:py-16 animate-fade-in px-4">
+            <div className="relative inline-flex items-center justify-center w-20 h-20 md:w-24 md:h-24 rounded-3xl bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 mb-5 md:mb-6 shadow-xl">
               <div className="absolute inset-0 bg-gradient-to-br from-[#1C61E7]/10 to-[#21C15E]/10 rounded-3xl animate-pulse"></div>
-              <Search className="w-12 h-12 text-gray-400 dark:text-gray-500 relative z-10" />
+              <Search className="w-10 h-10 md:w-12 md:h-12 text-gray-400 dark:text-gray-500 relative z-10" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+            <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2.5 md:mb-3">
               No results found
             </h3>
-            <p className="text-base text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-8 leading-relaxed">
+            <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-6 md:mb-8 leading-relaxed px-4">
               We couldn't find any resources matching{' '}
               <span className="font-semibold text-[#1C61E7]">"{searchTerm || activeCategory}"</span>.
-              <br />
-              Try a different search term or browse by category.
+              <br className="hidden md:block" />
+              <span className="md:inline"> </span>Try a different search term or browse by category.
             </p>
             <button
               onClick={() => {
                 setSearchTerm('');
                 setActiveCategory('all');
               }}
-              className="group relative px-8 py-4 bg-gradient-to-r from-[#1C61E7] to-[#1C61E7]/90 text-white rounded-xl hover:shadow-2xl transition-all duration-300 font-bold shadow-xl shadow-[#1C61E7]/30 hover:scale-105 overflow-hidden"
+              className="group relative px-6 py-3.5 md:px-8 md:py-4 bg-gradient-to-r from-[#1C61E7] to-[#1C61E7]/90 text-white rounded-xl active:shadow-xl md:hover:shadow-2xl transition-all duration-300 font-bold shadow-xl shadow-[#1C61E7]/30 active:scale-95 md:hover:scale-105 overflow-hidden min-h-[44px]"
             >
-              <span className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-              <span className="relative flex items-center gap-2">
+              <span className="hidden md:block absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+              <span className="relative flex items-center justify-center gap-2">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                 </svg>

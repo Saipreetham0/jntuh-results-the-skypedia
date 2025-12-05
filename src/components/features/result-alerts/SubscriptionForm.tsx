@@ -70,17 +70,17 @@ export default function SubscriptionForm({
   if (compact) {
     return (
       <div
-        className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border-2 border-[#1C61E7]/20 p-6 ${className}`}
+        className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border-2 border-[#1C61E7]/20 p-5 md:p-6 ${className}`}
       >
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 bg-[#1C61E7]/10 rounded-lg">
-            <BellIcon className="w-6 h-6 text-[#1C61E7]" />
+          <div className="p-2.5 md:p-2 bg-[#1C61E7]/10 rounded-lg">
+            <BellIcon className="w-7 h-7 md:w-6 md:h-6 text-[#1C61E7]" />
           </div>
           <div>
-            <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+            <h3 className="text-base md:text-lg font-bold text-gray-900 dark:text-white">
               Result Alerts
             </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">
               Get instant notifications
             </p>
           </div>
@@ -120,7 +120,7 @@ export default function SubscriptionForm({
                 placeholder="Roll Number (e.g., 20J25A0201)"
                 value={rollNumber}
                 onChange={(e) => setRollNumber(e.target.value.toUpperCase())}
-                className="w-full px-4 py-2.5 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-sm font-medium uppercase focus:border-[#1C61E7] focus:ring-2 focus:ring-[#1C61E7]/20 dark:bg-gray-700 dark:text-white"
+                className="w-full px-4 py-3 md:py-2.5 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-sm md:text-sm font-medium uppercase focus:border-[#1C61E7] focus:ring-2 focus:ring-[#1C61E7]/20 dark:bg-gray-700 dark:text-white min-h-[44px]"
                 required
               />
               <input
@@ -128,13 +128,13 @@ export default function SubscriptionForm({
                 placeholder="Your Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2.5 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:border-[#1C61E7] focus:ring-2 focus:ring-[#1C61E7]/20 dark:bg-gray-700 dark:text-white"
+                className="w-full px-4 py-3 md:py-2.5 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-sm md:text-sm focus:border-[#1C61E7] focus:ring-2 focus:ring-[#1C61E7]/20 dark:bg-gray-700 dark:text-white min-h-[44px]"
                 required
               />
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-[#1C61E7] hover:bg-[#1C61E7]/90 text-white font-semibold py-2.5 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full bg-[#1C61E7] active:bg-[#1C61E7]/80 md:hover:bg-[#1C61E7]/90 text-white font-semibold py-3 md:py-2.5 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 min-h-[48px]"
               >
                 {loading ? (
                   <>

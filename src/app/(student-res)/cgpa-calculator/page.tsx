@@ -140,9 +140,9 @@ const CGPACalculator = () => {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto relative">
         {/* Sticky Sidebar Ad - Desktop Only */}
-        <div className="hidden lg:block absolute -right-32 top-0 w-32">
+        {/* <div className="hidden lg:block absolute -right-32 top-0 w-32">
           <StickyAd adSlot={AD_SLOTS.CALCULATOR.SIDEBAR_STICKY} position="sidebar" />
-        </div>
+        </div> */}
 
         <div className="max-w-5xl mx-auto">
           {/* Header Section */}

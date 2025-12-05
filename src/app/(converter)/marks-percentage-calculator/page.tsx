@@ -4,7 +4,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { ResponsiveAd, InContentAd, StickyAd } from "@/components/adsense";
+import { ResponsiveAd, InContentAd,  } from "@/components/adsense";
 import AD_SLOTS from "@/config/adSlots";
 import { Calculator, Trophy, TrendingUp, AlertCircle, BookOpen } from "lucide-react";
 import Link from "next/link";
@@ -106,13 +106,7 @@ export default function MarksPercentageCalculator() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-200">
-      <div className="max-w-4xl mx-auto relative">
-        {/* Sticky Sidebar Ad - Desktop Only */}
-        <div className="hidden lg:block absolute -right-32 top-0 w-32">
-          <StickyAd adSlot={AD_SLOTS.CALCULATOR.SIDEBAR_STICKY} position="sidebar" />
-        </div>
-
-        <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto">
           {/* Header Section */}
           <div className="text-center mb-10">
             <div className="inline-flex items-center justify-center mb-4 p-5 bg-white dark:bg-gray-800 rounded-2xl shadow-xl border-2 border-gray-100 dark:border-gray-700">
@@ -349,7 +343,6 @@ export default function MarksPercentageCalculator() {
 
           {/* Bottom Ad */}
           <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.BOTTOM_RECTANGLE} format="auto" className="mt-8" />
-        </div>
       </div>
     </div>
   );
