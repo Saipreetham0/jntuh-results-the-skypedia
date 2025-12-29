@@ -2,10 +2,19 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import ContactFormEmail from "@/components/emails/contact-form-email";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Resend only if API key is available
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 export async function POST(request: Request) {
   try {
+    // Check if Resend API is configured
+    if (!resend) {
+      return NextResponse.json(
+        { error: "Email service is not configured. Please contact the administrator." },
+        { status: 503 }
+      );
+    }
+
     const body = await request.json();
     const { fullName, email, message } = body;
 

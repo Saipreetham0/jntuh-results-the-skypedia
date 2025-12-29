@@ -3,7 +3,8 @@ import { Resend } from 'resend';
 import crypto from 'crypto';
 import { subscribersStorage } from '@/lib/subscribers-storage';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Resend only if API key is available
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 interface SubscriptionRequest {
   rollNumber: string;
@@ -20,6 +21,17 @@ interface SubscriptionRequest {
  */
 export async function POST(request: Request) {
   try {
+    // Check if Resend API is configured
+    if (!resend) {
+      return NextResponse.json(
+        {
+          detail: "Email service is not configured. Please contact the administrator.",
+          success: false
+        },
+        { status: 503 }
+      );
+    }
+
     const body: SubscriptionRequest = await request.json();
 
     // Validate required fields

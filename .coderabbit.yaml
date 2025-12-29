@@ -1,0 +1,168 @@
+# CodeRabbit Configuration
+# Documentation: https://docs.coderabbit.ai/guides/configure-coderabbit
+
+# Language settings
+language: en-US
+early_access: false
+enable_free_tier: true
+
+# Review settings
+reviews:
+  # Review profile - can be chill, assertive, or pythonic
+  profile: assertive
+
+  # Request changes workflow - auto, never, or always
+  request_changes_workflow: auto
+
+  # High level summary
+  high_level_summary: true
+
+  # Poem generation (fun feature)
+  poem: false
+
+  # Review status (enable/disable reviews)
+  review_status: true
+
+  # Collapse walkthrough
+  collapse_walkthrough: false
+
+  # Auto review settings
+  auto_review:
+    enabled: true
+
+    # Auto-review drafts
+    drafts: false
+
+    # Base branches to review
+    base_branches:
+      - main
+      - master
+      - develop
+
+  # Path-based instructions for different file types
+  path_instructions:
+    # React/TypeScript components
+    - path: "src/components/**/*.{tsx,ts}"
+      instructions: |
+        - Focus on React best practices and hooks usage
+        - Check for proper TypeScript typing
+        - Verify accessibility (a11y) compliance
+        - Look for potential performance issues
+        - Ensure proper error handling
+        - Check for unused props or state
+
+    # Next.js app router pages
+    - path: "src/app/**/*.{tsx,ts}"
+      instructions: |
+        - Verify proper use of Server/Client components
+        - Check metadata exports for SEO
+        - Ensure proper error boundaries
+        - Review data fetching patterns
+        - Check for proper loading states
+
+    # API routes
+    - path: "src/app/api/**/*.ts"
+      instructions: |
+        - Review input validation
+        - Check error handling and status codes
+        - Verify authentication/authorization
+        - Look for security vulnerabilities
+        - Check for proper logging
+
+    # Configuration files
+    - path: "**/*.config.{js,ts,mjs}"
+      instructions: |
+        - Verify configuration best practices
+        - Check for security issues
+        - Ensure proper environment variable usage
+
+    # Styles
+    - path: "**/*.{css,scss}"
+      instructions: |
+        - Check for unused styles
+        - Verify responsive design
+        - Look for accessibility issues in styles
+
+# Chat settings
+chat:
+  # Enable AI chat on PRs
+  auto_reply: true
+
+# Tools to enable/disable
+tools:
+  # GitHub Checks
+  github_checks:
+    enabled: true
+    timeout_ms: 90000
+
+  # Linting tools
+  eslint:
+    enabled: true
+
+  # TypeScript
+  tsc:
+    enabled: true
+
+  # Prettier
+  prettier:
+    enabled: true
+
+# Ignore patterns
+ignore:
+  # Dependencies
+  - "node_modules/**"
+  - "pnpm-lock.yaml"
+  - "package-lock.json"
+  - "yarn.lock"
+
+  # Build outputs
+  - ".next/**"
+  - "out/**"
+  - "build/**"
+  - "dist/**"
+
+  # Generated files
+  - "*.gen.*"
+  - "*.generated.*"
+
+  # Documentation (optional - remove if you want docs reviewed)
+  - "*.md"
+
+  # Config files (optional - remove if you want config reviewed)
+  # - "*.config.{js,ts}"
+
+  # Test snapshots
+  - "**/__snapshots__/**"
+
+# Knowledge base - provide context about your project
+knowledge_base:
+  - |
+    This is a Next.js 16 application for JNTUH (Jawaharlal Nehru Technological University Hyderabad)
+    students to check results, calculate CGPA/SGPA, and access academic resources.
+  - |
+    The project uses App Router architecture with React 19 Server Components.
+    Always prefer Server Components unless client-side interactivity is required.
+  - |
+    Authentication is currently disabled (documented in AUTH_DISABLED_README.md).
+    Don't flag missing auth as an issue.
+  - |
+    The project uses Tailwind CSS with shadcn/ui components.
+    Follow existing component patterns when reviewing UI code.
+  - |
+    AdSense integration is critical - never suggest removing ad components.
+    Ads are configured in src/config/adSlots.ts.
+  - |
+    Use pnpm as the package manager, not npm or yarn.
+
+# Custom rules and guidelines
+guidelines:
+  - "Prioritize performance and mobile-first design"
+  - "Ensure all UI changes are accessible (WCAG 2.1 AA)"
+  - "Maintain consistent code style with existing patterns"
+  - "Always include proper TypeScript types"
+  - "Follow Next.js 16 best practices for App Router"
+  - "Check for security vulnerabilities (XSS, SQL injection, etc.)"
+  - "Verify proper error handling and user feedback"
+  - "Ensure responsive design works on mobile devices"
+  - "Check that new features don't break existing functionality"
+  - "Review for potential SEO impacts"

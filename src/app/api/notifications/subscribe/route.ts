@@ -3,7 +3,8 @@ import { Resend } from 'resend';
 import crypto from 'crypto';
 import { notificationSubscribersStorage } from '@/lib/notification-subscribers-storage';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Resend only if API key is available
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 interface NotificationSubscriptionRequest {
   email: string;
@@ -15,6 +16,17 @@ interface NotificationSubscriptionRequest {
  */
 export async function POST(request: Request) {
   try {
+    // Check if Resend API is configured
+    if (!resend) {
+      return NextResponse.json(
+        {
+          error: "Email service is not configured. Please contact the administrator.",
+          success: false
+        },
+        { status: 503 }
+      );
+    }
+
     const body: NotificationSubscriptionRequest = await request.json();
 
     // Validate email
