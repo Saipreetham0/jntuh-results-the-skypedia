@@ -2,14 +2,15 @@
 
 <div align="center">
 
-![Next.js](https://img.shields.io/badge/Next.js-16.0-black?style=for-the-badge&logo=next.js)
-![React](https://img.shields.io/badge/React-19.2-61DAFB?style=for-the-badge&logo=react)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178C6?style=for-the-badge&logo=typescript)
+![Next.js](https://img.shields.io/badge/Next.js-16.1.6-black?style=for-the-badge&logo=next.js)
+![React](https://img.shields.io/badge/React-19.2.4-61DAFB?style=for-the-badge&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=for-the-badge&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?style=for-the-badge&logo=tailwind-css)
+![Turbopack](https://img.shields.io/badge/Turbopack-Enabled-FF0080?style=for-the-badge&logo=vercel)
 
-A comprehensive platform for JNTUH (Jawaharlal Nehru Technological University Hyderabad) students to check results, calculate CGPA/SGPA, and access academic resources.
+A comprehensive platform for JNTUH students to check results, calculate CGPA/SGPA, and access academic resources with industry-standard performance.
 
-[Live Demo](https://jntuh-results-the-skypedia.vercel.app) • [Report Bug](https://github.com/yourusername/jntuh-results-the-skypedia/issues) • [Request Feature](https://github.com/yourusername/jntuh-results-the-skypedia/issues)
+[Live Demo](https://jntuhresults.theskypedia.com) • [Report Bug](https://github.com/Saipreetham0/jntuh-results-the-skypedia/issues) • [Request Feature](https://github.com/Saipreetham0/jntuh-results-the-skypedia/issues)
 
 </div>
 
@@ -56,13 +57,13 @@ A comprehensive platform for JNTUH (Jawaharlal Nehru Technological University Hy
 - **Notifications**: Latest updates and announcements
 
 ### Additional Features
-- **PWA Support**: Install as a mobile/desktop app
-- **Dark Mode**: Eye-friendly dark theme support
-- **PDF Export**: Download and print results
+- **PWA Excellence**: Native `manifest.ts` implementation for deep OS integration
+- **Dark Mode**: Eye-friendly dark theme support via `next-themes`
+- **PDF Export**: Download and print results using `jspdf` and `html2pdf`
 - **Performance Comparison**: Compare results with peers
 - **Responsive Design**: Optimized for mobile, tablet, and desktop
-- **SEO Optimized**: Enhanced discoverability
-- **Ad Integration**: Google AdSense monetization
+- **SEO Optimized**: Dynamic `robots.ts` and programmatic `sitemap.ts`
+- **Ad Integration**: Google AdSense monetization with specialized ad layout tokens
 
 ---
 
@@ -99,7 +100,10 @@ A comprehensive platform for JNTUH (Jawaharlal Nehru Technological University Hy
 - **PWA**: next-pwa
 
 ### Development
-- **Build Tool**: Turbopack (Next.js 16)
+- **Build Tool**: Turbopack (Native Rust-based bundler)
+- **Caching**: Experimental Filesystem Caching enabled for builds
+- **Monitoring**: Native Web Vitals and Performance Analytics
+- **Instrumentation**: Client-side global error tracking
 - **Linting**: ESLint 9
 - **Formatting**: Prettier
 - **Bundle Analyzer**: @next/bundle-analyzer
@@ -208,53 +212,31 @@ pnpm start
 ```
 jntuh-results-the-skypedia/
 ├── src/
-│   ├── app/                          # Next.js 13+ App Router
-│   │   ├── (converter)/              # Route group for converters
-│   │   │   ├── cgpa-percentage-converter/
-│   │   │   ├── percentage-to-cgpa-calculator/
-│   │   │   ├── sgpa-to-cgpa-calculator/
-│   │   │   └── marks-percentage-calculator/
-│   │   ├── (student-res)/            # Route group for student features
-│   │   │   ├── cgpa-calculator/
-│   │   │   ├── check-backlogs/
-│   │   │   ├── consolidated-results/
-│   │   │   ├── semester-wise-results/
-│   │   │   ├── credit-eligibility-check/
-│   │   │   ├── compare-performance/
-│   │   │   └── previous-question-papers/
-│   │   ├── admin/                    # Admin panel
-│   │   ├── about-us/
-│   │   ├── calendar/
-│   │   ├── contact/
-│   │   ├── dashboard/
-│   │   ├── faq/
-│   │   ├── login/
-│   │   ├── signup/
-│   │   ├── notifications/
-│   │   ├── syllabus/
-│   │   ├── btech-colleges-tg/
-│   │   ├── layout.tsx                # Root layout
-│   │   ├── page.tsx                  # Homepage
-│   │   ├── providers.tsx             # Context providers
-│   │   └── not-found.tsx             # 404 page
-│   ├── components/                   # Reusable components
-│   │   ├── Adsense/                  # AdSense components
-│   │   ├── ErrorBoundary.tsx         # Error boundary
-│   │   ├── Hero.tsx                  # Hero section
-│   │   ├── blog.tsx                  # Blog components
-│   │   └── results.tsx               # Result components
-│   ├── config/                       # Configuration files
-│   │   └── adSlots.ts                # AdSense slot configuration
-│   ├── lib/                          # Utility libraries
-│   ├── styles/                       # Global styles
-│   └── types/                        # TypeScript type definitions
-├── public/                           # Static assets
-├── .env.local                        # Environment variables (not committed)
-├── next.config.js                    # Next.js configuration
-├── tailwind.config.js                # Tailwind CSS configuration
-├── tsconfig.json                     # TypeScript configuration
-├── package.json                      # Dependencies and scripts
-└── pnpm-lock.yaml                    # Lock file
+│   ├── app/                          # Next.js App Router (16.1.6)
+│   │   ├── (academic)/               # Syllabus, Question Papers, Calendar
+│   │   ├── (auth)/                   # Login, Signup, Auth UI
+│   │   ├── (converter)/              # CGPA, SGPA, Percentage Calculators
+│   │   ├── (student-res)/            # Results, Backlogs, Credits Check
+│   │   ├── (static-pages)/           # About, FAQ, Static terms
+│   │   ├── admin/                    # Admin Dashboard & Controls
+│   │   ├── api/                      # Backend API Routes
+│   │   ├── blog/                     # Guides & Academic Articles
+│   │   ├── layout.tsx                # Root layout with Progress Bar
+│   │   ├── loading.tsx               # Site-wide Skeleton UI
+│   │   ├── manifest.ts               # Dynamic PWA Manifest
+│   │   ├── robots.ts                 # Dynamic SEO Controls
+│   │   └── sitemap.ts                # Programmatic Sitemap
+│   ├── components/                   # Reusable UI Components
+│   ├── config/                       # Site & Ad configuration
+│   ├── infrastructure/               # Database, Redis, Logger
+│   ├── lib/                          # Core business logic & utils
+│   ├── styles/                       # Global Tailwind styles
+│   └── types/                        # Global Type definitions
+├── public/                           # Static assets & PWA icons
+├── next.config.js                    # Turbopack & PWA config
+├── tailwind.config.js                # Design system config
+├── package.json                      # All dependencies
+└── README.md                         # Documentation
 ```
 
 ---
@@ -304,19 +286,19 @@ jntuh-results-the-skypedia/
 
 ```bash
 # Development
-pnpm dev              # Start development server with Turbopack
-pnpm dev:old          # Start development server with Webpack
+pnpm dev              # Start development server with Turbopack (Default)
+pnpm dev --webpack    # Start development server with Webpack (Legacy)
 
 # Build & Production
-pnpm build            # Build for production
+pnpm build            # Build for production with Turbopack caching
 pnpm start            # Start production server
 
 # Code Quality
-pnpm lint             # Run ESLint
-pnpm format           # Run Prettier (if configured)
+pnpm lint             # Run ESLint 9
+pnpm format           # Run Prettier
 
 # Analysis
-pnpm analyze          # Analyze bundle size (if configured)
+pnpm analyze          # Analyze bundle size using @next/bundle-analyzer
 ```
 
 ---

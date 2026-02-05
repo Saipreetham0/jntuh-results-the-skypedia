@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 // module.exports
-export default  {
+export default {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -13,6 +13,9 @@ export default  {
   darkMode: "selector",
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-inter)", "ui-sans-serif", "system-ui", "sans-serif"],
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -98,7 +101,6 @@ export default  {
   plugins: [
     require("@tailwindcss/forms"),
     require("@tailwindcss/typography"),
-    require("tailwindcss-dark-mode")(),
     require("tailwindcss-animate"),
   ],
 };

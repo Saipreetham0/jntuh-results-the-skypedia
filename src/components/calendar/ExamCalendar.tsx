@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createBrowserClient } from "@supabase/ssr";
 
 // Types
 interface ExamEvent {
@@ -26,6 +26,8 @@ interface ExamEvent {
 
 interface ExamCalendarProps {
   onEventClick: (event: ExamEvent) => void;
+  branch?: string;
+  semester?: string;
 }
 
 type ViewType = "month" | "week" | "day";
@@ -55,18 +57,15 @@ const MONTHS = [
   "December",
 ];
 
-interface ExamCalendarProps {
-  onEventClick: (event: ExamEvent) => void;
-  branch?: string;
-  semester?: string;
-}
-
 // Custom hook for fetching exam data
 const useExams = (branch?: string, semester?: string) => {
   const [events, setEvents] = useState<ExamEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const supabase = createClientComponentClient();
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
 
   useEffect(() => {
     const fetchExams = async () => {
@@ -276,15 +275,13 @@ export default function ExamCalendar({
         return (
           <div
             key={index}
-            className={`min-h-[80px] sm:min-h-[120px] p-1 border relative ${
-              isCurrentMonth ? "bg-white" : "bg-gray-50"
-            } ${isSelected ? "ring-2 ring-blue-500" : ""}`}
+            className={`min-h-[80px] sm:min-h-[120px] p-1 border relative ${isCurrentMonth ? "bg-white" : "bg-gray-50"
+              } ${isSelected ? "ring-2 ring-blue-500" : ""}`}
             onClick={() => setSelectedDate(date)}
           >
             <div
-              className={`flex justify-center items-center h-6 w-6 rounded-full mb-1 ${
-                isToday ? "bg-blue-500 text-white" : ""
-              }`}
+              className={`flex justify-center items-center h-6 w-6 rounded-full mb-1 ${isToday ? "bg-blue-500 text-white" : ""
+                }`}
             >
               {date.getDate()}
             </div>
@@ -316,11 +313,10 @@ export default function ExamCalendar({
         {getWeekDates().map((date, index) => (
           <div
             key={index}
-            className={`p-2 text-center ${
-              date.toDateString() === new Date().toDateString()
-                ? "bg-blue-50"
-                : ""
-            }`}
+            className={`p-2 text-center ${date.toDateString() === new Date().toDateString()
+              ? "bg-blue-50"
+              : ""
+              }`}
           >
             <div className="font-semibold">
               <span className="hidden sm:inline">{DAYS[date.getDay()]}</span>
@@ -437,7 +433,7 @@ export default function ExamCalendar({
         </div>
       </div> */}
 
-<div className="p-4 border-b">
+      <div className="p-4 border-b">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-2 sm:space-y-0">
           <div className="flex items-center space-x-2">
             <Button variant="outline" onClick={navigateToday} className="text-sm">

@@ -52,10 +52,12 @@ export const AD_SLOTS = {
 
   // Blog Pages
   BLOG: {
-    TOP_BANNER: '1365713287', // Replace with actual slot ID
-    IN_ARTICLE_1: '3537523006', // Replace with actual slot ID
-    IN_ARTICLE_2: '2854054771', // Replace with actual slot ID
-    BOTTOM_RECTANGLE: '7970650085', // Replace with actual slot ID
+    TOP_BANNER: '1365713287',
+    HEADER: '1365713287', // Alias for TOP_BANNER
+    IN_ARTICLE_1: '3537523006',
+    IN_CONTENT: '3537523006', // Alias for IN_ARTICLE_1
+    IN_ARTICLE_2: '2854054771',
+    BOTTOM_RECTANGLE: '7970650085',
   },
 
   // Sidebar (Global)

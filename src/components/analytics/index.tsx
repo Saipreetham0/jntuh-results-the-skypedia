@@ -6,6 +6,7 @@ import FacebookPixel from "./FacebookPixel";
 import Hotjar from "./Hotjar";
 import LinkedInInsightTag from "./LinkedInInsightTag";
 import TwitterPixel from "./TwitterPixel";
+import WebVitals from "./WebVitals";
 import { analyticsConfig } from "@/config/analytics";
 
 /**
@@ -76,6 +77,9 @@ export default function AnalyticsProvider() {
         analyticsConfig.twitterPixel.pixelId && (
           <TwitterPixel pixelId={analyticsConfig.twitterPixel.pixelId} />
         )}
+
+      {/* Web Vitals Performance Monitoring */}
+      <WebVitals />
     </>
   );
 }

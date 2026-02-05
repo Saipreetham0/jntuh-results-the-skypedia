@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { notificationSubscribersStorage } from '@/lib/notification-subscribers-storage';
+import { getSubscription, updateSubscription } from '@/lib/notification-subscribers-storage';
 
 /**
  * GET /api/notifications/verify?token=xxx&email=xxx
@@ -22,7 +22,7 @@ export async function GET(request: Request) {
     }
 
     const decodedEmail = decodeURIComponent(email).toLowerCase();
-    const subscription = notificationSubscribersStorage.get(decodedEmail);
+    const subscription = await getSubscription(decodedEmail);
 
     if (!subscription) {
       return NextResponse.json(
@@ -55,10 +55,7 @@ export async function GET(request: Request) {
     }
 
     // Update subscription
-    subscription.verified = true;
-    subscription.isActive = true;
-    subscription.updatedAt = new Date().toISOString();
-    notificationSubscribersStorage.set(decodedEmail, subscription);
+    await updateSubscription(decodedEmail, { verified: true, isActive: true });
 
     return NextResponse.json({
       success: true,

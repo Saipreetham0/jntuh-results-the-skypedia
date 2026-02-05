@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import crypto from 'crypto';
-import { notificationSubscribersStorage } from '@/lib/notification-subscribers-storage';
+import { createSubscription, getSubscription } from '@/lib/notification-subscribers-storage';
 
 // Initialize Resend only if API key is available
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
@@ -55,9 +55,9 @@ export async function POST(request: Request) {
     const email = body.email.toLowerCase();
 
     // Check if already subscribed
-    if (notificationSubscribersStorage.has(email)) {
-      const existing = notificationSubscribersStorage.get(email);
-      if (existing?.verified) {
+    const existing = await getSubscription(email);
+    if (existing) {
+      if (existing.verified) {
         return NextResponse.json(
           {
             error: "This email is already subscribed and verified",
@@ -66,14 +66,25 @@ export async function POST(request: Request) {
           { status: 400 }
         );
       }
+      // If exists but not verified, we can resend verification or just create new token (updating logic not strictly implemented in plan, but creating new one might duplicate or fail if unique constraint. The upsert logic or update logic might be better but for now let's stick to plan: if exists & unverified, maybe just tell them to check email? Or resend?
+      // For simplicity of migration matching the previous logic: previous logic was: if exists & verified -> error. If exists & unverified -> overwrite (Map.set overwrites).
+      // Converting to DB: insert will fail if exists. We should probably update if exists.
+      // Note: The plan said "Check if already subscribed".
+      // Let's assume we handle 'already exists' by updating the token if unverified?
+      // Or we can just let `createSubscription` handle it? currently `createSubscription` uses INSERT. It will fail on duplicate key.
+      // So I should probably check if it exists.
     }
+
+    // If we are here, either it doesn't exist, or it exists but unverified (and we want to re-send/overwrite).
+    // If it exists and unverified, we should probably UPDATE it instead of INSERT.
+    // However, for this pass, to match exact previous behavior (which overwrote), I will modify my createSubscription to Upsert or I will handle it here.
+    // The previous code did: `notificationSubscribersStorage.set(email, subscription)` which overwrites.
 
     // Generate verification token
     const verificationToken = crypto.randomBytes(32).toString('hex');
 
     // Create subscription record
     const subscription = {
-      id: email,
       email,
       verified: false,
       verificationToken,
@@ -83,7 +94,28 @@ export async function POST(request: Request) {
     };
 
     // Store subscription
-    notificationSubscribersStorage.set(email, subscription);
+    // If it existed (unverified), we should delete/update.
+    // Since `createSubscription` does standard insert, I'll assume we want to support re-subscribing unverified emails.
+    // I'll assume the user might have run the SQL which has UNIQUE constraint on email.
+    // So I should try to insert, if fails, update?
+    // Actually, `getSubscription` check above handles the 'verified' case.
+    // If unverified exists, we should update.
+
+    // Let's rely on `createSubscription` to throw if duplicate, but catch it?
+    // Or better, let's update `createSubscription` to be ` upsert`?
+    // For now, I will use `createSubscription` but if it fails I will try to update, OR I can just explicitly use `updateSubscription` if `existing` is true.
+
+    if (existing) {
+      // Update existing unverified subscription
+      const { updateSubscription } = await import('@/lib/notification-subscribers-storage');
+      await updateSubscription(email, {
+        verificationToken,
+        verified: false,
+        isActive: false
+      });
+    } else {
+      await createSubscription(subscription);
+    }
 
     // Send verification email
     const verificationUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://jntuhresults.theskypedia.com'}/notifications/verify?token=${verificationToken}&email=${encodeURIComponent(email)}`;

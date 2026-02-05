@@ -1,125 +1,8 @@
-// const cardsData: CardData[] = [
-//   {
-//     title: "Consolidated Results",
-//     content: "Access All Your Semester Results in One Place",
-//     url: "consolidated-results",
-//   },
-//   {
-//     title: "View Semester-wise Results",
-//     content: "Access Results for Specific Semesters",
-//     url: "semester-wise-results",
-//   },
-//   {
-//     title: "Calculate Your CGPA",
-//     content: "Calculate Your Cumulative GPA and Detailed Result Performance",
-//     url: "cgpa-calculator",
-//   },
-//   {
-//     title: "CGPA to Percentage Converter",
-//     content: "Convert CGPA to percentage and calculate GPA easily.",
-//     url: "cgpa-percentage-converter",
-//   },
-//   {
-//     title: "Percentage to CGPA Calculator",
-//     content: "Convert percentage to CGPA quickly and accurately.",
-//     url: "percentage-to-cgpa-calculator",
-//   },
-//   {
-//     title: "Credit Eligibility Check",
-//     content: "Verify Your Eligibility for Course Credits Here",
-//     url: "credit-eligibility-check",
-//   },
-//   {
-//     title: "Compare Performance",
-//     content: "Compare Your Overall Performance with Classmates",
-//     url: "compare-performance",
-//   },
-//   {
-//     title: "Check Backlogs",
-//     content: "View Your Complete List of Pending Courses",
-//     url: "check-backlogs",
-//   },
-//   {
-//     title: "Syllabus",
-//     content:
-//       "Access the syllabus for each course or semester to plan your studies.",
-//     url: "/syllabus",
-//   },
-//   {
-//     title: "Previous Question Papers",
-//     content:
-//       "Download or view previous years' question papers to help with exam preparation.",
-//     url: "/previous-question-papers",
-//   },
-
-//   {
-//     title: "Marks Percentage Calculator",
-//     content: "Calculate your percentage based on marks obtained.",
-//     url: "/marks-percentage-calculator",
-//   },
-//   {
-//     title: "SGPA to CGPA Calculator",
-//     content: "Convert your SGPA to CGPA easily and accurately.",
-//     url: "/sgpa-to-cgpa-calculator",
-//   },
-// ];
-
-// import React from "react";
-// import Card from "../Card";
-// import { Search } from "lucide-react";
-
-// interface CardData {
-//   title: string;
-//   content: string;
-//   url: string;
-//   icon?: React.ReactNode;
-// }
-
-
-
-// const ResultsBox: React.FC = () => {
-//   const [searchTerm, setSearchTerm] = React.useState("");
-
-//   const filteredCards = cardsData.filter(
-//     (card) =>
-//       card.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-//       card.content.toLowerCase().includes(searchTerm.toLowerCase())
-//   );
-
-//   return (
-//     <div className="container mx-auto px-4 py-8">
-//       <h2 className="text-3xl font-bold text-center mb-8 text-gray-800 dark:text-white">
-//         Student Resources
-//       </h2>
-//       <div className="mb-6">
-//         <input
-//           type="text"
-//           placeholder="Search resources..."
-//           className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-//           value={searchTerm}
-//           onChange={(e) => setSearchTerm(e.target.value)}
-//         />
-//       </div>
-//       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-//         {filteredCards.map((card, index) => (
-//           <Card key={index} {...card} />
-//         ))}
-//       </div>
-//       {filteredCards.length === 0 && (
-//         <p className="text-center text-gray-600 dark:text-gray-400 mt-8">
-//           No results found. Try a different search term.
-//         </p>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default ResultsBox;
-
-
+"use client";
 
 import React, { useState, useEffect } from 'react';
 import Card from '../card';
+import RecentlyVisited, { addToHistory } from './RecentlyVisited';
 import { Search, BookOpen, Calculator, FileText, BarChart2, CheckCircle, Users, AlertCircle, FileQuestion, Percent, RefreshCw } from 'lucide-react';
 
 interface CardData {
@@ -279,6 +162,9 @@ const ResultsBox: React.FC = () => {
 
         {/* Enhanced search and filters */}
         <div className="mb-14 max-w-4xl mx-auto animate-slide-up">
+          {/* Recently Visited Section */}
+          <RecentlyVisited />
+
           {/* Search bar with glassmorphism - mobile optimized */}
           <div className="relative group mb-6 md:mb-8">
             <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-[#1C61E7]/20 to-[#21C15E]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -311,11 +197,10 @@ const ResultsBox: React.FC = () => {
               <button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`relative px-5 py-3 md:px-7 md:py-3.5 rounded-xl text-sm md:text-sm font-bold transition-all duration-300 transform active:scale-95 md:hover:scale-105 overflow-hidden min-h-[44px] ${
-                  activeCategory === category.id
-                    ? "bg-gradient-to-r from-[#1C61E7] to-[#1C61E7]/90 text-white shadow-xl shadow-[#1C61E7]/30 scale-100"
-                    : "bg-white dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 md:hover:bg-[#1C61E7]/5 dark:md:hover:bg-[#1C61E7]/10 md:hover:text-[#1C61E7] active:bg-[#1C61E7]/10 border-2 border-gray-200 dark:border-gray-700 shadow-md"
-                }`}
+                className={`relative px-5 py-3 md:px-7 md:py-3.5 rounded-xl text-sm md:text-sm font-bold transition-all duration-300 transform active:scale-95 md:hover:scale-105 overflow-hidden min-h-[44px] ${activeCategory === category.id
+                  ? "bg-gradient-to-r from-[#1C61E7] to-[#1C61E7]/90 text-white shadow-xl shadow-[#1C61E7]/30 scale-100"
+                  : "bg-white dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 md:hover:bg-[#1C61E7]/5 dark:md:hover:bg-[#1C61E7]/10 md:hover:text-[#1C61E7] active:bg-[#1C61E7]/10 border-2 border-gray-200 dark:border-gray-700 shadow-md"
+                  }`}
                 style={{ animationDelay: `${index * 50}ms` }}
               >
                 <span className="relative">{category.name}</span>
@@ -337,15 +222,16 @@ const ResultsBox: React.FC = () => {
         )}
 
         {/* Cards grid with enhanced staggered animation - mobile optimized */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-7 lg:gap-9">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
           {filteredCards.map((card, index) => (
             <div
               key={index}
-              className="animate-fade-in transform"
+              className="animate-fade-in transform h-full"
               style={{
-                animationDelay: `${index * 75}ms`,
+                animationDelay: `${index * 50}ms`, // Faster stagger for mobile feel
                 animationFillMode: 'backwards'
               }}
+              onClick={() => addToHistory(card.title, card.url)}
             >
               <Card {...card} />
             </div>

@@ -38,6 +38,17 @@ const AdBanner: React.FC<AdBannerProps> = ({
     }
 
     const loadAd = () => {
+      // Check if element exists and has width
+      if (!adRef.current) return;
+
+      // If width is 0, the container is likely hidden or not yet rendered.
+      // Retry after a short delay to allow layout to settle.
+      if (adRef.current.offsetWidth === 0) {
+        console.warn("AdBanner: Ad slot has 0 width, retrying in 100ms...");
+        setTimeout(loadAd, 100);
+        return;
+      }
+
       try {
         // Initialize adsbygoogle array if it doesn't exist
         if (!window.adsbygoogle) {
@@ -48,14 +59,21 @@ const AdBanner: React.FC<AdBannerProps> = ({
         window.adsbygoogle.push({});
         setAdLoaded(true);
         setAdError(false);
-      } catch (error) {
+      } catch (error: any) {
         console.error("Error loading Google AdSense ad:", error);
+
+        // Don't retry immediately if it's a tag error (likely permanent or config issue),
+        // but for now we'll keep the retry logic for consistency
         setAdError(true);
 
-        // Retry after 3 seconds
+        // Retry after 2 seconds
         setTimeout(() => {
           setAdLoaded(false);
-        }, 3000);
+          // Only retry if it wasn't a "no slot size" error (which we now prevent)
+          if (!error?.message?.includes('No slot size')) {
+            loadAd();
+          }
+        }, 2000);
       }
     };
 
@@ -77,7 +95,11 @@ const AdBanner: React.FC<AdBannerProps> = ({
   };
 
   return (
-    <div className="ad-container w-full">
+    <div className={`text-center my-4 min-h-[250px] bg-gray-50 dark:bg-gray-800/50 rounded-lg flex items-center justify-center ${className}`}>
+      {/* Label for better UX */}
+      {!adLoaded && (
+        <span className="text-xs text-gray-400 absolute">Advertisement</span>
+      )}
       <ins
         ref={adRef}
         className={adStyles}

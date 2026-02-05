@@ -1,92 +1,15 @@
-// import React, { type JSX } from 'react';
+'use client';
 
-// interface SocialLink {
-//   name: string;
-//   href: string;
-//   icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
-// }
-
-// const socialLinks: SocialLink[] = [
-//   {
-//     name: "Instagram",
-//     href: "https://www.instagram.com/theskypedia",
-//     icon: (props) => (
-//       <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
-//         <path
-//           fillRule="evenodd"
-//           d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
-//           clipRule="evenodd"
-//         />
-//       </svg>
-//     ),
-//   },
-//   {
-//     name: "GitHub",
-//     href: "https://github.com/TheSkypedia",
-//     icon: (props) => (
-//       <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
-//         <path
-//           fillRule="evenodd"
-//           d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-//           clipRule="evenodd"
-//         />
-//       </svg>
-//     ),
-//   },
-//   {
-//     name: "YouTube",
-//     href: "https://www.youtube.com/@theskypedia",
-//     icon: (props) => (
-//       <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
-//         <path
-//           fillRule="evenodd"
-//           d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
-//           clipRule="evenodd"
-//         />
-//       </svg>
-//     ),
-//   },
-// ];
-
-// const Footer: React.FC = () => {
-//   return (
-//     <footer className="bg-white dark:bg-gray-900">
-//       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-//         <div className="flex flex-col items-center justify-between space-y-6 sm:flex-row sm:space-y-0">
-//           <div className="flex space-x-6">
-//             {socialLinks.map((item) => (
-//               <a
-//                 key={item.name}
-//                 href={item.href}
-//                 className="text-gray-400 hover:text-gray-500 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-//                 target="_blank"
-//                 rel="noopener noreferrer"
-//                 aria-label={`${item.name} (opens in a new tab)`}
-//               >
-//                 <item.icon className="h-6 w-6" aria-hidden="true" />
-//               </a>
-//             ))}
-//           </div>
-//           <p className="text-center text-sm text-gray-500">
-//             &copy; {new Date().getFullYear()} THE SKYPEDIA . All rights reserved.
-//           </p>
-//         </div>
-//       </div>
-//     </footer>
-//   );
-// };
-
-// export default Footer;
-
-
-import React, { type JSX } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Mail, MapPin, ArrowRight, Heart } from 'lucide-react';
+import { Mail, MapPin, ArrowRight, Heart, ChevronUp, Github, Instagram, Youtube, Twitter } from 'lucide-react';
+import { siteConfig } from '@/config/site';
 
 interface SocialLink {
   name: string;
   href: string;
-  icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
+  icon: React.ElementType;
+  color: string;
 }
 
 interface FooterLink {
@@ -94,261 +17,297 @@ interface FooterLink {
   href: string;
 }
 
-// Social links with your existing icons
+// Social links configuration
 const socialLinks: SocialLink[] = [
   {
     name: "Instagram",
-    href: "https://www.instagram.com/theskypedia",
-    icon: (props) => (
-      <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
-        <path
-          fillRule="evenodd"
-          d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
-          clipRule="evenodd"
-        />
-      </svg>
-    ),
+    href: siteConfig.social.instagram,
+    icon: Instagram,
+    color: "hover:text-pink-500",
   },
   {
     name: "GitHub",
-    href: "https://github.com/TheSkypedia",
-    icon: (props) => (
-      <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
-        <path
-          fillRule="evenodd"
-          d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-          clipRule="evenodd"
-        />
-      </svg>
-    ),
+    href: siteConfig.social.github,
+    icon: Github,
+    color: "hover:text-gray-900 dark:hover:text-white",
   },
   {
     name: "YouTube",
-    href: "https://www.youtube.com/@theskypedia",
-    icon: (props) => (
-      <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
-        <path
-          fillRule="evenodd"
-          d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
-          clipRule="evenodd"
-        />
-      </svg>
-    ),
+    href: siteConfig.social.youtube,
+    icon: Youtube,
+    color: "hover:text-red-500",
   },
+  {
+    name: "Twitter",
+    href: `https://twitter.com/${siteConfig.social.twitter.replace('@', '')}`,
+    icon: Twitter,
+    color: "hover:text-blue-400",
+  }
 ];
 
 // Quick links for navigation
 const quickLinks: FooterLink[] = [
   { name: "Home", href: "/" },
-  { name: "Results", href: "/results" },
-  { name: "Colleges", href: "/colleges" },
-  { name: "Resources", href: "/resources" },
-  { name: "About Us", href: "https://theskypedia.com/about-us" },
-  { name: "Contact", href: "/contact" },
+  { name: "Results Portal", href: "/results" },
+  { name: "CGPA Calculator", href: "/cgpa-calculator" },
+  { name: "Academic Resources", href: "/resources" },
+  { name: "About TheSkypedia", href: siteConfig.brand.authorUrl + "/about-us" },
+  { name: "Contact Support", href: "/contact" },
 ];
 
 // Resource links for students
 const resourceLinks: FooterLink[] = [
-  { name: "CGPA Calculator", href: "/cgpa-calculator" },
-  { name: "Syllabus", href: "/syllabus" },
-  { name: "Question Papers", href: "/previous-question-papers" },
-  { name: "Credit Eligibility", href: "/credit-eligibility-check" },
+  { name: "JNTUH Syllabus", href: "/syllabus" },
+  { name: "Previous Papers", href: "/previous-question-papers" },
+  { name: "Credit Checking", href: "/credit-eligibility-check" },
   { name: "Academic Calendar", href: "/calendar" },
+  { name: "Notification Alerts", href: "/notifications" },
 ];
 
 const Footer: React.FC = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.pageYOffset > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener('scroll', toggleVisibility);
+    return () => window.removeEventListener('scroll', toggleVisibility);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": siteConfig.name,
+    "url": siteConfig.url,
+    "logo": `${siteConfig.url}/favicon.ico`,
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": siteConfig.contact.email,
+      "contactType": "customer support"
+    },
+    "sameAs": [
+      siteConfig.social.instagram,
+      siteConfig.social.github,
+      siteConfig.social.youtube
+    ]
+  };
   return (
-    <footer className="relative bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 border-t-4 border-[#1C61E7]">
-      {/* Decorative elements */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-[#1C61E7]/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#21C15E]/5 rounded-full blur-3xl" />
+    <footer className="relative bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 transition-colors duration-300 overflow-hidden">
+      {/* JSON-LD for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+
+      {/* Decorative Blur Backgrounds */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#1C61E7]/5 rounded-full blur-[100px] -z-10 animate-pulse" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#21C15E]/5 rounded-full blur-[80px] -z-10" />
 
       <div className="relative mx-auto max-w-7xl">
-        {/* Main footer content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-6 py-16">
-          {/* Column 1: About */}
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-[#1C61E7] to-[#21C15E] bg-clip-text text-transparent mb-3">
-                THE SKYPEDIA
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                Empowering JNTUH students with instant access to results, academic resources, and powerful calculation tools.
-              </p>
+        {/* Main Footer Layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 px-6 py-20">
+          {/* Brand/About Section */}
+          <div className="space-y-8">
+            <div className="group inline-block">
+              <Link href="/" className="flex items-baseline gap-1" title="Go to JNTUH Results Homepage">
+                <span className="text-2xl font-bold text-[#1C61E7] tracking-tighter transition-all group-hover:scale-105">
+                  JNTUH
+                </span>
+                <span className="text-2xl font-semibold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent tracking-tighter">
+                  Results
+                </span>
+              </Link>
+              <div className="h-1 w-0 group-hover:w-full bg-gradient-to-r from-[#1C61E7] to-[#21C15E] transition-all duration-300 rounded-full" />
             </div>
-            <div className="flex space-x-3">
+
+            <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed max-w-xs font-normal">
+              The ultimate academic companion for JNTUH students. Instant result tracking, accurate CGPA calculation, and professional student resources.
+            </p>
+
+            <div className="flex items-center gap-4">
               {socialLinks.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="group w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-[#1C61E7] dark:hover:bg-[#1C61E7] flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-[#1C61E7]/25"
+                  className={`group p-3 rounded-2xl bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700/50 shadow-sm transition-all duration-300 hover:scale-110 hover:-translate-y-1 ${item.color}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`${item.name} (opens in a new tab)`}
+                  aria-label={`Follow JNTUH Results on ${item.name} (opens in new tab)`}
+                  title={`${item.name} - ${siteConfig.brand.creator}`}
                 >
-                  <item.icon className="h-5 w-5 text-gray-600 dark:text-gray-400 group-hover:text-white transition-colors" aria-hidden="true" />
+                  <item.icon className="h-5 w-5 transition-transform duration-300" />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Column 2: Quick Links */}
+          {/* Quick Links with Hover Effects */}
           <div>
-            <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-6 flex items-center gap-2">
-              <div className="w-1 h-5 bg-[#1C61E7] rounded-full" />
-              Quick Links
-            </h3>
-            <ul className="space-y-3">
+            <h4 className="text-xs font-semibold text-gray-900 dark:text-white uppercase tracking-[0.2em] mb-8 flex items-center gap-3">
+              <span className="w-8 h-[2px] bg-[#1C61E7] rounded-full" />
+              Navigation
+            </h4>
+            <ul className="space-y-4">
               {quickLinks.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="group flex items-center text-gray-600 hover:text-[#1C61E7] dark:text-gray-400 dark:hover:text-[#1C61E7] text-sm transition-all duration-200"
+                    title={link.name}
+                    className="group flex items-center text-gray-500 hover:text-[#1C61E7] dark:text-gray-400 dark:hover:text-[#1C61E7] text-sm font-medium transition-all duration-200 w-fit"
                   >
-                    <ArrowRight className="w-4 h-4 mr-2 opacity-0 -ml-6 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200" />
-                    <span className="group-hover:translate-x-1 transition-transform duration-200">
-                      {link.name}
-                    </span>
+                    <span className="w-0 group-hover:w-4 h-0.5 bg-[#1C61E7] mr-0 group-hover:mr-2 opacity-0 group-hover:opacity-100 transition-all duration-300" />
+                    {link.name}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 3: Resources */}
+          {/* Student Tools Section */}
           <div>
-            <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-6 flex items-center gap-2">
-              <div className="w-1 h-5 bg-[#21C15E] rounded-full" />
-              Student Resources
-            </h3>
-            <ul className="space-y-3">
+            <h4 className="text-xs font-semibold text-gray-900 dark:text-white uppercase tracking-[0.2em] mb-8 flex items-center gap-3">
+              <span className="w-8 h-[2px] bg-[#21C15E] rounded-full" />
+              Student Tools
+            </h4>
+            <ul className="space-y-4">
               {resourceLinks.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="group flex items-center text-gray-600 hover:text-[#21C15E] dark:text-gray-400 dark:hover:text-[#21C15E] text-sm transition-all duration-200"
+                    title={`Access ${link.name}`}
+                    className="group flex items-center text-gray-500 hover:text-[#21C15E] dark:text-gray-400 dark:hover:text-[#21C15E] text-sm font-medium transition-all duration-200 w-fit"
                   >
-                    <ArrowRight className="w-4 h-4 mr-2 opacity-0 -ml-6 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200" />
-                    <span className="group-hover:translate-x-1 transition-transform duration-200">
-                      {link.name}
-                    </span>
+                    <span className="w-0 group-hover:w-4 h-0.5 bg-[#21C15E] mr-0 group-hover:mr-2 opacity-0 group-hover:opacity-100 transition-all duration-300" />
+                    {link.name}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 4: Contact */}
-          <div>
-            <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-6 flex items-center gap-2">
-              <div className="w-1 h-5 bg-[#1C61E7] rounded-full" />
-              Get In Touch
-            </h3>
-            <ul className="space-y-4">
-              <li className="group">
-                <a
-                  href="mailto:info@theskypedia.com"
-                  className="flex items-start hover:text-[#1C61E7] transition-colors duration-200"
-                >
-                  <div className="w-8 h-8 rounded-lg bg-[#1C61E7]/10 group-hover:bg-[#1C61E7] flex items-center justify-center mr-3 flex-shrink-0 transition-colors duration-200">
-                    <Mail className="h-4 w-4 text-[#1C61E7] group-hover:text-white transition-colors" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500 dark:text-gray-500 mb-0.5">Email</p>
-                    <span className="text-gray-700 dark:text-gray-300 text-sm font-medium">
-                      info@theskypedia.com
-                    </span>
-                  </div>
-                </a>
-              </li>
-              <li className="group">
-                <div className="flex items-start">
-                  <div className="w-8 h-8 rounded-lg bg-[#21C15E]/10 flex items-center justify-center mr-3 flex-shrink-0">
-                    <MapPin className="h-4 w-4 text-[#21C15E]" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500 dark:text-gray-500 mb-0.5">Location</p>
-                    <span className="text-gray-700 dark:text-gray-300 text-sm font-medium">
-                      Hyderabad, Telangana
-                    </span>
-                  </div>
+          {/* Contact Section using Semantic <address> */}
+          <div className="space-y-8">
+            <h4 className="text-xs font-semibold text-gray-900 dark:text-white uppercase tracking-[0.2em] mb-8 flex items-center gap-3">
+              <span className="w-8 h-[2px] bg-[#1C61E7] rounded-full" />
+              Office
+            </h4>
+            <address className="not-italic space-y-5">
+              <a
+                href={`mailto:${siteConfig.contact.email}`}
+                title="Send us an email"
+                className="group flex items-center gap-4 text-gray-500 hover:text-[#1C61E7] transition-all p-4 rounded-2xl bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700/50 shadow-sm"
+              >
+                <div className="w-10 h-10 rounded-xl bg-white dark:bg-gray-700 flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
+                  <Mail className="h-5 w-5 text-[#1C61E7]" />
                 </div>
-              </li>
-            </ul>
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest">Email</span>
+                  <span className="text-sm font-medium truncate max-w-[150px] sm:max-w-none">{siteConfig.contact.email}</span>
+                </div>
+              </a>
+
+              <div className="group flex items-center gap-4 text-gray-500 transition-all p-4 rounded-2xl bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700/50 shadow-sm">
+                <div className="w-10 h-10 rounded-xl bg-white dark:bg-gray-700 flex items-center justify-center shadow-md">
+                  <MapPin className="h-5 w-5 text-[#21C15E]" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest">Location</span>
+                  <span className="text-sm font-medium">{siteConfig.contact.location}</span>
+                </div>
+              </div>
+            </address>
           </div>
         </div>
 
-        {/* Newsletter subscription */}
-        <div className="relative bg-gradient-to-r from-[#1C61E7]/5 via-[#21C15E]/5 to-[#1C61E7]/5 px-6 py-12">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center px-4 py-2 mb-3 bg-white dark:bg-gray-800 rounded-full shadow-sm">
-              <Mail className="w-4 h-4 text-[#1C61E7] mr-2" />
-              <span className="text-sm font-semibold text-gray-900 dark:text-white">Stay Updated</span>
+        {/* Improved Subscription Section with Glassmorphism */}
+        <div className="mx-6 mb-16 px-8 py-12 relative rounded-[40px] bg-gradient-to-br from-[#1C61E7]/5 to-[#21C15E]/5 border border-white/20 backdrop-blur-sm overflow-hidden text-center">
+          <div className="absolute top-0 left-0 w-full h-full bg-grid-slate-100/[0.03] [mask-image:linear-gradient(0deg,transparent,black)] -z-10" />
+
+          <div className="relative z-10 max-w-2xl mx-auto">
+            <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-white dark:bg-gray-800 rounded-full shadow-lg border border-gray-100 dark:border-gray-700 animate-bounce">
+              <Heart className="w-4 h-4 text-red-500 fill-red-500" />
+              <span className="text-[11px] font-semibold uppercase text-gray-900 dark:text-white tracking-widest">Join 50k+ Students</span>
             </div>
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-3">
-              Get Latest Updates
+
+            <h3 className="text-3xl md:text-4xl font-semibold text-gray-900 dark:text-white mb-4 tracking-tighter">
+              Never Miss an Update
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm mb-6 max-w-xl mx-auto">
-              Subscribe to receive notifications about new results, resources, and features directly in your inbox.
+            <p className="text-gray-500 dark:text-gray-400 font-normal mb-10 max-w-lg mx-auto leading-relaxed">
+              Get JNTUH results notifications, exam updates, and academic resource alerts directly in your inbox.
             </p>
-            <form className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
+
+            <form className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
               <input
                 type="email"
-                placeholder="Enter your email address"
-                className="px-5 py-3 w-full sm:flex-1 border-2 border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-[#1C61E7] focus:border-transparent transition-all"
+                placeholder="yourname@gmail.com"
+                className="px-6 py-4 w-full sm:flex-1 bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700 rounded-2xl text-sm font-medium shadow-inner focus:outline-none focus:ring-2 focus:ring-[#1C61E7] transition-all"
                 required
+                aria-label="Email address for result notifications"
               />
               <button
                 type="submit"
-                className="group px-6 py-3 bg-[#1C61E7] hover:bg-[#1C61E7]/90 text-white font-semibold rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-[#1C61E7]/25 hover:shadow-xl hover:shadow-[#1C61E7]/30 hover:scale-105"
+                className="group flex items-center justify-center gap-2 px-8 py-4 bg-[#1C61E7] hover:bg-[#1C61E7]/90 text-white font-semibold rounded-2xl shadow-xl shadow-blue-500/25 transition-all hover:scale-105 active:scale-95"
               >
-                Subscribe
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <span>Notify Me</span>
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
             </form>
           </div>
         </div>
 
-        {/* Copyright bar */}
-        <div className="border-t-2 border-gray-200 dark:border-gray-800 px-6 py-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-              <span>&copy; {new Date().getFullYear()} THE SKYPEDIA. All rights reserved.</span>
+        {/* Global Footer Bottom Bar */}
+        <div className="px-6 py-12 border-t border-gray-100 dark:border-gray-800">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+            <div className="flex flex-col items-center md:items-start gap-1">
+              <span className="text-sm font-semibold text-gray-900 dark:text-white">&copy; {new Date().getFullYear()} {siteConfig.brand.creator.toUpperCase()}</span>
+              <span className="text-xs font-medium text-gray-400">Official Results Companion • All rights reserved</span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-              <span>Made with</span>
-              <Heart className="w-4 h-4 text-[#21C15E] fill-[#21C15E] animate-pulse" />
-              <span>for JNTUH Students</span>
+
+            <div className="flex items-center gap-6">
+              {['Privacy', 'Terms', 'Disclaimer', 'Cookies'].map((text) => (
+                <Link
+                  key={text}
+                  href={`/${text.toLowerCase().replace(' ', '-')}`}
+                  className="text-[11px] font-semibold uppercase tracking-widest text-gray-400 hover:text-[#1C61E7] transition-colors"
+                >
+                  {text}
+                </Link>
+              ))}
             </div>
-            <div className="flex flex-wrap justify-center gap-4 md:gap-6">
-              <Link
-                href="/privacy-policy"
-                className="text-sm text-gray-500 hover:text-[#1C61E7] dark:text-gray-400 dark:hover:text-[#1C61E7] transition-colors"
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                href="/terms-of-service"
-                className="text-sm text-gray-500 hover:text-[#1C61E7] dark:text-gray-400 dark:hover:text-[#1C61E7] transition-colors"
-              >
-                Terms of Service
-              </Link>
-              <Link
-                href="/disclaimer"
-                className="text-sm text-gray-500 hover:text-[#1C61E7] dark:text-gray-400 dark:hover:text-[#1C61E7] transition-colors"
-              >
-                Disclaimer
-              </Link>
-              <Link
-                href="/cookie-policy"
-                className="text-sm text-gray-500 hover:text-[#1C61E7] dark:text-gray-400 dark:hover:text-[#1C61E7] transition-colors"
-              >
-                Cookie Policy
-              </Link>
+
+            <div className="flex items-center gap-2 px-5 py-2.5 bg-gray-50 dark:bg-gray-800/50 rounded-full border border-gray-100 dark:border-gray-700/50">
+              <span className="text-xs font-medium text-gray-500">Built with</span>
+              <Heart className="w-3.5 h-3.5 text-[#21C15E] fill-[#21C15E] animate-pulse" />
+              <span className="text-xs font-medium text-gray-500">for JNTUH Students</span>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Modern Back to Top Button */}
+      {isVisible && (
+        <button
+          onClick={scrollToTop}
+          title="Scroll to TOP"
+          className="fixed bottom-8 right-8 z-[60] p-4 bg-[#1C61E7] text-white rounded-2xl shadow-2xl shadow-blue-500/30 border-2 border-white/20 backdrop-blur-lg hover:scale-110 active:scale-95 transition-all duration-300 animate-in fade-in zoom-in slide-in-from-bottom-5"
+          aria-label="Scroll back to top of the page"
+        >
+          <ChevronUp className="w-6 h-6 stroke-[3]" />
+        </button>
+      )}
     </footer>
   );
 };

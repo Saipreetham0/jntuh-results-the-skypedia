@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+// HMR Final Refresh: 2026-02-05 12:15 - PURGED NEXT/IMAGE CACHE
 import type { Metadata } from 'next';
 
 import { SpeedInsights } from '@vercel/speed-insights/next';
@@ -11,6 +12,7 @@ import AnnouncementBar from '@/components/layout/announcement-bar';
 import { InstallPWA } from '@/components/layout/InstallPWA';
 
 import { Providers } from '@/components/layout/providers';
+import NavigationProgressBar from '@/components/layout/NavigationProgressBar';
 
 import { GoogleTagManager, GoogleTagManagerNoScript } from '@/components/layout/scripts/GoogleTagManager';
 import { StructuredData } from '@/components/layout/scripts/StructuredData';
@@ -29,6 +31,10 @@ interface RootLayoutProps {
   readonly children: ReactNode;
 }
 
+import { Inter } from 'next/font/google';
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+
 export default function RootLayout({
   children,
 }: RootLayoutProps) {
@@ -40,7 +46,8 @@ export default function RootLayout({
         <AdScript />
       </head>
 
-      <body suppressHydrationWarning>
+      <body suppressHydrationWarning className={`${inter.variable} font-sans`}>
+        <NavigationProgressBar />
         <SpeedInsights />
         <AnalyticsProvider />
         <GoogleTagManagerNoScript />

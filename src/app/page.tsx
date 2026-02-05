@@ -1,8 +1,8 @@
-"use client";
-
 import Hero from "../components/hero";
 import ResultsBox from "../components/results";
 import HomepageBlog from "../components/blog";
+import FAQSection from "@/components/home/FAQSection";
+import NotificationTicker from "@/components/home/NotificationTicker";
 import { ResponsiveAd, InContentAd } from "@/components/adsense";
 import { SubscriptionForm } from "@/components/features/result-alerts";
 import AD_SLOTS from "@/config/adSlots";
@@ -13,6 +13,9 @@ export default function Home(): JSX.Element {
     <main className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Hero Section */}
       <Hero />
+
+      {/* Live Updates Ticker */}
+      <NotificationTicker />
 
       {/* Top Ad Banner */}
       <div className="container mx-auto px-4">
@@ -40,6 +43,10 @@ export default function Home(): JSX.Element {
 
       {/* Blog Section */}
       <HomepageBlog />
+
+      {/* FAQ Section */}
+      <div className="h-px bg-gray-200 dark:bg-gray-700"></div>
+      <FAQSection />
 
       {/* Divider */}
       <div className="h-px bg-gray-200 dark:bg-gray-700"></div>

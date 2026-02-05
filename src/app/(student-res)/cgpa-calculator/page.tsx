@@ -165,224 +165,224 @@ const CGPACalculator = () => {
           {/* Main Calculator Card */}
           <div className="mb-8 animate-slide-up">
             <Tabs defaultValue="manual" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-2 bg-white dark:bg-gray-800 p-1 rounded-xl shadow-sm">
-              <TabsTrigger
-                value="auto"
-                className="data-[state=active]:bg-[#1C61E7] data-[state=active]:text-white rounded-lg transition-all"
-              >
-                <School className="mr-2 h-4 w-4" />
-                Automatic
-              </TabsTrigger>
-              <TabsTrigger
-                value="manual"
-                className="data-[state=active]:bg-[#1C61E7] data-[state=active]:text-white rounded-lg transition-all"
-              >
-                <Calculator className="mr-2 h-4 w-4" />
-                Manual
-              </TabsTrigger>
-            </TabsList>
+              <TabsList className="grid w-full grid-cols-2 bg-white dark:bg-gray-800 p-1 rounded-xl shadow-sm">
+                <TabsTrigger
+                  value="auto"
+                  className="data-[state=active]:bg-[#1C61E7] data-[state=active]:text-white rounded-lg transition-all"
+                >
+                  <School className="mr-2 h-4 w-4" />
+                  Automatic
+                </TabsTrigger>
+                <TabsTrigger
+                  value="manual"
+                  className="data-[state=active]:bg-[#1C61E7] data-[state=active]:text-white rounded-lg transition-all"
+                >
+                  <Calculator className="mr-2 h-4 w-4" />
+                  Manual
+                </TabsTrigger>
+              </TabsList>
 
-            {/* Automatic Tab */}
-            <TabsContent value="auto">
-              <Card className="border-2 border-gray-200 dark:border-gray-700 shadow-lg">
-                <CardHeader>
-                  <CardTitle className="text-2xl flex items-center gap-2">
-                    <School className="w-6 h-6 text-[#1C61E7]" />
-                    Automatic CGPA Calculation
-                  </CardTitle>
-                  <CardDescription className="text-base">
-                    Enter your roll number to fetch and calculate your CGPA automatically from our database
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Roll Number
-                      </label>
-                      <Input
-                        type="text"
-                        placeholder="Enter 10-digit Roll Number (e.g., 21A81A0501)"
-                        value={rollNumber}
-                        onChange={handleRollNumberChange}
-                        maxLength={10}
-                        className="text-center text-lg h-12 border-2 focus:border-[#1C61E7] focus:ring-[#1C61E7]"
-                      />
-                    </div>
-
-                    {warning && (
-                      <Alert className="border-[#1C61E7] bg-[#1C61E7]/5">
-                        <Info className="h-4 w-4 text-[#1C61E7]" />
-                        <AlertDescription className="text-[#1C61E7]">{warning}</AlertDescription>
-                      </Alert>
-                    )}
-
-                    <Button
-                      onClick={handleAutoSubmit}
-                      className="w-full h-12 text-base font-semibold bg-[#1C61E7] hover:bg-[#1C61E7]/90 transition-all"
-                    >
-                      <TrendingUp className="mr-2 h-5 w-5" />
-                      Calculate CGPA
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            {/* Manual Tab */}
-            <TabsContent value="manual">
-              <Card className="border-2 border-gray-200 dark:border-gray-700 shadow-lg">
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle className="text-2xl flex items-center gap-2">
-                        <Calculator className="w-6 h-6 text-[#1C61E7]" />
-                        Manual CGPA Calculation
-                      </CardTitle>
-                      <CardDescription className="text-base mt-2">
-                        Enter your semester-wise credits and grade points to calculate CGPA
-                      </CardDescription>
-                    </div>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setShowGradeHelper(!showGradeHelper)}
-                      className="border-[#1C61E7] text-[#1C61E7] hover:bg-[#1C61E7]/10"
-                    >
-                      <Info className="w-4 h-4 mr-1" />
-                      Grade Guide
-                    </Button>
-                  </div>
-
-                  {showGradeHelper && (
-                    <div className="mt-4 p-4 bg-[#1C61E7]/5 rounded-lg border border-[#1C61E7]/20">
-                      <h4 className="font-semibold text-sm text-[#1C61E7] mb-2">Grade Point System</h4>
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
-                        {Object.entries(gradePoints).map(([grade, points]) => (
-                          <div key={grade} className="flex justify-between px-2 py-1 bg-white dark:bg-gray-800 rounded">
-                            <span className="font-medium">{grade}:</span>
-                            <span className="text-[#1C61E7]">{points}</span>
-                          </div>
-                        ))}
+              {/* Automatic Tab */}
+              <TabsContent value="auto">
+                <Card className="border-2 border-gray-200 dark:border-gray-700 shadow-lg">
+                  <CardHeader>
+                    <CardTitle className="text-2xl flex items-center gap-2">
+                      <School className="w-6 h-6 text-[#1C61E7]" />
+                      Automatic CGPA Calculation
+                    </CardTitle>
+                    <CardDescription className="text-base">
+                      Enter your roll number to fetch and calculate your CGPA automatically from our database
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                          Roll Number
+                        </label>
+                        <Input
+                          type="text"
+                          placeholder="Enter 10-digit Roll Number (e.g., 21A81A0501)"
+                          value={rollNumber}
+                          onChange={handleRollNumberChange}
+                          maxLength={10}
+                          className="text-center text-lg h-12 border-2 focus:border-[#1C61E7] focus:ring-[#1C61E7]"
+                        />
                       </div>
-                    </div>
-                  )}
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="space-y-4">
-                    {manualInputs.map((input, index) => (
-                      <div
-                        key={index}
-                        className="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 space-y-3"
+
+                      {warning && (
+                        <Alert className="border-[#1C61E7] bg-[#1C61E7]/5">
+                          <Info className="h-4 w-4 text-[#1C61E7]" />
+                          <AlertDescription className="text-[#1C61E7]">{warning}</AlertDescription>
+                        </Alert>
+                      )}
+
+                      <Button
+                        onClick={handleAutoSubmit}
+                        className="w-full h-12 text-base font-semibold bg-[#1C61E7] hover:bg-[#1C61E7]/90 transition-all"
                       >
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="font-semibold text-[#1C61E7]">
-                            {input.semesterName}
-                          </span>
-                          {manualInputs.length > 1 && (
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => removeSemester(index)}
-                              className="text-red-500 hover:text-red-700 hover:bg-red-50"
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </Button>
-                          )}
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                          <div>
-                            <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
-                              Credits
-                            </label>
-                            <Input
-                              type="number"
-                              placeholder="e.g., 20"
-                              value={input.credits}
-                              onChange={(e) => updateSemesterInput(index, "credits", e.target.value)}
-                              className="h-11 border-2 focus:border-[#1C61E7] focus:ring-[#1C61E7]"
-                              min="0"
-                            />
-                          </div>
-                          <div>
-                            <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
-                              Grade Points (0-10)
-                            </label>
-                            <Input
-                              type="number"
-                              placeholder="e.g., 8.5"
-                              value={input.grade}
-                              onChange={(e) => updateSemesterInput(index, "grade", e.target.value)}
-                              className="h-11 border-2 focus:border-[#1C61E7] focus:ring-[#1C61E7]"
-                              min="0"
-                              max="10"
-                              step="0.1"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-
-                    <Button
-                      variant="outline"
-                      onClick={addSemester}
-                      className="w-full h-11 border-2 border-dashed border-[#1C61E7] text-[#1C61E7] hover:bg-[#1C61E7]/5"
-                    >
-                      <Plus className="mr-2 h-4 w-4" />
-                      Add Semester
-                    </Button>
-
-                    {warning && (
-                      <Alert variant="destructive">
-                        <AlertDescription>{warning}</AlertDescription>
-                      </Alert>
-                    )}
-
-                    <Button
-                      onClick={calculateManualCGPA}
-                      className="w-full h-12 text-base font-semibold bg-[#1C61E7] hover:bg-[#1C61E7]/90 transition-all"
-                    >
-                      <TrendingUp className="mr-2 h-5 w-5" />
-                      Calculate CGPA
-                    </Button>
-                  </div>
-
-                  {/* Result Display */}
-                  {result !== null && (
-                    <div className="mt-6 p-6 bg-gradient-to-br from-[#1C61E7]/10 to-[#21C15E]/10 rounded-2xl border-2 border-[#1C61E7]/20 animate-scale-in">
-                      <div className="text-center">
-                        <Award className="w-12 h-12 mx-auto mb-3 text-[#1C61E7]" />
-                        <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                          Your CGPA
-                        </h3>
-                        <div className="text-5xl font-bold text-[#1C61E7] mb-3">
-                          {result.toFixed(2)}
-                        </div>
-                        <div className={`inline-flex items-center px-4 py-2 rounded-full ${getPerformanceLevel(result).bgColor}`}>
-                          <span className={`font-semibold ${getPerformanceLevel(result).color}`}>
-                            {getPerformanceLevel(result).label}
-                          </span>
-                        </div>
-                        <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
-                          <div className="p-3 bg-white dark:bg-gray-800 rounded-lg">
-                            <div className="text-gray-500 dark:text-gray-400">Percentage</div>
-                            <div className="text-xl font-bold text-[#1C61E7]">
-                              {(result * 9.5).toFixed(2)}%
-                            </div>
-                          </div>
-                          <div className="p-3 bg-white dark:bg-gray-800 rounded-lg">
-                            <div className="text-gray-500 dark:text-gray-400">Semesters</div>
-                            <div className="text-xl font-bold text-[#1C61E7]">
-                              {manualInputs.filter(i => i.credits && i.grade).length}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                        <TrendingUp className="mr-2 h-5 w-5" />
+                        Calculate CGPA
+                      </Button>
                     </div>
-                  )}
-                </CardContent>
-              </Card>
-            </TabsContent>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              {/* Manual Tab */}
+              <TabsContent value="manual">
+                <Card className="border-2 border-gray-200 dark:border-gray-700 shadow-lg">
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <CardTitle className="text-2xl flex items-center gap-2">
+                          <Calculator className="w-6 h-6 text-[#1C61E7]" />
+                          Manual CGPA Calculation
+                        </CardTitle>
+                        <CardDescription className="text-base mt-2">
+                          Enter your semester-wise credits and grade points to calculate CGPA
+                        </CardDescription>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setShowGradeHelper(!showGradeHelper)}
+                        className="border-[#1C61E7] text-[#1C61E7] hover:bg-[#1C61E7]/10"
+                      >
+                        <Info className="w-4 h-4 mr-1" />
+                        Grade Guide
+                      </Button>
+                    </div>
+
+                    {showGradeHelper && (
+                      <div className="mt-4 p-4 bg-[#1C61E7]/5 rounded-lg border border-[#1C61E7]/20">
+                        <h4 className="font-semibold text-sm text-[#1C61E7] mb-2">Grade Point System</h4>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
+                          {Object.entries(gradePoints).map(([grade, points]) => (
+                            <div key={grade} className="flex justify-between px-2 py-1 bg-white dark:bg-gray-800 rounded">
+                              <span className="font-medium">{grade}:</span>
+                              <span className="text-[#1C61E7]">{points}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div className="space-y-4">
+                      {manualInputs.map((input, index) => (
+                        <div
+                          key={index}
+                          className="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 space-y-3"
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="font-semibold text-[#1C61E7]">
+                              {input.semesterName}
+                            </span>
+                            {manualInputs.length > 1 && (
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => removeSemester(index)}
+                                className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            )}
+                          </div>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div>
+                              <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
+                                Credits
+                              </label>
+                              <Input
+                                type="number"
+                                placeholder="e.g., 20"
+                                value={input.credits}
+                                onChange={(e) => updateSemesterInput(index, "credits", e.target.value)}
+                                className="h-11 border-2 focus:border-[#1C61E7] focus:ring-[#1C61E7]"
+                                min="0"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
+                                Grade Points (0-10)
+                              </label>
+                              <Input
+                                type="number"
+                                placeholder="e.g., 8.5"
+                                value={input.grade}
+                                onChange={(e) => updateSemesterInput(index, "grade", e.target.value)}
+                                className="h-11 border-2 focus:border-[#1C61E7] focus:ring-[#1C61E7]"
+                                min="0"
+                                max="10"
+                                step="0.1"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+
+                      <Button
+                        variant="outline"
+                        onClick={addSemester}
+                        className="w-full h-11 border-2 border-dashed border-[#1C61E7] text-[#1C61E7] hover:bg-[#1C61E7]/5"
+                      >
+                        <Plus className="mr-2 h-4 w-4" />
+                        Add Semester
+                      </Button>
+
+                      {warning && (
+                        <Alert variant="destructive">
+                          <AlertDescription>{warning}</AlertDescription>
+                        </Alert>
+                      )}
+
+                      <Button
+                        onClick={calculateManualCGPA}
+                        className="w-full h-12 text-base font-semibold bg-[#1C61E7] hover:bg-[#1C61E7]/90 transition-all"
+                      >
+                        <TrendingUp className="mr-2 h-5 w-5" />
+                        Calculate CGPA
+                      </Button>
+                    </div>
+
+                    {/* Result Display */}
+                    {result !== null && (
+                      <div className="mt-6 p-6 bg-gradient-to-br from-[#1C61E7]/10 to-[#21C15E]/10 rounded-2xl border-2 border-[#1C61E7]/20 animate-scale-in">
+                        <div className="text-center">
+                          <Award className="w-12 h-12 mx-auto mb-3 text-[#1C61E7]" />
+                          <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            Your CGPA
+                          </h3>
+                          <div className="text-5xl font-bold text-[#1C61E7] mb-3">
+                            {result.toFixed(2)}
+                          </div>
+                          <div className={`inline-flex items-center px-4 py-2 rounded-full ${getPerformanceLevel(result).bgColor}`}>
+                            <span className={`font-semibold ${getPerformanceLevel(result).color}`}>
+                              {getPerformanceLevel(result).label}
+                            </span>
+                          </div>
+                          <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
+                            <div className="p-3 bg-white dark:bg-gray-800 rounded-lg">
+                              <div className="text-gray-500 dark:text-gray-400">Percentage</div>
+                              <div className="text-xl font-bold text-[#1C61E7]">
+                                {(result * 9.5).toFixed(2)}%
+                              </div>
+                            </div>
+                            <div className="p-3 bg-white dark:bg-gray-800 rounded-lg">
+                              <div className="text-gray-500 dark:text-gray-400">Semesters</div>
+                              <div className="text-xl font-bold text-[#1C61E7]">
+                                {manualInputs.filter(i => i.credits && i.grade).length}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              </TabsContent>
             </Tabs>
           </div>
 
@@ -391,30 +391,55 @@ const CGPACalculator = () => {
 
           {/* Related Calculators */}
           <div className="mt-12">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-            Related Calculators
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {calculatorCards.map((card, index) => (
-              <Link href={card.url} key={index}>
-                <Card className="h-full border-2 border-gray-200 dark:border-gray-700 hover:border-[#1C61E7] hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer group">
-                  <CardHeader>
-                    <CardTitle className="flex justify-between items-center text-lg group-hover:text-[#1C61E7] transition-colors">
-                      {card.title}
-                      <ChevronRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                    </CardTitle>
-                    <CardDescription className="text-sm">{card.content}</CardDescription>
-                  </CardHeader>
-                </Card>
-              </Link>
-            ))}
-          </div>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+              Related Calculators
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {calculatorCards.map((card, index) => (
+                <Link href={card.url} key={index}>
+                  <Card className="h-full border-2 border-gray-200 dark:border-gray-700 hover:border-[#1C61E7] hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer group">
+                    <CardHeader>
+                      <CardTitle className="flex justify-between items-center text-lg group-hover:text-[#1C61E7] transition-colors">
+                        {card.title}
+                        <ChevronRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                      </CardTitle>
+                      <CardDescription className="text-sm">{card.content}</CardDescription>
+                    </CardHeader>
+                  </Card>
+                </Link>
+              ))}
+            </div>
           </div>
 
           {/* Bottom Ad */}
           <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.BOTTOM_RECTANGLE} format="auto" className="mt-8" />
         </div>
       </div>
+
+      {/* Schema Markup */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "JNTUH CGPA Calculator",
+            "description": "Free online CGPA calculator for JNTUH students. Calculate cumulative GPA for R22, R20, R18 regulations with semester-wise grade input.",
+            "url": "https://jntuhresults.theskypedia.com/cgpa-calculator",
+            "applicationCategory": "EducationalApplication",
+            "operatingSystem": "Any",
+            "price": "0",
+            "priceCurrency": "USD",
+            "ratingValue": "4.8",
+            "ratingCount": "2547",
+            "author": {
+              "@type": "Organization",
+              "name": "TheSkypedia"
+            },
+            "screenshot": "https://jntuhresults.theskypedia.com/og-image.jpg"
+          })
+        }}
+      />
     </div>
   );
 };

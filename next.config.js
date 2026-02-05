@@ -6,7 +6,6 @@ const withPWA = withPWAInit({
   skipWaiting: true,
   disable: process.env.NODE_ENV === "development",
   buildExcludes: [/middleware-manifest.json$/],
-  // Cache optimization
   runtimeCaching: [
     {
       urlPattern: /^https:\/\/fonts\.(?:googleapis|gstatic)\.com\/.*/i,
@@ -36,11 +35,8 @@ const withPWA = withPWAInit({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-
-  // Compression
   compress: true,
 
-  // Optimize images
   images: {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
@@ -78,13 +74,13 @@ const nextConfig = {
     ],
   },
 
-  // Experimental features for better performance
+  serverExternalPackages: ['googleapis', 'google-auth-library'],
+
   experimental: {
-    optimizeCss: true,
-    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons', '@heroicons/react'],
+    optimizeCss: false,
+    turbopackFileSystemCacheForBuild: true,
   },
 
-  // Headers for better caching and security
   headers: async () => {
     return [
       {
@@ -142,9 +138,7 @@ const nextConfig = {
     ];
   },
 
-  serverExternalPackages: ['googleapis', 'google-auth-library'],
-
-  webpack: (config, { isServer }) => {
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }) => {
     if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,
@@ -154,8 +148,11 @@ const nextConfig = {
     return config;
   },
 
-  // Turbopack config (empty to silence Next.js 16 warning)
-  turbopack: {},
+  turbopack: {
+    // Turbopack resolveAlias currently requires string values. 
+    // If punycode is causing issues, we'll need a better polyfill or ignore strategy.
+    // Setting to empty string or removing if boolean false is unsupported.
+  },
 };
 
 export default withPWA(nextConfig);

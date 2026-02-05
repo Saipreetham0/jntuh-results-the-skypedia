@@ -35,10 +35,22 @@ export const siteConfig = {
   },
 
   /**
+   * Contact Information
+   */
+  contact: {
+    email: 'info@theskypedia.com',
+    location: 'Hyderabad, Telangana',
+    address: 'Hyderabad, Telangana, India',
+  },
+
+  /**
    * Social Media
    */
   social: {
     twitter: '@theskypedia',
+    instagram: 'https://www.instagram.com/theskypedia',
+    github: 'https://github.com/TheSkypedia',
+    youtube: 'https://www.youtube.com/@theskypedia',
   },
 
   /**

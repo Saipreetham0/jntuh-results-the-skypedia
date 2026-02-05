@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Dialog, Transition } from "@headlessui/react";
 import { Menu, X, Sun, Moon, Bell, ChevronDown, Sparkles } from "lucide-react";
 import { useTheme } from "next-themes";
+import { usePathname } from "next/navigation";
 import ShareButton from "../../share-button";
 
 interface NavItem {
@@ -60,6 +61,7 @@ const navItems: NavItem[] = [
 const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const [mobileOpenSubmenu, setMobileOpenSubmenu] = useState<string | null>(
     null
@@ -98,11 +100,10 @@ const Navbar: React.FC = () => {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-300 border-b ${
-        scrolled
-          ? "bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg border-gray-200 dark:border-gray-800"
-          : "bg-white dark:bg-gray-900 border-transparent"
-      }`}
+      className={`sticky top-0 z-50 transition-all duration-300 border-b ${scrolled
+        ? "bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg border-gray-200 dark:border-gray-800"
+        : "bg-white dark:bg-gray-900 border-transparent"
+        }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <nav
@@ -111,14 +112,16 @@ const Navbar: React.FC = () => {
         >
           {/* Logo section */}
           <div className="flex lg:flex-1">
-            <Link href="/" className="flex items-center gap-1.5">
+            <Link href="/" className="flex items-center gap-2 group">
               <span className="sr-only">JNTUH Results</span>
-              <span className="text-xl md:text-2xl font-bold text-[#1C61E7] dark:text-[#1C61E7]">
-                JNTUH
-              </span>
-              <span className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white">
-                Results
-              </span>
+              <div className="flex items-baseline gap-1">
+                <span className="text-xl md:text-2xl font-bold text-[#1C61E7] dark:text-[#1C61E7] tracking-tight group-hover:scale-105 transition-transform">
+                  JNTUH
+                </span>
+                <span className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white tracking-tight">
+                  Results
+                </span>
+              </div>
             </Link>
           </div>
 
@@ -162,31 +165,34 @@ const Navbar: React.FC = () => {
                     onMouseLeave={() => setOpenSubmenu(null)}
                   >
                     <button
-                      className="flex items-center gap-1 px-4 py-2 text-sm font-semibold text-gray-700 hover:text-[#1C61E7] dark:text-gray-200 dark:hover:text-[#1C61E7] transition-colors duration-200 rounded-lg hover:bg-[#1C61E7]/5"
+                      className={`flex items-center gap-1.5 px-4 py-2 text-sm font-medium transition-all duration-200 rounded-lg ${openSubmenu === item.name || item.submenu.some(sub => pathname === sub.href)
+                          ? "text-[#1C61E7] bg-[#1C61E7]/5"
+                          : "text-gray-600 hover:text-[#1C61E7] dark:text-gray-300 dark:hover:text-[#1C61E7] hover:bg-gray-100 dark:hover:bg-gray-800"
+                        }`}
                       aria-expanded={openSubmenu === item.name}
                     >
                       {item.name}
                       <ChevronDown
-                        className={`h-4 w-4 transition-transform duration-200 ${
-                          openSubmenu === item.name ? "rotate-180" : ""
-                        }`}
+                        className={`h-3.5 w-3.5 transition-transform duration-300 ${openSubmenu === item.name ? "rotate-180" : ""
+                          }`}
                       />
                     </button>
 
                     {/* Dropdown menu */}
                     {openSubmenu === item.name && (
-                      <div className="absolute left-0 top-full mt-1 w-60 origin-top-left rounded-xl bg-white dark:bg-gray-800 shadow-xl ring-1 ring-black/5 dark:ring-white/10 z-50 border-t-2 border-[#1C61E7] animate-in fade-in slide-in-from-top-2 duration-200">
-                        <div className="py-2 rounded-xl overflow-hidden">
+                      <div className="absolute left-0 top-full pt-2 w-64 origin-top-left z-50">
+                        <div className="rounded-2xl bg-white dark:bg-gray-900 shadow-2xl ring-1 ring-black/5 dark:ring-white/10 border border-gray-100 dark:border-gray-800 p-2 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
                           {item.submenu.map((subitem) => (
                             <Link
                               key={subitem.name}
                               href={subitem.href}
-                              className="group/item flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-[#1C61E7]/10 hover:text-[#1C61E7] dark:text-gray-200 dark:hover:bg-[#1C61E7]/20 dark:hover:text-[#1C61E7] transition-all duration-150"
+                              className={`group/item flex items-center justify-between px-4 py-3 text-sm font-medium rounded-xl transition-all duration-150 ${pathname === subitem.href
+                                  ? "bg-[#1C61E7]/10 text-[#1C61E7]"
+                                  : "text-gray-600 dark:text-gray-300 hover:bg-[#1C61E7]/5 hover:text-[#1C61E7]"
+                                }`}
                             >
-                              <div className="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600 group-hover/item:bg-[#1C61E7] transition-colors" />
-                              <span className="group-hover/item:translate-x-0.5 transition-transform">
-                                {subitem.name}
-                              </span>
+                              <span>{subitem.name}</span>
+                              <ChevronDown className="-rotate-90 h-3.5 w-3.5 opacity-0 group-hover/item:opacity-100 transition-all transform group-hover/item:translate-x-1" />
                             </Link>
                           ))}
                         </div>
@@ -196,7 +202,10 @@ const Navbar: React.FC = () => {
                 ) : (
                   <Link
                     href={item.href}
-                    className="flex items-center px-4 py-2 text-sm font-semibold text-gray-700 hover:text-[#1C61E7] dark:text-gray-200 dark:hover:text-[#1C61E7] transition-colors duration-200 rounded-lg hover:bg-[#1C61E7]/5"
+                    className={`flex items-center px-4 py-2 text-sm font-medium transition-all duration-200 rounded-lg ${pathname === item.href
+                        ? "text-[#1C61E7] bg-[#1C61E7]/5"
+                        : "text-gray-600 hover:text-[#1C61E7] dark:text-gray-300 dark:hover:text-[#1C61E7] hover:bg-gray-100 dark:hover:bg-gray-800"
+                      }`}
                   >
                     {item.name}
                   </Link>
@@ -235,9 +244,9 @@ const Navbar: React.FC = () => {
 
             <Link
               href="/login"
-              className="group relative ml-2 px-6 py-2.5 text-sm font-semibold text-white bg-[#1C61E7] hover:bg-[#1C61E7]/90 rounded-lg transition-all duration-200 shadow-lg shadow-[#1C61E7]/25 hover:shadow-xl hover:shadow-[#1C61E7]/30 hover:scale-105 flex items-center gap-2"
+              className="group relative ml-2 px-6 py-2.5 text-sm font-bold text-white bg-[#1C61E7] hover:bg-[#1C61E7]/90 rounded-xl transition-all duration-300 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:-translate-y-0.5 active:scale-95 flex items-center gap-2 overflow-hidden"
             >
-              <Sparkles className="h-4 w-4 group-hover:rotate-12 transition-transform" />
+              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
               Login
             </Link>
           </div>
@@ -268,19 +277,21 @@ const Navbar: React.FC = () => {
             leaveFrom="transform translate-x-0"
             leaveTo="transform translate-x-full"
           >
-            <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 border-l-4 border-[#1C61E7]">
+            <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 border-l border-gray-100 dark:border-gray-800">
               <div className="flex items-center justify-between mb-8">
                 <Link
                   href="/"
-                  className="flex items-center gap-1.5"
+                  className="flex items-center gap-2"
                   onClick={closeMobileMenu}
                 >
-                  <span className="text-2xl font-bold text-[#1C61E7]">
-                    JNTUH
-                  </span>
-                  <span className="text-2xl font-semibold text-gray-900 dark:text-white">
-                    Results
-                  </span>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-2xl font-bold text-[#1C61E7] tracking-tight">
+                      JNTUH
+                    </span>
+                    <span className="text-2xl font-semibold text-gray-900 dark:text-white tracking-tight">
+                      Results
+                    </span>
+                  </div>
                 </Link>
                 <button
                   type="button"
@@ -300,26 +311,27 @@ const Navbar: React.FC = () => {
                       {item.submenu ? (
                         <div>
                           <button
-                            className="flex items-center justify-between w-full px-4 py-3 text-base font-semibold text-gray-900 dark:text-gray-200 hover:bg-[#1C61E7]/10 dark:hover:bg-[#1C61E7]/20 hover:text-[#1C61E7] rounded-xl transition-all"
+                            className={`flex items-center justify-between w-full px-4 py-4 text-base font-bold rounded-2xl transition-all ${mobileOpenSubmenu === item.name
+                                ? "text-[#1C61E7] bg-[#1C61E7]/5"
+                                : "text-gray-900 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800"
+                              }`}
                             onClick={() => toggleMobileSubmenu(item.name)}
                           >
                             {item.name}
                             <ChevronDown
-                              className={`h-5 w-5 transition-transform duration-200 ${
-                                mobileOpenSubmenu === item.name
-                                  ? "rotate-180 text-[#1C61E7]"
-                                  : ""
-                              }`}
+                              className={`h-5 w-5 transition-transform duration-300 ${mobileOpenSubmenu === item.name
+                                ? "rotate-180 text-[#1C61E7]"
+                                : "text-gray-400"
+                                }`}
                             />
                           </button>
 
                           {/* Mobile submenu with animation */}
                           <div
-                            className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                              mobileOpenSubmenu === item.name
-                                ? "max-h-96 opacity-100 mt-2"
-                                : "max-h-0 opacity-0"
-                            }`}
+                            className={`overflow-hidden transition-all duration-300 ease-in-out ${mobileOpenSubmenu === item.name
+                              ? "max-h-96 opacity-100 mt-2"
+                              : "max-h-0 opacity-0"
+                              }`}
                           >
                             <div className="space-y-1 px-2 py-2 bg-[#1C61E7]/5 dark:bg-[#1C61E7]/10 rounded-xl">
                               {item.submenu.map((subitem) => (
@@ -339,7 +351,10 @@ const Navbar: React.FC = () => {
                       ) : (
                         <Link
                           href={item.href}
-                          className="block px-4 py-3 text-base font-semibold text-gray-900 dark:text-gray-200 hover:bg-[#1C61E7]/10 dark:hover:bg-[#1C61E7]/20 hover:text-[#1C61E7] rounded-xl transition-all"
+                          className={`block px-4 py-4 text-base font-bold rounded-2xl transition-all ${pathname === item.href
+                              ? "text-[#1C61E7] bg-[#1C61E7]/5"
+                              : "text-gray-900 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800"
+                            }`}
                           onClick={closeMobileMenu}
                         >
                           {item.name}
@@ -350,13 +365,13 @@ const Navbar: React.FC = () => {
                 </div>
 
                 {/* Mobile action buttons */}
-                <div className="mt-8 pt-6 border-t-2 border-gray-200 dark:border-gray-700 space-y-3">
+                <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white dark:bg-black border-t border-gray-100 dark:border-gray-800 shadow-xl">
                   <Link
                     href="/login"
-                    className="flex items-center justify-center gap-2 w-full py-3.5 px-4 rounded-xl text-center text-white bg-[#1C61E7] hover:bg-[#1C61E7]/90 font-semibold shadow-lg shadow-[#1C61E7]/25 hover:shadow-xl hover:shadow-[#1C61E7]/30 transition-all"
+                    className="flex items-center justify-center gap-2 w-full py-4.5 px-4 rounded-2xl text-center text-white bg-[#1C61E7] hover:bg-[#1C61E7]/90 font-bold shadow-xl shadow-blue-500/25 active:scale-95 transition-all text-lg"
                     onClick={closeMobileMenu}
                   >
-                    <Sparkles className="h-4 w-4" />
+                    <Sparkles className="h-5 w-5" />
                     Login
                   </Link>
 

@@ -118,6 +118,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.7,
     },
+    {
+      url: `${baseUrl}/blog/jntuh-grading-system-explained`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/blog/how-to-calculate-sgpa-to-cgpa-jntuh`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/blog/jntuh-grace-marks-rules-eligibility`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
 
     // User Features - Lower Priority
     {
@@ -138,6 +156,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.3,
     },
+
+    // Programmatic SEO: Result Pages (High Priority)
+    ...['r22', 'r18'].flatMap(reg =>
+      ['1-1', '1-2', '2-1', '2-2', '3-1', '3-2', '4-1', '4-2'].map(sem => ({
+        url: `${baseUrl}/results/${reg}/${sem}`,
+        lastModified: currentDate,
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+      }))
+    ),
 
     // Additional Tools
     {
