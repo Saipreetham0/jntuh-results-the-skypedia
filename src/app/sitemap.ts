@@ -15,6 +15,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // Main Result Pages - Very High Priority
     {
+      url: `${baseUrl}/jntuh-results`,
+      lastModified: currentDate,
+      changeFrequency: 'daily',
+      priority: 1.0,
+    },
+    {
       url: `${baseUrl}/consolidated-results`,
       lastModified: currentDate,
       changeFrequency: 'daily',
@@ -41,10 +47,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/cgpa-percentage-converter`,
+      url: `${baseUrl}/jntuh-cgpa-to-percentage-formula`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/cgpa-percentage-converter`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/sgpa-to-cgpa-calculator`,
@@ -67,10 +79,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // Academic Resources - High Priority
     {
-      url: `${baseUrl}/previous-question-papers`,
+      url: `${baseUrl}/jntuh-previous-question-papers`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
-      priority: 0.8,
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/syllabus`,
@@ -135,6 +147,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/blog/how-to-calculate-cgpa-in-jntuh`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.8,
     },
 
     // User Features - Lower Priority

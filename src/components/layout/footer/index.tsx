@@ -48,20 +48,23 @@ const socialLinks: SocialLink[] = [
 // Quick links for navigation
 const quickLinks: FooterLink[] = [
   { name: "Home", href: "/" },
-  { name: "Results Portal", href: "/results" },
-  { name: "CGPA Calculator", href: "/cgpa-calculator" },
-  { name: "Academic Resources", href: "/resources" },
-  { name: "About TheSkypedia", href: siteConfig.brand.authorUrl + "/about-us" },
+  { name: "JNTUH Results", href: "/jntuh-results" },
+  { name: "Check Backlogs", href: "/check-backlogs" },
+  { name: "Consolidated Results", href: "/consolidated-results" },
+  { name: "About Us", href: "/about-us" },
   { name: "Contact Support", href: "/contact" },
 ];
 
 // Resource links for students
 const resourceLinks: FooterLink[] = [
+  { name: "CGPA Calculator", href: "/cgpa-calculator" },
+  { name: "CGPA to Percentage", href: "/jntuh-cgpa-to-percentage-formula" },
+  { name: "Marks to Percentage", href: "/marks-percentage-calculator" },
+  { name: "Previous Question Papers", href: "/jntuh-previous-question-papers" },
   { name: "JNTUH Syllabus", href: "/syllabus" },
-  { name: "Previous Papers", href: "/previous-question-papers" },
-  { name: "Credit Checking", href: "/credit-eligibility-check" },
+  { name: "B.Tech Colleges", href: "/btech-colleges-tg" },
   { name: "Academic Calendar", href: "/calendar" },
-  { name: "Notification Alerts", href: "/notifications" },
+  { name: "FAQ", href: "/faq" },
 ];
 
 const Footer: React.FC = () => {

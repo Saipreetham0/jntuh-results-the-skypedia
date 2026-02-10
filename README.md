@@ -1,113 +1,60 @@
 # JNTUH Results - The Skypedia
 
-<div align="center">
+A Next.js platform for JNTUH students to check results, calculate CGPA/SGPA, and access academic resources. Built with App Router, TypeScript, and Tailwind CSS.
 
-![Next.js](https://img.shields.io/badge/Next.js-16.1.6-black?style=for-the-badge&logo=next.js)
-![React](https://img.shields.io/badge/React-19.2.4-61DAFB?style=for-the-badge&logo=react)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=for-the-badge&logo=typescript)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?style=for-the-badge&logo=tailwind-css)
-![Turbopack](https://img.shields.io/badge/Turbopack-Enabled-FF0080?style=for-the-badge&logo=vercel)
-
-A comprehensive platform for JNTUH students to check results, calculate CGPA/SGPA, and access academic resources with industry-standard performance.
-
-[Live Demo](https://jntuhresults.theskypedia.com) • [Report Bug](https://github.com/Saipreetham0/jntuh-results-the-skypedia/issues) • [Request Feature](https://github.com/Saipreetham0/jntuh-results-the-skypedia/issues)
-
-</div>
-
----
-
-## Table of Contents
-
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Environment Variables](#environment-variables)
-  - [Development](#development)
-  - [Build](#build)
-- [Project Structure](#project-structure)
-- [Key Features](#key-features)
-- [Available Scripts](#available-scripts)
-- [Contributing](#contributing)
-- [License](#license)
+Live demo: https://jntuhresults.theskypedia.com
 
 ---
 
 ## Features
 
-### Student Results
-- **Check Results**: Instant access to semester-wise results by roll number
-- **Consolidated Results**: View complete academic transcript across all semesters
-- **Semester-wise Results**: Detailed breakdown of each semester's performance
-- **Backlogs Checker**: Identify pending subjects and plan reappearances
-- **Credit Eligibility Check**: Verify credit requirements for progression
-
-### Calculators & Converters
-- **CGPA Calculator**: Calculate cumulative grade point average
-- **SGPA to CGPA Converter**: Convert semester GPA to cumulative GPA
-- **CGPA to Percentage Converter**: Convert CGPA to percentage and vice versa
-- **Marks Percentage Calculator**: Calculate percentage from obtained marks
-
-### Academic Resources
-- **Previous Question Papers**: Access to past exam papers
-- **Academic Calendar**: Important dates and events
-- **Syllabus**: Course syllabi for all programs
-- **B.Tech Colleges**: Directory of affiliated colleges in Telangana
-- **Notifications**: Latest updates and announcements
-
-### Additional Features
-- **PWA Excellence**: Native `manifest.ts` implementation for deep OS integration
-- **Dark Mode**: Eye-friendly dark theme support via `next-themes`
-- **PDF Export**: Download and print results using `jspdf` and `html2pdf`
-- **Performance Comparison**: Compare results with peers
-- **Responsive Design**: Optimized for mobile, tablet, and desktop
-- **SEO Optimized**: Dynamic `robots.ts` and programmatic `sitemap.ts`
-- **Ad Integration**: Google AdSense monetization with specialized ad layout tokens
+- Results: semester-wise, consolidated, backlogs, credit eligibility
+- Calculators: CGPA, SGPA, percentage conversions, marks-to-percentage
+- Academic resources: syllabus, previous papers, calendar, notifications
+- PWA support with manifest and service worker
+- SEO: dynamic metadata, sitemap, robots
+- Ads and analytics integrations
 
 ---
 
 ## Tech Stack
 
-### Frontend
-- **Framework**: [Next.js 16](https://nextjs.org/) with App Router
-- **React**: 19.2.0 with Server Components
-- **TypeScript**: Type-safe development
-- **Styling**: Tailwind CSS 3.4
-- **UI Components**:
-  - Radix UI primitives
-  - Headless UI components
-  - Custom shadcn/ui components
-- **Animations**: Framer Motion
-- **Icons**: Heroicons, Lucide React, Radix Icons
+- Next.js 16 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS + shadcn/ui + Radix UI
+- Supabase (auth/data)
+- Redis (optional caching)
+- Resend/Brevo (email)
+- Vitest (tests)
 
-### Backend & Database
-- **Authentication**: NextAuth.js with Firebase adapter
-- **Database**:
-  - MySQL (MySQL2, TypeORM)
-  - Supabase (PostgreSQL)
-  - Redis (ioredis)
-- **ORM**: TypeORM
-- **API**: Next.js API Routes
+---
 
-### Tools & Services
-- **Email**: Brevo, Resend, React Email
-- **PDF Generation**: jsPDF, html2pdf.js, react-pdf
-- **Charts**: Recharts
-- **Forms**: Yup validation
-- **Analytics**: Vercel Speed Insights
-- **Ads**: Google AdSense
-- **PWA**: next-pwa
+## Project Structure
 
-### Development
-- **Build Tool**: Turbopack (Native Rust-based bundler)
-- **Caching**: Experimental Filesystem Caching enabled for builds
-- **Monitoring**: Native Web Vitals and Performance Analytics
-- **Instrumentation**: Client-side global error tracking
-- **Linting**: ESLint 9
-- **Formatting**: Prettier
-- **Bundle Analyzer**: @next/bundle-analyzer
-- **Package Manager**: pnpm
+```
+.
+├── .github/                 # CI workflows
+├── docs/                    # Architecture, analytics, ops docs
+├── public/                  # Static assets, PWA files
+├── scripts/                 # Local scripts (bundle budget)
+├── src/
+│   ├── app/                 # Next.js App Router
+│   ├── components/          # UI and feature components
+│   ├── config/              # App configuration
+│   ├── hooks/               # React hooks
+│   ├── lib/                 # Core logic and services
+│   │   ├── email/           # Email helpers
+│   │   ├── metadata/        # Metadata helpers
+│   │   ├── seo/             # SEO utilities
+│   │   └── supabase/        # Supabase clients/middleware
+│   └── types/               # Type definitions
+├── tests/                   # Vitest tests
+├── next.config.js
+├── tailwind.config.js
+├── vitest.config.ts
+└── package.json
+```
 
 ---
 
@@ -115,245 +62,112 @@ A comprehensive platform for JNTUH students to check results, calculate CGPA/SGP
 
 ### Prerequisites
 
-- **Node.js**: 18.x or higher
-- **pnpm**: 8.x or higher (recommended)
-- **MySQL**: 8.x or higher (or access to Supabase)
-- **Redis**: 6.x or higher (optional, for caching)
+- Node.js 20+
+- pnpm 10+
 
-### Installation
+### Install
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/jntuh-results-the-skypedia.git
-   cd jntuh-results-the-skypedia
-   ```
-
-2. **Install dependencies**
-   ```bash
-   pnpm install
-   ```
-
-3. **Set up environment variables**
-   ```bash
-   cp .env.example .env.local
-   ```
-   Edit `.env.local` with your configuration (see [Environment Variables](#environment-variables))
-
-4. **Set up the database**
-   ```bash
-   # Run database migrations
-   pnpm prisma generate
-   # Or use your preferred migration tool
-   ```
-
-### Environment Variables
-
-Create a `.env.local` file in the root directory with the following variables:
-
-```env
-# Database
-DATABASE_URL="mysql://user:password@localhost:3306/jntuh_results"
-
-# Supabase (Alternative)
-NEXT_PUBLIC_SUPABASE_URL="your-supabase-url"
-NEXT_PUBLIC_SUPABASE_ANON_KEY="your-supabase-anon-key"
-
-# Firebase (Authentication)
-NEXT_PUBLIC_FIREBASE_API_KEY="your-firebase-api-key"
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="your-firebase-auth-domain"
-NEXT_PUBLIC_FIREBASE_PROJECT_ID="your-firebase-project-id"
-
-# NextAuth
-NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET="your-nextauth-secret"
-
-# Google AdSense
-NEXT_PUBLIC_ADSENSE_CLIENT_ID="ca-pub-xxxxxxxxxx"
-
-# Email Services
-BREVO_API_KEY="your-brevo-api-key"
-RESEND_API_KEY="your-resend-api-key"
-
-# Redis (Optional)
-REDIS_URL="redis://localhost:6379"
-
-# API Proxy (if needed)
-API_PROXY_URL="your-api-proxy-url"
+```
+pnpm install
 ```
 
 ### Development
 
-Run the development server with Turbopack:
-
-```bash
+```
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open http://localhost:3000
 
 ### Build
 
-Build the production application:
-
-```bash
-pnpm build
 ```
-
-Start the production server:
-
-```bash
+pnpm build
 pnpm start
 ```
 
 ---
 
-## Project Structure
+## Environment Variables
+
+Create `.env.local` in the project root. The following are used in code:
+
+Required (for core features):
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+
+Email (contact, alerts, notifications):
+- `RESEND_API_KEY` (required for `/api/contact`, alerts, notifications)
+- `BREVO_API_KEY` (required for `/api/subscribe`)
+
+Google OAuth (calendar sync/auth routes):
+- `GOOGLE_CLIENT_ID`
+- `GOOGLE_CLIENT_SECRET`
+- `GOOGLE_REDIRECT_URI`
+
+Site URL (used in verification links):
+- `NEXT_PUBLIC_SITE_URL` (defaults to production URL if not set)
+
+Analytics (optional):
+- `NEXT_PUBLIC_GA_ENABLED`
+- `NEXT_PUBLIC_GA_MEASUREMENT_ID`
+- `NEXT_PUBLIC_CLARITY_ENABLED`
+- `NEXT_PUBLIC_CLARITY_PROJECT_ID`
+- `NEXT_PUBLIC_FB_PIXEL_ENABLED`
+- `NEXT_PUBLIC_FB_PIXEL_ID`
+- `NEXT_PUBLIC_HOTJAR_ENABLED`
+- `NEXT_PUBLIC_HOTJAR_SITE_ID`
+- `NEXT_PUBLIC_LINKEDIN_ENABLED`
+- `NEXT_PUBLIC_LINKEDIN_PARTNER_ID`
+- `NEXT_PUBLIC_TWITTER_PIXEL_ENABLED`
+- `NEXT_PUBLIC_TWITTER_PIXEL_ID`
+
+---
+
+## Scripts
 
 ```
-jntuh-results-the-skypedia/
-├── src/
-│   ├── app/                          # Next.js App Router (16.1.6)
-│   │   ├── (academic)/               # Syllabus, Question Papers, Calendar
-│   │   ├── (auth)/                   # Login, Signup, Auth UI
-│   │   ├── (converter)/              # CGPA, SGPA, Percentage Calculators
-│   │   ├── (student-res)/            # Results, Backlogs, Credits Check
-│   │   ├── (static-pages)/           # About, FAQ, Static terms
-│   │   ├── admin/                    # Admin Dashboard & Controls
-│   │   ├── api/                      # Backend API Routes
-│   │   ├── blog/                     # Guides & Academic Articles
-│   │   ├── layout.tsx                # Root layout with Progress Bar
-│   │   ├── loading.tsx               # Site-wide Skeleton UI
-│   │   ├── manifest.ts               # Dynamic PWA Manifest
-│   │   ├── robots.ts                 # Dynamic SEO Controls
-│   │   └── sitemap.ts                # Programmatic Sitemap
-│   ├── components/                   # Reusable UI Components
-│   ├── config/                       # Site & Ad configuration
-│   ├── infrastructure/               # Database, Redis, Logger
-│   ├── lib/                          # Core business logic & utils
-│   ├── styles/                       # Global Tailwind styles
-│   └── types/                        # Global Type definitions
-├── public/                           # Static assets & PWA icons
-├── next.config.js                    # Turbopack & PWA config
-├── tailwind.config.js                # Design system config
-├── package.json                      # All dependencies
-└── README.md                         # Documentation
+pnpm dev           # Start dev server
+pnpm build         # Production build
+pnpm start         # Start production server
+pnpm lint          # ESLint
+pnpm test          # Run tests (Vitest)
+pnpm test:watch    # Watch tests
+pnpm check:bundle  # Bundle size budget check
 ```
 
 ---
 
-## Key Features
+## Tests
 
-### 1. Results System
-- Real-time result fetching from university APIs
-- Caching layer for improved performance
-- Error handling and retry mechanisms
-- PDF generation for printing/downloading
-
-### 2. Calculator Suite
-- Multiple calculators with validation
-- Instant calculations with visual feedback
-- Export results as PDF
-- Share functionality
-
-### 3. Progressive Web App (PWA)
-- Offline support
-- Install on mobile/desktop
-- Push notifications for new results
-- App-like experience
-
-### 4. Performance
-- Server-side rendering (SSR)
-- Static site generation (SSG) where applicable
-- Image optimization
-- Code splitting and lazy loading
-- Turbopack for faster builds
-
-### 5. SEO & Analytics
-- Dynamic meta tags
-- Structured data (schema.org)
-- Sitemap generation
-- Speed Insights integration
-
-### 6. Accessibility
-- WCAG 2.1 compliant
-- Keyboard navigation
-- Screen reader support
-- High contrast mode
+- Unit tests and route handler tests live in `tests/`.
+- Run `pnpm test` locally or via CI.
 
 ---
 
-## Available Scripts
+## Performance Budget
 
-```bash
-# Development
-pnpm dev              # Start development server with Turbopack (Default)
-pnpm dev --webpack    # Start development server with Webpack (Legacy)
+- CI enforces a JS+CSS size budget via `pnpm check:bundle`.
+- Adjust budget with `BUNDLE_BUDGET_KB` in CI or locally.
 
-# Build & Production
-pnpm build            # Build for production with Turbopack caching
-pnpm start            # Start production server
+---
 
-# Code Quality
-pnpm lint             # Run ESLint 9
-pnpm format           # Run Prettier
+## Deployment
 
-# Analysis
-pnpm analyze          # Analyze bundle size using @next/bundle-analyzer
-```
+- Deploys via Vercel Git integration.
+- GitHub Actions deploy is manual-only to avoid double deploys.
 
 ---
 
 ## Contributing
 
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-### Commit Convention
-
-We follow [Conventional Commits](https://www.conventionalcommits.org/):
-
-- `feat:` - New feature
-- `fix:` - Bug fix
-- `docs:` - Documentation changes
-- `style:` - Code style changes (formatting, etc.)
-- `refactor:` - Code refactoring
-- `perf:` - Performance improvements
-- `test:` - Adding tests
-- `chore:` - Maintenance tasks
+1. Fork the repo
+2. Create a branch: `git checkout -b feature/your-change`
+3. Commit: `git commit -m "feat: your change"`
+4. Push and open a PR
 
 ---
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## Acknowledgments
-
-- JNTUH for providing the academic data APIs
-- All contributors who have helped improve this project
-- The open-source community for the amazing tools and libraries
-
----
-
-## Contact
-
-For questions or support, please contact:
-- Email: support@theskypedia.com
-- Website: [theskypedia.com](https://theskypedia.com)
-
----
-
-<div align="center">
-
-Made with ❤️ by The Skypedia Team
-
-[⬆ Back to Top](#jntuh-results---the-skypedia)
-
-</div>
+MIT

@@ -161,6 +161,25 @@ export const trackResourceDownload = (resourceType: string, resourceName: string
   });
 };
 
+// Track Formula Conversion (Detailed)
+export const trackFormulaConversion = (input: number, result: number) => {
+  trackGAEvent("formula_use", {
+    category: "Tools",
+    label: "CGPA to Percentage",
+    input_value: input,
+    output_result: result
+  });
+};
+
+// Track PDF Export (Revenue generating action)
+export const trackPDFExport = (reportType: string) => {
+  trackUniversalEvent("export_pdf", {
+    category: "Engagement",
+    label: reportType,
+    value: 1
+  });
+};
+
 // Track when user shares content
 export const trackShare = (platform: string, contentType: string) => {
   trackUniversalEvent("share", {

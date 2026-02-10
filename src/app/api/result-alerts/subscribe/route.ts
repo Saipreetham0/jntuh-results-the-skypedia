@@ -97,7 +97,7 @@ export async function POST(request: Request) {
 
     try {
       await resend.emails.send({
-        from: 'JNTUH Results <noreply@theskypedia.com>',
+        from: 'JNTUH Results <info@theskypedia.com>',
         to: body.email,
         subject: 'Verify Your Result Alert Subscription - JNTUH Results',
         html: `

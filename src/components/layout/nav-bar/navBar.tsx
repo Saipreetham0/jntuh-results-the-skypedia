@@ -8,6 +8,7 @@ import { Menu, X, Sun, Moon, Bell, ChevronDown, Sparkles } from "lucide-react";
 import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
 import ShareButton from "../../share-button";
+import { SubscribeModal } from "../../features/result-alerts";
 
 interface NavItem {
   name: string;
@@ -24,10 +25,10 @@ const navItems: NavItem[] = [
     name: "Results",
     href: "#",
     submenu: [
+      { name: "JNTUH Results", href: "/jntuh-results" },
       { name: "Consolidated Results", href: "/consolidated-results" },
-      { name: "Semester Results", href: "/semester-wise-results" },
       { name: "Backlogs", href: "/check-backlogs" },
-      { name: "Credits Check", href: "/credit-eligibility-check" },
+      { name: "Credit Eligibility", href: "/credit-eligibility-calculator" },
     ],
   },
   {
@@ -35,18 +36,26 @@ const navItems: NavItem[] = [
     href: "#",
     submenu: [
       { name: "CGPA Calculator", href: "/cgpa-calculator" },
-      { name: "CGPA to Percentage", href: "/cgpa-percentage-converter" },
+      { name: "CGPA to Percentage", href: "/jntuh-cgpa-to-percentage-formula" },
+      { name: "Percentage to CGPA", href: "/percentage-to-cgpa-calculator" },
       { name: "SGPA to CGPA", href: "/sgpa-to-cgpa-calculator" },
+      { name: "Marks to Percentage", href: "/marks-percentage-calculator" },
     ],
   },
   {
     name: "Resources",
     href: "#",
     submenu: [
+      { name: "Academic Calendar", href: "/calendar" },
       { name: "Syllabus", href: "/syllabus" },
-      { name: "Question Papers", href: "/previous-question-papers" },
-      { name: "Academic Calendar", href: "/academic-calendar" },
+      { name: "Question Papers", href: "/jntuh-previous-question-papers" },
+      { name: "B.Tech Colleges", href: "/btech-colleges-tg" },
+      { name: "FAQ", href: "/faq" },
     ],
+  },
+  {
+    name: "About",
+    href: "/about-us",
   },
   {
     name: "Blog",
@@ -67,9 +76,17 @@ const Navbar: React.FC = () => {
     null
   );
   const { systemTheme, theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const currentTheme = theme === "system" ? systemTheme : theme;
   const isDarkMode = currentTheme === "dark";
+
+  // Prevent hydration mismatch by rendering nothing or a placeholder until mounted
+  if (!mounted) return null;
 
   // Track scroll position to add shadow and background opacity to navbar
   useEffect(() => {
@@ -166,8 +183,8 @@ const Navbar: React.FC = () => {
                   >
                     <button
                       className={`flex items-center gap-1.5 px-4 py-2 text-sm font-medium transition-all duration-200 rounded-lg ${openSubmenu === item.name || item.submenu.some(sub => pathname === sub.href)
-                          ? "text-[#1C61E7] bg-[#1C61E7]/5"
-                          : "text-gray-600 hover:text-[#1C61E7] dark:text-gray-300 dark:hover:text-[#1C61E7] hover:bg-gray-100 dark:hover:bg-gray-800"
+                        ? "text-[#1C61E7] bg-[#1C61E7]/5"
+                        : "text-gray-600 hover:text-[#1C61E7] dark:text-gray-300 dark:hover:text-[#1C61E7] hover:bg-gray-100 dark:hover:bg-gray-800"
                         }`}
                       aria-expanded={openSubmenu === item.name}
                     >
@@ -187,8 +204,8 @@ const Navbar: React.FC = () => {
                               key={subitem.name}
                               href={subitem.href}
                               className={`group/item flex items-center justify-between px-4 py-3 text-sm font-medium rounded-xl transition-all duration-150 ${pathname === subitem.href
-                                  ? "bg-[#1C61E7]/10 text-[#1C61E7]"
-                                  : "text-gray-600 dark:text-gray-300 hover:bg-[#1C61E7]/5 hover:text-[#1C61E7]"
+                                ? "bg-[#1C61E7]/10 text-[#1C61E7]"
+                                : "text-gray-600 dark:text-gray-300 hover:bg-[#1C61E7]/5 hover:text-[#1C61E7]"
                                 }`}
                             >
                               <span>{subitem.name}</span>
@@ -203,8 +220,8 @@ const Navbar: React.FC = () => {
                   <Link
                     href={item.href}
                     className={`flex items-center px-4 py-2 text-sm font-medium transition-all duration-200 rounded-lg ${pathname === item.href
-                        ? "text-[#1C61E7] bg-[#1C61E7]/5"
-                        : "text-gray-600 hover:text-[#1C61E7] dark:text-gray-300 dark:hover:text-[#1C61E7] hover:bg-gray-100 dark:hover:bg-gray-800"
+                      ? "text-[#1C61E7] bg-[#1C61E7]/5"
+                      : "text-gray-600 hover:text-[#1C61E7] dark:text-gray-300 dark:hover:text-[#1C61E7] hover:bg-gray-100 dark:hover:bg-gray-800"
                       }`}
                   >
                     {item.name}
@@ -242,13 +259,16 @@ const Navbar: React.FC = () => {
               </span>
             </Link>
 
-            <Link
-              href="/login"
-              className="group relative ml-2 px-6 py-2.5 text-sm font-bold text-white bg-[#1C61E7] hover:bg-[#1C61E7]/90 rounded-xl transition-all duration-300 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:-translate-y-0.5 active:scale-95 flex items-center gap-2 overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-              Login
-            </Link>
+            <SubscribeModal
+              trigger={
+                <button
+                  className="group relative ml-2 px-6 py-2.5 text-sm font-bold text-white bg-[#1C61E7] hover:bg-[#1C61E7]/90 rounded-xl transition-all duration-300 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:-translate-y-0.5 active:scale-95 flex items-center gap-2 overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                  Subscribe
+                </button>
+              }
+            />
           </div>
         </nav>
       </div>
@@ -312,8 +332,8 @@ const Navbar: React.FC = () => {
                         <div>
                           <button
                             className={`flex items-center justify-between w-full px-4 py-4 text-base font-bold rounded-2xl transition-all ${mobileOpenSubmenu === item.name
-                                ? "text-[#1C61E7] bg-[#1C61E7]/5"
-                                : "text-gray-900 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800"
+                              ? "text-[#1C61E7] bg-[#1C61E7]/5"
+                              : "text-gray-900 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800"
                               }`}
                             onClick={() => toggleMobileSubmenu(item.name)}
                           >
@@ -352,8 +372,8 @@ const Navbar: React.FC = () => {
                         <Link
                           href={item.href}
                           className={`block px-4 py-4 text-base font-bold rounded-2xl transition-all ${pathname === item.href
-                              ? "text-[#1C61E7] bg-[#1C61E7]/5"
-                              : "text-gray-900 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800"
+                            ? "text-[#1C61E7] bg-[#1C61E7]/5"
+                            : "text-gray-900 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800"
                             }`}
                           onClick={closeMobileMenu}
                         >
@@ -366,14 +386,17 @@ const Navbar: React.FC = () => {
 
                 {/* Mobile action buttons */}
                 <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white dark:bg-black border-t border-gray-100 dark:border-gray-800 shadow-xl">
-                  <Link
-                    href="/login"
-                    className="flex items-center justify-center gap-2 w-full py-4.5 px-4 rounded-2xl text-center text-white bg-[#1C61E7] hover:bg-[#1C61E7]/90 font-bold shadow-xl shadow-blue-500/25 active:scale-95 transition-all text-lg"
-                    onClick={closeMobileMenu}
-                  >
-                    <Sparkles className="h-5 w-5" />
-                    Login
-                  </Link>
+                  <SubscribeModal
+                    trigger={
+                      <button
+                        className="flex items-center justify-center gap-2 w-full py-4.5 px-4 rounded-2xl text-center text-white bg-[#1C61E7] hover:bg-[#1C61E7]/90 font-bold shadow-xl shadow-blue-500/25 active:scale-95 transition-all text-lg"
+                        onClick={closeMobileMenu}
+                      >
+                        <Bell className="h-5 w-5" />
+                        Subscribe
+                      </button>
+                    }
+                  />
 
                   {/* Notification link */}
                   <Link

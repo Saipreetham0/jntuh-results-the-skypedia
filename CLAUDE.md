@@ -82,19 +82,18 @@ Key component directories:
 
 - **Server Components**: Most pages use React Server Components for initial data fetching
 - **Client Components**: Interactive features (calculators, forms) use client-side state
-- **Authentication**: Supabase Auth with NextAuth.js + Firebase adapter
+- **Authentication**: Supabase Auth with NextAuth.js
   - **IMPORTANT**: Authentication is currently **DISABLED** (see `AUTH_DISABLED_README.md`)
-  - Middleware checks auth but doesn't enforce redirects (lines 43-54 in `src/utils/supabase/middleware.ts` are commented)
-  - To re-enable: uncomment redirect logic in `src/utils/supabase/middleware.ts`
+  - Middleware checks auth but doesn't enforce redirects (lines 43-54 in `src/lib/supabase/middleware.ts` are commented)
+  - To re-enable: uncomment redirect logic in `src/lib/supabase/middleware.ts`
 
 ### Key Libraries & Utilities
 
 - **`src/lib/api.ts`**: Commented-out JNTUH API service (legacy code)
 - **`src/lib/ResultScraper.ts`**: Result scraping logic (appears minimal/empty)
-- **`src/lib/firebase.ts`**: Firebase configuration
 - **`src/lib/supabase.ts`**: Supabase client setup
 - **`src/lib/seo/`**: SEO metadata and schema.org structured data generators
-- **`src/utils/supabase/`**: Supabase client, server, and middleware utilities
+- **`src/lib/supabase/`**: Supabase client, server, and middleware utilities
 
 ### Styling & UI
 
@@ -116,7 +115,7 @@ Key component directories:
 - **External packages**: `googleapis`, `google-auth-library` marked as server-only
 
 ### `middleware.ts` (root)
-- Calls `updateSession` from `src/utils/supabase/middleware.ts`
+- Calls `updateSession` from `src/lib/supabase/middleware.ts`
 - Applies to all routes except static files, images, and Next.js internals
 
 ### `src/app/layout.tsx`
@@ -158,10 +157,10 @@ Key component directories:
 **Current Behavior**:
 - All pages are publicly accessible without login
 - Supabase auth session is still checked but not enforced
-- Redirect logic in `src/utils/supabase/middleware.ts` is commented out (lines 43-54)
+- Redirect logic in `src/lib/supabase/middleware.ts` is commented out (lines 43-54)
 
 **To Re-enable**:
-1. Uncomment lines 43-54 in `src/utils/supabase/middleware.ts`
+1. Uncomment lines 43-54 in `src/lib/supabase/middleware.ts`
 2. Remove yellow notice banners from `src/app/login/page.tsx` and `src/app/signup/page.tsx`
 3. Test authentication flow thoroughly
 
@@ -224,7 +223,7 @@ Progressive Web App features:
 
 - **Root Layout**: `src/app/layout.tsx` - Global metadata, providers, scripts
 - **Homepage**: `src/app/page.tsx` - Landing page
-- **Middleware**: `middleware.ts` → `src/utils/supabase/middleware.ts` - Auth session management
+- **Middleware**: `middleware.ts` → `src/lib/supabase/middleware.ts` - Auth session management
 - **Theme Provider**: `src/app/providers.tsx` - Dark mode support
 - **Navigation**: `src/components/NavBar/navBar.tsx` - Main navigation
 - **Error Handling**: `src/components/ErrorBoundary.tsx`, `src/app/not-found.tsx`
@@ -242,11 +241,6 @@ DATABASE_URL=mysql://user:password@localhost:3306/jntuh_results
 # Supabase
 NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
-
-# Firebase
-NEXT_PUBLIC_FIREBASE_API_KEY=your-firebase-api-key
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-firebase-auth-domain
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-firebase-project-id
 
 # NextAuth
 NEXTAUTH_URL=http://localhost:3000

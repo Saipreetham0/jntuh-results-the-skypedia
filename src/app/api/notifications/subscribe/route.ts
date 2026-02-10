@@ -122,7 +122,7 @@ export async function POST(request: Request) {
 
     try {
       await resend.emails.send({
-        from: 'JNTUH Notifications <noreply@theskypedia.com>',
+        from: 'JNTUH Notifications <info@theskypedia.com>',
         to: email,
         subject: 'Verify Your Notification Subscription - JNTUH Results',
         html: `

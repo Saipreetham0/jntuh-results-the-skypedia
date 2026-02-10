@@ -23,9 +23,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle, Search, Download, Printer, Calendar, School, RefreshCw, GraduationCap, Trophy, XCircle } from "lucide-react";
+import Link from "next/link";
+import { AlertCircle, Search, Download, Printer, Calendar, School, RefreshCw, GraduationCap, Trophy, XCircle, BookOpen } from "lucide-react";
 import { ResponsiveAd, InContentAd } from "@/components/adsense";
-import AD_SLOTS from "@/config/adSlots";
+import { AD_SLOTS } from "@/config/adSlots";
 
 // Site domain constant
 const SITE_DOMAIN = "https://jntuhresults.theskypedia.com";
@@ -191,7 +192,7 @@ const PrintStyles = () => (
   `}</style>
 );
 
-const SemesterBacklogsCard = ({ semesterData }: { semesterData: SemesterData }) => {
+const SemesterBacklogsCard = ({ semesterData }: { semesterData: SemesterData; key?: any }) => {
   return (
     <Card className="mb-6 overflow-hidden print-break-inside-avoid">
       <CardHeader className="bg-gray-50 border-b">
@@ -766,7 +767,11 @@ const BacklogsPage = () => {
                 </div>
               </CardHeader>
               <CardContent className="pt-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div className="mt-4">
+                  <InContentAd adSlot={AD_SLOTS.SPECIALIZED.TABLE_ADS} />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mt-6">
                   <div className="flex items-center p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
                     <School className="h-5 w-5 mr-3 text-[#1C61E7]" />
                     <span className="font-medium mr-2 text-gray-600 dark:text-gray-400">Father's Name:</span>
@@ -779,7 +784,9 @@ const BacklogsPage = () => {
                   </div>
                 </div>
               </CardContent>
-              <CardFooter className="bg-gray-50 dark:bg-gray-800/50 border-t border-gray-200 dark:border-gray-700 print-hide">
+              <CardFooter className="bg-gray-50 dark:bg-gray-800/50 border-t border-gray-200 dark:border-gray-700 print-hide flex-col items-stretch gap-6">
+                <ResponsiveAd adSlot={AD_SLOTS.ACTIONS.BOTTOM_BEFORE_BUTTON} showLabel={false} />
+
                 <div className="flex flex-wrap gap-3">
                   <Button
                     onClick={printResults}
@@ -797,6 +804,8 @@ const BacklogsPage = () => {
                     Download PDF
                   </Button>
                 </div>
+
+                <ResponsiveAd adSlot={AD_SLOTS.ACTIONS.BOTTOM_AFTER_BUTTON} showLabel={false} />
               </CardFooter>
             </Card>
 
@@ -824,6 +833,65 @@ const BacklogsPage = () => {
               )}
             </div>
 
+            {/* Clearing Strategies & High-Value Content */}
+            <div className="mt-12 space-y-8 print-hide">
+              <div className="bg-white dark:bg-gray-800 rounded-[32px] p-8 border-2 border-dashed border-gray-200 dark:border-gray-700 shadow-lg">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                  <span className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">🚀</span>
+                  Master Strategy to Clear Backlogs
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <div className="flex gap-4">
+                      <div className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold flex-shrink-0">1</div>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm"><span className="font-bold text-gray-900 dark:text-white">Collect Previous Papers:</span> 80% of JNTUH repeat questions come from the last 5 years. Download them from our portal.</p>
+                    </div>
+                    <div className="flex gap-4">
+                      <div className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold flex-shrink-0">2</div>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm"><span className="font-bold text-gray-900 dark:text-white">Unit 1 & 4 Rule:</span> Usually, Unit 1 and Unit 4 are high weightage and easier. Master these first to ensure passing marks.</p>
+                    </div>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="flex gap-4">
+                      <div className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold flex-shrink-0">3</div>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm"><span className="font-bold text-gray-900 dark:text-white">External Marks Focus:</span> Use our CGPA to Percentage tool to understand how many marks you exactly need for your target grade.</p>
+                    </div>
+                    <div className="flex gap-4">
+                      <div className="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold flex-shrink-0">4</div>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm"><span className="font-bold text-gray-900 dark:text-white">Join Study Groups:</span> Connect with others who cleared these subjects recently.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* High-Conversion CTAs */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <Link href="/jntuh-previous-question-papers" className="group p-6 bg-white dark:bg-gray-800 rounded-[32px] border border-gray-100 dark:border-gray-700 hover:border-[#1C61E7] transition-all shadow-xl">
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-2xl bg-[#1C61E7]/10 flex items-center justify-center text-[#1C61E7] group-hover:scale-110 transition-transform">
+                      <BookOpen />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-gray-900 dark:text-white">Subject Papers</h4>
+                      <p className="text-xs text-gray-500">Download for all branches</p>
+                    </div>
+                  </div>
+                </Link>
+
+                <a href="https://wa.me/919550421866" className="group p-6 bg-white dark:bg-gray-800 rounded-[32px] border border-gray-100 dark:border-gray-700 hover:border-[#21C15E] transition-all shadow-xl">
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-2xl bg-[#21C15E]/10 flex items-center justify-center text-[#21C15E] group-hover:scale-110 transition-transform">
+                      <span className="text-2xl font-bold text-emerald-600">💬</span>
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-gray-900 dark:text-white">WhatsApp Updates</h4>
+                      <p className="text-xs text-gray-500">Get Result & Supply Alerts</p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+
             {/* Disclaimer */}
             <div className="text-xs text-gray-500 mt-8 p-4 border-t border-gray-200">
               <p>
@@ -833,14 +901,14 @@ const BacklogsPage = () => {
                 Generated on {new Date().toLocaleDateString()} by JNTUH Results Portal - {SITE_DOMAIN}
               </p>
             </div>
-          </div>
+          </div >
         )}
 
         {/* Bottom Ad Banner - Hide in print */}
         <div className="print-hide">
           <InContentAd adSlot={AD_SLOTS.RESULTS.BOTTOM_BANNER} className="mt-8" />
         </div>
-      </div>
+      </div >
     </>
   );
 };

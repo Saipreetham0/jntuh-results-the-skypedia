@@ -8,7 +8,7 @@ import {
   Download,
   FolderOpen,
   ArrowLeft,
-  
+
   BookOpen,
   Info,
   Calendar,
@@ -19,6 +19,8 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import Link from "next/link";
+import { ResponsiveAd, InContentAd } from "@/components/adsense";
+import { AD_SLOTS } from "@/config/adSlots";
 
 interface SyllabusItem {
   title: string;
@@ -243,56 +245,68 @@ export default function SyllabusPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               <AnimatePresence>
                 {filteredItems.map((item, idx) => (
-                  <motion.div
-                    key={item.title + item.link}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: idx * 0.03 }}
-                    whileHover={{ y: -8 }}
-                    onClick={() => handleItemClick(item)}
-                    className={`group relative p-6 rounded-[32px] cursor-pointer transition-all duration-300 border ${item.isPdf
-                      ? "bg-gradient-to-br from-white to-red-50/30 dark:from-gray-900 dark:to-red-900/10 border-red-100/50 dark:border-red-900/30 hover:shadow-2xl hover:shadow-red-500/10"
-                      : "bg-white dark:bg-gray-900 border-white dark:border-gray-800 hover:shadow-2xl hover:shadow-[#1C61E7]/10"
-                      }`}
-                  >
-                    <div className="flex flex-col h-full justify-between gap-6">
-                      <div className="flex items-start justify-between">
-                        <div className={`p-4 rounded-2xl ${item.isPdf
-                          ? "bg-red-50 dark:bg-red-500/20 text-red-500"
-                          : "bg-blue-50 dark:bg-[#1C61E7]/20 text-[#1C61E7]"
-                          }`}>
-                          {item.isPdf ? <FileText className="w-6 h-6" /> : <FolderOpen className="w-6 h-6" />}
+                  <React.Fragment key={item.title + item.link}>
+                    {idx === 0 && (
+                      <div className="col-span-full mb-4">
+                        <ResponsiveAd adSlot={AD_SLOTS.RESULTS.TOP_BANNER} format="horizontal" />
+                      </div>
+                    )}
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: idx * 0.03 }}
+                      whileHover={{ y: -8 }}
+                      onClick={() => handleItemClick(item)}
+                      className={`group relative p-6 rounded-[32px] cursor-pointer transition-all duration-300 border ${item.isPdf
+                        ? "bg-gradient-to-br from-white to-red-50/30 dark:from-gray-900 dark:to-red-900/10 border-red-100/50 dark:border-red-900/30 hover:shadow-2xl hover:shadow-red-500/10"
+                        : "bg-white dark:bg-gray-900 border-white dark:border-gray-800 hover:shadow-2xl hover:shadow-[#1C61E7]/10"
+                        }`}
+                    >
+                      <div className="flex flex-col h-full justify-between gap-6">
+                        <div className="flex items-start justify-between">
+                          <div className={`p-4 rounded-2xl ${item.isPdf
+                            ? "bg-red-50 dark:bg-red-500/20 text-red-500"
+                            : "bg-blue-50 dark:bg-[#1C61E7]/20 text-[#1C61E7]"
+                            }`}>
+                            {item.isPdf ? <FileText className="w-6 h-6" /> : <FolderOpen className="w-6 h-6" />}
+                          </div>
+                          {item.isPdf && (
+                            <div className="px-3 py-1 bg-red-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">
+                              PDF
+                            </div>
+                          )}
                         </div>
-                        {item.isPdf && (
-                          <div className="px-3 py-1 bg-red-500 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">
-                            PDF
-                          </div>
-                        )}
-                      </div>
 
-                      <div className="flex-grow min-h-0">
-                        <h3 className="text-lg font-bold text-gray-900 dark:text-white leading-tight mb-2 group-hover:text-[#1C61E7] transition-colors break-words line-clamp-3">
-                          {item.title}
-                        </h3>
-                        <p className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">
-                          {item.isPdf ? "Ready to View" : "Click to Explore"}
-                        </p>
-                      </div>
+                        <div className="flex-grow min-h-0">
+                          <h3 className="text-lg font-bold text-gray-900 dark:text-white leading-tight mb-2 group-hover:text-[#1C61E7] transition-colors break-words line-clamp-3">
+                            {item.title}
+                          </h3>
+                          <p className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">
+                            {item.isPdf ? "Ready to View" : "Click to Explore"}
+                          </p>
+                        </div>
 
-                      <div className="flex items-center justify-between pt-4 border-t border-gray-50 dark:border-gray-800">
-                        {item.isPdf ? (
-                          <div className="flex items-center gap-1.5 text-xs font-bold text-red-500 transition-all group-hover:translate-x-1">
-                            Download Now <Download className="w-3.5 h-3.5" />
-                          </div>
-                        ) : (
-                          <div className="flex items-center gap-1.5 text-xs font-bold text-[#1C61E7] transition-all group-hover:translate-x-1">
-                            See Details <ChevronRight className="w-3.5 h-3.5" />
-                          </div>
-                        )}
-                        <Layers className="w-4 h-4 text-gray-200 dark:text-gray-800" />
+                        <div className="flex items-center justify-between pt-4 border-t border-gray-50 dark:border-gray-800">
+                          {item.isPdf ? (
+                            <div className="flex items-center gap-1.5 text-xs font-bold text-red-500 transition-all group-hover:translate-x-1">
+                              Download Now <Download className="w-3.5 h-3.5" />
+                            </div>
+                          ) : (
+                            <div className="flex items-center gap-1.5 text-xs font-bold text-[#1C61E7] transition-all group-hover:translate-x-1">
+                              See Details <ChevronRight className="w-3.5 h-3.5" />
+                            </div>
+                          )}
+                          <Layers className="w-4 h-4 text-gray-200 dark:text-gray-800" />
+                        </div>
                       </div>
-                    </div>
-                  </motion.div>
+                    </motion.div>
+
+                    {(idx + 1) % 8 === 0 && (
+                      <div className="col-span-full my-6">
+                        <InContentAd adSlot={AD_SLOTS.RESULTS.INLINE_1} />
+                      </div>
+                    )}
+                  </React.Fragment>
                 ))}
               </AnimatePresence>
             </div>

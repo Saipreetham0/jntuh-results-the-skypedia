@@ -91,14 +91,27 @@ const AdBanner: React.FC<AdBannerProps> = ({
     display: "block",
     textAlign: "center",
     minHeight: "50px",
+    width: "100%", // CRITICAL: Ensure the ad fills its container
     ...style,
   };
 
+  // Determine min-height based on format to prevent layout shift
+  const getMinHeight = () => {
+    if (adFormat === "vertical") return "600px";
+    if (adFormat === "rectangle") return "250px";
+    if (adFormat === "horizontal") return "90px";
+    return "250px"; // Default for auto
+  };
+
   return (
-    <div className={`text-center my-4 min-h-[250px] bg-gray-50 dark:bg-gray-800/50 rounded-lg flex items-center justify-center ${className}`}>
+    <div className={`text-center my-4 rounded-lg block relative overflow-hidden ${className}`}
+      style={{ minHeight: getMinHeight(), backgroundColor: 'rgba(249, 250, 251, 0.05)', width: '100%' }}>
       {/* Label for better UX */}
       {!adLoaded && (
-        <span className="text-xs text-gray-400 absolute">Advertisement</span>
+        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-50">
+          <span className="text-[10px] uppercase tracking-widest text-gray-400 mb-2">Advertisement</span>
+          <div className="w-8 h-8 border-2 border-gray-200 border-t-blue-500 rounded-full animate-spin"></div>
+        </div>
       )}
       <ins
         ref={adRef}
@@ -111,8 +124,8 @@ const AdBanner: React.FC<AdBannerProps> = ({
         aria-label="Advertisement"
       />
       {adError && process.env.NODE_ENV === 'development' && (
-        <div className="text-xs text-red-500 text-center mt-2">
-          Ad failed to load. Retrying...
+        <div className="text-xs text-red-500 text-center mt-2 absolute bottom-2">
+          Ad failed to load.
         </div>
       )}
     </div>

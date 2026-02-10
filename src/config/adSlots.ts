@@ -24,6 +24,7 @@ export const AD_SLOTS = {
     MID_RECTANGLE: '3832094528', // Replace with actual slot ID
     BOTTOM_RECTANGLE: '7970650085', // Replace with actual slot ID
     SIDEBAR_STICKY: '2032869647', // Replace with actual slot ID
+    SIDEBAR_WIDGET: '2032869647', // Alias for SIDEBAR_STICKY
   },
 
   // Results Pages
@@ -33,6 +34,7 @@ export const AD_SLOTS = {
     INLINE_2: '5388718770', // Replace with actual slot ID
     INLINE_3: '7285196323', // Replace with actual slot ID
     BOTTOM_BANNER: '8014882116', // Replace with actual slot ID
+    SIDEBAR_WIDGET: '2416013028',
   },
 
   // Consolidated Results
@@ -48,6 +50,7 @@ export const AD_SLOTS = {
     INLINE_1: '2008818916', // Replace with actual slot ID
     INLINE_2: '5388718770', // Replace with actual slot ID
     BOTTOM_BANNER: '8014882116', // Replace with actual slot ID
+    SIDEBAR_WIDGET: '2416013028', // Use Sidebar Sticky Top
   },
 
   // Blog Pages
@@ -70,7 +73,38 @@ export const AD_SLOTS = {
   MOBILE: {
     ANCHOR_BOTTOM: '5042176362', // Replace with actual slot ID
   },
-};
+
+  // Specialized Units (New from Audit)
+  SPECIALIZED: {
+    ELECTRO_CALC: '2275692392',
+    TABLE_ADS: '8279758421',
+    LOADING_PAGE: '8973292958',
+    RESULTS_JNTUH: '5967398818',
+    WEB_STORIES: '6270716102',
+    HOMEPAGE_MIDDLE: '2067299138',
+    ABOVE_HEADER: '7959001633',
+    FOOTER_STICKY: '6260923533',
+    LEADERBOARD: '1262009617',
+    AFTER_TITLE: '7696637594',
+    BETWEEN_CONTENT: '1142590115',
+  },
+
+  // Action Button Ads
+  ACTIONS: {
+    TOP_BEFORE_BUTTON: '1787426367',
+    TOP_AFTER_BUTTON: '5879135768',
+    BOTTOM_BEFORE_BUTTON: '4312571525',
+    BOTTOM_AFTER_BUTTON: '8113957727',
+  },
+
+  // Legacy/Contextual
+  CONTEXTUAL: {
+    LMS_SIDEBAR: '4876739429',
+    SIDEBAR_MAIN: '7365503095',
+    IN_ARTICLE_DEC8: '1853036550',
+    FEED_ADS: '3066073345',
+  },
+} as const;
 
 /**
  * Helper function to get ad slot by key

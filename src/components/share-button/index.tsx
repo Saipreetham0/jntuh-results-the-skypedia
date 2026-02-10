@@ -1,127 +1,3 @@
-
-// // app/components/ShareButton.tsx
-// "use client";
-
-// import React, { useState, useEffect } from "react";
-// import { Share2, X, Copy, Check } from "lucide-react";
-// import dynamic from "next/dynamic";
-
-// const QRCodeSVG = dynamic(
-//   () => import("qrcode.react").then((mod) => mod.QRCodeSVG),
-//   { ssr: false }
-// );
-
-// interface ShareButtonProps {
-//   url?: string;
-// }
-
-// const ShareButton: React.FC<ShareButtonProps> = ({ url }) => {
-//   const [isOpen, setIsOpen] = useState(false);
-//   const [isMobile, setIsMobile] = useState(false);
-//   const [copied, setCopied] = useState(false);
-//   const [shareUrl, setShareUrl] = useState("");
-//   const [isSharing, setIsSharing] = useState(false); // New state for tracking sharing status
-
-
-//   useEffect(() => {
-//     setShareUrl(url || window.location.href);
-//     const checkMobile = () => {
-//       setIsMobile(window.innerWidth <= 768);
-//     };
-//     checkMobile();
-//     window.addEventListener("resize", checkMobile);
-//     return () => window.removeEventListener("resize", checkMobile);
-//   }, [url]);
-
-//   // const handleShare = () => {
-//   //   if (isMobile && navigator.share) {
-//   //     navigator.share({ url: shareUrl });
-//   //   } else {
-//   //     setIsOpen(true);
-//   //   }
-//   // };
-
-
-//   const handleShare = async () => {
-//     if (isSharing) return; // Prevent further sharing if already sharing
-//     if (isMobile && navigator.share) {
-//       setIsSharing(true); // Set sharing state to true
-//       try {
-//         await navigator.share({ url: shareUrl });
-//         console.log("Shared successfully");
-//       } catch (error) {
-//         console.error("Error sharing:", error);
-//       } finally {
-//         setIsSharing(false); // Reset sharing state
-//       }
-//     } else {
-//       setIsOpen(true);
-//     }
-//   };
-
-//   const handleCopy = () => {
-//     navigator.clipboard.writeText(shareUrl);
-//     setCopied(true);
-//     setTimeout(() => setCopied(false), 2000);
-//   };
-
-//   return (
-//     <div className="relative">
-//       <button
-//         onClick={handleShare}
-//         className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-150 ease-in-out"
-//         aria-label="Share this page"
-//       >
-//         <Share2 className="h-5 w-5" />
-//       </button>
-
-//       {isOpen && !isMobile && (
-//         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-//           <div className="bg-white dark:bg-gray-800 rounded-lg p-6 w-96 max-w-full shadow-lg transition-transform transform scale-100">
-//             <div className="flex justify-between items-center mb-4">
-//               <h2 className="text-xl font-bold">Share This Page</h2>
-//               <button
-//                 onClick={() => setIsOpen(false)}
-//                 className="text-gray-500 hover:text-gray-700"
-//                 aria-label="Close share modal"
-//               >
-//                 <X size={24} />
-//               </button>
-//             </div>
-//             <p className="text-gray-600 dark:text-gray-300 mb-4 text-center">
-//               Scan the QR code or copy the link to share this page with others!
-//             </p>
-//             <div className="flex justify-center mb-4">
-//               <QRCodeSVG value={shareUrl} size={200} />
-//             </div>
-//             <div className="relative mb-4">
-//               <input
-//                 type="text"
-//                 value={shareUrl}
-//                 readOnly
-//                 className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:ring focus:ring-blue-300 transition duration-150 ease-in-out"
-//               />
-//               <button
-//                 onClick={handleCopy}
-//                 className={`absolute right-2 top-1/2 transform -translate-y-1/2 p-2 rounded-lg transition duration-150 ease-in-out ${
-//                   copied ? "bg-green-500 text-white" : "bg-blue-500 text-white hover:bg-blue-600"
-//                 }`}
-//                 aria-label={copied ? "Copied!" : "Copy link"}
-//               >
-//                 {copied ? <Check size={20} /> : <Copy size={20} />}
-//               </button>
-//             </div>
-
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default ShareButton;
-
-// app/components/ShareButton.tsx
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
@@ -289,21 +165,19 @@ const ShareButton: React.FC<ShareButtonProps> = ({
             {/* Tabs */}
             <div className="flex gap-2 bg-gray-100 dark:bg-gray-900 p-1 rounded-lg mb-6">
               <button
-                className={`flex-1 px-4 py-2.5 font-semibold text-sm rounded-md transition-all duration-200 ${
-                  shareTab === 'link'
+                className={`flex-1 px-4 py-2.5 font-semibold text-sm rounded-md transition-all duration-200 ${shareTab === 'link'
                     ? 'bg-white dark:bg-gray-800 text-[#1C61E7] shadow-sm'
                     : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
-                }`}
+                  }`}
                 onClick={() => setShareTab('link')}
               >
                 Share Links
               </button>
               <button
-                className={`flex-1 px-4 py-2.5 font-semibold text-sm rounded-md transition-all duration-200 ${
-                  shareTab === 'qr'
+                className={`flex-1 px-4 py-2.5 font-semibold text-sm rounded-md transition-all duration-200 ${shareTab === 'qr'
                     ? 'bg-white dark:bg-gray-800 text-[#1C61E7] shadow-sm'
                     : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
-                }`}
+                  }`}
                 onClick={() => setShareTab('qr')}
               >
                 QR Code
@@ -327,11 +201,10 @@ const ShareButton: React.FC<ShareButtonProps> = ({
                     />
                     <button
                       onClick={handleCopy}
-                      className={`absolute right-2 p-2.5 rounded-lg transition-all duration-200 flex items-center gap-1.5 ${
-                        copied
+                      className={`absolute right-2 p-2.5 rounded-lg transition-all duration-200 flex items-center gap-1.5 ${copied
                           ? 'bg-[#21C15E] text-white shadow-lg shadow-[#21C15E]/25'
                           : 'bg-[#1C61E7] hover:bg-[#1C61E7]/90 text-white shadow-lg shadow-[#1C61E7]/25 hover:scale-105'
-                      }`}
+                        }`}
                       aria-label={copied ? "Copied!" : "Copy link"}
                     >
                       {copied ? <Check size={18} /> : <Copy size={18} />}
@@ -377,7 +250,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
                         viewBox="0 0 24 24"
                         fill="currentColor"
                       >
-                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
                       </svg>
                       <span className="font-semibold">WhatsApp</span>
                     </button>
@@ -426,11 +299,10 @@ const ShareButton: React.FC<ShareButtonProps> = ({
                 </div>
                 <button
                   onClick={handleCopy}
-                  className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all shadow-lg ${
-                    copied
+                  className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all shadow-lg ${copied
                       ? 'bg-[#21C15E] text-white shadow-[#21C15E]/25'
                       : 'bg-[#1C61E7] hover:bg-[#1C61E7]/90 text-white shadow-[#1C61E7]/25 hover:scale-105'
-                  }`}
+                    }`}
                 >
                   {copied ? <Check size={18} /> : <Link2 size={18} />}
                   <span>{copied ? "Link Copied!" : "Copy Link"}</span>

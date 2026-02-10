@@ -98,8 +98,8 @@ export default function Login() {
 
       if (error) {
         if (error.message.includes("Email not confirmed") ||
-            error.message.includes("Email verification") ||
-            error.message.includes("not verified")) {
+          error.message.includes("Email verification") ||
+          error.message.includes("not verified")) {
           setShowResendEmail(true);
           setResendEmail(credentials.email);
         }
@@ -173,7 +173,7 @@ export default function Login() {
                   autoComplete="username email"
                   required
                   className="block w-full pl-12 pr-4 py-3.5 border-2 border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1C61E7]/20 focus:border-[#1C61E7] bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-200 text-base"
-                  placeholder="your.email@example.com or Hall Ticket"
+                  placeholder="info@theskypedia.com or Hall Ticket"
                   value={identifier}
                   onChange={(e) => setIdentifier(e.target.value)}
                 />

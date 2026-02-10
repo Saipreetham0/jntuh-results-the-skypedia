@@ -22,8 +22,8 @@ const ResponsiveAd: React.FC<ResponsiveAdProps> = ({
   showLabel = true,
 }) => {
   return (
-    <div className={`w-full flex justify-center ${className}`}>
-      <div className="w-full max-w-7xl">
+    <div className={`w-full ${className}`}>
+      <div className="w-full max-w-7xl mx-auto">
         {showLabel && (
           <p className="text-xs text-gray-500 dark:text-gray-400 text-center mb-2">
             Advertisement
@@ -33,7 +33,7 @@ const ResponsiveAd: React.FC<ResponsiveAdProps> = ({
           adSlot={adSlot}
           adFormat={format}
           fullWidthResponsive={true}
-          className="mx-auto"
+          className="w-full"
         />
       </div>
     </div>

@@ -3,7 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../card';
 import RecentlyVisited, { addToHistory } from './RecentlyVisited';
-import { Search, BookOpen, Calculator, FileText, BarChart2, CheckCircle, Users, AlertCircle, FileQuestion, Percent, RefreshCw } from 'lucide-react';
+import { Search, BookOpen, Calculator, FileText, BarChart2, CheckCircle, Users, AlertCircle, FileQuestion, Percent, RefreshCw, Calendar, Clock } from 'lucide-react';
+import { ResponsiveAd } from '../adsense';
+import AD_SLOTS from '@/config/adSlots';
 
 interface CardData {
   title: string;
@@ -74,6 +76,18 @@ const cardsData: CardData[] = [
     icon: <FileQuestion className="w-8 h-8 text-[#1C61E7]" />,
   },
   {
+    title: "Academic Calendar",
+    content: "Stay updated with JNTUH exam dates, semester starting, and holiday lists.",
+    url: "/academic-calendar",
+    icon: <Calendar className="w-8 h-8 text-[#21C15E]" />,
+  },
+  {
+    title: "Exam Timetables",
+    content: "View the latest schedules for regular and supplementary examinations.",
+    url: "/exam-timetable",
+    icon: <Clock className="w-8 h-8 text-[#1C61E7]" />,
+  },
+  {
     title: "Marks Percentage Calculator",
     content: "Calculate your percentage based on marks obtained.",
     url: "/marks-percentage-calculator",
@@ -100,31 +114,34 @@ const ResultsBox: React.FC = () => {
     { id: 'academic', name: 'Academic' }
   ];
 
-  // Filter function that handles both search and category filtering
+  // Robust filtering logic
   useEffect(() => {
     let results = cardsData;
 
-    // First filter by category if not "all"
+    // First filter by category
     if (activeCategory !== "all") {
-      if (activeCategory === "results") {
-        results = results.filter(card =>
-          card.title.toLowerCase().includes("result") ||
-          card.title.toLowerCase().includes("backlog")
-        );
-      } else if (activeCategory === "calculators") {
-        results = results.filter(card =>
-          card.title.toLowerCase().includes("calculator") ||
-          card.title.toLowerCase().includes("convert") ||
-          card.title.toLowerCase().includes("cgpa") ||
-          card.title.toLowerCase().includes("percentage")
-        );
-      } else if (activeCategory === "academic") {
-        results = results.filter(card =>
-          card.title.toLowerCase().includes("syllabus") ||
-          card.title.toLowerCase().includes("question") ||
-          card.title.toLowerCase().includes("credit")
-        );
-      }
+      results = results.filter(card => {
+        const title = card.title.toLowerCase();
+        if (activeCategory === "results") {
+          return title.includes("result") ||
+            title.includes("backlog") ||
+            title.includes("credit");
+        }
+        if (activeCategory === "calculators") {
+          return title.includes("calculator") ||
+            title.includes("convert") ||
+            title.includes("cgpa") ||
+            title.includes("percentage") ||
+            title.includes("sgpa");
+        }
+        if (activeCategory === "academic") {
+          return title.includes("syllabus") ||
+            title.includes("question") ||
+            title.includes("calendar") ||
+            title.includes("timetable");
+        }
+        return true;
+      });
     }
 
     // Then filter by search term
@@ -224,17 +241,28 @@ const ResultsBox: React.FC = () => {
         {/* Cards grid with enhanced staggered animation - mobile optimized */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
           {filteredCards.map((card, index) => (
-            <div
-              key={index}
-              className="animate-fade-in transform h-full"
-              style={{
-                animationDelay: `${index * 50}ms`, // Faster stagger for mobile feel
-                animationFillMode: 'backwards'
-              }}
-              onClick={() => addToHistory(card.title, card.url)}
-            >
-              <Card {...card} />
-            </div>
+            <React.Fragment key={index}>
+              <div
+                className="animate-fade-in transform h-full"
+                style={{
+                  animationDelay: `${index * 50}ms`, // Faster stagger for mobile feel
+                  animationFillMode: 'backwards'
+                }}
+                onClick={() => addToHistory(card.title, card.url)}
+              >
+                <Card {...card} />
+              </div>
+
+              {/* Insert Ad after every 6 cards (or 3 for mobile aggressive) */}
+              {(index + 1) % 6 === 0 && index !== filteredCards.length - 1 && (
+                <div className="col-span-full my-4">
+                  <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-4 shadow-sm">
+                    <p className="text-[10px] text-gray-400 uppercase tracking-widest text-center mb-2">Sponsored Content</p>
+                    <ResponsiveAd adSlot={AD_SLOTS.RESULTS.INLINE_1} format="horizontal" />
+                  </div>
+                </div>
+              )}
+            </React.Fragment>
           ))}
         </div>
 

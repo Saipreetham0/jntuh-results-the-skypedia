@@ -27,7 +27,7 @@ export async function POST(request: Request) {
 
     const data = await resend.emails.send({
       from: "JNTUH Results <onboarding@resend.dev>",
-      to: ["jntuhresults@theskypedia.com"],
+      to: ["info@theskypedia.com"],
       subject: `New Contact Form Message from ${fullName}`,
       react: ContactFormEmail({ name: fullName, email, message }),
     });

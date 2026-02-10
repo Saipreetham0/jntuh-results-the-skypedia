@@ -1,5 +1,5 @@
 // import React, { useEffect, useState, type JSX } from "react";
-// import supabase from "../../../utils/supabase/client";
+// import supabase from "../../../lib/supabase/client";
 // import TableBanner from "@/components/adsense/tableBanner";
 
 // // Define the type for the data fetched from Supabase
@@ -220,7 +220,7 @@
 'use client'; // This is essential for client components in App Router
 
 import React, { useEffect, useState } from "react";
-import { createClient } from "../../../utils/supabase/client";
+import { createClient } from "@/lib/supabase/client";
 import TableBanner from "@/components/adsense/tableBanner";
 
 // Define the type for the data fetched from Supabase

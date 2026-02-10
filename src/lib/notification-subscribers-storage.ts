@@ -3,7 +3,7 @@
  * Replaces the previous in-memory Map implementation.
  */
 
-import { createClient } from '@/utils/supabase/server';
+import { createClient } from '@/lib/supabase/server';
 
 export interface NotificationSubscription {
   id?: string;

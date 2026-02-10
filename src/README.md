@@ -40,10 +40,7 @@ src/
 │
 ├── hooks/                       # Custom React hooks
 │
-├── utils/                       # Utility functions
-│   └── supabase/               # Supabase client utilities
-│
-└── firebase/                    # Firebase configuration
+└── lib/                         # Core libraries & utilities (includes supabase/)
 
 ```
 
@@ -165,8 +162,8 @@ import { AD_SLOTS } from '@/config/adSlots';
 
 ### Core Services
 - **api.ts** - JNTUH API client (legacy/commented)
-- **firebase.ts** - Firebase configuration
 - **supabase.ts** - Supabase client setup
+- **supabase/** - Supabase client/server/middleware utilities
 - **redis.js** - Redis caching client
 - **subscribers-storage.ts** - **Shared email subscription storage** ⚠️ Important!
 
@@ -230,22 +227,16 @@ import { useCustomHook } from '@/hooks/useCustomHook';
 
 Helper functions and utilities:
 
-### Supabase Utilities (`utils/supabase/`)
+### Supabase Utilities (`lib/supabase/`)
 - **client.ts** - Browser client
 - **server.ts** - Server-side client
 - **middleware.ts** - Auth middleware
 
 **Import pattern:**
 ```tsx
-import { createClient } from '@/utils/supabase/client';
-import { createClient as createServerClient } from '@/utils/supabase/server';
+import { createClient } from '@/lib/supabase/client';
+import { createClient as createServerClient } from '@/lib/supabase/server';
 ```
-
----
-
-## 🔥 Firebase (`firebase/`)
-
-Firebase SDK configuration and initialization.
 
 ---
 
@@ -347,7 +338,7 @@ import { NextResponse } from 'next/server';
 import { NavBar } from '@/components/layout/NavBar';
 
 // 3. Internal utilities
-import { createClient } from '@/utils/supabase/client';
+import { createClient } from '@/lib/supabase/client';
 
 // 4. Types
 import type { ResultAlert } from '@/types/alerts';
@@ -382,7 +373,7 @@ import './styles.css';
 - **Calculators:** `app/(converter)/`
 - **Email alerts:** `components/features/ResultAlerts/` + `lib/subscribers-storage.ts`
 - **AdSense:** `components/Adsense/` + `config/adSlots.ts`
-- **Authentication:** `app/auth/` + `utils/supabase/`
+- **Authentication:** `app/auth/` + `lib/supabase/`
 
 ### Search by Type
 - **Pages:** `app/**/*.tsx` (excluding components)

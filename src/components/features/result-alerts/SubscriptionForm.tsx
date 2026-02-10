@@ -7,6 +7,8 @@ import {
   EnvelopeIcon,
   CheckCircleIcon,
   ExclamationCircleIcon,
+  SparklesIcon,
+  ArrowRightIcon,
 } from "@heroicons/react/24/outline";
 
 interface SubscriptionFormProps {
@@ -70,306 +72,297 @@ export default function SubscriptionForm({
   if (compact) {
     return (
       <div
-        className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg border-2 border-[#1C61E7]/20 p-5 md:p-6 ${className}`}
+        className={`bg-white dark:bg-gray-800 rounded-3xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden ${className}`}
       >
-        <div className="flex items-center gap-3 mb-4">
-          <div className="p-2.5 md:p-2 bg-[#1C61E7]/10 rounded-lg">
-            <BellIcon className="w-7 h-7 md:w-6 md:h-6 text-[#1C61E7]" />
-          </div>
-          <div>
-            <h3 className="text-base md:text-lg font-bold text-gray-900 dark:text-white">
-              Result Alerts
-            </h3>
-            <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">
-              Get instant notifications
+        <div className="flex flex-col md:flex-row">
+          {/* Side Info - Decorative */}
+          <div className="md:w-1/3 bg-gradient-to-br from-[#1C61E7] to-blue-700 p-6 flex flex-col justify-center items-center text-center text-white">
+            <div className="bg-white/20 p-3 rounded-2xl mb-4 backdrop-blur-sm">
+              <BellIcon className="w-8 h-8 text-white" />
+            </div>
+            <h3 className="text-xl font-bold mb-2">Live Alerts</h3>
+            <p className="text-xs text-blue-100 leading-relaxed">
+              Get notified the exact moment JNTUH results are out.
             </p>
           </div>
-        </div>
 
-        <AnimatePresence mode="wait">
-          {success ? (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="bg-green-50 dark:bg-green-900/20 border-2 border-green-500 rounded-lg p-4"
-            >
-              <div className="flex items-start gap-3">
-                <CheckCircleIcon className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="font-semibold text-green-900 dark:text-green-100 mb-1">
-                    Check Your Email!
-                  </p>
-                  <p className="text-sm text-green-700 dark:text-green-200">
-                    We've sent a verification link. Click it to activate your
-                    alerts.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          ) : (
-            <motion.form
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onSubmit={handleSubmit}
-              className="space-y-3"
-            >
-              <input
-                type="text"
-                placeholder="Roll Number (e.g., 20J25A0201)"
-                value={rollNumber}
-                onChange={(e) => setRollNumber(e.target.value.toUpperCase())}
-                className="w-full px-4 py-3 md:py-2.5 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-sm md:text-sm font-medium uppercase focus:border-[#1C61E7] focus:ring-2 focus:ring-[#1C61E7]/20 dark:bg-gray-700 dark:text-white min-h-[44px]"
-                required
-              />
-              <input
-                type="email"
-                placeholder="Your Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 md:py-2.5 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-sm md:text-sm focus:border-[#1C61E7] focus:ring-2 focus:ring-[#1C61E7]/20 dark:bg-gray-700 dark:text-white min-h-[44px]"
-                required
-              />
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-[#1C61E7] active:bg-[#1C61E7]/80 md:hover:bg-[#1C61E7]/90 text-white font-semibold py-3 md:py-2.5 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 min-h-[48px]"
-              >
-                {loading ? (
-                  <>
-                    <svg
-                      className="animate-spin h-4 w-4"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      ></circle>
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      ></path>
-                    </svg>
-                    Subscribing...
-                  </>
-                ) : (
-                  <>
-                    <BellIcon className="w-4 h-4" />
-                    Subscribe to Alerts
-                  </>
-                )}
-              </button>
-              {error && (
+          {/* Form Content */}
+          <div className="flex-1 p-6 md:p-8">
+            <AnimatePresence mode="wait">
+              {success ? (
                 <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-sm text-red-600 dark:text-red-400 flex items-start gap-2"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  className="h-full flex flex-col items-center justify-center text-center py-4"
                 >
-                  <ExclamationCircleIcon className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                  <span>{error}</span>
+                  <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-4">
+                    <CheckCircleIcon className="w-10 h-10 text-green-600" />
+                  </div>
+                  <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Check Your Inbox!</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    We've sent a verification link to activate your alerts.
+                  </p>
+                </motion.div>
+              ) : (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="space-y-4"
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <SparklesIcon className="w-5 h-5 text-amber-500" />
+                    <span className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">Join 10k+ Students</span>
+                  </div>
+
+                  <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-1">
+                      <input
+                        type="text"
+                        placeholder="ROLL NUMBER"
+                        value={rollNumber}
+                        onChange={(e) => setRollNumber(e.target.value.toUpperCase())}
+                        className="w-full px-5 py-3.5 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-2xl text-sm font-bold uppercase focus:ring-4 focus:ring-[#1C61E7]/10 focus:border-[#1C61E7] transition-all outline-none"
+                        required
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <input
+                        type="email"
+                        placeholder="EMAIL ADDRESS"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-full px-5 py-3.5 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-2xl text-sm focus:ring-4 focus:ring-[#1C61E7]/10 focus:border-[#1C61E7] transition-all outline-none"
+                        required
+                      />
+                    </div>
+                    <div className="md:col-span-2">
+                      <button
+                        type="submit"
+                        disabled={loading}
+                        className="w-full bg-[#1C61E7] hover:bg-blue-600 active:scale-[0.98] text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-blue-500/20 disabled:opacity-50 flex items-center justify-center gap-3 group"
+                      >
+                        {loading ? (
+                          <div className="flex items-center gap-2">
+                            <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                            <span>Setting up...</span>
+                          </div>
+                        ) : (
+                          <>
+                            <span>Get Result Alerts Now</span>
+                            <ArrowRightIcon className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </form>
+                  {error && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-xs font-bold text-red-500 flex items-center gap-1.5"
+                    >
+                      <ExclamationCircleIcon className="w-4 h-4" />
+                      {error}
+                    </motion.p>
+                  )}
+                  <p className="text-[10px] text-center text-gray-400 dark:text-gray-500 font-medium">
+                    We check official JNTUH portals every 15 minutes. 100% Free Service.
+                  </p>
                 </motion.div>
               )}
-            </motion.form>
-          )}
-        </AnimatePresence>
-
-        <p className="text-xs text-gray-500 dark:text-gray-400 mt-3 text-center">
-          We check for new results every 15 minutes
-        </p>
+            </AnimatePresence>
+          </div>
+        </div>
       </div>
     );
   }
 
   // Full version for dedicated page
   return (
-    <div className={`max-w-2xl mx-auto ${className}`}>
+    <div className={`max-w-4xl mx-auto px-4 ${className}`}>
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border-2 border-gray-100 dark:border-gray-700 overflow-hidden"
+        className="bg-white dark:bg-gray-800 rounded-[40px] shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden"
       >
-        {/* Header */}
-        <div className="bg-gradient-to-r from-[#1C61E7] to-[#1a56d1] p-8 text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full mb-4">
-            <BellIcon className="w-8 h-8 text-white" />
-          </div>
-          <h2 className="text-3xl font-bold text-white mb-2">Result Alerts</h2>
-          <p className="text-blue-100">
-            Never miss a result declaration again!
-          </p>
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-5 h-full">
+          {/* Sidebar Area */}
+          <div className="lg:col-span-2 bg-gradient-to-br from-[#1C61E7] to-indigo-700 p-10 flex flex-col text-white relative overflow-hidden">
+            {/* Background elements */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-400/10 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
 
-        <div className="p-8">
-          <AnimatePresence mode="wait">
-            {success ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                className="text-center py-8"
-              >
-                <div className="inline-flex items-center justify-center w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full mb-6">
-                  <CheckCircleIcon className="w-12 h-12 text-green-600" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-                  Check Your Email! 📧
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-md mx-auto">
-                  We've sent a verification link to your email. Click it to
-                  activate your result alerts.
-                </p>
-                <div className="bg-blue-50 dark:bg-blue-900/20 border-2 border-blue-200 dark:border-blue-800 rounded-lg p-4 max-w-md mx-auto">
-                  <p className="text-sm text-blue-900 dark:text-blue-100 font-medium">
-                    💡 <strong>Tip:</strong> Check your spam folder if you don't
-                    see the email
+            <div className="relative z-10">
+              <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center mb-8 shadow-inner">
+                <BellIcon className="w-8 h-8 text-white" />
+              </div>
+
+              <h2 className="text-4xl font-extrabold mb-6 leading-tight">
+                Be the first to know.
+              </h2>
+
+              <div className="space-y-6 mb-12">
+                <div className="flex items-start gap-4">
+                  <div className="mt-1 bg-white/20 p-1 rounded-full"><CheckCircleIcon className="w-4 h-4" /></div>
+                  <p className="text-sm text-blue-50 font-medium leading-relaxed">
+                    Instant alerts delivered straight to your inbox.
                   </p>
                 </div>
-              </motion.div>
-            ) : (
-              <motion.form
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onSubmit={handleSubmit}
-                className="space-y-6"
-              >
-                <div>
-                  <label
-                    htmlFor="rollNumber"
-                    className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 uppercase tracking-wide"
-                  >
-                    Roll Number
-                  </label>
-                  <input
-                    type="text"
-                    id="rollNumber"
-                    placeholder="Enter your roll number (e.g., 20J25A0501)"
-                    value={rollNumber}
-                    onChange={(e) =>
-                      setRollNumber(e.target.value.toUpperCase())
-                    }
-                    className="w-full px-4 py-3.5 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-base font-medium uppercase focus:border-[#1C61E7] focus:ring-2 focus:ring-[#1C61E7]/20 dark:bg-gray-700 dark:text-white"
-                    required
-                  />
+                <div className="flex items-start gap-4">
+                  <div className="mt-1 bg-white/20 p-1 rounded-full"><CheckCircleIcon className="w-4 h-4" /></div>
+                  <p className="text-sm text-blue-50 font-medium leading-relaxed">
+                    Avoid the rush and server downtime when results drop.
+                  </p>
                 </div>
-
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2 uppercase tracking-wide"
-                  >
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    placeholder="your.email@example.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-4 py-3.5 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-base focus:border-[#1C61E7] focus:ring-2 focus:ring-[#1C61E7]/20 dark:bg-gray-700 dark:text-white"
-                    required
-                  />
+                <div className="flex items-start gap-4">
+                  <div className="mt-1 bg-white/20 p-1 rounded-full"><CheckCircleIcon className="w-4 h-4" /></div>
+                  <p className="text-sm text-blue-50 font-medium leading-relaxed">
+                    Dedicated checking every 15 mins for all regulations.
+                  </p>
                 </div>
+              </div>
 
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full bg-[#1C61E7] hover:bg-[#1C61E7]/90 text-white font-bold py-4 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 text-lg shadow-lg hover:shadow-xl"
-                >
-                  {loading ? (
-                    <>
-                      <svg
-                        className="animate-spin h-5 w-5"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <circle
-                          className="opacity-25"
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                        ></circle>
-                        <path
-                          className="opacity-75"
-                          fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                        ></path>
-                      </svg>
-                      Subscribing...
-                    </>
-                  ) : (
-                    <>
-                      <EnvelopeIcon className="w-6 h-6" />
-                      Subscribe to Result Alerts
-                    </>
-                  )}
-                </button>
-
-                {error && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="bg-red-50 dark:bg-red-900/20 border-2 border-red-200 dark:border-red-800 rounded-lg p-4 flex items-start gap-3"
-                  >
-                    <ExclamationCircleIcon className="w-6 h-6 text-red-600 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <p className="font-semibold text-red-900 dark:text-red-100">
-                        Error
-                      </p>
-                      <p className="text-sm text-red-700 dark:text-red-200">
-                        {error}
-                      </p>
+              <div className="mt-auto bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-4 flex items-center gap-4">
+                <div className="flex -space-x-2">
+                  {[1, 2, 3, 4].map(i => (
+                    <div key={i} className={`w-8 h-8 rounded-full border-2 border-indigo-600 bg-gray-200 flex items-center justify-center text-[10px] text-gray-700 font-bold overflow-hidden`}>
+                      <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i + 10}`} alt="avatar" />
                     </div>
-                  </motion.div>
-                )}
-
-                <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-6 space-y-4">
-                  <h4 className="font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                    <span>✨</span> What you'll get:
-                  </h4>
-                  <ul className="space-y-3">
-                    <li className="flex items-start gap-3">
-                      <CheckCircleIcon className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-gray-700 dark:text-gray-300">
-                        <strong>Instant email notifications</strong> when
-                        results are declared
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircleIcon className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-gray-700 dark:text-gray-300">
-                        <strong>Auto-check every 15 minutes</strong> during
-                        result season
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircleIcon className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-gray-700 dark:text-gray-300">
-                        <strong>Unsubscribe anytime</strong> with one click
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <CheckCircleIcon className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-gray-700 dark:text-gray-300">
-                        <strong>100% Free</strong> - No hidden charges
-                      </span>
-                    </li>
-                  </ul>
+                  ))}
+                  <div className="w-8 h-8 rounded-full border-2 border-indigo-600 bg-indigo-500 flex items-center justify-center text-[8px] text-white font-bold">+10k</div>
                 </div>
-              </motion.form>
-            )}
-          </AnimatePresence>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-blue-100">Joined the alert list</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Form Area */}
+          <div className="lg:col-span-3 p-10 md:p-14 bg-white dark:bg-gray-800">
+            <AnimatePresence mode="wait">
+              {success ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  className="h-full flex flex-col items-center justify-center text-center py-10"
+                >
+                  <motion.div
+                    initial={{ y: 20 }}
+                    animate={{ y: 0 }}
+                    className="w-24 h-24 bg-green-50 dark:bg-green-900/20 rounded-full flex items-center justify-center mb-8 border-2 border-green-500/20 shadow-xl shadow-green-500/10"
+                  >
+                    <CheckCircleIcon className="w-14 h-14 text-green-600" />
+                  </motion.div>
+                  <h3 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-4">You're on the list! 🎉</h3>
+                  <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-sm">
+                    A confirmation email has been sent. Please click the link inside to activate your alerts.
+                  </p>
+                  <button
+                    onClick={() => setSuccess(false)}
+                    className="text-[#1C61E7] font-bold text-sm hover:underline"
+                  >
+                    Subscribe another roll number
+                  </button>
+                </motion.div>
+              ) : (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="space-y-8"
+                >
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Configure Your Alerts</h3>
+                    <p className="text-gray-500 dark:text-gray-400">Fill in your details to start receiving real-time JNTUH updates.</p>
+                  </div>
+
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Roll Number</label>
+                      <div className="relative group">
+                        <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                          <CheckCircleIcon className="h-5 w-5 text-gray-300 group-focus-within:text-[#1C61E7] transition-colors" />
+                        </div>
+                        <input
+                          type="text"
+                          placeholder="e.g. 21J21A0501"
+                          value={rollNumber}
+                          onChange={(e) => setRollNumber(e.target.value.toUpperCase())}
+                          className="w-full pl-14 pr-6 py-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-2xl text-lg font-bold uppercase focus:ring-4 focus:ring-[#1C61E7]/10 focus:border-[#1C61E7] transition-all outline-none text-gray-900 dark:text-white shadow-sm"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Email Address</label>
+                      <div className="relative group">
+                        <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                          <EnvelopeIcon className="h-5 w-5 text-gray-300 group-focus-within:text-[#1C61E7] transition-colors" />
+                        </div>
+                        <input
+                          type="email"
+                          placeholder="your.email@example.com"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          className="w-full pl-14 pr-6 py-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-2xl text-lg focus:ring-4 focus:ring-[#1C61E7]/10 focus:border-[#1C61E7] transition-all outline-none text-gray-900 dark:text-white shadow-sm"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className="w-full bg-[#1C61E7] hover:bg-blue-600 active:scale-[0.98] text-white font-extrabold py-5 rounded-2xl transition-all shadow-2xl shadow-blue-500/30 disabled:opacity-50 flex items-center justify-center gap-3 text-lg group"
+                    >
+                      {loading ? (
+                        <div className="flex items-center gap-3">
+                          <svg className="animate-spin h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                          <span>Processing...</span>
+                        </div>
+                      ) : (
+                        <>
+                          <span>Activate Result Alerts</span>
+                          <SparklesIcon className="w-6 h-6 group-hover:rotate-12 transition-transform" />
+                        </>
+                      )}
+                    </button>
+
+                    {error && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl"
+                      >
+                        <div className="flex gap-3">
+                          <ExclamationCircleIcon className="w-5 h-5 text-red-500 flex-shrink-0" />
+                          <p className="text-sm font-bold text-red-600 dark:text-red-400">{error}</p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </form>
+
+                  <div className="pt-8 border-t border-gray-100 dark:border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div className="flex items-center gap-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                      <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
+                      Official JNTUH Portal Connected
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <div className="flex -space-x-1">
+                        {[1, 2, 3].map(i => (
+                          <div key={i} className="w-6 h-6 rounded-full border border-white dark:border-gray-800 bg-gray-100 overflow-hidden">
+                            <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i + 20}`} alt="avatar" />
+                          </div>
+                        ))}
+                      </div>
+                      <p className="text-[10px] font-bold text-gray-500">Fast growing community</p>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </motion.div>
     </div>

@@ -18,6 +18,7 @@
 # misc
 .DS_Store
 *.pem
+cookies.txt
 
 # debug
 npm-debug.log*
@@ -33,3 +34,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# editor/tooling
+.claude/
+.vscode/
+.eslintcache

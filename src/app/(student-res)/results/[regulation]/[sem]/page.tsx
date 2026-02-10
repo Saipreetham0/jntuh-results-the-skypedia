@@ -1,6 +1,8 @@
 import React from 'react';
 import { Metadata } from 'next';
 import SemesterResultsClient from '@/components/results/SemesterResultsClient';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
+import FAQSectionDynamic from '@/components/seo/FAQSectionDynamic';
 
 type Props = {
     params: Promise<{
@@ -48,13 +50,51 @@ export async function generateStaticParams() {
 export default async function DynamicResultPage({ params }: Props) {
     const { regulation, sem } = await params;
     const regTitle = formatRegulation(regulation);
+    const semTitle = formatSemester(sem);
+
+    const faqs = [
+        {
+            question: `When were JNTUH ${regTitle} ${sem} Results released?`,
+            answer: `The results for JNTUH ${regTitle} ${sem} exams are usually declared 45-60 days after the completion of exams. Check the latest updates above.`
+        },
+        {
+            question: `How to check JNTUH ${regTitle} ${sem} Results?`,
+            answer: `Enter your 10-digit Hall Ticket Number in the search box above to view your ${regTitle} ${sem} marks, grades, and credits instantly.`
+        },
+        {
+            question: `What is the pass mark for JNTUH ${regTitle}?`,
+            answer: `For ${regTitle}, a student must secure at least 35% marks in the external examination and 40% in total (Internal + External) to pass.`
+        },
+        {
+            question: `How to calculate percentage from ${regTitle} SGPA/CGPA?`,
+            answer: `For JNTUH ${regTitle}, the formula to convert CGPA to percentage is (CGPA - 0.5) * 10.`
+        }
+    ];
 
     return (
-        <SemesterResultsClient
-            title={`JNTUH ${regTitle} ${sem} Results`}
-            description={`Check your Marks, Grades & Credits for ${regTitle} ${sem} Exams`}
-            regulation={regulation}
-            semester={sem}
-        />
+        <>
+            <BreadcrumbSchema
+                items={[
+                    { name: 'Home', path: '/' },
+                    { name: 'Results', path: '/jntuh-results' },
+                    { name: `${regTitle} ${sem}`, path: `/results/${regulation}/${sem}` }
+                ]}
+            />
+            <SemesterResultsClient
+                title={`JNTUH ${regTitle} ${sem} Results`}
+                description={`Check your Marks, Grades & Credits for ${regTitle} ${sem} Exams`}
+                regulation={regulation}
+                semester={sem}
+            />
+            <div className="bg-gray-50 dark:bg-gray-900 pb-12">
+                <div className="container mx-auto px-4 max-w-4xl">
+                    <FAQSectionDynamic
+                        faqs={faqs}
+                        title={`Frequently Asked Questions about ${regTitle} ${sem}`}
+                        description={`Common queries regarding JNTUH ${regTitle} ${sem} results, grading, and recaluation.`}
+                    />
+                </div>
+            </div>
+        </>
     );
 }
