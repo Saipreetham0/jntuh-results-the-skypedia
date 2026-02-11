@@ -1,0 +1,44 @@
+
+> jntuh-results-the-skypedia@0.1.0 build /Users/koyyalasaipreetham/Personal-Projects/jntuh-results-the-skypedia
+> NODE_OPTIONS='--max-old-space-size=4096' next build
+
+▲ Next.js 16.1.6 (Turbopack)
+- Experiments (use with caution):
+  ✓ turbopackFileSystemCacheForBuild
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 3.0s
+  Running TypeScript ...
+  Collecting page data using 7 workers ...
+⚠ Using edge runtime on a page currently disables static generation for that page
+📦 Subscribers storage initialized
+📦 Subscribers storage initialized
+  Generating static pages using 7 workers (0/106) ...
+⨯ useSearchParams() should be wrapped in a suspense boundary at page "/results/[regulation]/[sem]". Read more: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
+    at Q (/Users/koyyalasaipreetham/Personal-Projects/jntuh-results-the-skypedia/.next/server/chunks/ssr/481e2_next_cd4cfbd6._.js:2:2111)
+    at o (/Users/koyyalasaipreetham/Personal-Projects/jntuh-results-the-skypedia/.next/server/chunks/ssr/481e2_next_cd4cfbd6._.js:4:5312)
+    at d (/Users/koyyalasaipreetham/Personal-Projects/jntuh-results-the-skypedia/.next/server/chunks/ssr/_b06c523a._.js:14:4208)
+    at an (/Users/koyyalasaipreetham/Personal-Projects/jntuh-results-the-skypedia/node_modules/.pnpm/next@16.1.6_@babel+core@7.29.0_@opentelemetry+api@1.9.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:84360)
+    at ai (/Users/koyyalasaipreetham/Personal-Projects/jntuh-results-the-skypedia/node_modules/.pnpm/next@16.1.6_@babel+core@7.29.0_@opentelemetry+api@1.9.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:86179)
+    at ai (/Users/koyyalasaipreetham/Personal-Projects/jntuh-results-the-skypedia/node_modules/.pnpm/next@16.1.6_@babel+core@7.29.0_@opentelemetry+api@1.9.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:104708)
+    at al (/Users/koyyalasaipreetham/Personal-Projects/jntuh-results-the-skypedia/node_modules/.pnpm/next@16.1.6_@babel+core@7.29.0_@opentelemetry+api@1.9.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:107953)
+    at as (/Users/koyyalasaipreetham/Personal-Projects/jntuh-results-the-skypedia/node_modules/.pnpm/next@16.1.6_@babel+core@7.29.0_@opentelemetry+api@1.9.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:105368)
+    at al (/Users/koyyalasaipreetham/Personal-Projects/jntuh-results-the-skypedia/node_modules/.pnpm/next@16.1.6_@babel+core@7.29.0_@opentelemetry+api@1.9.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:108192)
+    at ak (/Users/koyyalasaipreetham/Personal-Projects/jntuh-results-the-skypedia/node_modules/.pnpm/next@16.1.6_@babel+core@7.29.0_@opentelemetry+api@1.9.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:118036)
+Error occurred prerendering page "/results/r16/2-2". Read more: https://nextjs.org/docs/messages/prerender-error
+Export encountered an error on /(student-res)/results/[regulation]/[sem]/page: /results/r16/2-2, exiting the build.
+⨯ useSearchParams() should be wrapped in a suspense boundary at page "/syllabus/[branch]". Read more: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
+    at Q (/Users/koyyalasaipreetham/Personal-Projects/jntuh-results-the-skypedia/.next/server/chunks/ssr/481e2_next_cd4cfbd6._.js:2:2111)
+    at o (/Users/koyyalasaipreetham/Personal-Projects/jntuh-results-the-skypedia/.next/server/chunks/ssr/481e2_next_cd4cfbd6._.js:4:5312)
+    at d (/Users/koyyalasaipreetham/Personal-Projects/jntuh-results-the-skypedia/.next/server/chunks/ssr/_b06c523a._.js:14:4208)
+    at an (/Users/koyyalasaipreetham/Personal-Projects/jntuh-results-the-skypedia/node_modules/.pnpm/next@16.1.6_@babel+core@7.29.0_@opentelemetry+api@1.9.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:84360)
+    at ai (/Users/koyyalasaipreetham/Personal-Projects/jntuh-results-the-skypedia/node_modules/.pnpm/next@16.1.6_@babel+core@7.29.0_@opentelemetry+api@1.9.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:86179)
+    at ai (/Users/koyyalasaipreetham/Personal-Projects/jntuh-results-the-skypedia/node_modules/.pnpm/next@16.1.6_@babel+core@7.29.0_@opentelemetry+api@1.9.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:104708)
+    at al (/Users/koyyalasaipreetham/Personal-Projects/jntuh-results-the-skypedia/node_modules/.pnpm/next@16.1.6_@babel+core@7.29.0_@opentelemetry+api@1.9.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:107953)
+    at as (/Users/koyyalasaipreetham/Personal-Projects/jntuh-results-the-skypedia/node_modules/.pnpm/next@16.1.6_@babel+core@7.29.0_@opentelemetry+api@1.9.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:105368)
+    at am (/Users/koyyalasaipreetham/Personal-Projects/jntuh-results-the-skypedia/node_modules/.pnpm/next@16.1.6_@babel+core@7.29.0_@opentelemetry+api@1.9.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:112882)
+    at au (/Users/koyyalasaipreetham/Personal-Projects/jntuh-results-the-skypedia/node_modules/.pnpm/next@16.1.6_@babel+core@7.29.0_@opentelemetry+api@1.9.0_react-dom@19.2.4_react@19.2.4__react@19.2.4/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:109985)
+Error occurred prerendering page "/syllabus/cse". Read more: https://nextjs.org/docs/messages/prerender-error
+Export encountered an error on /(academic)/syllabus/[branch]/page: /syllabus/cse, exiting the build.
+⨯ Next.js build worker exited with code: 1 and signal: null
+ ELIFECYCLE  Command failed with exit code 1.

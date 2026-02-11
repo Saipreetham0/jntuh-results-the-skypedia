@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Metadata } from 'next';
 
 import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
@@ -82,12 +82,18 @@ export default async function DynamicResultPage({ params }: Props) {
                 ]}
                 ]}
             />
-            <SemesterResultsClient
-                title={`JNTUH ${regTitle} ${sem} Results`}
-                description={`Check your Marks, Grades & Credits for ${regTitle} ${sem} Exams`}
-                regulation={regulation}
-                semester={sem}
-            />
+            <Suspense fallback={
+                <div className="min-h-screen flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#1C61E7]"></div>
+                </div>
+            }>
+                <SemesterResultsClient
+                    title={`JNTUH ${regTitle} ${sem} Results`}
+                    description={`Check your Marks, Grades & Credits for ${regTitle} ${sem} Exams`}
+                    regulation={regulation}
+                    semester={sem}
+                />
+            </Suspense>
             {/* <SemesterResultsClient
             ...
             /> */}

@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { type ReactNode, Suspense } from 'react';
 // HMR Final Refresh: 2026-02-05 12:15 - PURGED NEXT/IMAGE CACHE
 import type { Metadata } from 'next';
 
@@ -47,7 +47,9 @@ export default function RootLayout({
       </head>
 
       <body suppressHydrationWarning className={`${inter.variable} font-sans`}>
-        <NavigationProgressBar />
+        <Suspense fallback={null}>
+          <NavigationProgressBar />
+        </Suspense>
         <SpeedInsights />
         <AnalyticsProvider />
         <GoogleTagManagerNoScript />
