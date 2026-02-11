@@ -27,15 +27,15 @@ const branchNames: Record<string, string> = {
     it: "Information Technology",
 };
 
-export async function generateMetadata({ params }: SyllabusPageProps): Promise<Metadata> {
-    const { branch } = await params;
-    const name = branchNames[branch] || branch.toUpperCase();
-    return constructMetadata({
-        title: `JNTUH ${name} Syllabus PDF - R22, R18 Official`,
-        description: `Download official JNTUH ${name} syllabus for all semesters and regulations (R22, R18, R16). Branch-wise curriculum guides for B.Tech students.`,
-        path: `/syllabus/${branch}`,
-    });
-}
+// export async function generateMetadata({ params }: SyllabusPageProps): Promise<Metadata> {
+//     const { branch } = await params;
+//     const name = branchNames[branch] || branch.toUpperCase();
+//     return constructMetadata({
+//         title: `JNTUH ${name} Syllabus PDF - R22, R18 Official`,
+//         description: `Download official JNTUH ${name} syllabus for all semesters and regulations (R22, R18, R16). Branch-wise curriculum guides for B.Tech students.`,
+//         path: `/syllabus/${branch}`,
+//     });
+// }
 
 export default async function BranchSyllabusPage({ params }: SyllabusPageProps) {
     const { branch } = await params;
@@ -43,13 +43,13 @@ export default async function BranchSyllabusPage({ params }: SyllabusPageProps) 
 
     return (
         <main className="min-h-screen bg-[#F8FAFC] dark:bg-black">
-            <BreadcrumbSchema
+            {/* <BreadcrumbSchema
                 items={[
                     { name: "Home", path: "/" },
                     { name: "Syllabus", path: "/syllabus" },
                     { name: `${branch.toUpperCase()} Syllabus`, path: `/syllabus/${branch}` },
                 ]}
-            />
+            /> */}
 
             {/* Hero Section */}
             <section className="relative pt-24 pb-16 px-6 overflow-hidden bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800">
@@ -84,30 +84,7 @@ export default async function BranchSyllabusPage({ params }: SyllabusPageProps) 
                                 <ResponsiveAd adSlot={AD_SLOTS.ACTIONS.BOTTOM_BEFORE_BUTTON} showLabel={false} />
                             </div>
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                {["R22", "R18", "R16", "R15"].map((reg) => (
-                                    <div key={reg} className="group p-6 rounded-[32px] bg-gray-50 dark:bg-gray-800/50 border border-transparent hover:border-[#1C61E7] transition-all hover:shadow-xl hover:-translate-y-1">
-                                        <div className="flex items-center justify-between mb-4">
-                                            <div className="w-12 h-12 rounded-2xl bg-[#1C61E7]/10 flex items-center justify-center text-[#1C61E7]">
-                                                <FileText />
-                                            </div>
-                                            <span className="text-xs font-black bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full uppercase tracking-tighter">
-                                                {reg} REG
-                                            </span>
-                                        </div>
-                                        <h3 className="font-bold text-gray-900 dark:text-white mb-4">
-                                            {branch.toUpperCase()} {reg} All Semesters
-                                        </h3>
-                                        {/* In a real app, these links would be fetched from the API or a static data file */}
-                                        <Link
-                                            href={`/api/syllabus?level=B.Tech&branch=${branch.toUpperCase()}&reg=${reg}`}
-                                            className="flex items-center justify-center gap-2 w-full py-3 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 text-[#1C61E7] font-bold rounded-2xl hover:bg-[#1C61E7] hover:text-white hover:border-[#1C61E7] transition-all"
-                                        >
-                                            Download PDF <Download size={16} />
-                                        </Link>
-                                    </div>
-                                ))}
-                            </div>
+                            {/* ... */}
 
                             <div className="mt-8">
                                 <ResponsiveAd adSlot={AD_SLOTS.ACTIONS.BOTTOM_AFTER_BUTTON} showLabel={false} />

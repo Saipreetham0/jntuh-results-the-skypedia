@@ -1,8 +1,9 @@
 import React from 'react';
 import { Metadata } from 'next';
-import SemesterResultsClient from '@/components/results/SemesterResultsClient';
+
 import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
-import FAQSectionDynamic from '@/components/seo/FAQSectionDynamic';
+import SemesterResultsClient from '@/components/results/SemesterResultsClient';
+// import FAQSectionDynamic from '@/components/seo/FAQSectionDynamic';
 
 type Props = {
     params: Promise<{
@@ -15,21 +16,21 @@ type Props = {
 const formatRegulation = (reg: string) => reg.toUpperCase();
 const formatSemester = (sem: string) => `B.Tech ${sem.replace('-', '-')} Semester`;
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const { regulation, sem } = await params;
-    const regTitle = formatRegulation(regulation);
-    const semTitle = formatSemester(sem);
-
-    return {
-        title: `JNTUH ${regTitle} ${sem} Results - Check Direct Link | TheSkypedia`,
-        description: `Check your JNTUH ${regTitle} ${semTitle} results instantly. Direct link to view internal marks, grades, and credits for ${regTitle} regulation.`,
-        keywords: [`jntuh ${regulation} ${sem} results`, `jntuh ${regulation} results`, `jntuh results ${sem}`, `jntuh ${regulation} grading system`],
-        openGraph: {
-            title: `JNTUH ${regTitle} ${sem} Results Declared - Check Now`,
-            description: `Official link for JNTUH ${regTitle} ${semTitle} results. View your marks and grades instantly.`,
-        },
-    };
-}
+// export async function generateMetadata({ params }: Props): Promise<Metadata> {
+//     const { regulation, sem } = await params;
+//     const regTitle = formatRegulation(regulation);
+//     const semTitle = formatSemester(sem);
+//
+//     return {
+//         title: `JNTUH ${regTitle} ${sem} Results - Check Direct Link | TheSkypedia`,
+//         description: `Check your JNTUH ${regTitle} ${semTitle} results instantly. Direct link to view internal marks, grades, and credits for ${regTitle} regulation.`,
+//         keywords: [`jntuh ${regulation} ${sem} results`, `jntuh ${regulation} results`, `jntuh results ${sem}`, `jntuh ${regulation} grading system`],
+//         openGraph: {
+//             title: `JNTUH ${regTitle} ${sem} Results Declared - Check Now`,
+//             description: `Official link for JNTUH ${regTitle} ${semTitle} results. View your marks and grades instantly.`,
+//         },
+//     };
+// }
 
 // Generate static params for common combinations to speed up initial requests (Optional but recommended)
 export async function generateStaticParams() {
@@ -73,11 +74,12 @@ export default async function DynamicResultPage({ params }: Props) {
 
     return (
         <>
-            <BreadcrumbSchema
+            {/* <BreadcrumbSchema
                 items={[
                     { name: 'Home', path: '/' },
                     { name: 'Results', path: '/jntuh-results' },
                     { name: `${regTitle} ${sem}`, path: `/results/${regulation}/${sem}` }
+                ]}
                 ]}
             />
             <SemesterResultsClient
@@ -86,13 +88,16 @@ export default async function DynamicResultPage({ params }: Props) {
                 regulation={regulation}
                 semester={sem}
             />
+            {/* <SemesterResultsClient
+            ...
+            /> */}
             <div className="bg-gray-50 dark:bg-gray-900 pb-12">
                 <div className="container mx-auto px-4 max-w-4xl">
-                    <FAQSectionDynamic
+                    {/* <FAQSectionDynamic
                         faqs={faqs}
                         title={`Frequently Asked Questions about ${regTitle} ${sem}`}
                         description={`Common queries regarding JNTUH ${regTitle} ${sem} results, grading, and recaluation.`}
-                    />
+                    /> */}
                 </div>
             </div>
         </>

@@ -6,11 +6,11 @@ import AD_SLOTS from '@/config/adSlots';
 import ResultCheckerHero from '@/components/results/ResultCheckerHero';
 import { AlertTriangle, Zap, Server } from 'lucide-react';
 
-export const metadata: Metadata = generateMetadata({
-    title: 'JNTUH Results Fast Server - Check Results Instantly (Server 1)',
-    description: 'High-speed dedicated server for JNTUH results. Check your B.Tech R22, R18, R16 results without delay during heavy traffic spikes.',
-    path: '/jntuh-results-checker-fast-server'
-});
+// export const metadata: Metadata = generateMetadata({
+//     title: 'JNTUH Results Fast Server - Check Results Instantly (Server 1)',
+//     description: 'High-speed dedicated server for JNTUH results. Check your B.Tech R22, R18, R16 results without delay during heavy traffic spikes.',
+//     path: '/jntuh-results-checker-fast-server'
+// });
 
 export default function FastServerResultsPage() {
     return (
@@ -36,7 +36,7 @@ export default function FastServerResultsPage() {
             </div>
 
             {/* Checker Section */}
-            <ResultCheckerHero />
+            {/* <ResultCheckerHero /> */}
 
             {/* Ad Placements - Focused on Viewability */}
             <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
