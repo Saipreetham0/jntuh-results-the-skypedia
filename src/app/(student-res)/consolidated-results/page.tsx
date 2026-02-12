@@ -442,9 +442,8 @@ function ConsolidatedResultsContent() {
                         {getAllSubjects().map((subject, index) => (
                           <tr
                             key={index}
-                            className={`${
-                              index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50 dark:bg-gray-750'
-                            } print:bg-white hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors`}
+                            className={`${index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50 dark:bg-gray-750'
+                              } print:bg-white hover:bg-blue-50 dark:hover:bg-gray-700 transition-colors`}
                           >
                             <td className="border border-gray-300 dark:border-gray-600 px-3 py-2 text-center font-bold text-gray-900 dark:text-white print:border-black print:px-0.5 print:py-0.5 print:text-black">
                               {subject.semester}
@@ -629,7 +628,16 @@ function ConsolidatedResultsContent() {
 export default function ConsolidatedResults() {
   return (
     <ErrorBoundary>
-      <ConsolidatedResultsContent />
+      <React.Suspense fallback={
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+          <div className="flex flex-col items-center">
+            <ArrowPathIcon className="h-10 w-10 text-[#1C61E7] animate-spin mb-4" />
+            <p className="text-gray-600 dark:text-gray-400 font-medium">Loading Results...</p>
+          </div>
+        </div>
+      }>
+        <ConsolidatedResultsContent />
+      </React.Suspense>
     </ErrorBoundary>
   );
 }

@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { CheckCircle, XCircle, Loader2, Mail } from "lucide-react";
 
-export default function NotificationVerifyPage() {
+function NotificationVerifyContent() {
   const searchParams = useSearchParams();
   const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
   const [message, setMessage] = useState("");
@@ -154,5 +154,26 @@ export default function NotificationVerifyPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function NotificationVerifyPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center px-4">
+        <div className="text-center">
+          <div className="flex justify-center mb-6">
+            <div className="w-16 h-16 bg-indigo-100 dark:bg-indigo-950/30 rounded-full flex items-center justify-center">
+              <Loader2 className="w-8 h-8 text-indigo-600 dark:text-indigo-400 animate-spin" />
+            </div>
+          </div>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+            Loading...
+          </h1>
+        </div>
+      </div>
+    }>
+      <NotificationVerifyContent />
+    </Suspense>
   );
 }
