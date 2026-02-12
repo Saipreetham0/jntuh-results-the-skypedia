@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 // HMR Final Refresh: 2026-02-05 12:15 - PURGED NEXT/IMAGE CACHE
 import type { Metadata } from 'next';
 
-import { SpeedInsights } from '@vercel/speed-insights/next';
+// import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { generateMetadata } from '@/lib/metadata';
 
@@ -47,7 +47,7 @@ export default function RootLayout({
 
       <body suppressHydrationWarning className={`${inter.variable} font-sans`}>
 
-        <SpeedInsights />
+        {/* <SpeedInsights /> */}
         <AnalyticsProvider />
         <GoogleTagManagerNoScript />
 
