@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { createBrowserClient } from "@supabase/ssr";
+// import { createBrowserClient } from "@supabase/ssr";
 
 // Types
 interface ExamEvent {
@@ -62,42 +62,11 @@ const useExams = (branch?: string, semester?: string) => {
   const [events, setEvents] = useState<ExamEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const supabase = createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
 
+  // Mocked implementation - Supabase disabled
   useEffect(() => {
-    const fetchExams = async () => {
-      try {
-        let query = supabase.from("exams").select("*");
-
-        if (branch) {
-          query = query.eq("branch", branch);
-        }
-        if (semester) {
-          query = query.eq("semester", semester);
-        }
-
-        const { data, error } = await query;
-
-        if (error) throw error;
-
-        const formattedEvents = data.map((exam) => ({
-          ...exam,
-          date: new Date(exam.date),
-          id: exam.id.toString(),
-        }));
-
-        setEvents(formattedEvents);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "An error occurred");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchExams();
+    setLoading(false);
+    setEvents([]);
   }, [branch, semester]);
 
   return { events, loading, error };
