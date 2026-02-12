@@ -28,10 +28,15 @@ const AdBanner: React.FC<AdBannerProps> = ({
   style,
 }) => {
   const adRef = useRef<HTMLModElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
   const [adLoaded, setAdLoaded] = useState(false);
 
   useEffect(() => {
-    if (adLoaded || typeof window === "undefined" || !adRef.current) {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted || adLoaded || typeof window === "undefined" || !adRef.current) {
       return;
     }
 
@@ -44,7 +49,7 @@ const AdBanner: React.FC<AdBannerProps> = ({
     } catch (error) {
       console.error("AdBanner error:", error);
     }
-  }, [adLoaded]);
+  }, [isMounted, adLoaded]);
 
   // Handle min-height for layout stability
   const getMinHeight = () => {
@@ -54,8 +59,17 @@ const AdBanner: React.FC<AdBannerProps> = ({
     return "250px";
   };
 
+  if (!isMounted) {
+    return (
+      <div
+        className={`result-box-container my-4 ${className}`}
+        style={{ minHeight: getMinHeight(), width: '100%', backgroundColor: 'rgba(249, 250, 251, 0.05)', ...style }}
+      />
+    );
+  }
+
   return (
-    <div className={`ad-banner-container my-4 ${className}`}
+    <div className={`result-box-container my-4 ${className}`}
       style={{ minHeight: getMinHeight(), width: '100%', backgroundColor: 'rgba(249, 250, 251, 0.05)', ...style }}>
       <ins
         ref={adRef}

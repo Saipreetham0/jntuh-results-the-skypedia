@@ -26,8 +26,10 @@ const AnchorAd: React.FC<AnchorAdProps> = ({
 }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     // Check if device is mobile
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -43,7 +45,7 @@ const AnchorAd: React.FC<AnchorAdProps> = ({
   }, []);
 
   useEffect(() => {
-    if (!isMobile || !isVisible) return;
+    if (!isMounted || !isMobile || !isVisible) return;
 
     // Load AdSense ad
     try {
@@ -53,7 +55,10 @@ const AnchorAd: React.FC<AnchorAdProps> = ({
     } catch (error) {
       console.error('Error loading anchor ad:', error);
     }
-  }, [isMobile, isVisible]);
+  }, [isMounted, isMobile, isVisible]);
+
+  // Don't render on server
+  if (!isMounted) return null;
 
   // Don't render on desktop
   if (!isMobile) return null;
