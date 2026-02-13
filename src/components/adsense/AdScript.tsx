@@ -14,6 +14,7 @@ const AdScript = ({
       async
       src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${publisherId}`}
       strategy="afterInteractive"
+      crossOrigin="anonymous"
     />
   );
 };

@@ -42,7 +42,6 @@ export default function RootLayout({
       <head>
         <StructuredData />
         <GoogleTagManager />
-        <AdScript />
       </head>
 
       <body suppressHydrationWarning className={`${inter.variable} font-sans`}>
@@ -50,6 +49,7 @@ export default function RootLayout({
         {/* <SpeedInsights /> */}
         <AnalyticsProvider />
         <GoogleTagManagerNoScript />
+        <AdScript />
 
         <Providers>
           <div className="flex flex-col min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
