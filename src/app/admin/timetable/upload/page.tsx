@@ -17,7 +17,6 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
-import { supabase } from '@/lib/supabase';
 
 const branches = ['Computer Science', 'Electrical', 'Mechanical', 'Civil'];
 const semesters = ['1', '2', '3', '4', '5', '6', '7', '8'];
@@ -56,22 +55,8 @@ export default function UploadTimetable() {
     setLoading(true);
 
     try {
-      const formattedExams = exams.map(exam => ({
-        ...exam,
-        branch,
-        semester,
-        date: new Date(exam.date).toISOString()
-      }));
-
-      const { error } = await supabase
-        .from('exams')
-        .insert(formattedExams);
-
-      if (error) throw error;
-
-      alert('Timetable uploaded successfully!');
-      router.refresh();
-      router.push('/admin/timetable');
+      // Supabase integration disabled
+      alert('Upload functionality is currently disabled.');
     } catch (error) {
       console.error('Error uploading timetable:', error);
       alert('Failed to upload timetable. Please try again.');

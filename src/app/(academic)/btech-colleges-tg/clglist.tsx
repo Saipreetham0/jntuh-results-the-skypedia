@@ -1,19 +1,21 @@
-// import React, { useEffect, useState, type JSX } from "react";
+import React, { useEffect, useState } from "react";
 // import supabase from "../../../lib/supabase/client";
 // import TableBanner from "@/components/adsense/tableBanner";
 
-// // Define the type for the data fetched from Supabase
-// interface College {
-//   S_no: number;
-//   code: string;
-//   Institute: string;
-//   Place: string;
-//   Dist: string;
-//   Region: string;
-//   Type: string;
-//   Minority: string;
-//   Mode: string;
-// }
+import TableBanner from "@/components/adsense/tableBanner";
+
+// Define the type for the data fetched from Supabase
+interface College {
+  S_no: number;
+  code: string;
+  Institute: string;
+  Place: string;
+  Dist: string;
+  Region: string;
+  Type: string;
+  Minority: string;
+  Mode: string;
+}
 
 // const JntuhTable: React.FC = () => {
 //   const [data, setData] = useState<College[]>([]);
@@ -217,45 +219,15 @@
 // export default JntuhTable;
 
 
-'use client'; // This is essential for client components in App Router
-
-import React, { useEffect, useState } from "react";
-import { createClient } from "@/lib/supabase/client";
-import TableBanner from "@/components/adsense/tableBanner";
-
-// Define the type for the data fetched from Supabase
-interface College {
-  S_no: number;
-  code: string;
-  Institute: string;
-  Place: string;
-  Dist: string;
-  Region: string;
-  Type: string;
-  Minority: string;
-  Mode: string;
-}
-
 const JntuhTable: React.FC = () => {
   const [data, setData] = useState<College[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const supabase = createClient();
+
   const adFrequency = 20; // Define ad frequency here
 
   useEffect(() => {
-    async function fetchData() {
-      const { data, error } = await supabase.from("college_list").select("*");
-
-      if (error) {
-        console.error("Supabase Error fetching data:", error);
-        setError(error.message);
-      } else {
-        setData(data);
-        console.log("All rows:", data);
-      }
-    }
-
-    fetchData();
+    // Supabase integration disabled
+    setData([]);
   }, []);
 
   const insertAds = (list: College[]) => {
@@ -383,44 +355,40 @@ const JntuhTable: React.FC = () => {
                   </td>
                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
                     <span
-                      className={`${
-                        item.Region === "OU"
-                          ? "bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"
-                          : "bg-pink-100 text-pink-800 mr-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300"
-                      }`}
+                      className={`${item.Region === "OU"
+                        ? "bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"
+                        : "bg-pink-100 text-pink-800 mr-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300"
+                        }`}
                     >
                       {item.Region}
                     </span>
                   </td>
                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
                     <span
-                      className={`${
-                        item.Type === "PVT"
-                          ? "bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300"
-                          : "bg-pink-100 text-pink-800 mr-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300"
-                      }`}
+                      className={`${item.Type === "PVT"
+                        ? "bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300"
+                        : "bg-pink-100 text-pink-800 mr-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300"
+                        }`}
                     >
                       {item.Type}
                     </span>
                   </td>
                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
                     <span
-                      className={`${
-                        item.Minority === "NA"
-                          ? "bg-green-100 text-green-800 mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"
-                          : "bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300"
-                      }`}
+                      className={`${item.Minority === "NA"
+                        ? "bg-green-100 text-green-800 mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"
+                        : "bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300"
+                        }`}
                     >
                       {item.Minority}
                     </span>
                   </td>
                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
                     <span
-                      className={`${
-                        item.Mode === "COED"
-                          ? "bg-indigo-100 text-indigo-800 mr-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300"
-                          : "bg-pink-100 text-pink-800 mr-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300"
-                      }`}
+                      className={`${item.Mode === "COED"
+                        ? "bg-indigo-100 text-indigo-800 mr-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300"
+                        : "bg-pink-100 text-pink-800 mr-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300"
+                        }`}
                     >
                       {item.Mode}
                     </span>

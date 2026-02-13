@@ -35,17 +35,14 @@ export const SubscribeModal = ({ trigger }: { trigger: React.ReactNode }) => {
         setLoading(true);
 
         try {
-            const response = await fetch("/api/result-alerts/subscribe", {
+            const response = await fetch("/api/subscribe", { // Updated to use Brevo API
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    rollNumber: rollNumber.toUpperCase(),
                     email: email.toLowerCase(),
-                    notifyVia: ["email"],
-                    regulations: ["R22", "R20", "R18"],
-                    semesters: ["all"],
+                    listIds: [2] // Default list ID for Brevo
                 }),
             });
 

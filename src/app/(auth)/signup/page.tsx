@@ -13,68 +13,30 @@ import {
   AcademicCapIcon,
   ShieldCheckIcon,
 } from "@heroicons/react/24/outline";
-import { supabase } from "@/lib/supabase";
-
-// // Initialize Supabase client - replace with your actual values
-// const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-// const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-// const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export default function Signup() {
-  // Form fields state
   const [rollNumber, setRollNumber] = useState("");
   const [name, setName] = useState("");
   const [collegeCode, setCollegeCode] = useState("");
-  // const [fatherName, setFatherName] = useState("");
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
-  // UI state
   const [isLoading, setIsLoading] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [signupSuccess, setSignupSuccess] = useState(false);
-  const [step, setStep] = useState(1); // 1: Verify Roll, 2: Complete Profile
+  const [step, setStep] = useState(1);
 
-  // Fetch student data from JNTUH API
   const verifyRollNumber = async () => {
+    // Verification logic disabled or mock
     if (!rollNumber) {
-      setErrorMessage("Please enter your JNTUH roll number");
+      setErrorMessage("Please enter your roll number");
       return;
     }
-
-    setIsVerifying(true);
-    setErrorMessage("");
-
-    try {
-      const response = await fetch(
-        `https://jntuhresults.dhethi.com/api/getAllResult?rollNumber=${rollNumber}`
-      );
-      const data = await response.json();
-
-      // Check if the API returned the expected data structure
-      if (data && data.details && data.details.name) {
-        setName(data.details.name);
-        setCollegeCode(data.details.collegeCode || "");
-        if (data.details.fatherName) {
-          // setFatherName(data.details.fatherName);
-        }
-        setIsVerified(true);
-        setErrorMessage("");
-        setStep(2); // Move to next step
-      } else {
-        setErrorMessage("Roll number not found. Please check and try again.");
-        setIsVerified(false);
-      }
-    } catch (error) {
-      setErrorMessage("Failed to verify roll number. Please try again later.");
-      console.error("API Error:", error);
-    } finally {
-      setIsVerifying(false);
-    }
+    setIsVerified(true);
+    setStep(2);
   };
 
   // Handle form submission
@@ -121,45 +83,11 @@ export default function Signup() {
     setErrorMessage("");
 
     try {
-      // 1. Create auth user in Supabase
-      const { data: authData, error: authError } = await supabase.auth.signUp({
-        email,
-        password,
-      });
-
-      if (authError) throw authError;
-
-      // 2. Store additional user data in profiles table
-      const { error: profileError } = await supabase
-        .from("student_profiles")
-        .insert([
-          {
-            user_id: authData.user.id,
-            roll_number: rollNumber,
-            full_name: name,
-            college_code: collegeCode,
-            // father_name: fatherName,
-            mobile: mobile,
-            email: email,
-          },
-        ]);
-
-      if (profileError) throw profileError;
-
-      // Success!
-      setSignupSuccess(true);
-
-      // Reset form (optional)
-      setRollNumber("");
-      setName("");
-      setCollegeCode("");
-      // setFatherName("");
-      setEmail("");
-      setMobile("");
-      setPassword("");
-      setConfirmPassword("");
-      setIsVerified(false);
-      setStep(1);
+      // Supabase integration disabled
+      setTimeout(() => {
+        setErrorMessage("Signup is currently disabled.");
+        setIsLoading(false);
+      }, 1000);
     } catch (error) {
       console.error("Signup Error:", error);
       setErrorMessage(

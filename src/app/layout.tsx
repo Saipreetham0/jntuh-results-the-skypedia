@@ -9,7 +9,6 @@ import { generateMetadata } from '@/lib/metadata';
 import Navbar from '@/components/layout/nav-bar/navBar';
 import Footer from '@/components/layout/footer';
 import AnnouncementBar from '@/components/layout/announcement-bar';
-import { InstallPWA } from '@/components/layout/InstallPWA';
 
 import { Providers } from '@/components/layout/providers';
 
@@ -70,7 +69,7 @@ export default function RootLayout({
             <Footer />
           </div>
 
-          <InstallPWA />
+
           <AnchorAd adSlot={AD_SLOTS.MOBILE.ANCHOR_BOTTOM} />
         </Providers>
       </body>

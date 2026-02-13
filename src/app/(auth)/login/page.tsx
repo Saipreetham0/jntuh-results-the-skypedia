@@ -12,17 +12,13 @@ import {
   EyeSlashIcon,
   CheckCircleIcon
 } from "@heroicons/react/24/outline";
-import { supabase } from "@/lib/supabase";
-import Link from "next/link";
+import Link from 'next/link';
 
 export default function Login() {
-  // Form states
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
-  // UI states
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showResendEmail, setShowResendEmail] = useState(false);
@@ -31,26 +27,7 @@ export default function Login() {
   const [resendSuccess, setResendSuccess] = useState(false);
 
   const handleResendEmail = async () => {
-    if (!resendEmail) return;
-
-    setIsResending(true);
-    setResendSuccess(false);
-
-    try {
-      const { error } = await supabase.auth.resend({
-        type: 'signup',
-        email: resendEmail,
-      });
-
-      if (error) throw error;
-
-      setResendSuccess(true);
-    } catch (error: any) {
-      console.error('Error resending verification email:', error);
-      setErrorMessage(`Failed to resend verification email: ${error.message}`);
-    } finally {
-      setIsResending(false);
-    }
+    // Resend functionality disabled
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -68,49 +45,14 @@ export default function Login() {
     setErrorMessage("");
 
     try {
-      // Check if the identifier is an email or a hall ticket number
-      const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(identifier);
-      const isHallTicket = /^[0-9A-Z]{10,12}$/.test(identifier);
-
-      if (!isEmail && !isHallTicket) {
-        throw new Error("Please enter a valid email address or hall ticket number");
-      }
-
-      let credentials: { email: string; password: string };
-
-      if (isEmail) {
-        credentials = { email: identifier, password };
-      } else {
-        const { data: profileData, error: profileError } = await supabase
-          .from("student_profiles")
-          .select("email")
-          .eq("roll_number", identifier)
-          .single();
-
-        if (profileError || !profileData) {
-          throw new Error("Hall ticket number not found. Please check and try again.");
-        }
-
-        credentials = { email: profileData.email, password };
-      }
-
-      const { data, error } = await supabase.auth.signInWithPassword(credentials);
-
-      if (error) {
-        if (error.message.includes("Email not confirmed") ||
-          error.message.includes("Email verification") ||
-          error.message.includes("not verified")) {
-          setShowResendEmail(true);
-          setResendEmail(credentials.email);
-        }
-        throw error;
-      }
-
-      window.location.href = "/dashboard";
+      // Supabase integration disabled
+      setTimeout(() => {
+        setErrorMessage("Login is currently disabled.");
+        setIsLoading(false);
+      }, 1000);
     } catch (error: any) {
       console.error("Login Error:", error);
       setErrorMessage(error.message || "Failed to sign in. Please check your credentials.");
-    } finally {
       setIsLoading(false);
     }
   };

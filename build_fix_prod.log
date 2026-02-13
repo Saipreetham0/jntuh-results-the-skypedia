@@ -1,9 +1,0 @@
-
-> jntuh-results-the-skypedia@0.1.0 build /Users/koyyalasaipreetham/Personal-Projects/jntuh-results-the-skypedia
-> NODE_OPTIONS='--max-old-space-size=4096' next build
-
-▲ Next.js 16.1.6 (Turbopack)
-- Experiments (use with caution):
-  ✓ turbopackFileSystemCacheForBuild
-
- ELIFECYCLE  Command failed with exit code 130.
