@@ -7,7 +7,7 @@ import Hotjar from "./Hotjar";
 import LinkedInInsightTag from "./LinkedInInsightTag";
 import TwitterPixel from "./TwitterPixel";
 import WebVitals from "./WebVitals";
-import { analyticsConfig } from "@/config/analytics";
+import { analyticsConfig } from "../../config/analytics";
 
 /**
  * Analytics Provider Component

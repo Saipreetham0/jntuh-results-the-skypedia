@@ -112,54 +112,49 @@ const Hero: React.FC = () => {
         </div>
 
         {/* Promotional Card - mobile optimized */}
-        <div className="relative bg-[#1C61E7] rounded-2xl overflow-hidden shadow-2xl">
-          <div className="hidden md:block absolute inset-0 bg-grid-white/10"></div>
-          <div className="relative p-6 md:p-8 lg:p-10">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-5 md:gap-6">
-              <div className="text-center md:text-left flex-1">
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2.5 md:mb-3">
+        <div className="relative bg-[#1C61E7] rounded-3xl overflow-hidden shadow-2xl transform transition-transform hover:scale-[1.01] duration-500">
+          <div className="hidden md:block absolute inset-0 bg-grid-white/10 mask-image-gradient"></div>
+          <div className="relative p-8 md:p-12">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+              <div className="text-center md:text-left flex-1 space-y-4">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white tracking-tight">
                   Explore IoT Kit and ML Projects
                 </h2>
-                <p className="text-base md:text-lg text-white/90 mb-5 md:mb-6">
-                  Unlock the world of innovation and technology for your college projects!
+                <p className="text-lg text-blue-100 max-w-xl">
+                  Unlock the world of innovation and technology for your college projects! Get hands-on experience with our premium kits.
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
+                <div className="flex flex-col sm:flex-row gap-4 pt-2">
                   <button
                     onClick={handleWhatsAppContact}
-                    className="group flex items-center justify-center py-3 px-6 bg-[#21C15E] text-white font-semibold rounded-full transition-all duration-300 active:scale-95 md:hover:scale-105 md:hover:shadow-xl md:hover:bg-[#21C15E]/90 shadow-lg min-h-[48px]"
+                    className="group flex items-center justify-center py-3.5 px-8 bg-[#21C15E] text-white font-bold rounded-full transition-all duration-300 active:scale-95 hover:bg-[#1ea851] shadow-lg hover:shadow-green-500/25"
                     aria-label="Contact via WhatsApp"
                   >
-                    <MessageSquare className="w-5 h-5 mr-2 md:group-hover:rotate-12 transition-transform" />
-                    <span>Contact via WhatsApp</span>
+                    <MessageSquare className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
+                    <span>WhatsApp Us</span>
                   </button>
 
                   <button
                     onClick={handleWebsiteVisit}
-                    className="flex items-center justify-center py-3 px-6 bg-white text-[#1C61E7] font-semibold rounded-full active:bg-white/80 md:hover:bg-white/90 transition-all duration-300 shadow-lg min-h-[48px]"
+                    className="flex items-center justify-center py-3.5 px-8 bg-white text-[#1C61E7] font-bold rounded-full hover:bg-gray-50 transition-all duration-300 shadow-lg"
                     aria-label="Visit Website"
                   >
                     <Globe className="w-5 h-5 mr-2" />
-                    <span>Visit Website</span>
+                    <span>Visit KSP Electronics</span>
                   </button>
                 </div>
               </div>
 
               {/* Decorative element - desktop only */}
-              <div className="hidden lg:block">
-                <div className="w-32 h-32 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm">
-                  <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center">
-                    <TrendingUp className="w-12 h-12 text-white" />
+              <div className="hidden lg:block shrink-0">
+                <div className="w-40 h-40 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-md border border-white/20 shadow-inner">
+                  <div className="w-28 h-28 bg-white/20 rounded-full flex items-center justify-center shadow-lg">
+                    <TrendingUp className="w-14 h-14 text-white" />
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Ad banner */}
-        <div className="mt-12">
-          <AdBanner adSlot={AD_SLOTS.SPECIALIZED.RESULTS_JNTUH} />
         </div>
       </div>
     </section>

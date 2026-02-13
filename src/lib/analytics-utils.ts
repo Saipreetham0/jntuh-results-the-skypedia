@@ -4,7 +4,7 @@
  * Helper functions for tracking events across different analytics platforms.
  */
 
-import { analyticsConfig } from "@/config/analytics";
+import { analyticsConfig } from "../config/analytics";
 
 // Declare global types for analytics
 declare global {

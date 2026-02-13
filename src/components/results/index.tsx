@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../card';
 import RecentlyVisited, { addToHistory } from './RecentlyVisited';
-import { Search, BookOpen, Calculator, FileText, BarChart2, CheckCircle, Users, AlertCircle, FileQuestion, Percent, RefreshCw, Calendar, Clock } from 'lucide-react';
+import { Search, BookOpen, Calculator, FileText, BarChart2, CheckCircle, Users, AlertCircle, FileQuestion, Percent, RefreshCw, Calendar, Clock, Sparkles, X } from 'lucide-react';
 import { ResponsiveAd } from '../adsense';
 import AD_SLOTS from '@/config/adSlots';
 
@@ -157,108 +157,112 @@ const ResultsBox: React.FC = () => {
   }, [searchTerm, activeCategory]);
 
   return (
-    <section className="relative py-16 md:py-24 px-4 bg-gradient-to-b from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-900 overflow-hidden">
-      {/* Background decorative elements */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-[#1C61E7]/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#21C15E]/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+    <section className="relative py-20 md:py-32 px-4 overflow-hidden bg-slate-50 dark:bg-[#020617]">
+      {/* Dynamic Background Mesh Gradients - Premium Look */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-400/10 dark:bg-blue-600/10 blur-[100px] animate-blob mix-blend-multiply dark:mix-blend-lighten" />
+        <div className="absolute top-[20%] right-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-400/10 dark:bg-indigo-600/10 blur-[100px] animate-blob animation-delay-2000 mix-blend-multiply dark:mix-blend-lighten" />
+        <div className="absolute bottom-[-10%] left-[20%] w-[50%] h-[50%] rounded-full bg-purple-400/10 dark:bg-purple-600/10 blur-[100px] animate-blob animation-delay-4000 mix-blend-multiply dark:mix-blend-lighten" />
+      </div>
 
       <div className="container mx-auto max-w-7xl relative z-10">
-        {/* Header section with enhanced styling */}
-        <div className="text-center mb-14 animate-fade-in">
-          <div className="inline-flex items-center px-5 py-2.5 mb-6 bg-gradient-to-r from-[#1C61E7]/10 via-[#1C61E7]/5 to-[#21C15E]/10 rounded-full text-[#1C61E7] dark:text-[#1C61E7] text-sm font-semibold shadow-lg shadow-[#1C61E7]/10 border border-[#1C61E7]/20">
-            <BookOpen className="w-4 h-4 mr-2" />
-            Everything you need in one place
+        {/* Header section with enhanced styling - Premium Typography */}
+        <div className="text-center mb-16 animate-fade-in">
+          <div className="inline-flex items-center px-4 py-1.5 mb-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-full text-blue-600 dark:text-blue-400 text-sm font-semibold shadow-sm hover:shadow-md transition-all duration-300">
+            <Sparkles className="w-4 h-4 mr-2 text-indigo-500" />
+            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              Power Up Your Academics
+            </span>
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 dark:from-white dark:via-gray-100 dark:to-white bg-clip-text text-transparent mb-5 leading-tight">
-            Student Resources
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight">
+            Student <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Resources</span>
           </h2>
-          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            Access powerful tools and resources to track, analyze, and improve your academic performance.
+          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed font-light">
+            Everything you need to excel in your academic journey, meticulously crafted for JNTUH students.
           </p>
         </div>
 
-        {/* Enhanced search and filters */}
-        <div className="mb-14 max-w-4xl mx-auto animate-slide-up">
-          {/* Recently Visited Section */}
+        {/* Enhanced search and filters - Glassmorphism */}
+        <div className="mb-16 max-w-4xl mx-auto space-y-8 animate-slide-up">
+          {/* Recently Visited Section - Integrated smoothly */}
           <RecentlyVisited />
 
-          {/* Search bar with glassmorphism - mobile optimized */}
-          <div className="relative group mb-6 md:mb-8">
-            <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-[#1C61E7]/20 to-[#21C15E]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <div className="relative">
-              <Search className="absolute left-4 md:left-5 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within:text-[#1C61E7] transition-colors duration-300 w-6 h-6 md:w-5 md:h-5" />
+          {/* Search bar with glassmorphism */}
+          <div className="relative group z-20">
+            <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+            <div className="relative flex items-center bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl border border-white/20 dark:border-white/10 shadow-2xl">
+              <Search className="absolute left-6 text-slate-400 w-6 h-6 group-focus-within:text-blue-500 transition-colors" />
               <input
                 type="text"
-                placeholder="Search calculators, results..."
-                className="w-full pl-14 md:pl-14 pr-14 md:pr-6 py-4 md:py-5 rounded-2xl border-2 border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-4 focus:ring-[#1C61E7]/20 focus:border-[#1C61E7] dark:bg-gray-800/50 dark:text-white backdrop-blur-sm shadow-xl transition-all duration-300 text-base md:text-base placeholder:text-gray-400"
+                placeholder="Search for calculators, results, syllabus..."
+                className="w-full pl-16 pr-6 py-5 bg-transparent border-none focus:ring-0 text-lg text-slate-900 dark:text-white placeholder:text-slate-400 rounded-2xl"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
               {searchTerm && (
                 <button
                   onClick={() => setSearchTerm('')}
-                  className="absolute right-4 md:right-5 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors p-2 -m-2"
-                  aria-label="Clear search"
+                  className="absolute right-6 p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
                 >
-                  <svg className="w-6 h-6 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
+                  <X className="w-5 h-5" />
                 </button>
               )}
             </div>
           </div>
 
-          {/* Enhanced category filter tabs - mobile optimized */}
-          <div className="flex flex-wrap justify-center gap-2.5 md:gap-3">
-            {categories.map((category, index) => (
+          {/* Enhanced category filter tabs */}
+          <div className="flex flex-wrap justify-center gap-3">
+            {categories.map((category) => (
               <button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`relative px-5 py-3 md:px-7 md:py-3.5 rounded-xl text-sm md:text-sm font-bold transition-all duration-300 transform active:scale-95 md:hover:scale-105 overflow-hidden min-h-[44px] ${activeCategory === category.id
-                  ? "bg-gradient-to-r from-[#1C61E7] to-[#1C61E7]/90 text-white shadow-xl shadow-[#1C61E7]/30 scale-100"
-                  : "bg-white dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 md:hover:bg-[#1C61E7]/5 dark:md:hover:bg-[#1C61E7]/10 md:hover:text-[#1C61E7] active:bg-[#1C61E7]/10 border-2 border-gray-200 dark:border-gray-700 shadow-md"
-                  }`}
-                style={{ animationDelay: `${index * 50}ms` }}
+                className={`
+                  relative px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300
+                  ${activeCategory === category.id
+                    ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-lg scale-105"
+                    : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800"
+                  }
+                `}
               >
-                <span className="relative">{category.name}</span>
+                {category.name}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Result count with enhanced styling */}
+        {/* Results visualization */}
         {filteredCards.length > 0 && (
-          <div className="mb-8 text-center">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-white dark:bg-gray-800 shadow-md border border-gray-200 dark:border-gray-700">
-              <div className="w-2 h-2 rounded-full bg-[#21C15E] mr-2 animate-pulse"></div>
-              <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                Showing <span className="font-bold text-[#1C61E7]">{filteredCards.length}</span> {filteredCards.length === 1 ? 'resource' : 'resources'}
-              </p>
+          <div className="mb-8 flex justify-between items-center px-2">
+            <div className="text-sm font-medium text-slate-500 dark:text-slate-400">
+              Showing <span className="text-slate-900 dark:text-white font-bold">{filteredCards.length}</span> tools
             </div>
+            {/* Divider line could go here if needed */}
           </div>
         )}
 
-        {/* Cards grid with enhanced staggered animation - mobile optimized */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+        {/* Cards grid with premium spacing */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 perspective-1000">
           {filteredCards.map((card, index) => (
             <React.Fragment key={index}>
               <div
-                className="animate-fade-in transform h-full"
+                className="animate-fade-in-up"
                 style={{
-                  animationDelay: `${index * 50}ms`, // Faster stagger for mobile feel
-                  animationFillMode: 'backwards'
+                  animationDelay: `${index * 50}ms`,
+                  animationFillMode: 'both'
                 }}
                 onClick={() => addToHistory(card.title, card.url)}
               >
                 <Card {...card} />
               </div>
 
-              {/* Insert Ad after every 6 cards (or 3 for mobile aggressive) */}
-              {(index + 1) % 6 === 0 && index !== filteredCards.length - 1 && (
-                <div className="col-span-full my-4">
-                  <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-4 shadow-sm">
-                    <p className="text-[10px] text-gray-400 uppercase tracking-widest text-center mb-2">Sponsored Content</p>
-                    <ResponsiveAd adSlot={AD_SLOTS.RESULTS.INLINE_1} format="horizontal" />
+              {/* Intelligent Ad Placement - Less intrusive */}
+              {(index + 1) === 6 && (
+                <div className="col-span-full my-8">
+                  <div className="bg-slate-100/50 dark:bg-slate-900/50 backdrop-blur-sm rounded-3xl border border-slate-200 dark:border-slate-800 p-1 shadow-inner">
+                    <div className="w-full flex justify-center items-center min-h-[100px] rounded-2xl bg-white dark:bg-slate-950/50 overflow-hidden">
+                      <p className="text-[10px] text-slate-400 uppercase tracking-widest absolute top-2 right-4">Ad</p>
+                      <ResponsiveAd adSlot={AD_SLOTS.RESULTS.INLINE_1} format="horizontal" />
+                    </div>
                   </div>
                 </div>
               )}
@@ -266,36 +270,28 @@ const ResultsBox: React.FC = () => {
           ))}
         </div>
 
-        {/* Enhanced empty state - mobile optimized */}
+        {/* Premium Empty State */}
         {filteredCards.length === 0 && (
-          <div className="text-center py-12 md:py-16 animate-fade-in px-4">
-            <div className="relative inline-flex items-center justify-center w-20 h-20 md:w-24 md:h-24 rounded-3xl bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 mb-5 md:mb-6 shadow-xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#1C61E7]/10 to-[#21C15E]/10 rounded-3xl animate-pulse"></div>
-              <Search className="w-10 h-10 md:w-12 md:h-12 text-gray-400 dark:text-gray-500 relative z-10" />
+          <div className="text-center py-24 animate-fade-in">
+            <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-slate-100 dark:bg-slate-900 mb-6 shadow-inner relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <Search className="w-10 h-10 text-slate-400 group-hover:text-blue-500 transition-colors duration-300" />
             </div>
-            <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2.5 md:mb-3">
+            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">
               No results found
             </h3>
-            <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 max-w-md mx-auto mb-6 md:mb-8 leading-relaxed px-4">
-              We couldn't find any resources matching{' '}
-              <span className="font-semibold text-[#1C61E7]">"{searchTerm || activeCategory}"</span>.
-              <br className="hidden md:block" />
-              <span className="md:inline"> </span>Try a different search term or browse by category.
+            <p className="text-slate-500 dark:text-slate-400 max-w-md mx-auto mb-8">
+              We couldn't find anything matching <span className="font-semibold text-slate-900 dark:text-white">"{searchTerm}"</span>.
+              Try adjusting your search or filters.
             </p>
             <button
               onClick={() => {
                 setSearchTerm('');
                 setActiveCategory('all');
               }}
-              className="group relative px-6 py-3.5 md:px-8 md:py-4 bg-gradient-to-r from-[#1C61E7] to-[#1C61E7]/90 text-white rounded-xl active:shadow-xl md:hover:shadow-2xl transition-all duration-300 font-bold shadow-xl shadow-[#1C61E7]/30 active:scale-95 md:hover:scale-105 overflow-hidden min-h-[44px]"
+              className="px-8 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
             >
-              <span className="hidden md:block absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-              <span className="relative flex items-center justify-center gap-2">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-                Clear All Filters
-              </span>
+              Clear Filters
             </button>
           </div>
         )}

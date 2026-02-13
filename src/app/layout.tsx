@@ -12,6 +12,7 @@ import AnnouncementBar from '@/components/layout/announcement-bar';
 
 import { Providers } from '@/components/layout/providers';
 
+import AnalyticsProvider from '@/components/analytics';
 import { GoogleTagManager, GoogleTagManagerNoScript } from '@/components/layout/scripts/GoogleTagManager';
 import { StructuredData } from '@/components/layout/scripts/StructuredData';
 
@@ -47,7 +48,7 @@ export default function RootLayout({
       <body suppressHydrationWarning className={`${inter.variable} font-sans`}>
 
         {/* <SpeedInsights /> */}
-        {/* <AnalyticsProvider /> */}
+        <AnalyticsProvider />
         <GoogleTagManagerNoScript />
 
         <Providers>

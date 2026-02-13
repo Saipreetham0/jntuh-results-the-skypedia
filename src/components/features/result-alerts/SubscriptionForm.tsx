@@ -68,109 +68,91 @@ export default function SubscriptionForm({
 
   if (compact) {
     return (
-      <div
-        className={`bg-white dark:bg-gray-800 rounded-3xl shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden ${className}`}
-      >
-        <div className="flex flex-col md:flex-row">
-          {/* Side Info - Decorative */}
-          <div className="md:w-1/3 bg-gradient-to-br from-[#1C61E7] to-blue-700 p-6 flex flex-col justify-center items-center text-center text-white">
-            <div className="bg-white/20 p-3 rounded-2xl mb-4 backdrop-blur-sm">
-              <BellIcon className="w-8 h-8 text-white" />
-            </div>
-            <h3 className="text-xl font-bold mb-2">Live Alerts</h3>
-            <p className="text-xs text-blue-100 leading-relaxed">
-              Get notified the exact moment JNTUH results are out.
-            </p>
-          </div>
-
-          {/* Form Content */}
-          <div className="flex-1 p-6 md:p-8">
-            <AnimatePresence mode="wait">
-              {success ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  className="h-full flex flex-col items-center justify-center text-center py-4"
-                >
-                  <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-4">
-                    <CheckCircleIcon className="w-10 h-10 text-green-600" />
-                  </div>
-                  <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Check Your Inbox!</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    We've sent a verification link to activate your alerts.
-                  </p>
-                </motion.div>
-              ) : (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="space-y-4"
-                >
-                  <div className="flex items-center gap-2 mb-2">
-                    <SparklesIcon className="w-5 h-5 text-amber-500" />
-                    <span className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider">Join 10k+ Students</span>
-                  </div>
-
-                  <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-1">
-                      <input
-                        type="text"
-                        placeholder="ROLL NUMBER"
-                        value={rollNumber}
-                        onChange={(e) => setRollNumber(e.target.value.toUpperCase())}
-                        className="w-full px-5 py-3.5 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-2xl text-sm font-bold uppercase focus:ring-4 focus:ring-[#1C61E7]/10 focus:border-[#1C61E7] transition-all outline-none"
-                        required
-                      />
-                    </div>
-                    <div className="space-y-1">
-                      <input
-                        type="email"
-                        placeholder="EMAIL ADDRESS"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="w-full px-5 py-3.5 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-2xl text-sm focus:ring-4 focus:ring-[#1C61E7]/10 focus:border-[#1C61E7] transition-all outline-none"
-                        required
-                      />
-                    </div>
-                    <div className="md:col-span-2">
-                      <button
-                        type="submit"
-                        disabled={loading}
-                        className="w-full bg-[#1C61E7] hover:bg-blue-600 active:scale-[0.98] text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-blue-500/20 disabled:opacity-50 flex items-center justify-center gap-3 group"
-                      >
-                        {loading ? (
-                          <div className="flex items-center gap-2">
-                            <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                            <span>Setting up...</span>
-                          </div>
-                        ) : (
-                          <>
-                            <span>Get Result Alerts Now</span>
-                            <ArrowRightIcon className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                          </>
-                        )}
-                      </button>
-                    </div>
-                  </form>
-                  {error && (
-                    <motion.p
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="text-xs font-bold text-red-500 flex items-center gap-1.5"
-                    >
-                      <ExclamationCircleIcon className="w-4 h-4" />
-                      {error}
-                    </motion.p>
-                  )}
-                  <p className="text-[10px] text-center text-gray-400 dark:text-gray-500 font-medium">
-                    We check official JNTUH portals every 15 minutes. 100% Free Service.
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+      <div className={`bg-white dark:bg-slate-900 rounded-3xl shadow-xl border border-gray-100 dark:border-gray-800 p-8 md:p-10 max-w-2xl mx-auto text-center ${className}`}>
+        <div className="inline-flex items-center justify-center p-3 bg-blue-50 dark:bg-blue-900/20 rounded-2xl mb-6">
+          <BellIcon className="w-8 h-8 text-[#1C61E7] dark:text-blue-400" />
         </div>
+
+        <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-3">
+          Get Instant Result Alerts
+        </h3>
+        <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-lg mx-auto">
+          Join 10,000+ students receiving real-time notifications via email.
+        </p>
+
+        <AnimatePresence mode="wait">
+          {success ? (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="py-6 bg-green-50 dark:bg-green-900/10 rounded-2xl border border-green-100 dark:border-green-800"
+            >
+              <div className="w-12 h-12 bg-green-100 dark:bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                <CheckCircleIcon className="w-6 h-6 text-green-600 dark:text-green-400" />
+              </div>
+              <h4 className="text-lg font-bold text-gray-900 dark:text-white">Check Your Inbox!</h4>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                Verification link sent.
+              </p>
+            </motion.div>
+          ) : (
+            <motion.form
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              onSubmit={handleSubmit}
+              className="space-y-4"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  placeholder="Roll Number (e.g. 21J21A0501)"
+                  value={rollNumber}
+                  onChange={(e) => setRollNumber(e.target.value.toUpperCase())}
+                  className="w-full px-5 py-4 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl text-base font-semibold uppercase focus:ring-2 focus:ring-[#1C61E7] focus:border-transparent outline-none transition-all"
+                  required
+                />
+                <input
+                  type="email"
+                  placeholder="Email Address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-5 py-4 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl text-base focus:ring-2 focus:ring-[#1C61E7] focus:border-transparent outline-none transition-all"
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-[#1C61E7] hover:bg-blue-600 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-blue-500/25 transition-all active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                {loading ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <span>Processing...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Subscribe for Free</span>
+                    <ArrowRightIcon className="w-5 h-5" />
+                  </>
+                )}
+              </button>
+
+              {error && (
+                <motion.p
+                  initial={{ opacity: 0, y: -5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-sm font-medium text-red-500 flex items-center justify-center gap-1.5 pt-2"
+                >
+                  <ExclamationCircleIcon className="w-4 h-4" />
+                  {error}
+                </motion.p>
+              )}
+            </motion.form>
+          )}
+        </AnimatePresence>
       </div>
     );
   }

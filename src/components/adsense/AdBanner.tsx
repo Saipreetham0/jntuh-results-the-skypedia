@@ -45,6 +45,7 @@ const AdBanner: React.FC<AdBannerProps> = ({
       if (!window.adsbygoogle) {
         window.adsbygoogle = [];
       }
+      console.log(`Initializing AdBanner for slot ${adSlot}`);
       window.adsbygoogle.push({});
       setAdLoaded(true);
     } catch (error) {

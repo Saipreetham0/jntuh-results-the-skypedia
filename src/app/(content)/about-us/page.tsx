@@ -1,147 +1,140 @@
-// About Us Page
+import React from "react";
+import {
+  RocketLaunchIcon,
+  AcademicCapIcon,
+  UserGroupIcon,
+  BoltIcon,
+  CheckBadgeIcon,
+  GlobeAltIcon
+} from "@heroicons/react/24/outline";
 
-interface Stat {
-  label: string;
-  value: string;
-}
+export const metadata = {
+  title: "About Us | TheSkypedia",
+  description: "Learn about TheSkypedia's mission to empower JNTUH students with fast, accurate results and resources.",
+};
 
-const stats: Stat[] = [
-  { label: 'Founded', value: '2021' },
-  { label: 'Employees', value: '5' },
-  { label: 'Beta Users', value: '521' },
-  { label: 'Raised', value: '$25M' },
-]
+const stats = [
+  { label: 'Students Helped', value: '50k+' },
+  { label: 'Results Published', value: '100+' },
+  { label: 'Accuracy', value: '100%' },
+  { label: 'Uptime', value: '99.9%' },
+];
 
-const Example = () => {
+const features = [
+  {
+    name: 'Lightning Fast Updates',
+    description: 'We monitor official sources 24/7 to bring you results efficiently.',
+    icon: BoltIcon,
+  },
+  {
+    name: 'Accurate & Reliable',
+    description: 'Data is directly sourced and verified to ensure 100% accuracy.',
+    icon: CheckBadgeIcon,
+  },
+  {
+    name: 'Student Community',
+    description: 'Join thousands of students who trust us for their academic journey.',
+    icon: UserGroupIcon,
+  },
+  {
+    name: 'Comprehensive Resources',
+    description: 'From results to syllabus and calculators, we have it all.',
+    icon: AcademicCapIcon,
+  },
+];
+
+const AboutPage = () => {
   return (
-    <div className="relative bg-white py-16 sm:py-24">
-      <div className="lg:mx-auto lg:grid lg:max-w-7xl lg:grid-cols-2 lg:items-start lg:gap-24 lg:px-8">
-        <div className="relative sm:py-16 lg:py-0">
-          <div aria-hidden="true" className="hidden sm:block lg:absolute lg:inset-y-0 lg:right-0 lg:w-screen">
-            <div className="absolute inset-y-0 right-1/2 w-full rounded-r-3xl bg-gray-50 lg:right-72" />
-            <svg
-              className="absolute top-8 left-1/2 -ml-3 lg:-right-8 lg:left-auto lg:top-12"
-              width={404}
-              height={392}
-              fill="none"
-              viewBox="0 0 404 392"
-            >
-              <defs>
-                <pattern
-                  id="02f20b47-fd69-4224-a62a-4c9de5c763f7"
-                  x={0}
-                  y={0}
-                  width={20}
-                  height={20}
-                  patternUnits="userSpaceOnUse"
-                >
-                  <rect x={0} y={0} width={4} height={4} className="text-gray-200" fill="currentColor" />
-                </pattern>
-              </defs>
-              <rect width={404} height={392} fill="url(#02f20b47-fd69-4224-a62a-4c9de5c763f7)" />
-            </svg>
-          </div>
-          <div className="relative mx-auto max-w-md px-6 sm:max-w-3xl lg:max-w-none lg:px-0 lg:py-20">
-            {/* Testimonial card*/}
-            <div className="relative overflow-hidden rounded-2xl pt-64 pb-10 shadow-xl">
-              <img
-                className="absolute inset-0 h-full w-full object-cover"
-                src="https://images.unsplash.com/photo-1521510895919-46920266ddb3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&fp-x=0.5&fp-y=0.6&fp-z=3&width=1440&height=1440&sat=-100"
-                alt="Testimonial background"
-              />
-              <div className="absolute inset-0 bg-indigo-500 mix-blend-multiply" />
-              <div className="absolute inset-0 bg-gradient-to-t from-indigo-600 via-indigo-600 opacity-90" />
-              <div className="relative px-8">
-                <div>
-                  <img
-                    className="h-12"
-                    src="https://tailwindui.com/img/logos/workcation.svg?color=white"
-                    alt="Workcation logo"
-                  />
+    <div className="bg-white dark:bg-gray-950 overflow-hidden">
+      {/* Hero Section */}
+      <div className="relative isolate pt-14 dark:pt-0">
+        <div
+          className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+          aria-hidden="true"
+        >
+          <div
+            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+            style={{
+              clipPath:
+                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+            }}
+          />
+        </div>
+
+        <div className="py-24 sm:py-32 lg:pb-40">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mx-auto max-w-2xl text-center">
+              <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">
+                Empowering JNTUH Students
+              </h1>
+              <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">
+                TheSkypedia is your one-stop destination for instant JNTUH results, accurate GPAs, and essential academic resources. We simplify the complex.
+              </p>
+            </div>
+
+            {/* Stats Grid */}
+            <div className="mt-16 flow-root sm:mt-24">
+              <div className="-m-2 rounded-xl bg-gray-900/5 dark:bg-white/5 p-2 ring-1 ring-inset ring-gray-900/10 dark:ring-white/10 lg:-m-4 lg:rounded-2xl lg:p-4">
+                <div className="rounded-xl bg-white dark:bg-gray-900 shadow-xl ring-1 ring-gray-900/5 dark:ring-white/5 p-8 sm:p-10">
+                  <dl className="grid grid-cols-2 gap-x-8 gap-y-16 text-center lg:grid-cols-4">
+                    {stats.map((stat) => (
+                      <div key={stat.label} className="mx-auto flex max-w-xs flex-col gap-y-4">
+                        <dt className="text-base leading-7 text-gray-600 dark:text-gray-400">{stat.label}</dt>
+                        <dd className="order-first text-3xl font-semibold tracking-tight text-gray-900 dark:text-white sm:text-5xl">
+                          {stat.value}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
                 </div>
-                <blockquote className="mt-8">
-                  <div className="relative text-lg font-medium text-white md:flex-grow">
-                    <svg
-                      className="absolute top-0 left-0 h-8 w-8 -translate-x-3 -translate-y-2 transform text-indigo-400"
-                      fill="currentColor"
-                      viewBox="0 0 32 32"
-                      aria-hidden="true"
-                    >
-                      <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
-                    </svg>
-                    <p className="relative">
-                      Tincidunt integer commodo, cursus etiam aliquam neque, et. Consectetur pretium in volutpat, diam.
-                      Montes, magna cursus nulla feugiat dignissim id lobortis amet.
-                    </p>
-                  </div>
-                  <footer className="mt-4">
-                    <p className="text-base font-semibold text-indigo-200">Sarah Williams, CEO at Workcation</p>
-                  </footer>
-                </blockquote>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="relative mx-auto max-w-md px-6 sm:max-w-3xl lg:px-0">
-          {/* Content area */}
-          <div className="pt-12 sm:pt-16 lg:pt-20">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              On a mission to empower teams
-            </h2>
-            <div className="mt-6 space-y-6 text-gray-500">
-              <p className="text-lg">
-                Sagittis scelerisque nulla cursus in enim consectetur quam. Dictum urna sed consectetur neque tristique
-                pellentesque. Blandit amet, sed aenean erat arcu morbi. Cursus faucibus nunc nisl netus morbi vel
-                porttitor vitae ut. Amet vitae fames senectus vitae.
-              </p>
-              <p className="text-base leading-7">
-                Sollicitudin tristique eros erat odio sed vitae, consequat turpis elementum. Lorem nibh vel, eget
-                pretium arcu vitae. Eros eu viverra donec ut volutpat donec laoreet quam urna. Sollicitudin tristique
-                eros erat odio sed vitae, consequat turpis elementum. Lorem nibh vel, eget pretium arcu vitae. Eros eu
-                viverra donec ut volutpat donec laoreet quam urna.
-              </p>
-              <p className="text-base leading-7">
-                Rhoncus nisl, libero egestas diam fermentum dui. At quis tincidunt vel ultricies. Vulputate aliquet
-                velit faucibus semper. Pellentesque in venenatis vestibulum consectetur nibh id. In id ut tempus
-                egestas. Enim sit aliquam nec, a. Morbi enim fermentum lacus in. Viverra.
-              </p>
-            </div>
-          </div>
-
-          {/* Stats section */}
-          <div className="mt-10">
-            <dl className="grid grid-cols-2 gap-x-4 gap-y-8">
-              {stats.map((stat) => (
-                <div key={stat.label} className="border-t-2 border-gray-100 pt-6">
-                  <dt className="text-base font-medium text-gray-500">{stat.label}</dt>
-                  <dd className="text-3xl font-bold tracking-tight text-gray-900">{stat.value}</dd>
-                </div>
-              ))}
-            </dl>
-            <div className="mt-10">
-              <a href="#" className="text-base font-medium text-indigo-600">
-                Learn more about how we're changing the world
-                <span aria-hidden="true"> &rarr;</span>
-              </a>
-            </div>
-          </div>
+        <div
+          className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+          aria-hidden="true"
+        >
+          <div
+            className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-20 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+            style={{
+              clipPath:
+                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+            }}
+          />
         </div>
       </div>
 
-      {/* Theskypedia section */}
-      <div className="bg-indigo-50 py-16 sm:py-24">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            About Theskypedia
-          </h2>
-          <p className="mt-6 text-lg text-gray-500">
-            Theskypedia is a leading platform providing valuable insights, tips, and resources for the tech community. Our mission is to share knowledge and empower individuals and teams to grow and succeed in the rapidly evolving tech world.
+      {/* Mission Section */}
+      <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24 sm:py-32 bg-gray-50 dark:bg-gray-900/50 rounded-3xl mb-24">
+        <div className="mx-auto max-w-2xl lg:text-center">
+          <h2 className="text-base font-semibold leading-7 text-indigo-600 dark:text-indigo-400">Our Mission</h2>
+          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+            Making Academic Life Easier
           </p>
+          <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">
+            We understand the stress of waiting for results and calculating GPAs. That's why we built TheSkypedia - to provide a seamless, stress-free experience for every JNTUH student.
+          </p>
+        </div>
+        <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
+          <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
+            {features.map((feature) => (
+              <div key={feature.name} className="relative pl-16">
+                <dt className="text-base font-semibold leading-7 text-gray-900 dark:text-white">
+                  <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600 text-white shadow-lg shadow-indigo-500/30">
+                    <feature.icon className="h-6 w-6" aria-hidden="true" />
+                  </div>
+                  {feature.name}
+                </dt>
+                <dd className="mt-2 text-base leading-7 text-gray-600 dark:text-gray-400">{feature.description}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
     </div>
   )
 }
 
-export default Example
+export default AboutPage;
