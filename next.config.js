@@ -46,7 +46,7 @@ const nextConfig = {
 
   experimental: {
     optimizeCss: false,
-    turbopackFileSystemCacheForBuild: true,
+    turbopackFileSystemCacheForBuild: false,
   },
 
   headers: async () => {
@@ -116,11 +116,7 @@ const nextConfig = {
     return config;
   },
 
-  turbopack: {
-    // Turbopack resolveAlias currently requires string values. 
-    // If punycode is causing issues, we'll need a better polyfill or ignore strategy.
-    // Setting to empty string or removing if boolean false is unsupported.
-  },
+
 };
 
 export default nextConfig;

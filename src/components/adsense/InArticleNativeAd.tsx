@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
+import { AD_SLOTS } from "@/config/adSlots";
 
 interface InArticleNativeAdProps {
     adSlot: string;
@@ -44,7 +45,7 @@ const InArticleNativeAd: React.FC<InArticleNativeAdProps> = ({
                     }}
                     data-ad-layout="in-article"
                     data-ad-format="fluid"
-                    data-ad-client="ca-pub-4870864326886980"
+                    data-ad-client={AD_SLOTS.PUBLISHER_ID}
                     data-ad-slot={adSlot}
                 />
             </div>

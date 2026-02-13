@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { AD_SLOTS } from "@/config/adSlots";
 
 interface AdBannerProps {
   adSlot: string;
@@ -24,7 +25,7 @@ const AdBanner: React.FC<AdBannerProps> = ({
   adFormat = "auto",
   fullWidthResponsive = true,
   className = "",
-  publisherId = "ca-pub-4870864326886980",
+  publisherId = AD_SLOTS.PUBLISHER_ID,
   style,
 }) => {
   const adRef = useRef<HTMLModElement>(null);

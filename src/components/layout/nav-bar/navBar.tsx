@@ -1,19 +1,29 @@
 
 
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { Dialog, Transition } from "@headlessui/react";
-import { Menu, X, Sun, Moon, Bell, ChevronDown, Sparkles } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+  SheetTrigger,
+  SheetClose,
+} from "@/components/ui/sheet";
+import { Menu, X, Sun, Moon, Bell, ChevronDown } from "lucide-react";
 import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
 import ShareButton from "../../share-button";
 import { SubscribeModal } from "../../features/result-alerts";
+import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 
 interface NavItem {
   name: string;
   href: string;
   submenu?: { name: string; href: string }[];
+  isSpecial?: boolean;
 }
 
 const navItems: NavItem[] = [
@@ -76,31 +86,6 @@ const Navbar: React.FC = () => {
     null
   );
   const { systemTheme, theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const currentTheme = theme === "system" ? systemTheme : theme;
-  const isDarkMode = currentTheme === "dark";
-
-  // Prevent hydration mismatch by rendering nothing or a placeholder until mounted
-  if (!mounted) return null;
-
-  // Track scroll position to add shadow and background opacity to navbar
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const toggleDarkMode = () => {
     setTheme(theme === "dark" ? "light" : "dark");
@@ -114,6 +99,10 @@ const Navbar: React.FC = () => {
   const toggleMobileSubmenu = (name: string) => {
     setMobileOpenSubmenu(mobileOpenSubmenu === name ? null : name);
   };
+
+  // Calculated state for UI
+  const currentTheme = theme === "system" ? systemTheme : theme;
+  const isDarkMode = currentTheme === "dark";
 
   return (
     <header
@@ -161,14 +150,136 @@ const Navbar: React.FC = () => {
 
             <ShareButton url="https://jntuhresults.theskypedia.com" />
 
-            <button
-              type="button"
-              className="inline-flex items-center justify-center p-2 text-gray-700 dark:text-gray-200 hover:bg-[#1C61E7]/10 dark:hover:bg-[#1C61E7]/20 hover:text-[#1C61E7] rounded-lg transition-colors"
-              onClick={() => setMobileMenuOpen(true)}
-            >
-              <span className="sr-only">Open main menu</span>
-              <Menu className="h-5 w-5" aria-hidden="true" />
-            </button>
+            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <button
+                  type="button"
+                  className="inline-flex items-center justify-center p-2 text-gray-700 dark:text-gray-200 hover:bg-[#1C61E7]/10 dark:hover:bg-[#1C61E7]/20 hover:text-[#1C61E7] rounded-lg transition-colors"
+                >
+                  <span className="sr-only">Open main menu</span>
+                  <Menu className="h-5 w-5" aria-hidden="true" />
+                </button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-full sm:max-w-sm px-6 py-6 overflow-y-auto bg-white dark:bg-gray-900 border-l border-gray-100 dark:border-gray-800">
+                <SheetHeader className="flex items-center justify-between mb-8 space-y-0 text-left">
+                  <SheetTitle asChild>
+                    <Link
+                      href="/"
+                      className="flex items-center gap-2"
+                      onClick={closeMobileMenu}
+                    >
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-2xl font-bold text-[#1C61E7] tracking-tight">
+                          JNTUH
+                        </span>
+                        <span className="text-2xl font-semibold text-gray-900 dark:text-white tracking-tight">
+                          Results
+                        </span>
+                      </div>
+                    </Link>
+                  </SheetTitle>
+                  <SheetDescription>
+                    <VisuallyHidden.Root>Navigation Menu</VisuallyHidden.Root>
+                  </SheetDescription>
+                  {/* Close button is automatically added by SheetContent, but we can customize or hide it if needed. 
+                      Shadcn default Close is absolute positioned. We might want to match exact design.
+                      The default Shadcn X icon is top-4 right-4.
+                   */}
+                </SheetHeader>
+
+                {/* Mobile nav items */}
+                <div className="flow-root mt-6">
+                  <div className="space-y-3">
+                    {navItems.map((item) => (
+                      <div key={item.name}>
+                        {item.submenu ? (
+                          <div>
+                            <button
+                              className={`flex items-center justify-between w-full px-4 py-4 text-base font-bold rounded-2xl transition-all ${mobileOpenSubmenu === item.name
+                                ? "text-[#1C61E7] bg-[#1C61E7]/5"
+                                : "text-gray-900 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800"
+                                }`}
+                              onClick={() => toggleMobileSubmenu(item.name)}
+                            >
+                              {item.name}
+                              <ChevronDown
+                                className={`h-5 w-5 transition-transform duration-300 ${mobileOpenSubmenu === item.name
+                                  ? "rotate-180 text-[#1C61E7]"
+                                  : "text-gray-400"
+                                  }`}
+                              />
+                            </button>
+
+                            {/* Mobile submenu with animation */}
+                            <div
+                              className={`overflow-hidden transition-all duration-300 ease-in-out ${mobileOpenSubmenu === item.name
+                                ? "max-h-96 opacity-100 mt-2"
+                                : "max-h-0 opacity-0"
+                                }`}
+                            >
+                              <div className="space-y-1 px-2 py-2 bg-[#1C61E7]/5 dark:bg-[#1C61E7]/10 rounded-xl">
+                                {item.submenu.map((subitem) => (
+                                  <Link
+                                    key={subitem.name}
+                                    href={subitem.href}
+                                    className="flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-800 hover:text-[#1C61E7] rounded-lg transition-all"
+                                    onClick={closeMobileMenu}
+                                  >
+                                    <div className="w-1.5 h-1.5 rounded-full bg-[#1C61E7]" />
+                                    {subitem.name}
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <Link
+                            href={item.href}
+                            className={`block px-4 py-4 text-base font-bold rounded-2xl transition-all ${pathname === item.href
+                              ? "text-[#1C61E7] bg-[#1C61E7]/5"
+                              : "text-gray-900 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800"
+                              }`}
+                            onClick={closeMobileMenu}
+                          >
+                            {item.name}
+                          </Link>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Mobile action buttons */}
+                  <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white dark:bg-black border-t border-gray-100 dark:border-gray-800 shadow-xl mt-4">
+                    <SubscribeModal
+                      trigger={
+                        <button
+                          className="flex items-center justify-center gap-2 w-full py-4.5 px-4 rounded-2xl text-center text-white bg-[#1C61E7] hover:bg-[#1C61E7]/90 font-bold shadow-xl shadow-blue-500/25 active:scale-95 transition-all text-lg"
+                          onClick={closeMobileMenu}
+                        >
+                          <Bell className="h-5 w-5" />
+                          Subscribe
+                        </button>
+                      }
+                    />
+
+                    {/* Notification link */}
+                    <Link
+                      href="/notifications"
+                      className="flex items-center justify-between px-5 py-3.5 text-sm font-semibold text-gray-900 dark:text-gray-200 bg-[#21C15E]/10 dark:bg-[#21C15E]/20 hover:bg-[#21C15E]/20 dark:hover:bg-[#21C15E]/30 rounded-xl transition-all"
+                      onClick={closeMobileMenu}
+                    >
+                      <span className="flex items-center gap-2">
+                        <Bell className="h-5 w-5 text-[#21C15E]" />
+                        Notifications
+                      </span>
+                      <span className="inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-[#21C15E] rounded-full animate-pulse">
+                        2
+                      </span>
+                    </Link>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
 
           {/* Desktop menu */}
@@ -272,152 +383,6 @@ const Navbar: React.FC = () => {
           </div>
         </nav>
       </div>
-
-      {/* Mobile menu dialog */}
-      <Transition show={mobileMenuOpen} as={React.Fragment}>
-        <Dialog as="div" className="lg:hidden" onClose={setMobileMenuOpen}>
-          <Transition.Child
-            as={React.Fragment}
-            enter="transition-opacity ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="transition-opacity ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black/25" />
-          </Transition.Child>
-
-          <Transition.Child
-            as={React.Fragment}
-            enter="transition ease-out duration-300"
-            enterFrom="transform translate-x-full"
-            enterTo="transform translate-x-0"
-            leave="transition ease-in duration-200"
-            leaveFrom="transform translate-x-0"
-            leaveTo="transform translate-x-full"
-          >
-            <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 border-l border-gray-100 dark:border-gray-800">
-              <div className="flex items-center justify-between mb-8">
-                <Link
-                  href="/"
-                  className="flex items-center gap-2"
-                  onClick={closeMobileMenu}
-                >
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-2xl font-bold text-[#1C61E7] tracking-tight">
-                      JNTUH
-                    </span>
-                    <span className="text-2xl font-semibold text-gray-900 dark:text-white tracking-tight">
-                      Results
-                    </span>
-                  </div>
-                </Link>
-                <button
-                  type="button"
-                  className="p-2.5 text-gray-700 dark:text-gray-200 hover:bg-[#1C61E7]/10 dark:hover:bg-[#1C61E7]/20 hover:text-[#1C61E7] rounded-lg transition-colors"
-                  onClick={closeMobileMenu}
-                >
-                  <span className="sr-only">Close menu</span>
-                  <X className="h-6 w-6" aria-hidden="true" />
-                </button>
-              </div>
-
-              {/* Mobile nav items */}
-              <div className="flow-root">
-                <div className="space-y-3">
-                  {navItems.map((item) => (
-                    <div key={item.name}>
-                      {item.submenu ? (
-                        <div>
-                          <button
-                            className={`flex items-center justify-between w-full px-4 py-4 text-base font-bold rounded-2xl transition-all ${mobileOpenSubmenu === item.name
-                              ? "text-[#1C61E7] bg-[#1C61E7]/5"
-                              : "text-gray-900 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800"
-                              }`}
-                            onClick={() => toggleMobileSubmenu(item.name)}
-                          >
-                            {item.name}
-                            <ChevronDown
-                              className={`h-5 w-5 transition-transform duration-300 ${mobileOpenSubmenu === item.name
-                                ? "rotate-180 text-[#1C61E7]"
-                                : "text-gray-400"
-                                }`}
-                            />
-                          </button>
-
-                          {/* Mobile submenu with animation */}
-                          <div
-                            className={`overflow-hidden transition-all duration-300 ease-in-out ${mobileOpenSubmenu === item.name
-                              ? "max-h-96 opacity-100 mt-2"
-                              : "max-h-0 opacity-0"
-                              }`}
-                          >
-                            <div className="space-y-1 px-2 py-2 bg-[#1C61E7]/5 dark:bg-[#1C61E7]/10 rounded-xl">
-                              {item.submenu.map((subitem) => (
-                                <Link
-                                  key={subitem.name}
-                                  href={subitem.href}
-                                  className="flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-800 hover:text-[#1C61E7] rounded-lg transition-all"
-                                  onClick={closeMobileMenu}
-                                >
-                                  <div className="w-1.5 h-1.5 rounded-full bg-[#1C61E7]" />
-                                  {subitem.name}
-                                </Link>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                      ) : (
-                        <Link
-                          href={item.href}
-                          className={`block px-4 py-4 text-base font-bold rounded-2xl transition-all ${pathname === item.href
-                            ? "text-[#1C61E7] bg-[#1C61E7]/5"
-                            : "text-gray-900 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800"
-                            }`}
-                          onClick={closeMobileMenu}
-                        >
-                          {item.name}
-                        </Link>
-                      )}
-                    </div>
-                  ))}
-                </div>
-
-                {/* Mobile action buttons */}
-                <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white dark:bg-black border-t border-gray-100 dark:border-gray-800 shadow-xl">
-                  <SubscribeModal
-                    trigger={
-                      <button
-                        className="flex items-center justify-center gap-2 w-full py-4.5 px-4 rounded-2xl text-center text-white bg-[#1C61E7] hover:bg-[#1C61E7]/90 font-bold shadow-xl shadow-blue-500/25 active:scale-95 transition-all text-lg"
-                        onClick={closeMobileMenu}
-                      >
-                        <Bell className="h-5 w-5" />
-                        Subscribe
-                      </button>
-                    }
-                  />
-
-                  {/* Notification link */}
-                  <Link
-                    href="/notifications"
-                    className="flex items-center justify-between px-5 py-3.5 text-sm font-semibold text-gray-900 dark:text-gray-200 bg-[#21C15E]/10 dark:bg-[#21C15E]/20 hover:bg-[#21C15E]/20 dark:hover:bg-[#21C15E]/30 rounded-xl transition-all"
-                    onClick={closeMobileMenu}
-                  >
-                    <span className="flex items-center gap-2">
-                      <Bell className="h-5 w-5 text-[#21C15E]" />
-                      Notifications
-                    </span>
-                    <span className="inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-[#21C15E] rounded-full animate-pulse">
-                      2
-                    </span>
-                  </Link>
-                </div>
-              </div>
-            </Dialog.Panel>
-          </Transition.Child>
-        </Dialog>
-      </Transition>
     </header>
   );
 };

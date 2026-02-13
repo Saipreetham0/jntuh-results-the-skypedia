@@ -15,7 +15,7 @@ import { Providers } from '@/components/layout/providers';
 import { GoogleTagManager, GoogleTagManagerNoScript } from '@/components/layout/scripts/GoogleTagManager';
 import { StructuredData } from '@/components/layout/scripts/StructuredData';
 
-import AnalyticsProvider from '@/components/analytics';
+
 import AdScript from '@/components/adsense/AdScript';
 import { AnchorAd } from '@/components/adsense';
 
@@ -47,7 +47,7 @@ export default function RootLayout({
       <body suppressHydrationWarning className={`${inter.variable} font-sans`}>
 
         {/* <SpeedInsights /> */}
-        <AnalyticsProvider />
+        {/* <AnalyticsProvider /> */}
         <GoogleTagManagerNoScript />
 
         <Providers>

@@ -127,7 +127,12 @@ Analytics (optional):
 ## Scripts
 
 ```
-pnpm dev           # Start dev server
+pnpm dev           # SFirst, run the development server:
+ 
+ ```bash
+ pnpm dev
+ # or
+ pnpm dev           # Start dev server
 pnpm build         # Production build
 pnpm start         # Start production server
 pnpm lint          # ESLint

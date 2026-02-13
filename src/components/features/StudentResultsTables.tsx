@@ -33,6 +33,7 @@
 // import { JNTUHService } from "@/lib/api";
 // import { Progress } from "@/components/ui/progress";
 // import AdBanner from "@/components/adsense/AdBanner";
+import { AD_SLOTS } from "@/config/adSlots";
 
 // // Loading State with improved UI
 // const LoadingState = () => (
@@ -55,7 +56,7 @@
 //         </div>
 //       </CardContent>
 //     </Card>
-//     <AdBanner adSlot="8973292958" adFormat="rectangle" className="my-4" />
+//     <AdBanner adSlot={AD_SLOTS.SPECIALIZED.LOADING_PAGE} adFormat="rectangle" className="my-4" />
 //   </div>
 // );
 
@@ -84,7 +85,7 @@
 //         </Button>
 //       </CardFooter>
 //     </Card>
-//     <AdBanner adSlot="8973292958" adFormat="horizontal" className="my-4" />
+//     <AdBanner adSlot={AD_SLOTS.SPECIALIZED.LOADING_PAGE} adFormat="horizontal" className="my-4" />
 //   </div>
 // );
 
@@ -253,7 +254,7 @@
 //       </Card>
 
 //       {showAd && (
-//         <AdBanner adSlot="8973292958" adFormat="horizontal" className="my-6" />
+//         <AdBanner adSlot={AD_SLOTS.SPECIALIZED.LOADING_PAGE} adFormat="horizontal" className="my-6" />
 //       )}
 //     </div>
 //   );
@@ -610,7 +611,7 @@
 //   return (
 //     <div className="max-w-4xl mx-auto p-4">
 //       {/* Top Ad */}
-//       <AdBanner adSlot="8973292958" adFormat="horizontal" className="mb-6 ad-banner" />
+//       <AdBanner adSlot={AD_SLOTS.SPECIALIZED.LOADING_PAGE} adFormat="horizontal" className="mb-6 ad-banner" />
 
 //       <div ref={printRef} className="bg-white">
 //         {/* Student Details Card */}
@@ -734,7 +735,7 @@
 //       </div>
 
 //       {/* Bottom Ad */}
-//       <AdBanner adSlot="8973292958" adFormat="horizontal" className="my-6 ad-banner" />
+//       <AdBanner adSlot={AD_SLOTS.SPECIALIZED.LOADING_PAGE} adFormat="horizontal" className="my-6 ad-banner" />
 
 //       {/* Action Buttons */}
 //       <div className="flex flex-wrap gap-4 mt-6">
@@ -779,7 +780,7 @@
 
 
 
-"use client";
+
 
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
@@ -813,7 +814,7 @@ import { Download, Printer, FileText, AlertTriangle, GraduationCap, Trophy, Tren
 import { JNTUHService } from "@/lib/api";
 import { Progress } from "@/components/ui/progress";
 import { ResponsiveAd, InContentAd } from "@/components/adsense";
-import AD_SLOTS from "@/config/adSlots";
+
 
 // Loading State with improved UI
 const LoadingState = () => (
@@ -939,7 +940,7 @@ const SGPAGauge: React.FC<{ sgpa: string }> = ({ sgpa }) => {
         <div className="h-3 w-full bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden shadow-inner">
           <div
             className={`h-3 rounded-full bg-gradient-to-r ${color} transition-all duration-500 ease-out shadow-sm`}
-            style={{ width: `${(sgpaValue/10)*100}%` }}
+            style={{ width: `${(sgpaValue / 10) * 100}%` }}
           ></div>
         </div>
         <div className="flex justify-between text-xs text-gray-500 mt-1 px-0.5">
@@ -961,15 +962,14 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
 
   return (
     <div className="mb-6 break-inside-avoid">
-      <Card className={`transition-all duration-200 hover:shadow-lg border-l-4 ${
-        hasFailed
-          ? 'border-l-red-500'
-          : sgpaValue >= 9
-            ? 'border-l-[#21C15E]'
-            : sgpaValue >= 8
-              ? 'border-l-[#1C61E7]'
-              : 'border-l-blue-500'
-      }`}>
+      <Card className={`transition-all duration-200 hover:shadow-lg border-l-4 ${hasFailed
+        ? 'border-l-red-500'
+        : sgpaValue >= 9
+          ? 'border-l-[#21C15E]'
+          : sgpaValue >= 8
+            ? 'border-l-[#1C61E7]'
+            : 'border-l-blue-500'
+        }`}>
         <CardHeader className="pb-4 bg-gradient-to-r from-gray-50/50 to-transparent dark:from-gray-800/50">
           <div className="flex justify-between items-start flex-wrap gap-3">
             <div>
@@ -990,19 +990,17 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
                 </span>
               </div>
             </div>
-            <div className={`px-4 py-2 rounded-lg text-center min-w-[80px] ${
-              sgpaValue >= 9
-                ? 'bg-gradient-to-br from-[#21C15E]/20 to-[#21C15E]/10 border border-[#21C15E]/30'
-                : sgpaValue >= 8
-                  ? 'bg-gradient-to-br from-[#1C61E7]/20 to-[#1C61E7]/10 border border-[#1C61E7]/30'
-                  : sgpaValue >= 7
-                    ? 'bg-gradient-to-br from-blue-100 to-blue-50 border border-blue-200'
-                    : 'bg-gradient-to-br from-yellow-100 to-yellow-50 border border-yellow-200'
-            }`}>
-              <div className="text-xs font-medium text-gray-600 uppercase tracking-wide">SGPA</div>
-              <div className={`text-2xl font-bold ${
-                sgpaValue >= 9 ? 'text-[#21C15E]' : sgpaValue >= 8 ? 'text-[#1C61E7]' : sgpaValue >= 7 ? 'text-blue-700' : 'text-yellow-700'
+            <div className={`px-4 py-2 rounded-lg text-center min-w-[80px] ${sgpaValue >= 9
+              ? 'bg-gradient-to-br from-[#21C15E]/20 to-[#21C15E]/10 border border-[#21C15E]/30'
+              : sgpaValue >= 8
+                ? 'bg-gradient-to-br from-[#1C61E7]/20 to-[#1C61E7]/10 border border-[#1C61E7]/30'
+                : sgpaValue >= 7
+                  ? 'bg-gradient-to-br from-blue-100 to-blue-50 border border-blue-200'
+                  : 'bg-gradient-to-br from-yellow-100 to-yellow-50 border border-yellow-200'
               }`}>
+              <div className="text-xs font-medium text-gray-600 uppercase tracking-wide">SGPA</div>
+              <div className={`text-2xl font-bold ${sgpaValue >= 9 ? 'text-[#21C15E]' : sgpaValue >= 8 ? 'text-[#1C61E7]' : sgpaValue >= 7 ? 'text-blue-700' : 'text-yellow-700'
+                }`}>
                 {semesterData.semesterSGPA}
               </div>
             </div>
@@ -1027,9 +1025,8 @@ const ResultsTable: React.FC<ResultsTableProps> = ({
                 {semesterData.subjects.map((subject, index) => (
                   <TableRow
                     key={subject.subjectCode}
-                    className={`hover:bg-blue-50/50 dark:hover:bg-blue-900/20 transition-colors ${
-                      subject.grades === 'F' ? 'bg-red-50/50 dark:bg-red-900/20' : ''
-                    } ${index % 2 === 0 ? 'bg-white dark:bg-gray-900' : 'bg-gray-50/50 dark:bg-gray-800/50'}`}
+                    className={`hover:bg-blue-50/50 dark:hover:bg-blue-900/20 transition-colors ${subject.grades === 'F' ? 'bg-red-50/50 dark:bg-red-900/20' : ''
+                      } ${index % 2 === 0 ? 'bg-white dark:bg-gray-900' : 'bg-gray-50/50 dark:bg-gray-800/50'}`}
                   >
                     <TableCell className="font-mono text-xs font-medium text-gray-600 dark:text-gray-400">
                       {subject.subjectCode}
@@ -1257,15 +1254,15 @@ const StudentResultsTables: React.FC<{ htno: string }> = ({ htno }) => {
             xPos += colWidths[1];
 
             // Internal marks
-            pdf.text(subj.internalMarks.toString(), xPos + colWidths[2]/2, currentY + 5, { align: "center" });
+            pdf.text(subj.internalMarks.toString(), xPos + colWidths[2] / 2, currentY + 5, { align: "center" });
             xPos += colWidths[2];
 
             // External marks
-            pdf.text(subj.externalMarks.toString(), xPos + colWidths[3]/2, currentY + 5, { align: "center" });
+            pdf.text(subj.externalMarks.toString(), xPos + colWidths[3] / 2, currentY + 5, { align: "center" });
             xPos += colWidths[3];
 
             // Credits
-            pdf.text(subj.credits.toString(), xPos + colWidths[4]/2, currentY + 5, { align: "center" });
+            pdf.text(subj.credits.toString(), xPos + colWidths[4] / 2, currentY + 5, { align: "center" });
             xPos += colWidths[4];
 
             // Grade with color
@@ -1278,13 +1275,13 @@ const StudentResultsTables: React.FC<{ htno: string }> = ({ htno }) => {
               pdf.setTextColor(0, 0, 0); // Black for other grades
             }
             pdf.setFont("helvetica", "bold");
-            pdf.text(grade, xPos + colWidths[5]/2, currentY + 5, { align: "center" });
+            pdf.text(grade, xPos + colWidths[5] / 2, currentY + 5, { align: "center" });
             pdf.setFont("helvetica", "normal");
             pdf.setTextColor(0, 0, 0);
             xPos += colWidths[5];
 
             // Total marks
-            pdf.text(subj.totalMarks?.toString() || "-", xPos + colWidths[6]/2, currentY + 5, { align: "center" });
+            pdf.text(subj.totalMarks?.toString() || "-", xPos + colWidths[6] / 2, currentY + 5, { align: "center" });
 
             currentY += 7;
 

@@ -15,7 +15,7 @@
 
 // const LoadingAd: React.FC<LoadingAdProps> = ({
 //   adSlot,
-//   adClient = "ca-pub-4870864326886980",
+//   adClient = AD_SLOTS.PUBLISHER_ID,
 // }) => {
 //   useEffect(() => {
 //     try {

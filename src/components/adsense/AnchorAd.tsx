@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { AD_SLOTS } from "@/config/adSlots";
 
 interface AnchorAdProps {
   adSlot: string;
@@ -111,7 +112,7 @@ const AnchorAd: React.FC<AnchorAdProps> = ({
             minHeight: "50px",
             maxHeight: "100px",
           }}
-          data-ad-client="ca-pub-4870864326886980"
+          data-ad-client={AD_SLOTS.PUBLISHER_ID}
           data-ad-slot={adSlot}
           data-ad-format="auto"
           data-full-width-responsive="true"

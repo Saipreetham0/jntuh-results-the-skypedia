@@ -1,11 +1,12 @@
 import Script from 'next/script';
+import { AD_SLOTS } from '@/config/adSlots';
 
 interface AdScriptProps {
   publisherId?: string;
 }
 
 const AdScript = ({
-  publisherId = 'ca-pub-4870864326886980',
+  publisherId = AD_SLOTS.PUBLISHER_ID,
 }: AdScriptProps) => {
   return (
     <Script

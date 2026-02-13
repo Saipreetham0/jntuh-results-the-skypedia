@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { AD_SLOTS } from "@/config/adSlots";
 
 interface MultiplexAdProps {
   adSlot: string;
@@ -77,7 +78,7 @@ const MultiplexAd: React.FC<MultiplexAdProps> = ({
             textAlign: "center",
             minHeight: "200px",
           }}
-          data-ad-client="ca-pub-4870864326886980"
+          data-ad-client={AD_SLOTS.PUBLISHER_ID}
           data-ad-slot={adSlot}
           data-ad-format="autorelaxed"
           data-full-width-responsive="true"

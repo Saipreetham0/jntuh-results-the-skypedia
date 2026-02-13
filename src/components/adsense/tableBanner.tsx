@@ -42,6 +42,7 @@
 
 
 import React, { useEffect, useRef } from 'react';
+import { AD_SLOTS } from '@/config/adSlots';
 
 interface TableBannerProps {
   adSlot: string;
@@ -56,7 +57,7 @@ declare global {
 
 const TableBanner: React.FC<TableBannerProps> = ({
   adSlot,
-  adClient = "ca-pub-4870864326886980"
+  adClient = AD_SLOTS.PUBLISHER_ID
 }) => {
   const adRef = useRef<HTMLModElement>(null);
   const adLoaded = useRef(false);

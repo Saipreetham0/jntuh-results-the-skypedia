@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 // import TableBanner from "@/components/adsense/tableBanner";
 
 import TableBanner from "@/components/adsense/tableBanner";
+import { AD_SLOTS } from "@/config/adSlots";
 
 // Define the type for the data fetched from Supabase
 interface College {
@@ -239,7 +240,7 @@ const JntuhTable: React.FC = () => {
         adRows.push(
           <tr key={`ad-${i}`}>
             <td className="px-6 py-4 whitespace-nowrap" colSpan={9}>
-              <TableBanner adSlot="8279758421" />
+              <TableBanner adSlot={AD_SLOTS.SPECIALIZED.TABLE_ADS} />
             </td>
           </tr>
         );

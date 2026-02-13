@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { AD_SLOTS } from "@/config/adSlots";
 
 interface StickySidebarAdProps {
     adSlot: string;
@@ -63,7 +64,7 @@ const StickySidebarAd: React.FC<StickySidebarAdProps> = ({
                         maxWidth: "300px",
                         minHeight: "600px"
                     }}
-                    data-ad-client="ca-pub-4870864326886980"
+                    data-ad-client={AD_SLOTS.PUBLISHER_ID}
                     data-ad-slot={adSlot}
                     data-ad-format="vertical"
                     data-full-width-responsive="false"

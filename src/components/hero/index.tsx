@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { MessageSquare, Globe, Search, TrendingUp, Award, Users } from "lucide-react";
 import AdBanner from "../adsense/AdBanner";
+import { AD_SLOTS } from "@/config/adSlots";
 
 const Hero: React.FC = () => {
   const handleWhatsAppContact = () => {
@@ -158,7 +159,7 @@ const Hero: React.FC = () => {
 
         {/* Ad banner */}
         <div className="mt-12">
-          <AdBanner adSlot="5967398818" />
+          <AdBanner adSlot={AD_SLOTS.SPECIALIZED.RESULTS_JNTUH} />
         </div>
       </div>
     </section>
