@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 // HMR Final Refresh: 2026-02-05 12:15 - PURGED NEXT/IMAGE CACHE
+import ScrollToTop from '@/components/ui/ScrollToTop';
 import type { Metadata } from 'next';
 
 // import { SpeedInsights } from '@vercel/speed-insights/next';
@@ -49,6 +50,7 @@ export default function RootLayout({
         {/* <SpeedInsights /> */}
         <AnalyticsProvider />
         <GoogleTagManagerNoScript />
+        <ScrollToTop />
         <AdScript />
 
         <Providers>

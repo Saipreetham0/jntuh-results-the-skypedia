@@ -71,7 +71,6 @@ const navItems: NavItem[] = [
     href: "#",
     submenu: [
       { name: "CGPA Calculator", href: "/cgpa-calculator", description: "Calculate your CGPA", icon: Calculator },
-      { name: "CGPA to Percentage", href: "/jntuh-cgpa-to-percentage-formula", description: "Convert CGPA to %", icon: Sparkles },
       { name: "Percentage to CGPA", href: "/percentage-to-cgpa-calculator", description: "Convert % to CGPA", icon: Sparkles },
       { name: "SGPA to CGPA", href: "/sgpa-to-cgpa-calculator", description: "Track semester progress", icon: Calculator },
       { name: "Marks to Percentage", href: "/marks-percentage-calculator", description: "Aggregate score check", icon: Calculator },
@@ -242,7 +241,7 @@ const Navbar: React.FC = () => {
                   <Menu className="w-6 h-6" />
                 </button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-full sm:w-[400px] p-0 bg-white dark:bg-gray-950 border-l border-gray-200 dark:border-gray-800">
+              <SheetContent side="right" className="w-full sm:w-[400px] p-0 bg-white dark:bg-gray-950 border-l border-gray-200 dark:border-gray-800 z-[100]">
                 <div className="flex flex-col h-full bg-white dark:bg-gray-950">
                   {/* 1. Mobile Header */}
                   <SheetHeader className="px-6 py-5 border-b border-gray-100 dark:border-gray-800 flex flex-row items-center justify-between bg-white/50 dark:bg-gray-950/50 backdrop-blur-md sticky top-0 z-20">
@@ -259,8 +258,16 @@ const Navbar: React.FC = () => {
                       <button
                         onClick={toggleDarkMode}
                         className="p-2 rounded-full text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                        aria-label="Toggle Theme"
                       >
                         {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                      </button>
+                      <button
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="p-2 rounded-full text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                        aria-label="Close Menu"
+                      >
+                        <X className="w-5 h-5" />
                       </button>
                     </div>
                   </SheetHeader>

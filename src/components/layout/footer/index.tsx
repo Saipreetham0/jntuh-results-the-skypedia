@@ -68,28 +68,6 @@ const resourceLinks: FooterLink[] = [
 ];
 
 const Footer: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
-
-    window.addEventListener('scroll', toggleVisibility);
-    return () => window.removeEventListener('scroll', toggleVisibility);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
-
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -300,17 +278,6 @@ const Footer: React.FC = () => {
         </div>
       </div>
 
-      {/* Modern Back to Top Button */}
-      {isVisible && (
-        <button
-          onClick={scrollToTop}
-          title="Scroll to TOP"
-          className="fixed bottom-8 right-8 z-[60] p-4 bg-[#1C61E7] text-white rounded-2xl shadow-2xl shadow-blue-500/30 border-2 border-white/20 backdrop-blur-lg hover:scale-110 active:scale-95 transition-all duration-300 animate-in fade-in zoom-in slide-in-from-bottom-5"
-          aria-label="Scroll back to top of the page"
-        >
-          <ChevronUp className="w-6 h-6 stroke-[3]" />
-        </button>
-      )}
     </footer>
   );
 };

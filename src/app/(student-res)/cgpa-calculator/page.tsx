@@ -295,6 +295,11 @@ const CGPACalculator = () => {
 
         <main className="relative z-10 container mx-auto px-4 py-8 lg:py-12 max-w-7xl">
 
+          {/* Top Ad */}
+          <div className="mb-8">
+            <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.TOP_BANNER} />
+          </div>
+
           {/* Header */}
           <motion.div
             initial="hidden"
@@ -477,6 +482,9 @@ const CGPACalculator = () => {
                   </p>
                 </div>
               </GlassCard>
+
+              {/* Middle Ad */}
+              <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.MID_RECTANGLE} />
             </motion.div>
 
             {/* Right Column: Sticky Result Dashboard */}
@@ -665,9 +673,14 @@ const CGPACalculator = () => {
             </div>
           </motion.div>
 
+          {/* Bottom Ad */}
+          <div className="mt-12">
+            <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.BOTTOM_RECTANGLE} />
+          </div>
+
         </main>
       </div>
-    </TooltipProvider>
+    </TooltipProvider >
   );
 };
 

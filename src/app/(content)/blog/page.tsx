@@ -1,127 +1,154 @@
+"use client";
+
 import React from 'react';
 import Link from 'next/link';
-import { Metadata } from 'next';
+import { motion } from 'framer-motion';
 import { getAllGuides } from '@/lib/content/guides';
 import { ResponsiveAd } from '@/components/adsense';
 import AD_SLOTS from '@/config/adSlots';
-
-export const metadata: Metadata = {
-    title: 'JNTUH Academic Guides & Resources | TheSkypedia Blog',
-    description: 'Helpful guides for JNTUH students regarding grading systems, CGPA calculation, grace marks rules, and academic regulations.',
-};
+import { GlassCard } from '@/components/ui/glass-card';
+import { Calendar, ChevronRight, BookOpen, Calculator, Search, Share2 } from 'lucide-react';
 
 export default function BlogIndex() {
     const guides = getAllGuides();
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mx-auto">
+        <div className="min-h-screen bg-[#F8FAFC] dark:bg-[#020617] relative overflow-hidden font-sans selection:bg-blue-100 dark:selection:bg-blue-900/30">
+            {/* Background Mesh Gradients Removed */}
+
+            <main className="relative z-10 container mx-auto px-4 py-8 lg:py-16 max-w-7xl">
                 {/* Header */}
-                <div className="text-center mb-12">
-                    <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-                        Academic Guides & <span className="text-[#1C61E7]">Insights</span>
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="text-center mb-16"
+                >
+                    <span className="inline-block py-1 px-3 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-sm font-semibold mb-4">
+                        The Skypedia Blog
+                    </span>
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 dark:text-white mb-6">
+                        Academic Guides & <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Insights</span>
                     </h1>
-                    <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                        Everything you need to know about JNTUH regulations, exam tips, and career guidance.
+                    <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                        Expert advice on JNTUH regulations, exam strategies, and career planning to help you navigate your engineering journey.
                     </p>
-                </div>
+                </motion.div>
 
                 {/* Top Ad */}
-                <ResponsiveAd adSlot={AD_SLOTS.BLOG.HEADER} format="horizontal" className="mb-10" />
+                <div className="mb-16">
+                    <ResponsiveAd adSlot={AD_SLOTS.BLOG.HEADER} format="horizontal" className="rounded-2xl overflow-hidden shadow-sm" />
+                </div>
 
-                {/* Grid with Sidebar */}
-                <div className="lg:grid lg:grid-cols-4 lg:gap-8">
-                    {/* Main Content */}
-                    <div className="lg:col-span-3">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            {guides.map((guide) => (
-                                <Link key={guide.slug} href={`/blog/${guide.slug}`} className="group">
-                                    <article className="h-full bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
-                                        <div className="p-6 flex-1 flex flex-col">
-                                            {/* Tags */}
-                                            <div className="flex flex-wrap gap-2 mb-4">
-                                                {guide.tags.slice(0, 2).map(tag => (
-                                                    <span key={tag} className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300">
+                {/* Content Layout */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+                    {/* Main Feed */}
+                    <div className="lg:col-span-8 space-y-8">
+                        {guides.map((guide, index) => (
+                            <motion.div
+                                key={guide.slug}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.1, duration: 0.5 }}
+                            >
+                                <Link href={`/blog/${guide.slug}`} className="group block h-full">
+                                    <GlassCard className="h-full p-6 md:p-8 hover:scale-[1.01] transition-all duration-300 border-slate-200 dark:border-slate-800 hover:border-blue-300 dark:hover:border-blue-700/50 group-hover:shadow-xl group-hover:shadow-blue-500/10 dark:group-hover:shadow-blue-900/20">
+                                        <div className="flex flex-col h-full">
+                                            {/* Meta Tags */}
+                                            <div className="flex flex-wrap items-center gap-3 mb-4">
+                                                {guide.tags.slice(0, 3).map(tag => (
+                                                    <span key={tag} className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-800">
                                                         {tag}
                                                     </span>
                                                 ))}
+                                                <span className="text-xs text-slate-400 flex items-center gap-1 ml-auto">
+                                                    <Calendar className="w-3.5 h-3.5" />
+                                                    {new Date(guide.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                                                </span>
                                             </div>
 
-                                            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-[#1C61E7] transition-colors line-clamp-2">
+                                            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-tight">
                                                 {guide.title}
                                             </h2>
 
-                                            <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3 flex-1">
+                                            <p className="text-slate-600 dark:text-slate-400 text-base leading-relaxed mb-6 line-clamp-3">
                                                 {guide.description}
                                             </p>
 
-                                            <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100 dark:border-gray-700">
-                                                <span className="text-xs text-gray-400 font-medium">
-                                                    {new Date(guide.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-                                                </span>
-                                                <span className="text-sm font-semibold text-[#1C61E7] flex items-center group-hover:underline">
-                                                    Read Guide
-                                                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                                    </svg>
-                                                </span>
+                                            <div className="mt-auto flex items-center justify-between pt-6 border-t border-slate-100 dark:border-slate-800/50">
+                                                <div className="flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400 group-hover:gap-3 transition-all">
+                                                    Read Article <ChevronRight className="w-4 h-4" />
+                                                </div>
+                                                <div className="flex items-center gap-4 text-slate-400 text-sm">
+                                                    <span className="flex items-center gap-1.5 hover:text-blue-500 transition-colors">
+                                                        <BookOpen className="w-4 h-4" /> 5 min read
+                                                    </span>
+                                                    <span className="flex items-center gap-1.5 hover:text-blue-500 transition-colors">
+                                                        <Share2 className="w-4 h-4" /> Share
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </article>
+                                    </GlassCard>
                                 </Link>
-                            ))}
-                        </div>
+                            </motion.div>
+                        ))}
                     </div>
 
                     {/* Sidebar */}
-                    <aside className="mt-12 lg:mt-0 lg:col-span-1 space-y-8">
-                        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
-                            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center">
-                                <span className="w-1.5 h-6 bg-[#1C61E7] rounded-full mr-3"></span>
-                                Academic Tools
+                    <aside className="lg:col-span-4 space-y-8">
+                        {/* Search Widget */}
+                        <GlassCard className="p-6">
+                            <div className="relative">
+                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                                <input
+                                    type="text"
+                                    placeholder="Search guides..."
+                                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all outline-none"
+                                />
+                            </div>
+                        </GlassCard>
+
+                        {/* Recent Tools Widget */}
+                        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-black/20">
+                            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                                <Calculator className="w-5 h-5 text-blue-500" /> Popular Tools
                             </h3>
-                            <div className="space-y-4">
-                                <Link href="/cgpa-calculator" className="flex items-center p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-transparent hover:border-blue-100 dark:hover:border-blue-900">
-                                    <div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center text-[#1C61E7] mr-4">
-                                        🔢
+                            <div className="space-y-3">
+                                <Link href="/cgpa-calculator" className="flex items-center p-3 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all group">
+                                    <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 mr-4 group-hover:scale-110 transition-transform">
+                                        📈
                                     </div>
-                                    <div className="flex-1">
-                                        <h4 className="text-sm font-bold text-gray-900 dark:text-white">CGPA Calculator</h4>
-                                        <p className="text-xs text-gray-500">Calculate SGPA/CGPA</p>
-                                    </div>
-                                </Link>
-                                <Link href="/check-backlogs" className="flex items-center p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-transparent hover:border-emerald-100 dark:hover:border-emerald-900">
-                                    <div className="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center text-emerald-600 mr-4">
-                                        🔍
-                                    </div>
-                                    <div className="flex-1">
-                                        <h4 className="text-sm font-bold text-gray-900 dark:text-white">Backlog Checker</h4>
-                                        <p className="text-xs text-gray-500">Check pending exams</p>
+                                    <div>
+                                        <h4 className="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">CGPA Calculator</h4>
+                                        <p className="text-xs text-slate-500">Calculate your aggregate</p>
                                     </div>
                                 </Link>
-                                <Link href="/jntuh-cgpa-to-percentage-formula" className="flex items-center p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border border-transparent hover:border-blue-100 dark:hover:border-blue-900">
-                                    <div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center text-[#1C61E7] mr-4">
-                                        📊
+                                <Link href="/check-backlogs" className="flex items-center p-3 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all group">
+                                    <div className="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400 mr-4 group-hover:scale-110 transition-transform">
+                                        ✅
                                     </div>
-                                    <div className="flex-1">
-                                        <h4 className="text-sm font-bold text-gray-900 dark:text-white">Formula Guide</h4>
-                                        <p className="text-xs text-gray-500">Official JNTUH Rules</p>
+                                    <div>
+                                        <h4 className="font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 transition-colors">Backlog Checker</h4>
+                                        <p className="text-xs text-slate-500">Status of your exams</p>
                                     </div>
                                 </Link>
                             </div>
                         </div>
 
-                        {/* Newsletter/CTA */}
-                        <div className="bg-gradient-to-br from-[#1C61E7] to-blue-700 rounded-2xl p-6 text-white shadow-xl">
-                            <h3 className="font-bold text-lg mb-2">Join result alerts!</h3>
-                            <p className="text-blue-100 text-sm mb-4">Get notified on WhatsApp when JNTUH results are released.</p>
-                            <a href="https://wa.me/919550421866" className="block text-center py-3 bg-white text-[#1C61E7] rounded-xl font-bold text-sm hover:bg-blue-50 transition-colors">
-                                Join WhatsApp Group
-                            </a>
+                        {/* Sidebar Ad */}
+                        <div className="sticky top-24">
+                            <ResponsiveAd adSlot={AD_SLOTS.SIDEBAR.STICKY} format="rectangle" className="rounded-2xl overflow-hidden shadow-lg" />
                         </div>
                     </aside>
                 </div>
-            </div>
+
+                {/* Bottom Ad */}
+                <div className="mt-16">
+                    <ResponsiveAd adSlot={AD_SLOTS.BLOG.FOOTER} format="horizontal" className="rounded-2xl overflow-hidden" />
+                </div>
+
+            </main>
         </div>
     );
 }

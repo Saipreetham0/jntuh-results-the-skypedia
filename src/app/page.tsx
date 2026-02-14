@@ -22,7 +22,7 @@ export default function Home(): JSX.Element {
       <FeaturesSection />
 
       {/* 4. Top Ad Banner */}
-      <section className="container mx-auto px-4 py-8 max-w-7xl">
+      <section className="container mx-auto px-4 py-4 md:py-8 max-w-7xl">
         <div className="bg-gray-100 dark:bg-gray-800/50 rounded-xl overflow-hidden min-h-[90px] flex items-center justify-center">
           <p className="sr-only">Advertisement</p>
           <ResponsiveAd adSlot={AD_SLOTS.HOMEPAGE.TOP_BANNER} format="horizontal" />
@@ -33,7 +33,7 @@ export default function Home(): JSX.Element {
       <ResultsBox />
 
       {/* 6. Middle Ad Section */}
-      <section className="container mx-auto px-4 py-8 max-w-7xl">
+      <section className="container mx-auto px-4 py-4 md:py-8 max-w-7xl">
         <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-4 shadow-sm text-center">
           <p className="text-[10px] text-gray-400 uppercase tracking-widest mb-2 font-medium">Sponsored</p>
           <div className="min-h-[90px] flex items-center justify-center">
@@ -46,7 +46,7 @@ export default function Home(): JSX.Element {
       <HomepageBlog />
 
       {/* 8. Newsletter Subscription */}
-      <section className="py-16 bg-white dark:bg-gray-800 border-y border-gray-100 dark:border-gray-800">
+      <section className="py-10 md:py-16 bg-white dark:bg-gray-800 border-y border-gray-100 dark:border-gray-800">
         <div className="container mx-auto px-4 max-w-3xl">
           <SubscriptionForm compact={true} />
         </div>
@@ -56,7 +56,7 @@ export default function Home(): JSX.Element {
       <FAQSection />
 
       {/* 10. Bottom Ad Banner */}
-      <section className="container mx-auto px-4 py-12 max-w-7xl">
+      <section className="container mx-auto px-4 py-8 md:py-12 max-w-7xl">
         <div className="text-center mb-4">
           <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium">Supported By</p>
         </div>

@@ -45,11 +45,11 @@ const AdBanner: React.FC<AdBannerProps> = ({
       if (!window.adsbygoogle) {
         window.adsbygoogle = [];
       }
-      console.log(`Initializing AdBanner for slot ${adSlot}`);
+      console.log(`AdBanner: Pushing ad for slot ${adSlot}`);
       window.adsbygoogle.push({});
       setAdLoaded(true);
-    } catch (error) {
-      console.error("AdBanner error:", error);
+    } catch (error: any) {
+      console.error(`AdBanner Error (Slot ${adSlot}):`, error?.message || error);
     }
   }, [isMounted, adLoaded]);
 

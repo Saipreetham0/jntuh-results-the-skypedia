@@ -157,7 +157,7 @@ const ResultsBox: React.FC = () => {
   }, [searchTerm, activeCategory]);
 
   return (
-    <section className="relative py-20 md:py-32 px-4 overflow-hidden bg-slate-50 dark:bg-[#020617]">
+    <section className="relative py-12 md:py-32 px-4 overflow-hidden bg-slate-50 dark:bg-[#020617]">
       {/* Dynamic Background Mesh Gradients - Premium Look */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-400/10 dark:bg-blue-600/10 blur-[100px] animate-blob mix-blend-multiply dark:mix-blend-lighten" />
@@ -167,7 +167,7 @@ const ResultsBox: React.FC = () => {
 
       <div className="container mx-auto max-w-7xl relative z-10">
         {/* Header section with enhanced styling - Premium Typography */}
-        <div className="text-center mb-16 animate-fade-in">
+        <div className="text-center mb-10 md:mb-16 animate-fade-in">
           <div className="inline-flex items-center px-4 py-1.5 mb-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-full text-blue-600 dark:text-blue-400 text-sm font-semibold shadow-sm hover:shadow-md transition-all duration-300">
             <Sparkles className="w-4 h-4 mr-2 text-indigo-500" />
             <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
@@ -183,7 +183,7 @@ const ResultsBox: React.FC = () => {
         </div>
 
         {/* Enhanced search and filters - Glassmorphism */}
-        <div className="mb-16 max-w-4xl mx-auto space-y-8 animate-slide-up">
+        <div className="mb-10 md:mb-16 max-w-4xl mx-auto space-y-6 md:space-y-8 animate-slide-up">
           {/* Recently Visited Section - Integrated smoothly */}
           <RecentlyVisited />
 
@@ -210,14 +210,14 @@ const ResultsBox: React.FC = () => {
             </div>
           </div>
 
-          {/* Enhanced category filter tabs */}
-          <div className="flex flex-wrap justify-center gap-3">
+          {/* Enhanced category filter tabs - Horizontal scroll on mobile */}
+          <div className="flex flex-nowrap overflow-x-auto pb-4 -mx-4 px-4 md:flex-wrap md:justify-center md:gap-3 md:overflow-visible md:pb-0 md:px-0 scrollbar-hide snap-x">
             {categories.map((category) => (
               <button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
                 className={`
-                  relative px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300
+                  flex-shrink-0 snap-center relative px-6 py-2.5 mx-1.5 md:mx-0 rounded-full text-sm font-semibold transition-all duration-300 whitespace-nowrap
                   ${activeCategory === category.id
                     ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-lg scale-105"
                     : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800"
