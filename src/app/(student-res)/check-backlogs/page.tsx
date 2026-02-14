@@ -1,5 +1,5 @@
 // app/backlogs/page.tsx
-import BacklogsPage from '@/components/features/backlogs-page';
+import BacklogsPage from '@/components/features/backlogs';
 import { Metadata } from 'next';
 import { generateMetadata } from '@/lib/metadata';
 import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
