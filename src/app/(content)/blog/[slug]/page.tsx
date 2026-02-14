@@ -7,7 +7,6 @@ import { ResponsiveAd, InContentAd } from '@/components/adsense';
 import AD_SLOTS from '@/config/adSlots';
 import { GlassCard } from '@/components/ui/glass-card';
 import { Calendar, Tag, ChevronLeft, Clock, Share2, Calculator, ArrowRight } from 'lucide-react';
-import { ScrollProgress } from '@/components/ui/scroll-progress'; // Assuming this component exists or I will create a simple one inline
 
 type Props = {
     params: Promise<{
@@ -171,7 +170,7 @@ export default async function BlogPost({ params }: Props) {
 
                         {/* Sidebar Ad */}
                         <div className="sticky top-24">
-                            <ResponsiveAd adSlot={AD_SLOTS.SIDEBAR.STICKY} format="rectangle" className="rounded-2xl overflow-hidden shadow-lg" />
+                            <ResponsiveAd adSlot={AD_SLOTS.SIDEBAR.STICKY_TOP} format="rectangle" className="rounded-2xl overflow-hidden shadow-lg" />
                         </div>
                     </aside>
                 </div>

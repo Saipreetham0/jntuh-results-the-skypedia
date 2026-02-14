@@ -7,7 +7,11 @@ import { motion } from 'framer-motion';
 import { ResponsiveAd } from '@/components/adsense';
 import { AD_SLOTS } from '@/config/adSlots';
 
-export default function ResultCheckerHero() {
+interface ResultCheckerHeroProps {
+    onSearch?: (rollNumber: string) => void;
+}
+
+export default function ResultCheckerHero({ onSearch }: ResultCheckerHeroProps) {
     const [rollNumber, setRollNumber] = useState('');
     const [error, setError] = useState('');
     const [searchType, setSearchType] = useState<'consolidated' | 'latest'>('consolidated');
@@ -21,6 +25,12 @@ export default function ResultCheckerHero() {
         }
         if (rollNumber.length < 10) {
             setError('Please enter a valid 10-digit roll number');
+            return;
+        }
+
+        // If onSearch is provided and we are in consolidated mode, use it
+        if (onSearch && searchType === 'consolidated') {
+            onSearch(rollNumber);
             return;
         }
 
