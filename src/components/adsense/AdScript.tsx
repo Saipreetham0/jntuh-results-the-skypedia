@@ -1,22 +1,24 @@
-import Script from 'next/script';
+'use client';
+
+import { useEffect } from 'react';
 import { AD_SLOTS } from '@/config/adSlots';
 
-interface AdScriptProps {
-  publisherId?: string;
-}
+const AdScript = () => {
+  useEffect(() => {
+    // Prevent duplicate injection
+    if (document.getElementById('adsbygoogle-init')) return;
 
-const AdScript = ({
-  publisherId = AD_SLOTS.PUBLISHER_ID,
-}: AdScriptProps) => {
-  return (
-    <Script
-      id="adsbygoogle-script"
-      async
-      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${publisherId}`}
-      strategy="lazyOnload"
-      crossOrigin="anonymous"
-    />
-  );
+    const script = document.createElement('script');
+    script.id = 'adsbygoogle-init';
+    script.async = true;
+    script.crossOrigin = 'anonymous';
+    script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${AD_SLOTS.PUBLISHER_ID}`;
+
+    // Add to head to ensure early loading
+    document.head.appendChild(script);
+  }, []);
+
+  return null;
 };
 
 export default AdScript;
