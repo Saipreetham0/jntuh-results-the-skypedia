@@ -314,7 +314,7 @@ export default function BacklogsPage() {
                                 {/* Ad: Sidebar Sticky (Heatmap: Persistent Visibility) */}
                                 <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 flex justify-center min-h-[600px] items-center text-gray-400 bg-grid-pattern relative overflow-hidden">
                                     <div className="absolute top-2 right-2 text-[10px] text-gray-300 uppercase tracking-widest font-semibold">Advertisement</div>
-                                    <ResponsiveAd adSlot={AD_SLOTS.SIDEBAR.STICKY_MID} format="vertical" />
+                                    <ResponsiveAd adSlot={AD_SLOTS.SIDEBAR.STICKY_MIDDLE} format="vertical" />
                                 </div>
 
                                 {/* Quick Links Widget */}

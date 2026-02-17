@@ -18,6 +18,15 @@ export function generateWebsiteSchema(): WithContext<WebSite> {
         height: '60',
       },
     },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: 'https://jntuhresults.theskypedia.com/search?q={search_term_string}',
+      },
+      // @ts-expect-error - query-input is valid for SearchAction but not in types
+      'query-input': 'required name=search_term_string',
+    },
   };
 }
 

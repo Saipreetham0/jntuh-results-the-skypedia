@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Mail, MapPin, ArrowRight, Heart, ChevronUp, Github, Instagram, Youtube, Twitter } from 'lucide-react';
 import { siteConfig } from '@/config/site';
+import TrustBadges from '@/components/ui/TrustBadges';
 
 interface SocialLink {
   name: string;
@@ -249,8 +250,13 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
+        {/* Trust Badges Section */}
+        <div className="px-6 py-8">
+          <TrustBadges />
+        </div>
+
         {/* Global Footer Bottom Bar */}
-        <div className="px-6 py-12 border-t border-gray-100 dark:border-gray-800">
+        <div className="px-6 py-12 border-t border-gray-200 dark:border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center gap-8">
             <div className="flex flex-col items-center md:items-start gap-1">
               <span className="text-sm font-semibold text-gray-900 dark:text-white">&copy; {new Date().getFullYear()} {siteConfig.brand.creator.toUpperCase()}</span>

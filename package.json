@@ -76,6 +76,7 @@
     "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7",
     "typeorm": "^0.3.28",
+    "web-vitals": "^5.1.0",
     "yup": "^1.7.1"
   },
   "devDependencies": {
