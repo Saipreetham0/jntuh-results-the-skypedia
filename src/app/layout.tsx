@@ -19,7 +19,7 @@ import { StructuredData } from '@/components/layout/scripts/StructuredData';
 
 
 import AdScript from '@/components/adsense/AdScript';
-import { AnchorAd } from '@/components/adsense';
+import { AnchorAd, AdDebug } from '@/components/adsense';
 
 import AD_SLOTS from '@/config/adSlots';
 
@@ -52,6 +52,7 @@ export default function RootLayout({
         <GoogleTagManagerNoScript />
         <ScrollToTop />
         <AdScript />
+        <AdDebug />
 
         <Providers>
           <div className="flex flex-col min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">

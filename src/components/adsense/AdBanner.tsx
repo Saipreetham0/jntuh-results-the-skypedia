@@ -81,6 +81,7 @@ const AdBanner: React.FC<AdBannerProps> = ({
         data-ad-slot={adSlot}
         data-ad-format={adFormat}
         data-full-width-responsive={fullWidthResponsive.toString()}
+        data-adtest={process.env.NODE_ENV === 'development' ? 'on' : undefined}
       />
     </div>
   );
