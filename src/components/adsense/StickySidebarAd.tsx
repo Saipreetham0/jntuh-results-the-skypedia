@@ -22,6 +22,11 @@ const StickySidebarAd: React.FC<StickySidebarAdProps> = ({
     top = "100px",
 }) => {
     const [isDesktop, setIsDesktop] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     useEffect(() => {
         const handleResize = () => {
@@ -34,16 +39,17 @@ const StickySidebarAd: React.FC<StickySidebarAdProps> = ({
     }, []);
 
     useEffect(() => {
-        if (!isDesktop) return;
-
+        if (!isMounted || !isDesktop) return;
         try {
-            if (typeof window !== "undefined" && window.adsbygoogle) {
+            if (typeof window !== 'undefined') {
                 (window.adsbygoogle = window.adsbygoogle || []).push({});
             }
         } catch (error) {
-            console.error("Error loading sticky sidebar ad:", error);
+            console.error('Error loading sticky sidebar ad:', error);
         }
-    }, [isDesktop]);
+    }, [isMounted, isDesktop]);
+
+    if (!isMounted) return null;
 
     if (!isDesktop) return null;
 

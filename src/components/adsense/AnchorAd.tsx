@@ -50,7 +50,7 @@ const AnchorAd: React.FC<AnchorAdProps> = ({
 
     // Load AdSense ad
     try {
-      if (typeof window !== 'undefined' && window.adsbygoogle) {
+      if (typeof window !== 'undefined') {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
       }
     } catch (error) {
