@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AD_SLOTS } from '@/config/adSlots';
 
 interface TableBannerProps {
@@ -13,18 +13,28 @@ const TableBanner: React.FC<TableBannerProps> = ({
   adClient = AD_SLOTS.PUBLISHER_ID,
 }) => {
   const adRef = useRef<HTMLModElement>(null);
-  const adLoaded = useRef(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const [adLoaded, setAdLoaded] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && adRef.current && !adLoaded.current) {
-      try {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-        adLoaded.current = true;
-      } catch (error) {
-        console.error('Error loading Google AdSense ad:', error);
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted || adLoaded || typeof window === 'undefined' || !adRef.current) return;
+
+    try {
+      if (!window.adsbygoogle) {
+        window.adsbygoogle = [];
       }
+      window.adsbygoogle.push({});
+      setAdLoaded(true);
+    } catch (error) {
+      console.error('Error loading Google AdSense ad:', error);
     }
-  }, [adSlot]);
+  }, [isMounted, adLoaded, adSlot]);
+
+  if (!isMounted) return null;
 
   return (
     <div className="ad-container w-full min-w-[250px]">

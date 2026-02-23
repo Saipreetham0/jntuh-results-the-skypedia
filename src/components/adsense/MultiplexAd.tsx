@@ -35,29 +35,29 @@ const MultiplexAd: React.FC<MultiplexAdProps> = ({
 }) => {
   const adRef = useRef<HTMLModElement>(null);
   const [adLoaded, setAdLoaded] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    if (adLoaded || typeof window === "undefined" || !adRef.current) {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted || adLoaded || typeof window === "undefined" || !adRef.current) {
       return;
     }
 
-    const loadAd = () => {
-      try {
-        if (!window.adsbygoogle) {
-          window.adsbygoogle = [];
-        }
-        window.adsbygoogle.push({});
-        setAdLoaded(true);
-      } catch (error) {
-        console.error("Error loading multiplex ad:", error);
+    try {
+      if (!window.adsbygoogle) {
+        window.adsbygoogle = [];
       }
-    };
+      window.adsbygoogle.push({});
+      setAdLoaded(true);
+    } catch (error) {
+      console.error("Error loading multiplex ad:", error);
+    }
+  }, [isMounted, adLoaded]);
 
-    // Small delay to ensure DOM is ready
-    const timer = setTimeout(loadAd, 100);
-
-    return () => clearTimeout(timer);
-  }, [adLoaded]);
+  if (!isMounted) return null;
 
   return (
     <div className={`w-full my-6 ${className}`}>

@@ -28,6 +28,8 @@ const AnchorAd: React.FC<AnchorAdProps> = ({
   const [isVisible, setIsVisible] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [adLoaded, setAdLoaded] = useState(false);
+  const adRef = React.useRef<HTMLModElement>(null);
 
   useEffect(() => {
     setIsMounted(true);
@@ -46,17 +48,19 @@ const AnchorAd: React.FC<AnchorAdProps> = ({
   }, []);
 
   useEffect(() => {
-    if (!isMounted || !isMobile || !isVisible) return;
+    if (!isMounted || !isMobile || !isVisible || adLoaded || typeof window === 'undefined' || !adRef.current) return;
 
     // Load AdSense ad
     try {
-      if (typeof window !== 'undefined') {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      if (!window.adsbygoogle) {
+        window.adsbygoogle = [];
       }
+      window.adsbygoogle.push({});
+      setAdLoaded(true);
     } catch (error) {
       console.error('Error loading anchor ad:', error);
     }
-  }, [isMounted, isMobile, isVisible]);
+  }, [isMounted, isMobile, isVisible, adLoaded]);
 
   // Don't render on server
   if (!isMounted) return null;
@@ -105,6 +109,7 @@ const AnchorAd: React.FC<AnchorAdProps> = ({
       {/* AdSense anchor ad */}
       <div className="w-full flex justify-center items-center min-h-[50px] pb-2">
         <ins
+          ref={adRef}
           className="adsbygoogle"
           style={{
             display: "block",

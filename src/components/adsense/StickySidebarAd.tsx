@@ -23,6 +23,8 @@ const StickySidebarAd: React.FC<StickySidebarAdProps> = ({
 }) => {
     const [isDesktop, setIsDesktop] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
+    const [adLoaded, setAdLoaded] = useState(false);
+    const adRef = React.useRef<HTMLModElement>(null);
 
     useEffect(() => {
         setIsMounted(true);
@@ -39,15 +41,17 @@ const StickySidebarAd: React.FC<StickySidebarAdProps> = ({
     }, []);
 
     useEffect(() => {
-        if (!isMounted || !isDesktop) return;
+        if (!isMounted || !isDesktop || adLoaded || typeof window === 'undefined' || !adRef.current) return;
         try {
-            if (typeof window !== 'undefined') {
-                (window.adsbygoogle = window.adsbygoogle || []).push({});
+            if (!window.adsbygoogle) {
+                window.adsbygoogle = [];
             }
+            window.adsbygoogle.push({});
+            setAdLoaded(true);
         } catch (error) {
             console.error('Error loading sticky sidebar ad:', error);
         }
-    }, [isMounted, isDesktop]);
+    }, [isMounted, isDesktop, adLoaded]);
 
     if (!isMounted) return null;
 
@@ -63,6 +67,7 @@ const StickySidebarAd: React.FC<StickySidebarAdProps> = ({
             </div>
             <div className="bg-gray-50/50 dark:bg-gray-800/20 rounded-xl overflow-hidden min-h-[600px] flex items-center justify-center border border-gray-100 dark:border-gray-800">
                 <ins
+                    ref={adRef}
                     className="adsbygoogle"
                     style={{
                         display: "block",

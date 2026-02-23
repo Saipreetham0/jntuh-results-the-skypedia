@@ -20,21 +20,25 @@ const InArticleNativeAd: React.FC<InArticleNativeAdProps> = ({
     className = "",
 }) => {
     const [isMounted, setIsMounted] = useState(false);
+    const [adLoaded, setAdLoaded] = useState(false);
+    const adRef = React.useRef<HTMLModElement>(null);
 
     useEffect(() => {
         setIsMounted(true);
     }, []);
 
     useEffect(() => {
-        if (!isMounted) return;
+        if (!isMounted || adLoaded || typeof window === "undefined" || !adRef.current) return;
         try {
-            if (typeof window !== "undefined") {
-                (window.adsbygoogle = window.adsbygoogle || []).push({});
+            if (!window.adsbygoogle) {
+                window.adsbygoogle = [];
             }
+            window.adsbygoogle.push({});
+            setAdLoaded(true);
         } catch (error) {
             console.error("Error loading native in-article ad:", error);
         }
-    }, [isMounted]);
+    }, [isMounted, adLoaded]);
 
     if (!isMounted) {
         return <div className={`my-8 bg-white dark:bg-transparent ${className} min-h-[200px]`} />;
@@ -49,6 +53,7 @@ const InArticleNativeAd: React.FC<InArticleNativeAdProps> = ({
             </div>
             <div className="min-h-[200px] flex items-center justify-center overflow-hidden rounded-2xl bg-gray-50/30 dark:bg-gray-900/10">
                 <ins
+                    ref={adRef}
                     className="adsbygoogle"
                     style={{
                         display: "block",
