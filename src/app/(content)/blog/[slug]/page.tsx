@@ -4,6 +4,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { getGuideBySlug, getAllGuides } from '@/lib/content/guides';
 import { ResponsiveAd, InContentAd } from '@/components/adsense';
+import ContentWithAds from '@/components/adsense/ContentWithAds';
 import AD_SLOTS from '@/config/adSlots';
 import { GlassCard } from '@/components/ui/glass-card';
 import { Calendar, Tag, ChevronLeft, Clock, Share2, Calculator, ArrowRight } from 'lucide-react';
@@ -113,7 +114,7 @@ export default async function BlogPost({ params }: Props) {
                                 prose-strong:text-slate-900 dark:prose-strong:text-white
                                 prose-ul:marker:text-blue-500 dark:prose-ul:marker:text-blue-400
                                 prose-img:rounded-2xl prose-img:shadow-lg">
-                                <div dangerouslySetInnerHTML={{ __html: guide.content }} />
+                                <ContentWithAds content={guide.content} />
                             </div>
                         </GlassCard>
 

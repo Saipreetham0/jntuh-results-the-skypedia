@@ -45,6 +45,18 @@ const AdBanner: React.FC<AdBannerProps> = ({
       if (!window.adsbygoogle) {
         window.adsbygoogle = [];
       }
+
+      // React 18 StrictMode remount guard: AdSense mutates the DOM by adding status flags.
+      // If flags are present, Google already processed this INS tag.
+      if (
+        adRef.current.getAttribute('data-adsbygoogle-status') ||
+        adRef.current.getAttribute('data-ad-status') ||
+        adRef.current.children.length > 0
+      ) {
+        setAdLoaded(true);
+        return;
+      }
+
       console.log(`AdBanner: Pushing ad for slot ${adSlot}`);
       window.adsbygoogle.push({});
       setAdLoaded(true);

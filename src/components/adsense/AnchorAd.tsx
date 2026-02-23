@@ -55,6 +55,16 @@ const AnchorAd: React.FC<AnchorAdProps> = ({
       if (!window.adsbygoogle) {
         window.adsbygoogle = [];
       }
+
+      if (
+        adRef.current.getAttribute('data-adsbygoogle-status') ||
+        adRef.current.getAttribute('data-ad-status') ||
+        adRef.current.children.length > 0
+      ) {
+        setAdLoaded(true);
+        return;
+      }
+
       window.adsbygoogle.push({});
       setAdLoaded(true);
     } catch (error) {
