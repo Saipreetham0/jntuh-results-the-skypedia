@@ -7,7 +7,7 @@
 
 export const AD_SLOTS = {
   // Publisher ID
-  PUBLISHER_ID: 'ca-pub-8569567515057281',
+  PUBLISHER_ID: 'ca-pub-4870864326886980',
 
   /**
    * BLOG / ARTICLE PAGES — Primary revenue source
