@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { AD_SLOTS } from "@/config/adSlots";
 
 interface InArticleNativeAdProps {
@@ -19,15 +19,26 @@ const InArticleNativeAd: React.FC<InArticleNativeAdProps> = ({
     adSlot,
     className = "",
 }) => {
+    const [isMounted, setIsMounted] = useState(false);
+
     useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    useEffect(() => {
+        if (!isMounted) return;
         try {
-            if (typeof window !== "undefined" && window.adsbygoogle) {
+            if (typeof window !== "undefined") {
                 (window.adsbygoogle = window.adsbygoogle || []).push({});
             }
         } catch (error) {
             console.error("Error loading native in-article ad:", error);
         }
-    }, []);
+    }, [isMounted]);
+
+    if (!isMounted) {
+        return <div className={`my-8 bg-white dark:bg-transparent ${className} min-h-[200px]`} />;
+    }
 
     return (
         <div className={`my-8 bg-white dark:bg-transparent ${className}`}>

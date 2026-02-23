@@ -34,10 +34,8 @@ const AdBanner: React.FC<AdBannerProps> = ({
 
   useEffect(() => {
     setIsMounted(true);
-  }, []);
 
-  useEffect(() => {
-    if (!isMounted || adLoaded || typeof window === "undefined" || !adRef.current) {
+    if (adLoaded || typeof window === "undefined" || !adRef.current) {
       return;
     }
 
@@ -51,7 +49,7 @@ const AdBanner: React.FC<AdBannerProps> = ({
     } catch (error: any) {
       console.error(`AdBanner Error (Slot ${adSlot}):`, error?.message || error);
     }
-  }, [isMounted, adLoaded]);
+  }, [adSlot, adLoaded]);
 
   // Handle min-height for layout stability
   const getMinHeight = () => {
