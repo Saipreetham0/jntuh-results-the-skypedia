@@ -27,7 +27,7 @@ const InContentAd: React.FC<InContentAdProps> = ({
         </p>
         <AdBanner
           adSlot={adSlot}
-          adFormat="rectangle"
+          adFormat="auto"
           fullWidthResponsive={true}
           className="w-full"
         />

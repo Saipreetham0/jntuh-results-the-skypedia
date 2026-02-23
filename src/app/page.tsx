@@ -61,7 +61,7 @@ export default function Home(): JSX.Element {
           <p className="text-[10px] text-gray-400 uppercase tracking-widest font-medium">Supported By</p>
         </div>
         <div className="ad-container-rect bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 flex items-center justify-center">
-          <ResponsiveAd adSlot={AD_SLOTS.HOMEPAGE.BOTTOM_BANNER} format="auto" lazyLoad={true} />
+          <ResponsiveAd adSlot={AD_SLOTS.HOMEPAGE.BOTTOM_BANNER} format="auto" />
         </div>
       </section>
     </main>

@@ -206,8 +206,8 @@ const NotificationsPage = () => {
           key={i}
           onClick={() => fetchNotifications(i)} // Direct fetch from API for the page
           className={`px-4 py-2 text-sm ${currentPage === i
-              ? "bg-indigo-600 text-white"
-              : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+            ? "bg-indigo-600 text-white"
+            : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
             } border border-gray-300 dark:border-gray-600 rounded-md mx-1`}
         >
           {i}
@@ -221,8 +221,8 @@ const NotificationsPage = () => {
           onClick={() => fetchNotifications(currentPage - 1)}
           disabled={currentPage === 1}
           className={`px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 ${currentPage === 1
-              ? "opacity-50 cursor-not-allowed"
-              : "hover:bg-gray-50 dark:hover:bg-gray-700"
+            ? "opacity-50 cursor-not-allowed"
+            : "hover:bg-gray-50 dark:hover:bg-gray-700"
             } bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300`}
         >
           <ChevronLeft className="h-5 w-5" />
@@ -262,8 +262,8 @@ const NotificationsPage = () => {
           onClick={() => fetchNotifications(currentPage + 1)}
           disabled={currentPage === totalPages}
           className={`px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 ${currentPage === totalPages
-              ? "opacity-50 cursor-not-allowed"
-              : "hover:bg-gray-50 dark:hover:bg-gray-700"
+            ? "opacity-50 cursor-not-allowed"
+            : "hover:bg-gray-50 dark:hover:bg-gray-700"
             } bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300`}
         >
           <ChevronRight className="h-5 w-5" />
@@ -341,7 +341,7 @@ const NotificationsPage = () => {
         <div className="mb-6">
           <AdBanner
             adSlot={AD_SLOTS.ACTIONS.BOTTOM_BEFORE_BUTTON}
-            adFormat="horizontal"
+            adFormat="auto"
             fullWidthResponsive={true}
           />
         </div>
@@ -619,7 +619,7 @@ const NotificationsPage = () => {
         <div className="mt-8">
           <AdBanner
             adSlot={AD_SLOTS.ACTIONS.BOTTOM_AFTER_BUTTON}
-            adFormat="horizontal"
+            adFormat="auto"
             fullWidthResponsive={true}
           />
         </div>

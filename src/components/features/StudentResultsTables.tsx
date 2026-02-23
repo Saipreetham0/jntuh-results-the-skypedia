@@ -1588,7 +1588,7 @@ const StudentResultsTables: React.FC<{ htno: string }> = ({ htno }) => {
   return (
     <div className="max-w-4xl mx-auto p-4">
       {/* Top Ad */}
-      <ResponsiveAd adSlot={AD_SLOTS.RESULTS.TOP_BANNER} format="horizontal" className="mb-6" />
+      <ResponsiveAd adSlot={AD_SLOTS.RESULTS.TOP_BANNER} format="auto" className="mb-6" />
 
       <div ref={printRef} className="bg-white">
         {/* Student Details Card */}

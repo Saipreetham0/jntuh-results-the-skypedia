@@ -261,7 +261,7 @@ const ResultsBox: React.FC = () => {
                   <div className="bg-slate-100/50 dark:bg-slate-900/50 backdrop-blur-sm rounded-3xl border border-slate-200 dark:border-slate-800 p-1 shadow-inner">
                     <div className="w-full flex justify-center items-center min-h-[100px] rounded-2xl bg-white dark:bg-slate-950/50 overflow-hidden">
                       <p className="text-[10px] text-slate-400 uppercase tracking-widest absolute top-2 right-4">Ad</p>
-                      <ResponsiveAd adSlot={AD_SLOTS.RESULTS.INLINE_1} format="horizontal" />
+                      <ResponsiveAd adSlot={AD_SLOTS.RESULTS.INLINE_1} format="auto" />
                     </div>
                   </div>
                 </div>
