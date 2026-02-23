@@ -43,6 +43,25 @@ const InArticleNativeAd: React.FC<InArticleNativeAdProps> = ({
                 return;
             }
 
+            if (adRef.current.offsetWidth === 0) {
+                const observer = new ResizeObserver((entries) => {
+                    for (let entry of entries) {
+                        const node = entry.target as HTMLElement;
+                        if (node.offsetWidth > 0) {
+                            observer.disconnect();
+                            try {
+                                window.adsbygoogle.push({});
+                                setAdLoaded(true);
+                            } catch (e) {
+                                console.error("Error loading native in-article ad after resize:", e);
+                            }
+                        }
+                    }
+                });
+                observer.observe(adRef.current);
+                return;
+            }
+
             window.adsbygoogle.push({});
             setAdLoaded(true);
         } catch (error) {

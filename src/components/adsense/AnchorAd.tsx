@@ -65,6 +65,30 @@ const AnchorAd: React.FC<AnchorAdProps> = ({
         return;
       }
 
+      // availableWidth=0 Error Fix:
+      // Adsense requires the container to have actual width before rendering.
+      // Since this ad might be animating in or subject to flex/grid evaluation,
+      // we check for offsetWidth. 
+      // Using ResizeObserver to wait for layout if it's currently 0.
+      if (adRef.current.offsetWidth === 0) {
+        const observer = new ResizeObserver((entries) => {
+          for (let entry of entries) {
+            const node = entry.target as HTMLElement;
+            if (node.offsetWidth > 0) {
+              observer.disconnect();
+              try {
+                window.adsbygoogle.push({});
+                setAdLoaded(true);
+              } catch (e) {
+                console.error("Error loading anchor ad after resize:", e);
+              }
+            }
+          }
+        });
+        observer.observe(adRef.current);
+        return;
+      }
+
       window.adsbygoogle.push({});
       setAdLoaded(true);
     } catch (error) {

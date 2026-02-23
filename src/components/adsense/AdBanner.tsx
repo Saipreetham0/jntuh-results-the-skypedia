@@ -57,6 +57,28 @@ const AdBanner: React.FC<AdBannerProps> = ({
         return;
       }
 
+      // availableWidth=0 Error Fix:
+      // Adsense requires the container to have actual width before rendering.
+      if (adRef.current.offsetWidth === 0) {
+        const observer = new ResizeObserver((entries) => {
+          for (let entry of entries) {
+            const node = entry.target as HTMLElement;
+            if (node.offsetWidth > 0) {
+              observer.disconnect();
+              try {
+                console.log(`AdBanner: Pushing ad for slot ${adSlot} after resize`);
+                window.adsbygoogle.push({});
+                setAdLoaded(true);
+              } catch (e: any) {
+                console.error(`AdBanner Error after resize (Slot ${adSlot}):`, e?.message || e);
+              }
+            }
+          }
+        });
+        observer.observe(adRef.current);
+        return;
+      }
+
       console.log(`AdBanner: Pushing ad for slot ${adSlot}`);
       window.adsbygoogle.push({});
       setAdLoaded(true);
