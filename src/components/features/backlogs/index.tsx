@@ -205,7 +205,7 @@ export default function BacklogsPage() {
 
                 {/* Ad: Leaderboard (Heatmap: Top Visibility) */}
                 <div className="print-hide w-full flex justify-center py-2 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800">
-                    <ResponsiveAd adSlot={AD_SLOTS.RESULTS.TOP_BANNER} format="horizontal" />
+                    <ResponsiveAd adSlot={AD_SLOTS.RESULTS.TOP_BANNER} format="auto" />
                 </div>
 
                 {/* Engagement: Trending Ticker */}
@@ -314,7 +314,7 @@ export default function BacklogsPage() {
                                 {/* Ad: Sidebar Sticky (Heatmap: Persistent Visibility) */}
                                 <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 flex justify-center min-h-[600px] items-center text-gray-400 bg-grid-pattern relative overflow-hidden">
                                     <div className="absolute top-2 right-2 text-[10px] text-gray-300 uppercase tracking-widest font-semibold">Advertisement</div>
-                                    <ResponsiveAd adSlot={AD_SLOTS.SIDEBAR.STICKY_MIDDLE} format="vertical" />
+                                    <ResponsiveAd adSlot={AD_SLOTS.SIDEBAR.STICKY_MIDDLE} format="auto" />
                                 </div>
 
                                 {/* Quick Links Widget */}
@@ -342,7 +342,7 @@ export default function BacklogsPage() {
 
                                 {/* Ad: Sidebar Block 2 */}
                                 <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 flex justify-center min-h-[300px] items-center text-gray-400 bg-grid-pattern">
-                                    <ResponsiveAd adSlot={AD_SLOTS.SIDEBAR.STICKY_TOP} format="rectangle" />
+                                    <ResponsiveAd adSlot={AD_SLOTS.SIDEBAR.STICKY_TOP} format="auto" />
                                 </div>
                             </div>
                         </div>
@@ -352,7 +352,7 @@ export default function BacklogsPage() {
 
                 {/* Ad: Footer (Heatmap: Exit Intent) */}
                 <div className="print-hide w-full flex justify-center py-6 bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-12">
-                    <ResponsiveAd adSlot={AD_SLOTS.RESULTS.BOTTOM_BANNER} format="horizontal" />
+                    <ResponsiveAd adSlot={AD_SLOTS.RESULTS.BOTTOM_BANNER} format="auto" />
                 </div>
 
             </div>

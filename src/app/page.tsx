@@ -30,7 +30,7 @@ export default function Home(): JSX.Element {
 
       {/* 5. In-Feed Ad - After Results (strategic placement) */}
       <section className="container mx-auto px-4 py-4 md:py-6 max-w-7xl">
-        <ResponsiveAd adSlot={AD_SLOTS.HOMEPAGE.MID_RECTANGLE} format="auto" />
+        <InFeedAd adSlot={AD_SLOTS.HOMEPAGE.MID_RECTANGLE} />
       </section>
 
       {/* 6. Blog / Guides Section */}
@@ -47,7 +47,7 @@ export default function Home(): JSX.Element {
 
       {/* 8. In-Feed Ad - Before FAQ (second strategic placement) */}
       <section className="container mx-auto px-4 py-4 md:py-6 max-w-7xl">
-        <ResponsiveAd adSlot={AD_SLOTS.SPECIALIZED.HOMEPAGE_MIDDLE} format="auto" />
+        <InFeedAd adSlot={AD_SLOTS.SPECIALIZED.HOMEPAGE_MIDDLE} />
       </section>
 
       {/* 9. FAQ Section - Trust Building */}

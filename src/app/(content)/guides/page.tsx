@@ -204,8 +204,8 @@ export default function GuidesHubPage() {
                                                 {guide.readTime}
                                             </span>
                                             <span className={`px-2 py-0.5 text-xs font-medium rounded ${guide.difficulty === 'Beginner'
-                                                    ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
-                                                    : 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400'
+                                                ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
+                                                : 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400'
                                                 }`}>
                                                 {guide.difficulty}
                                             </span>
@@ -222,7 +222,7 @@ export default function GuidesHubPage() {
                 </div>
 
                 <div className="my-12">
-                    <ResponsiveAd adSlot={AD_SLOTS.BLOG.IN_CONTENT} format="rectangle" />
+                    <ResponsiveAd adSlot={AD_SLOTS.BLOG.IN_CONTENT} format="auto" />
                 </div>
 
                 {/* All Guides by Category */}

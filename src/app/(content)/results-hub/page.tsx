@@ -185,7 +185,7 @@ export default function ResultsHubPage() {
                 </div>
 
                 <div className="my-12">
-                    <ResponsiveAd adSlot={AD_SLOTS.RESULTS.INLINE_1} format="rectangle" />
+                    <ResponsiveAd adSlot={AD_SLOTS.RESULTS.INLINE_1} format="auto" />
                 </div>
 
                 {/* All Results */}

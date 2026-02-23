@@ -248,7 +248,7 @@ export default function SyllabusPage() {
                   <React.Fragment key={item.title + item.link}>
                     {idx === 0 && (
                       <div className="col-span-full mb-4">
-                        <ResponsiveAd adSlot={AD_SLOTS.RESULTS.TOP_BANNER} format="horizontal" />
+                        <ResponsiveAd adSlot={AD_SLOTS.RESULTS.TOP_BANNER} format="auto" />
                       </div>
                     )}
                     <motion.div

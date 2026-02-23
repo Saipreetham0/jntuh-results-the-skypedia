@@ -103,7 +103,7 @@ export default function ComparisonTable({
 
             {/* Strategic Ad Placement - IMMEDIATELY after table */}
             <div className="mt-6">
-                <ResponsiveAd adSlot={adSlot} format="rectangle" />
+                <ResponsiveAd adSlot={adSlot} format="auto" />
             </div>
         </div>
     );

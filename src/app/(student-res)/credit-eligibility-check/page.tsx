@@ -193,7 +193,7 @@ function CreditEligibilityContent() {
         </motion.div>
 
         {/* Top Ad Banner */}
-        <ResponsiveAd adSlot={AD_SLOTS.SEMESTER.TOP_BANNER} format="horizontal" className="my-4" />
+        <ResponsiveAd adSlot={AD_SLOTS.SEMESTER.TOP_BANNER} format="auto" className="my-4" />
 
         {/* Search Card */}
         <motion.div

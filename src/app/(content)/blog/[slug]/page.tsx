@@ -101,7 +101,7 @@ export default async function BlogPost({ params }: Props) {
 
                         {/* Top Content Ad */}
                         <div className="mb-8">
-                            <ResponsiveAd adSlot={AD_SLOTS.BLOG.HEADER} format="horizontal" className="rounded-2xl overflow-hidden shadow-sm" />
+                            <ResponsiveAd adSlot={AD_SLOTS.BLOG.HEADER} format="auto" className="rounded-2xl overflow-hidden shadow-sm" />
                         </div>
 
                         {/* Content Body */}
@@ -170,7 +170,7 @@ export default async function BlogPost({ params }: Props) {
 
                         {/* Sidebar Ad */}
                         <div className="sticky top-24">
-                            <ResponsiveAd adSlot={AD_SLOTS.SIDEBAR.STICKY_TOP} format="rectangle" className="rounded-2xl overflow-hidden shadow-lg" />
+                            <ResponsiveAd adSlot={AD_SLOTS.SIDEBAR.STICKY_TOP} format="auto" className="rounded-2xl overflow-hidden shadow-lg" />
                         </div>
                     </aside>
                 </div>

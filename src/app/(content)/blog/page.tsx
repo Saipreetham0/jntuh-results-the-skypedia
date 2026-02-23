@@ -37,7 +37,7 @@ export default function BlogIndex() {
 
                 {/* Top Ad */}
                 <div className="mb-16">
-                    <ResponsiveAd adSlot={AD_SLOTS.BLOG.HEADER} format="horizontal" className="rounded-2xl overflow-hidden shadow-sm" />
+                    <ResponsiveAd adSlot={AD_SLOTS.BLOG.HEADER} format="auto" className="rounded-2xl overflow-hidden shadow-sm" />
                 </div>
 
                 {/* Content Layout */}
@@ -138,14 +138,14 @@ export default function BlogIndex() {
 
                         {/* Sidebar Ad */}
                         <div className="sticky top-24">
-                            <ResponsiveAd adSlot={AD_SLOTS.SIDEBAR.STICKY_TOP} format="rectangle" className="rounded-2xl overflow-hidden shadow-lg" />
+                            <ResponsiveAd adSlot={AD_SLOTS.SIDEBAR.STICKY_TOP} format="auto" className="rounded-2xl overflow-hidden shadow-lg" />
                         </div>
                     </aside>
                 </div>
 
                 {/* Bottom Ad */}
                 <div className="mt-16">
-                    <ResponsiveAd adSlot={AD_SLOTS.BLOG.BOTTOM_RECTANGLE} format="horizontal" className="rounded-2xl overflow-hidden" />
+                    <ResponsiveAd adSlot={AD_SLOTS.BLOG.BOTTOM_RECTANGLE} format="auto" className="rounded-2xl overflow-hidden" />
                 </div>
 
             </main>

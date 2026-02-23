@@ -187,7 +187,7 @@ export default function CalculatorHubPage() {
 
                 {/* Mid-page Ad */}
                 <div className="my-12">
-                    <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.MID_RECTANGLE} format="rectangle" />
+                    <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.MID_RECTANGLE} format="auto" />
                 </div>
 
                 {/* All Tools */}
