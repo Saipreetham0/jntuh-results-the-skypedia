@@ -12,8 +12,13 @@ interface FAQItem {
 const faqs: FAQItem[] = [
     {
         question: "When are JNTUH results usually released?",
-        answer:
-            "JNTUH typically releases results 45-60 days after the completion of exams. However, this timeline can vary based on the specific semester and academic calendar. We recommend checking our Consolidated Results tool for the most up-to-date information.",
+        answer: (
+            <>
+                JNTUH typically releases results 45-60 days after the completion of exams. However, this timeline can vary based on the specific semester and academic calendar. We recommend checking our{" "}
+                <Link href="/consolidated-results" className="text-blue-600 hover:underline">Consolidated Results</Link>{" "}
+                tool for the most up-to-date information.
+            </>
+        ),
     },
     {
         question: "How do I calculate my CGPA from SGPA?",
@@ -37,9 +42,28 @@ const faqs: FAQItem[] = [
             "For R18/R22 regulations, a student needs to secure a minimum of 35% marks in the internal exams and 35% in the external exams, with an aggregate of 40% to pass a subject.",
     },
     {
+        question: "How can I convert my CGPA to percentage?",
+        answer: (
+            <>
+                For JNTUH, the formula is <strong>Percentage = (CGPA - 0.5) × 10</strong>. You can use our{" "}
+                <Link href="/cgpa-percentage-converter" className="text-blue-600 hover:underline">
+                    CGPA to Percentage Converter
+                </Link>{" "}
+                for instant and accurate conversion.
+            </>
+        ),
+    },
+    {
         question: "How can I check my complete backlog history?",
-        answer:
-            "You can view your complete history of backlogs, including cleared and active ones, by using our 'Check Backlogs' tool. Simply enter your Hall Ticket Number to get a detailed report.",
+        answer: (
+            <>
+                You can view your complete history of backlogs, including cleared and active ones, by using our{" "}
+                <Link href="/check-backlogs" className="text-blue-600 hover:underline">
+                    Check Backlogs
+                </Link>{" "}
+                tool. Simply enter your Hall Ticket Number to get a detailed report.
+            </>
+        ),
     },
     {
         question: "Is this website officially affiliated with JNTUH?",

@@ -1,4 +1,4 @@
-import { Thing, WithContext, WebSite, Organization, BreadcrumbList, SoftwareApplication, FAQPage, Question } from 'schema-dts';
+import { Thing, WithContext, WebSite, Organization, BreadcrumbList, SoftwareApplication, FAQPage, Question, HowTo } from 'schema-dts';
 
 export function generateWebsiteSchema(): WithContext<WebSite> {
   return {
@@ -87,13 +87,6 @@ export function generateCalculatorSchema(
       price: '0',
       priceCurrency: 'USD',
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      ratingCount: '2547',
-      bestRating: '5',
-      worstRating: '1',
-    },
     author: {
       '@type': 'Organization',
       name: 'TheSkypedia',
@@ -103,7 +96,6 @@ export function generateCalculatorSchema(
     dateModified: new Date().toISOString().split('T')[0],
     inLanguage: 'en-US',
     isAccessibleForFree: true,
-    screenshot: `${url}/screenshot.jpg`,
   };
 }
 
@@ -118,6 +110,26 @@ export function generateFAQSchema(faqs: { question: string; answer: string }[]):
         '@type': 'Answer',
         text: faq.answer,
       },
+    })),
+  };
+}
+
+export function generateHowToSchema(
+  name: string,
+  description: string,
+  totalTime: string,
+  steps: { name: string; text: string }[]
+): WithContext<HowTo> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name,
+    description,
+    totalTime,
+    step: steps.map((step) => ({
+      '@type': 'HowToStep' as const,
+      name: step.name,
+      text: step.text,
     })),
   };
 }

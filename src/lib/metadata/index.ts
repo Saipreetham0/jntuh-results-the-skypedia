@@ -27,7 +27,7 @@ export function generateMetadata(params?: {
 
   const siteTitle = title
     ? `${title} | JNTUH Results`
-    : 'JNTUH Results 2025 - Check Semester Results & CGPA Instantly';
+    : 'JNTUH Results 2026 — Trusted by 100K+ Students | CGPA, SGPA & More';
 
   const siteDescription = description || siteConfig.description;
   const canonicalUrl = `${siteConfig.url}${path.startsWith('/') ? path : `/${path}`}`.replace(/\/$/, '');
@@ -44,7 +44,7 @@ export function generateMetadata(params?: {
     // ========================================================================
     title: {
       default: siteTitle,
-      template: `%s | JNTUH Results Portal`,
+      template: `%s | JNTUH Results & CGPA Calculator`,
     },
 
     // ========================================================================

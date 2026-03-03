@@ -6,8 +6,8 @@ import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import WebApplicationSchema from '@/components/seo/WebApplicationSchema';
 
 export const metadata: Metadata = generateMetadata({
-  title: 'CGPA to Percentage Converter - JNTUH & International Scales',
-  description: 'Convert your JNTUH CGPA into a percentage instantly. Supports 10.0, 4.0, and 5.0 scales with official university conversion formulas.',
+  title: 'CGPA to Percentage Converter — JNTUH (R22, R18) Free Online',
+  description: 'Convert JNTUH CGPA to percentage using official formula (CGPA - 0.5) × 10. Supports R22, R18 regulations and 10.0, 4.0, 5.0 scales. Free instant conversion.',
   path: '/cgpa-percentage-converter'
 });
 

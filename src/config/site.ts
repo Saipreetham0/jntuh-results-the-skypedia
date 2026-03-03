@@ -18,7 +18,7 @@ export const siteConfig = {
   /**
    * Site Description
    */
-  description: 'Official JNTUH Results portal by TheSkypedia. Check B.Tech, M.Tech semester results, calculate CGPA/SGPA, convert grades to percentage, access previous papers, syllabus & academic resources for all regulations (R22, R20, R18).',
+  description: '#1 JNTUH Results portal — Check B.Tech & M.Tech semester results, calculate CGPA & SGPA, convert to percentage. Trusted by 100K+ students. Supports R22, R20, R18 regulations. Free & instant.',
 
   /**
    * Short Description for Twitter/Social
@@ -74,17 +74,25 @@ export const siteConfig = {
    */
   keywords: [
     'JNTUH Results',
+    'JNTUH Results 2026',
     'JNTUH CGPA Calculator',
+    'CGPA Calculator JNTUH',
+    'JNTUH CGPA to Percentage',
     'CGPA to Percentage JNTUH',
     'JNTUH R22 Results',
+    'JNTUH R22 Grading System',
     'JNTUH B.Tech Results',
     'JNTUH M.Tech Results',
     'SGPA to CGPA Calculator',
+    'SGPA to CGPA JNTUH',
+    'JNTUH Percentage Calculator',
     'JNTUH Previous Papers',
     'JNTUH Syllabus',
     'JNTUH Academic Calendar',
     'JNTUH Consolidated Results',
     'JNTUH Backlog Check',
+    'JNTUH Grade Points Table',
+    'JNTUH Pass Marks',
   ],
 } as const;
 

@@ -7,11 +7,39 @@ import FeaturesSection from "@/components/home/FeaturesSection";
 import { ResponsiveAd, InFeedAd } from "@/components/adsense";
 import { SubscriptionForm } from "@/components/features/result-alerts";
 import AD_SLOTS from "@/config/adSlots";
+import FAQSchema from "@/components/seo/FAQSchema";
 import type { JSX } from "react";
+
+// Homepage FAQ data for schema injection
+const homepageFaqs = [
+  {
+    question: "When are JNTUH results usually released?",
+    answer: "JNTUH typically releases results 45-60 days after the completion of exams. However, this timeline can vary based on the specific semester and academic calendar.",
+  },
+  {
+    question: "How do I calculate my CGPA from SGPA?",
+    answer: "To calculate CGPA, you need the SGPA of all semesters. The formula is: CGPA = Σ(Ci × Si) / Σ(Ci), where Ci is credits for the ith semester and Si is SGPA for the ith semester. Use our free CGPA Calculator at jntuhresults.theskypedia.com/cgpa-calculator for instant calculation.",
+  },
+  {
+    question: "What is the pass percentage for JNTUH B.Tech?",
+    answer: "For R18/R22 regulations, a student needs to secure a minimum of 35% marks in the internal exams and 35% in the external exams, with an aggregate of 40% to pass a subject.",
+  },
+  {
+    question: "How can I check my complete backlog history?",
+    answer: "You can view your complete history of backlogs, including cleared and active ones, using the Check Backlogs tool at jntuhresults.theskypedia.com/check-backlogs. Simply enter your Hall Ticket Number to get a detailed report.",
+  },
+  {
+    question: "Is this website officially affiliated with JNTUH?",
+    answer: "No, this is a student resource platform designed to simplify access to results and academic tools. For official notifications and certificate verification, please visit the official JNTUH website.",
+  },
+];
 
 export default function Home(): JSX.Element {
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-gray-900 overflow-x-hidden selection:bg-blue-100 dark:selection:bg-blue-900/30">
+      {/* FAQ Schema for Rich Results */}
+      <FAQSchema faqs={homepageFaqs} />
+
       {/* 1. Hero Section - Optimized height for mobile */}
       <Hero />
 
