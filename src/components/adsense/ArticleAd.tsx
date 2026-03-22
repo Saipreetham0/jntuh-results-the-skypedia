@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { ResponsiveAd } from '../adsense';
+import { ResponsiveAd, AdBanner } from '../adsense';
 import AD_SLOTS from '@/config/adSlots';
 
 interface ArticleAdProps {
@@ -110,12 +110,15 @@ export default function ArticleAd({ position, slot, className = '' }: ArticleAdP
             ref={adRef}
             className={`${getPositionStyles(position)} ${className}`}
             data-ad-position={position}
+            style={{ minHeight: '250px' }} // Prevent layout shift while waiting
         >
             {isVisible && (
-                <div className="w-full max-w-[336px]">
-                    <ResponsiveAd
+                <div className="w-full">
+                    <AdBanner
                         adSlot={adSlot}
-                        format="auto"
+                        adFormat="fluid"
+                        adLayout="in-article"
+                        fullWidthResponsive={false}
                     />
                 </div>
             )}
