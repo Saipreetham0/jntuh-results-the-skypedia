@@ -2,10 +2,16 @@ import { NextRequest, NextResponse } from 'next/server';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import https from 'https';
+import { rateLimit, getClientIp } from '@/server/rate-limit';
 
 export const dynamic = 'force-dynamic';
 
 const BASE_URL = 'https://studentservices.jntuh.ac.in/oss/';
+
+// Note: JNTUH's server (studentservices.jntuh.ac.in) uses a self-signed / expired certificate.
+// rejectUnauthorized is intentionally kept false for this government server only.
+// Track resolution at: https://github.com/your-repo/issues (replace with actual issue link)
+const jntuhHttpsAgent = new https.Agent({ rejectUnauthorized: false });
 
 const axiosInstance = axios.create({
   timeout: 55000,
@@ -18,7 +24,7 @@ const axiosInstance = axios.create({
     'Pragma': 'no-cache',
     'Upgrade-Insecure-Requests': '1',
   },
-  httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+  httpsAgent: jntuhHttpsAgent,
 });
 
 interface SyllabusNode {
@@ -72,8 +78,9 @@ class JNTUHScraper {
           this.cookies = Array.from(cookieMap.entries()).map(([k, v]) => `${k}=${v}`);
         }
         return response.data;
-      } catch (error: any) {
-        console.error(`[Fetch Attempt ${i + 1}] Error: ${error.message} for URL: ${url}`);
+      } catch (error: unknown) {
+        const msg = error instanceof Error ? error.message : 'unknown';
+        void msg; // suppress in production; add structured logger here if needed
         if (i === retries) throw error;
         await new Promise(r => setTimeout(r, 1000));
       }
@@ -177,7 +184,6 @@ class JNTUHScraper {
       const isTransientError = uniqueItems.length === 0 && (errorMsg.includes(': is Not found') || errorMsg.includes('null/var/lib'));
 
       if (isTransientError && retriesLeft > 0) {
-        console.warn(`[JNTUH Server Glitch] ${errorMsg}. Retrying hydration...`);
         await new Promise(r => setTimeout(r, 800));
         this.cookies = []; // Critical: Clear session and start fresh
         return this.fetchLevel(type, level, l123, path, retriesLeft - 1);
@@ -190,9 +196,8 @@ class JNTUHScraper {
         breadcrumb,
         error: isFatalError ? errorMsg : undefined
       };
-    } catch (e: any) {
+    } catch (e: unknown) {
       if (retriesLeft > 0) {
-        console.warn(`[Scrape Retry] ${e.message}. (${retriesLeft} left)`);
         await new Promise(r => setTimeout(r, 800));
         this.cookies = [];
         return this.fetchLevel(type, level, l123, path, retriesLeft - 1);
@@ -215,8 +220,7 @@ class JNTUHScraper {
         try {
           const children = await this.crawl(type, item.params.level, item.params.l123, maxDepth, currentDepth + 1, seen, nextPath);
           if (children.length > 0) return { ...item, children };
-        } catch (e: any) {
-          console.error(`Recursive crawl failed for [${item.title}]:`, e.message);
+        } catch (_e: unknown) {
         }
       }
       return item;
@@ -224,16 +228,50 @@ class JNTUHScraper {
   }
 }
 
+const ALLOWED_TYPES = ['syllabus', 'previousQPapers', 'labManuals'];
+const LEVEL_REGEX = /^[a-zA-Z0-9\s\-_().&,/]{1,200}$/;
+const L123_REGEX = /^[0-9]{1,3}$/;
+const PATH_ITEM_REGEX = /^[a-zA-Z0-9\s\-_().&,/]{1,200}$/;
+
 export async function GET(request: NextRequest) {
+  const rl = rateLimit(getClientIp(request), { limit: 20, windowMs: 60_000 });
+  if (!rl.success) {
+    return NextResponse.json(
+      { error: 'Too many requests. Please slow down.' },
+      { status: 429, headers: { 'Retry-After': String(Math.ceil((rl.resetAt - Date.now()) / 1000)) } }
+    );
+  }
+
   const { searchParams } = new URL(request.url);
   const type = searchParams.get('type') || 'syllabus';
   const level = searchParams.get('level');
   const l123 = searchParams.get('l123') || '0';
   const rawPath = searchParams.get('path');
-  const path = rawPath ? rawPath.split(',').filter(p => !!p && p !== 'null') : [];
 
+  // Validate type parameter
+  if (!ALLOWED_TYPES.includes(type)) {
+    return NextResponse.json({ error: 'Invalid type parameter' }, { status: 400 });
+  }
+
+  // Validate l123 parameter
+  if (!L123_REGEX.test(l123)) {
+    return NextResponse.json({ error: 'Invalid l123 parameter' }, { status: 400 });
+  }
+
+  // Validate level parameter if provided
+  if (level !== null && !LEVEL_REGEX.test(level)) {
+    return NextResponse.json({ error: 'Invalid level parameter' }, { status: 400 });
+  }
+
+  // Parse and validate path parameter
+  const path = rawPath
+    ? rawPath.split(',').filter(p => !!p && p !== 'null').filter(p => PATH_ITEM_REGEX.test(p))
+    : [];
+
+  // Validate depth to prevent abuse
   const nested = searchParams.get('nested') === 'true' || searchParams.has('depth');
-  const maxDepth = parseInt(searchParams.get('depth') || (nested ? '3' : '0'));
+  const rawDepth = parseInt(searchParams.get('depth') || (nested ? '3' : '0'));
+  const maxDepth = Math.min(Math.max(0, isNaN(rawDepth) ? 0 : rawDepth), 5);
 
   try {
     const scraper = new JNTUHScraper();
@@ -244,9 +282,11 @@ export async function GET(request: NextRequest) {
       const result = await scraper.fetchLevel(type, level, l123, path);
       return NextResponse.json(result);
     }
-  } catch (error: any) {
-    console.error('Final Scraper Failure:', error.message);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    // Only log, don't expose internal error details to client
+    void message;
+    return NextResponse.json({ error: 'Failed to fetch syllabus data. Please try again later.' }, { status: 500 });
   }
 }
 

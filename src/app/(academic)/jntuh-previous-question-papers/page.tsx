@@ -4,7 +4,7 @@ import React, { useState, useMemo } from 'react';
 import { Search, Filter, Download, BookOpen, GraduationCap, ChevronRight } from 'lucide-react';
 import { ResponsiveAd, InContentAd, MultiplexAd } from '@/components/adsense';
 import { AD_SLOTS } from '@/config/adSlots';
-import { MOCK_PAPERS, QuestionPaper } from '@/app/_data/papers';
+import { MOCK_PAPERS, QuestionPaper } from '@/data/papers';
 import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import FAQSectionDynamic from '@/components/seo/FAQSectionDynamic';
 

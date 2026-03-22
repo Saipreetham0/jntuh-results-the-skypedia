@@ -236,7 +236,7 @@ export default function CalculatorHubPage() {
 
                 {/* Bottom Ad */}
                 <div className="mt-12">
-                    <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.BOTTOM_RECTANGLE} format="auto" />
+                    <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.RESULT_BOTTOM} format="auto" />
                 </div>
 
                 {/* Next Step CTA */}

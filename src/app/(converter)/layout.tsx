@@ -8,25 +8,19 @@ export default function ConverterLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300 flex flex-col">
-            {/* Background Decorative Elements */}
-            <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-                <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-blue-100/30 dark:bg-blue-900/10 blur-[120px]" />
-                <div className="absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] rounded-full bg-emerald-100/30 dark:bg-emerald-900/10 blur-[120px]" />
-            </div>
-
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex flex-col">
             {/* Top Ad */}
-            <div className="relative z-10 container mx-auto px-4 pt-4">
+            <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-4">
                 <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.TOP_BANNER} />
             </div>
 
-            <main className="relative z-10 flex-grow">
+            <div className="flex-grow">
                 {children}
-            </main>
+            </div>
 
             {/* Bottom Ad */}
-            <div className="relative z-10 container mx-auto px-4 pb-8">
-                <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.BOTTOM_RECTANGLE} />
+            <div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-8">
+                <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.RESULT_BOTTOM} />
             </div>
         </div>
     );

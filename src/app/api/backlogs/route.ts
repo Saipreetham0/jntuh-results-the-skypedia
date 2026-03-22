@@ -1,34 +1,7 @@
-// // app/api/backlogs/route.ts
-// import { NextResponse } from 'next/server';
-// import axios from 'axios';
-
-// export async function GET(request: Request) {
-//   try {
-//     const { searchParams } = new URL(request.url);
-//     const rollNumber = searchParams.get('rollNumber');
-
-//     if (!rollNumber) {
-//       return NextResponse.json({ error: 'Roll number is required' }, { status: 400 });
-//     }
-
-//     const response = await axios.get(
-//       `https://jntuhresults.dhethi.com/api/getBacklogs?rollNumber=${rollNumber}`
-//     );
-
-//     return NextResponse.json(response.data);
-//   } catch (error) {
-//     console.error('Backlogs request failed:', error);
-//     return NextResponse.json(
-//       { error: 'Failed to fetch backlogs' },
-//       { status: 500 }
-//     );
-//   }
-// }
-
-
 // app/api/backlogs/route.ts
 import { NextResponse } from 'next/server';
 import axios, { AxiosError } from 'axios';
+import { rateLimit, getClientIp } from '@/server/rate-limit';
 
 /**
  * Error response structure following FastAPI error format
@@ -49,6 +22,14 @@ interface APIErrorResponse {
  * @returns - JSON response with backlogs data or error details
  */
 export async function GET(request: Request) {
+  const rl = rateLimit(getClientIp(request), { limit: 30, windowMs: 60_000 });
+  if (!rl.success) {
+    return NextResponse.json(
+      { detail: 'Too many requests. Please slow down.' },
+      { status: 429, headers: { 'Retry-After': String(Math.ceil((rl.resetAt - Date.now()) / 1000)) } }
+    );
+  }
+
   try {
     // Extract query parameters
     const { searchParams } = new URL(request.url);
@@ -124,7 +105,6 @@ export async function GET(request: Request) {
     return NextResponse.json(response.data);
 
   } catch (error) {
-    console.error('Backlogs request failed:', error);
 
     // Handle Axios errors
     if (axios.isAxiosError(error)) {
@@ -165,7 +145,7 @@ export async function GET(request: Request) {
 
         // Pass through other status codes
         return NextResponse.json(
-          { detail: `External API error: ${axiosError.message}` },
+          { detail: "External service error. Please try again later." },
           { status: status >= 400 && status < 600 ? status : 502 }
         );
       }

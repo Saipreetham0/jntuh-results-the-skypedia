@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import axios, { AxiosError } from 'axios';
+import { rateLimit, getClientIp } from '@/server/rate-limit';
 
 /**
  * Error response structure following FastAPI error format
@@ -20,6 +21,14 @@ interface APIErrorResponse {
  * @returns - JSON response with credit eligibility data or error details
  */
 export async function GET(request: Request) {
+  const rl = rateLimit(getClientIp(request), { limit: 30, windowMs: 60_000 });
+  if (!rl.success) {
+    return NextResponse.json(
+      { detail: 'Too many requests. Please slow down.' },
+      { status: 429, headers: { 'Retry-After': String(Math.ceil((rl.resetAt - Date.now()) / 1000)) } }
+    );
+  }
+
   try {
     // Extract query parameters
     const { searchParams } = new URL(request.url);
@@ -34,6 +43,23 @@ export async function GET(request: Request) {
               loc: ["query", "htno"],
               msg: "Hall ticket number is required",
               type: "value_error.missing"
+            }
+          ]
+        } as APIErrorResponse,
+        { status: 422 }
+      );
+    }
+
+    // Validate roll number format
+    const rollNumberRegex = /^[0-9]{1,2}[A-Z]{1,2}[0-9]{2}[A-Z][0-9]{4}$/;
+    if (!rollNumberRegex.test(rollNumber)) {
+      return NextResponse.json(
+        {
+          detail: [
+            {
+              loc: ["query", "htno"],
+              msg: "Invalid hall ticket number format. Expected pattern: 20J25A0501",
+              type: "value_error.pattern"
             }
           ]
         } as APIErrorResponse,
@@ -64,7 +90,6 @@ export async function GET(request: Request) {
     return NextResponse.json(response.data);
 
   } catch (error) {
-    console.error('Credit eligibility request failed:', error);
 
     // Handle Axios errors
     if (axios.isAxiosError(error)) {
@@ -105,7 +130,7 @@ export async function GET(request: Request) {
 
         // Pass through other status codes
         return NextResponse.json(
-          { detail: `External API error: ${axiosError.message}` },
+          { detail: "External service error. Please try again later." },
           { status: status >= 400 && status < 600 ? status : 502 }
         );
       }

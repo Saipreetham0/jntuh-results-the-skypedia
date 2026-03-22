@@ -1,6 +1,7 @@
 // app/api/semester-wise-results/route.ts
 import { NextResponse } from 'next/server';
 import axios, { AxiosError } from 'axios';
+import { rateLimit, getClientIp } from '@/server/rate-limit';
 
 /**
  * Error response structure following FastAPI error format
@@ -69,6 +70,14 @@ interface StudentResult {
  * @returns - JSON response with semester-wise results data or error details
  */
 export async function GET(request: Request) {
+  const rl = rateLimit(getClientIp(request), { limit: 30, windowMs: 60_000 });
+  if (!rl.success) {
+    return NextResponse.json(
+      { detail: 'Too many requests. Please slow down.' },
+      { status: 429, headers: { 'Retry-After': String(Math.ceil((rl.resetAt - Date.now()) / 1000)) } }
+    );
+  }
+
   try {
     // Extract query parameters
     const { searchParams } = new URL(request.url);
@@ -200,7 +209,6 @@ export async function GET(request: Request) {
     return NextResponse.json(data);
 
   } catch (error) {
-    console.error('Semester-wise results request failed:', error);
 
     // Handle Axios errors
     if (axios.isAxiosError(error)) {
@@ -241,7 +249,7 @@ export async function GET(request: Request) {
 
         // Pass through other status codes
         return NextResponse.json(
-          { detail: `External API error: ${axiosError.message}` },
+          { detail: "External service error. Please try again later." },
           { status: status >= 400 && status < 600 ? status : 502 }
         );
       }

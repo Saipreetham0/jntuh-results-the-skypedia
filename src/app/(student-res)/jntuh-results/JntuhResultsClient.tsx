@@ -6,7 +6,7 @@ import FAQSectionDynamic from '@/components/seo/FAQSectionDynamic';
 import { ResponsiveAd, InContentAd, MultiplexAd } from '@/components/adsense';
 import AD_SLOTS from '@/config/adSlots';
 import Link from 'next/link';
-import { Calculator, BookOpen, Clock, Calendar, Loader2 } from 'lucide-react';
+import { Calculator, BookOpen, Calendar, Loader2, Clock, ArrowRight } from 'lucide-react';
 import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import { useConsolidatedResults } from '@/hooks/useConsolidatedResults';
 import ConsolidatedResultDisplay from '@/components/results/ConsolidatedResultDisplay';
@@ -18,8 +18,8 @@ const quickGuides = [
         desc: "Convert your JNTUH semester grades into a single CGPA with our accurate calculator.",
         link: "/cgpa-calculator",
         icon: Calculator,
-        color: "text-blue-600",
-        bg: "bg-blue-50"
+        color: "text-[#1C61E7]",
+        bg: "bg-blue-50 dark:bg-blue-900/20",
     },
     {
         title: "Check Backlogs",
@@ -27,7 +27,7 @@ const quickGuides = [
         link: "/check-backlogs",
         icon: BookOpen,
         color: "text-emerald-600",
-        bg: "bg-emerald-50"
+        bg: "bg-emerald-50 dark:bg-emerald-900/20",
     },
     {
         title: "Academic Calendar",
@@ -35,8 +35,8 @@ const quickGuides = [
         link: "/calendar",
         icon: Calendar,
         color: "text-purple-600",
-        bg: "bg-purple-50"
-    }
+        bg: "bg-purple-50 dark:bg-purple-900/20",
+    },
 ];
 
 const resultsFaqs = [
@@ -64,143 +64,158 @@ export default function JntuhResultsClient() {
 
     const handleSearch = async (roll: string) => {
         await fetchResults(roll);
-        // smooth scroll to results after a short delay to ensure rendering
         setTimeout(() => {
             resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 100);
     };
 
     return (
-        <main className="bg-white dark:bg-gray-950">
+        <main className="bg-gray-50 dark:bg-gray-950">
             <BreadcrumbSchema
                 items={[
                     { name: 'Home', path: '/' },
                     { name: 'JNTUH Results', path: '/jntuh-results' }
                 ]}
             />
-            {/* Hero Section */}
+
+            {/* Hero */}
             <ResultCheckerHero onSearch={handleSearch} />
 
             {/* Top Ad */}
-            <div className="max-w-7xl mx-auto px-4 py-8">
+            <div className="max-w-5xl mx-auto px-4 py-6">
                 <ResponsiveAd adSlot={AD_SLOTS.SEMESTER.TOP_BANNER} />
             </div>
 
-            {/* Results Display Area */}
+            {/* Results Display */}
             <div ref={resultsRef} className="scroll-mt-24">
                 <AnimatePresence mode="wait">
                     {loading && (
                         <motion.div
+                            key="loading"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="bg-gray-50 dark:bg-gray-900 py-12 flex items-center justify-center"
+                            className="py-16 flex flex-col items-center justify-center gap-3"
                         >
-                            <div className="flex flex-col items-center">
-                                <Loader2 className="h-10 w-10 text-[#1C61E7] animate-spin mb-4" />
-                                <p className="text-gray-600 dark:text-gray-400 font-medium">Fetching your results...</p>
-                            </div>
+                            <Loader2 className="h-8 w-8 text-[#1C61E7] animate-spin" />
+                            <p className="text-sm text-gray-500 font-medium">Fetching your results...</p>
                         </motion.div>
                     )}
 
-                    {error && (
+                    {error && !loading && (
                         <motion.div
-                            initial={{ opacity: 0, y: -10 }}
+                            key="error"
+                            initial={{ opacity: 0, y: -8 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0 }}
-                            className="max-w-2xl mx-auto px-4 py-8"
+                            className="max-w-xl mx-auto px-4 py-8"
                         >
-                            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-6 text-center">
-                                <p className="text-red-600 dark:text-red-400 font-medium">{error}</p>
+                            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl p-5 text-center">
+                                <p className="text-red-600 dark:text-red-400 font-medium text-sm">{error}</p>
                             </div>
                         </motion.div>
                     )}
 
-                    {results && (
-                        <div className="bg-gray-50 dark:bg-gray-900 py-8 px-4 border-y border-gray-200 dark:border-gray-800">
-                            <div className="max-w-6xl mx-auto">
+                    {results && !loading && (
+                        <motion.div
+                            key="results"
+                            initial={{ opacity: 0, y: 12 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0 }}
+                            className="bg-white dark:bg-gray-900 border-y border-gray-100 dark:border-gray-800 py-8 px-4"
+                        >
+                            <div className="max-w-5xl mx-auto">
                                 <ConsolidatedResultDisplay results={results} />
                             </div>
-                        </div>
+                        </motion.div>
                     )}
                 </AnimatePresence>
             </div>
 
+            {/* Main Content + Sidebar */}
+            <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
 
-            {/* Content Section */}
-            <section className="py-12 md:py-20 lg:py-24 px-4 bg-gray-50/50 dark:bg-gray-900/30">
-                <div className="max-w-7xl mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-                        {/* Sidebar Content */}
-                        <div className="lg:col-span-8 space-y-12">
-                            <article className="prose prose-lg dark:prose-invert max-w-none">
-                                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight">
-                                    How to Check JNTUH Results Online?
-                                </h2>
-                                <p>
-                                    Jawaharlal Nehru Technological University Hyderabad (JNTUH) announces results for B.Tech, M.Tech, and other autonomous and non-autonomous colleges. To check your results instantly on our portal, follow these simple steps:
-                                </p>
-                                <ol className="space-y-4">
-                                    <li>Enter your <strong>10-digit Hall Ticket Number</strong> (e.g., 20J21A0501) in the search box above.</li>
-                                    <li>Click on the <strong>"Check Results"</strong> button.</li>
-                                    <li>Our system will fetch your latest academic records from the JNTUH database.</li>
-                                    <li>View your semester-wise internal marks, external scores, and total grades.</li>
-                                </ol>
+                    {/* Article */}
+                    <div className="lg:col-span-8 space-y-6">
+                        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm p-6 md:p-8">
+                            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-5 tracking-tight">
+                                How to Check JNTUH Results Online?
+                            </h2>
+                            <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-5 text-sm">
+                                Jawaharlal Nehru Technological University Hyderabad (JNTUH) announces results for B.Tech, M.Tech, and other autonomous and non-autonomous colleges. To check your results instantly on our portal, follow these simple steps:
+                            </p>
+                            <ol className="space-y-3 mb-6">
+                                {[
+                                    <>Enter your <strong className="text-gray-900 dark:text-white font-semibold">10-digit Hall Ticket Number</strong> (e.g., 20J21A0501) in the search box above.</>,
+                                    <>Click on the <strong className="text-gray-900 dark:text-white font-semibold">&ldquo;Check All Results&rdquo;</strong> button.</>,
+                                    <>Our system will fetch your latest academic records from the JNTUH database.</>,
+                                    <>View your semester-wise internal marks, external scores, and total grades.</>,
+                                ].map((step, i) => (
+                                    <li key={i} className="flex gap-3 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                        <span className="w-5 h-5 rounded-full bg-[#1C61E7]/10 text-[#1C61E7] text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">{i + 1}</span>
+                                        <span>{step}</span>
+                                    </li>
+                                ))}
+                            </ol>
 
-                                <InContentAd adSlot={AD_SLOTS.SEMESTER.INLINE_1} />
+                            <InContentAd adSlot={AD_SLOTS.SEMESTER.INLINE_1} />
 
-                                <h3 className="text-2xl font-bold mt-12 mb-4">Understanding JNTUH Grading System</h3>
-                                <p>
-                                    JNTUH follows a Choice Based Credit System (CBCS). Grades range from 'O' (Outstanding) to 'F' (Fail). A student must secure a minimum of 35% in external exams and 40% aggregate to pass a subject under R18, R20, and R22 regulations.
-                                </p>
+                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mt-8 mb-3">Understanding JNTUH Grading System</h3>
+                            <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-5 text-sm">
+                                JNTUH follows a Choice Based Credit System (CBCS). Grades range from &lsquo;O&rsquo; (Outstanding) to &lsquo;F&rsquo; (Fail). A student must secure a minimum of 35% in external exams and 40% aggregate to pass a subject under R18, R20, and R22 regulations.
+                            </p>
 
-                                <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-2xl border border-blue-100 dark:border-blue-800 my-8">
-                                    <h4 className="text-blue-900 dark:text-blue-300 font-bold mb-2 flex items-center gap-2">
-                                        <Clock className="w-5 h-5" />
-                                        Fast Fact
-                                    </h4>
-                                    <p className="text-blue-800/80 dark:text-blue-400/80 m-0">
-                                        Our portal handles over 50,000+ concurrent users during result release spikes, ensuring you don't face "Server Error" issues.
+                            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-xl p-4 flex gap-3">
+                                <Clock className="w-5 h-5 text-[#1C61E7] flex-shrink-0 mt-0.5" />
+                                <div>
+                                    <p className="text-sm font-semibold text-[#1C61E7] mb-1">Fast Fact</p>
+                                    <p className="text-sm text-blue-800/80 dark:text-blue-300/80">
+                                        Our portal handles over 50,000+ concurrent users during result release spikes, ensuring you don&apos;t face &ldquo;Server Error&rdquo; issues.
                                     </p>
                                 </div>
-                            </article>
-
-                            <InContentAd adSlot={AD_SLOTS.SEMESTER.INLINE_2} />
-                        </div>
-
-                        {/* Sticky Tools Sidebar */}
-                        <div className="lg:col-span-4 sticky top-24 space-y-8">
-                            <div className="bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-xl border border-gray-100 dark:border-gray-700">
-                                <h3 className="text-xl font-bold mb-6 text-gray-900 dark:text-white">Quick Academic Tools</h3>
-                                <div className="space-y-6">
-                                    {quickGuides.map((guide, idx) => (
-                                        <Link key={idx} href={guide.link} className="group flex gap-4 items-start">
-                                            <div className={`${guide.bg} p-3 rounded-2xl ${guide.color} group-hover:scale-110 transition-transform`}>
-                                                <guide.icon className="w-6 h-6" />
-                                            </div>
-                                            <div>
-                                                <h4 className="font-bold text-gray-900 dark:text-white group-hover:underline">{guide.title}</h4>
-                                                <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">{guide.desc}</p>
-                                            </div>
-                                        </Link>
-                                    ))}
-                                </div>
-                                <Link
-                                    href="/syllabus"
-                                    className="mt-8 block w-full py-4 text-center bg-[#1C61E7] text-white font-bold rounded-2xl hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/20"
-                                >
-                                    Explore Syllabus
-                                </Link>
                             </div>
-
-                            {/* Sidebar Ad */}
-                            <MultiplexAd adSlot={AD_SLOTS.SEMESTER.SIDEBAR_WIDGET} />
                         </div>
+
+                        <InContentAd adSlot={AD_SLOTS.SEMESTER.INLINE_2} />
+                    </div>
+
+                    {/* Sticky Sidebar */}
+                    <div className="lg:col-span-4 sticky top-24 space-y-4">
+                        <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm p-5">
+                            <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">Quick Academic Tools</h3>
+                            <div className="space-y-1">
+                                {quickGuides.map((guide, idx) => (
+                                    <Link
+                                        key={idx}
+                                        href={guide.link}
+                                        className="group flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                                    >
+                                        <div className={`${guide.bg} p-2 rounded-xl ${guide.color} flex-shrink-0`}>
+                                            <guide.icon className="w-4 h-4" />
+                                        </div>
+                                        <div className="min-w-0 flex-1">
+                                            <p className="font-semibold text-gray-900 dark:text-white text-sm group-hover:text-[#1C61E7] transition-colors">{guide.title}</p>
+                                            <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-1 mt-0.5">{guide.desc}</p>
+                                        </div>
+                                        <ArrowRight className="w-3.5 h-3.5 text-gray-300 flex-shrink-0 group-hover:text-[#1C61E7] group-hover:translate-x-0.5 transition-all" />
+                                    </Link>
+                                ))}
+                            </div>
+                            <Link
+                                href="/syllabus"
+                                className="mt-4 block w-full py-3 text-center bg-[#1C61E7] hover:bg-[#1552c4] text-white font-semibold rounded-xl transition-colors text-sm"
+                            >
+                                Explore Syllabus
+                            </Link>
+                        </div>
+
+                        <MultiplexAd adSlot={AD_SLOTS.SEMESTER.SIDEBAR_WIDGET} />
                     </div>
                 </div>
             </section>
 
-            {/* FAQ Section */}
+            {/* FAQ */}
             <FAQSectionDynamic
                 faqs={resultsFaqs}
                 title="JNTUH Results FAQs"
@@ -208,7 +223,7 @@ export default function JntuhResultsClient() {
             />
 
             {/* Bottom Ad */}
-            <div className="max-w-7xl mx-auto px-4 py-12">
+            <div className="max-w-5xl mx-auto px-4 py-10">
                 <MultiplexAd adSlot={AD_SLOTS.SEMESTER.BOTTOM_BANNER} />
             </div>
         </main>

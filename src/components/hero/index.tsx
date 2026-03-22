@@ -2,58 +2,71 @@
 
 import React from "react";
 import Link from "next/link";
-import { MessageSquare, Globe, Search, TrendingUp, Award, Users } from "lucide-react";
-import AdBanner from "../adsense/AdBanner";
-import { AD_SLOTS } from "@/config/adSlots";
+import { Search, TrendingUp, Award, Users, Zap, FileText, Calculator, AlertCircle } from "lucide-react";
+
+const quickLinks = [
+  {
+    label: "Consolidated Results",
+    href: "/consolidated-results",
+    icon: FileText,
+    color: "text-[#1C61E7]",
+    bg: "bg-blue-50 dark:bg-blue-900/20",
+  },
+  {
+    label: "CGPA Calculator",
+    href: "/cgpa-calculator",
+    icon: Calculator,
+    color: "text-emerald-600",
+    bg: "bg-emerald-50 dark:bg-emerald-900/20",
+  },
+  {
+    label: "Check Backlogs",
+    href: "/check-backlogs",
+    icon: AlertCircle,
+    color: "text-orange-500",
+    bg: "bg-orange-50 dark:bg-orange-900/20",
+  },
+  {
+    label: "Semester Results",
+    href: "/semester-wise-results",
+    icon: TrendingUp,
+    color: "text-purple-600",
+    bg: "bg-purple-50 dark:bg-purple-900/20",
+  },
+];
 
 const Hero: React.FC = () => {
-  const handleWhatsAppContact = () => {
-    window.open(
-      "https://api.whatsapp.com/send?phone=919550421866",
-      "_blank",
-      "noopener,noreferrer"
-    );
-  };
-
-  const handleWebsiteVisit = () => {
-    window.open(
-      "https://kspelectronics.in/?utm_source=website&utm_medium=button&utm_campaign=jntuh_results",
-      "_blank",
-      "noopener,noreferrer"
-    );
-  };
-
   return (
-    <section className="relative overflow-hidden bg-white dark:bg-black">
-      {/* Animated background elements - Optimized for both Mobile & Desktop */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Mobile: Static gradients using CSS for better performance */}
-        <div className="md:hidden absolute -top-20 -right-20 w-60 h-60 bg-[#1C61E7]/5 rounded-full blur-3xl"></div>
-        <div className="md:hidden absolute -bottom-20 -left-20 w-60 h-60 bg-[#21C15E]/5 rounded-full blur-3xl"></div>
-
-        {/* Desktop: Animated pulses */}
-        <div className="hidden md:block absolute -top-40 -right-40 w-80 h-80 bg-[#1C61E7]/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="hidden md:block absolute -bottom-40 -left-40 w-96 h-96 bg-[#21C15E]/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+    <section className="relative overflow-hidden bg-white dark:bg-gray-950">
+      {/* Background decoration */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div className="absolute -top-32 -right-32 w-[500px] h-[500px] bg-[#1C61E7]/6 rounded-full blur-3xl" />
+        <div className="absolute -bottom-32 -left-32 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#1C61E7]/3 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16 lg:py-24">
-        {/* Hero title with animation - mobile optimized */}
-        <div className="text-center mb-6 md:mb-12 lg:mb-16 animate-fade-in">
-          <div className="inline-flex items-center px-4 py-2.5 md:py-2 mb-5 md:mb-6 bg-[#1C61E7]/10 rounded-full text-[#1C61E7] text-sm md:text-sm font-medium">
-            <Award className="w-5 h-5 md:w-4 md:h-4 mr-2" />
-            Trusted by 100,000+ students
-          </div>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-10 md:pt-20 md:pb-16 lg:pt-28 lg:pb-20">
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-gray-900 dark:text-white mb-5 md:mb-6 tracking-tight px-2">
-            Instant Access to{" "}
-            <span className="relative inline-block mt-1 md:mt-2">
-              <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-[#1C61E7] to-[#1C61E7]/70">
-                JNTUH Results
+        {/* Trust badge */}
+        <div className="flex justify-center mb-7 md:mb-8 animate-fade-in">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1C61E7]/8 border border-[#1C61E7]/15 text-[#1C61E7] dark:text-blue-400 text-sm font-semibold">
+            <Award className="w-4 h-4" />
+            Trusted by 100,000+ JNTUH students
+          </div>
+        </div>
+
+        {/* Headline */}
+        <div className="text-center mb-8 md:mb-10 animate-fade-in">
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 dark:text-white leading-[1.08] tracking-tight px-2">
+            Your JNTUH Academic{" "}
+            <span className="relative inline-block mt-1">
+              <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-[#1C61E7] via-[#2d75f5] to-[#1C61E7]">
+                Hub
               </span>
               <svg
                 aria-hidden="true"
                 viewBox="0 0 418 42"
-                className="absolute top-3/4 left-0 h-[0.58em] w-full fill-[#1C61E7]/20"
+                className="absolute top-[85%] left-0 h-[0.45em] w-full fill-[#1C61E7]/20"
                 preserveAspectRatio="none"
               >
                 <path d="M203.371.916c-26.013-2.078-76.686 1.963-124.73 9.946L67.3 12.749C35.421 18.062 18.2 21.766 6.004 25.934 1.244 27.561.828 27.778.874 28.61c.07 1.214.828 1.121 9.595-1.176 9.072-2.377 17.15-3.92 39.246-7.496C123.565 7.986 157.869 4.492 195.942 5.046c7.461.108 19.25 1.696 19.17 2.582-.107 1.183-7.874 4.31-25.75 10.366-21.992 7.45-35.43 12.534-36.701 13.884-2.173 2.308-.202 4.407 4.442 4.734 2.654.187 3.263.157 15.593-.78 35.401-2.686 57.944-3.488 88.365-3.143 46.327.526 75.721 2.23 130.788 7.584 19.787 1.924 20.814 1.98 24.557 1.332l.066-.011c1.201-.203 1.53-1.825.399-2.335-2.911-1.31-4.893-1.604-22.048-3.261-57.509-5.556-87.871-7.36-132.059-7.842-23.239-.254-33.617-.116-50.627.674-11.629.54-42.371 2.494-46.696 2.967-2.359.259 8.133-3.625 26.504-9.81 23.239-7.825 27.934-10.149 28.304-14.005.417-4.348-3.529-6-16.878-7.066Z" />
@@ -61,99 +74,79 @@ const Hero: React.FC = () => {
             </span>
           </h1>
 
-          <p className="mt-5 md:mt-6 max-w-3xl mx-auto text-base md:text-lg lg:text-xl text-gray-600 dark:text-gray-300 leading-relaxed px-4">
-            Get quick and easy access to your Jawaharlal Nehru Technological
-            University Hyderabad exam results with <span className="font-semibold text-gray-900 dark:text-gray-100">advanced analytics</span> and <span className="font-semibold text-gray-900 dark:text-gray-100">insights</span>.
+          <p className="mt-6 max-w-2xl mx-auto text-lg md:text-xl text-gray-500 dark:text-gray-400 leading-relaxed font-medium px-4">
+            Instantly access results, calculate your CGPA, check backlogs, and
+            explore academic tools — all in one place.
           </p>
-
-          {/* CTA Buttons - mobile optimized */}
-          <div className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-stretch sm:items-center px-4">
-            <Link
-              href="/consolidated-results"
-              className="group inline-flex items-center justify-center px-6 py-3.5 md:px-8 md:py-4 text-base md:text-lg font-semibold text-white bg-[#1C61E7] rounded-full active:bg-[#1C61E7]/80 md:hover:bg-[#1C61E7]/90 transform transition-all duration-300 active:scale-95 md:hover:scale-105 md:hover:shadow-xl shadow-lg min-h-[48px]"
-            >
-              <Search className="w-5 h-5 mr-2" />
-              Check Results Now
-              <svg className="w-5 h-5 ml-2 md:group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </Link>
-
-            <Link
-              href="/cgpa-calculator"
-              className="inline-flex items-center justify-center px-6 py-3.5 md:px-8 md:py-4 text-base md:text-lg font-semibold text-[#1C61E7] bg-white dark:bg-gray-800 border-2 border-[#1C61E7] rounded-full active:bg-[#1C61E7]/10 md:hover:bg-[#1C61E7]/5 dark:md:hover:bg-gray-700 transform transition-all duration-300 active:scale-95 md:hover:scale-105 shadow-md min-h-[48px]"
-            >
-              <TrendingUp className="w-5 h-5 mr-2" />
-              Calculate CGPA
-            </Link>
-          </div>
         </div>
 
-        {/* Stats Section - mobile optimized */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-12 md:mb-16">
+        {/* Primary CTAs */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch sm:items-center px-4 mb-12 md:mb-16 animate-fade-in">
+          <Link
+            href="/consolidated-results"
+            className="group relative inline-flex items-center justify-center gap-2.5 px-7 py-3.5 md:px-8 md:py-4 text-base md:text-[17px] font-bold text-white bg-gradient-to-r from-[#1C61E7] via-indigo-500 to-[#1C61E7] bg-[length:200%_auto] rounded-2xl md:hover:bg-right transition-all duration-500 shadow-[0_0_30px_-5px_rgba(28,97,231,0.5)] md:hover:shadow-[0_0_40px_0px_rgba(28,97,231,0.7)] md:hover:-translate-y-1 active:scale-95 border border-white/20 min-h-[52px] overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <Search className="relative z-10 w-5 h-5" />
+            <span className="relative z-10">Check My Results</span>
+            <svg className="relative z-10 w-4 h-4 md:group-hover:translate-x-1.5 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </Link>
+
+          <Link
+            href="/cgpa-calculator"
+            className="group inline-flex items-center justify-center gap-2.5 px-7 py-3.5 md:px-8 md:py-4 text-base md:text-[17px] font-bold text-[#1C61E7] dark:text-blue-400 bg-white/60 dark:bg-gray-900/40 backdrop-blur-md border border-gray-200 dark:border-gray-800 rounded-2xl hover:bg-white dark:hover:bg-gray-800 hover:border-[#1C61E7]/30 dark:hover:border-blue-700/50 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 md:hover:-translate-y-1 active:scale-95 min-h-[52px]"
+          >
+            <TrendingUp className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
+              Calculate CGPA
+            </span>
+          </Link>
+        </div>
+
+        {/* Stats row */}
+        <div className="grid grid-cols-3 gap-3 md:gap-6 mb-12 md:mb-16 max-w-2xl mx-auto">
           {[
             { icon: Users, label: "Active Students", value: "100K+" },
-            { icon: Search, label: "Result Searches", value: "500K+" },
-            { icon: TrendingUp, label: "Avg. Response", value: "<2s" },
-          ].map((stat, index) => (
+            { icon: Search, label: "Searches Done", value: "500K+" },
+            { icon: Zap, label: "Avg. Response", value: "<2s" },
+          ].map((stat) => (
             <div
-              key={index}
-              className="bg-white dark:bg-gray-800 rounded-2xl p-4 md:p-6 text-center transform transition-all duration-300 active:scale-95 md:hover:scale-105 md:hover:shadow-lg border border-gray-200 dark:border-gray-700 shadow-md"
+              key={stat.label}
+              className="flex flex-col items-center text-center p-4 md:p-5 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800"
             >
-              <stat.icon className="w-7 h-7 md:w-8 md:h-8 mx-auto mb-2 md:mb-3 text-[#1C61E7]" />
-              <div className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-1">
+              <stat.icon className="w-5 h-5 md:w-6 md:h-6 mb-2 text-[#1C61E7]" />
+              <div className="text-xl md:text-2xl font-extrabold text-gray-900 dark:text-white font-display tracking-tight">
                 {stat.value}
               </div>
-              <div className="text-xs md:text-sm text-gray-600 dark:text-gray-400">
+              <div className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-0.5 font-medium">
                 {stat.label}
               </div>
             </div>
           ))}
         </div>
 
-        {/* Promotional Card - mobile optimized */}
-        <div className="relative bg-[#1C61E7] rounded-3xl overflow-hidden shadow-2xl transform transition-transform hover:scale-[1.01] duration-500">
-          <div className="hidden md:block absolute inset-0 bg-grid-white/10 mask-image-gradient"></div>
-          <div className="relative p-8 md:p-12">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-              <div className="text-center md:text-left flex-1 space-y-4">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white tracking-tight">
-                  Explore IoT Kit and ML Projects
-                </h2>
-                <p className="text-lg text-blue-100 max-w-xl">
-                  Unlock the world of innovation and technology for your college projects! Get hands-on experience with our premium kits.
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                  <button
-                    onClick={handleWhatsAppContact}
-                    className="group flex items-center justify-center py-3.5 px-8 bg-[#21C15E] text-white font-bold rounded-full transition-all duration-300 active:scale-95 hover:bg-[#1ea851] shadow-lg hover:shadow-green-500/25"
-                    aria-label="Contact via WhatsApp"
-                  >
-                    <MessageSquare className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
-                    <span>WhatsApp Us</span>
-                  </button>
-
-                  <button
-                    onClick={handleWebsiteVisit}
-                    className="flex items-center justify-center py-3.5 px-8 bg-white text-[#1C61E7] font-bold rounded-full hover:bg-gray-50 transition-all duration-300 shadow-lg"
-                    aria-label="Visit Website"
-                  >
-                    <Globe className="w-5 h-5 mr-2" />
-                    <span>Visit KSP Electronics</span>
-                  </button>
+        {/* Quick access links */}
+        <div className="max-w-3xl mx-auto">
+          <p className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-4">
+            Quick Access
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {quickLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="group flex flex-col items-center gap-2.5 p-4 rounded-2xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 md:hover:border-[#1C61E7]/25 md:hover:shadow-md transition-all duration-200 md:hover:-translate-y-0.5"
+              >
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${link.bg} ${link.color} group-hover:scale-110 transition-transform duration-200`}>
+                  <link.icon className="w-5 h-5" />
                 </div>
-              </div>
-
-              {/* Decorative element - desktop only */}
-              <div className="hidden lg:block shrink-0">
-                <div className="w-40 h-40 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-md border border-white/20 shadow-inner">
-                  <div className="w-28 h-28 bg-white/20 rounded-full flex items-center justify-center shadow-lg">
-                    <TrendingUp className="w-14 h-14 text-white" />
-                  </div>
-                </div>
-              </div>
-            </div>
+                <span className="text-sm font-semibold text-gray-700 dark:text-gray-300 text-center leading-snug">
+                  {link.label}
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </div>
@@ -162,26 +155,3 @@ const Hero: React.FC = () => {
 };
 
 export default Hero;
-
-// Add these styles to your global CSS file
-/*
-@layer utilities {
-  .animate-fade-in {
-    animation: fadeIn 0.5s ease-out forwards;
-  }
-
-  .animate-slide-up {
-    animation: slideUp 0.5s ease-out forwards;
-  }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-*/

@@ -102,7 +102,7 @@ export default async function BlogPost({ params }: Props) {
 
                         {/* Top Content Ad */}
                         <div className="mb-8">
-                            <ResponsiveAd adSlot={AD_SLOTS.BLOG.HEADER} format="auto" className="rounded-2xl overflow-hidden shadow-sm" />
+                            <ResponsiveAd adSlot={AD_SLOTS.BLOG.TOP_BANNER} format="auto" className="rounded-2xl overflow-hidden shadow-sm" />
                         </div>
 
                         {/* Content Body */}
@@ -120,7 +120,7 @@ export default async function BlogPost({ params }: Props) {
 
                         {/* In-Content Ad (Bottom of article) */}
                         <div className="mb-10">
-                            <InContentAd adSlot={AD_SLOTS.BLOG.IN_CONTENT} className="rounded-2xl overflow-hidden" />
+                            <InContentAd adSlot={AD_SLOTS.BLOG.IN_ARTICLE_1} className="rounded-2xl overflow-hidden" />
                         </div>
 
                         {/* Share & CTA */}

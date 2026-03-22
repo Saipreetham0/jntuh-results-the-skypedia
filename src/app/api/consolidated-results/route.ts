@@ -1,81 +1,7 @@
-// import { NextResponse } from 'next/server';
-// import axios from 'axios';
-// import { HttpsProxyAgent } from 'https-proxy-agent';
-
-// const PROXY_CONFIG = {
-//   login: '8c5906b99fbd1c0bcd0f916d545c565a294fa18417499a6b43babf4c07a63a5b376a6e57c8fe6374336efa7732b34fe03eb6db89c17b3d5907c671770cc67ea3d59b066f8696adba47c3e6e3a1d06603',
-//   password: 'o2dyouia1i7b',
-//   host: 'proxy.toolip.io',
-//   port: '31112'
-// };
-
-// export async function GET(request: Request) {
-//   try {
-//     const { searchParams } = new URL(request.url);
-//     const htno = searchParams.get('htno');
-
-//     if (!htno) {
-//       return NextResponse.json({ error: 'Hall ticket number is required' }, { status: 400 });
-//     }
-
-//     const proxyUrl = `http://${PROXY_CONFIG.login}:${PROXY_CONFIG.password}@${PROXY_CONFIG.host}:${PROXY_CONFIG.port}`;
-//     const httpsAgent = new HttpsProxyAgent(proxyUrl);
-
-//     const response = await axios.get(
-//       `https://jntuhresults.up.railway.app/api/academicresult?htno=${htno}`,
-
-//       { httpsAgent }
-//     );
-
-//     return NextResponse.json(response.data);
-//   } catch (error) {
-//     console.error('Proxy request failed:', error);
-//     return NextResponse.json(
-//       { error: 'Failed to fetch results' },
-//       { status: 500 }
-//     );
-//   }
-// }
-
-
-
-//woking code
-
-
-// import { NextResponse } from "next/server";
-// import axios from "axios";
-
-// export async function GET(request: Request) {
-//   try {
-//     const { searchParams } = new URL(request.url);
-//     const htno = searchParams.get("htno");
-
-//     if (!htno) {
-//       return NextResponse.json(
-//         { error: "Hall ticket number is required" },
-//         { status: 400 }
-//       );
-//     }
-
-//     const response = await axios.get(
-//       `https://jntuhresults.dhethi.com/api/getAcademicResult?rollNumber=${htno}`
-//     );
-//     // console.log("Response:", response.data);
-
-//     return NextResponse.json(response.data);
-//   } catch (error) {
-//     console.error("Request failed:", error);
-//     return NextResponse.json(
-//       { error: "Failed to fetch results" },
-//       { status: 500 }
-//     );
-//   }
-// }
-
-
 // app/api/consolidated-results/route.ts
 import { NextResponse } from 'next/server';
 import axios, { AxiosError } from 'axios';
+import { rateLimit, getClientIp } from '@/server/rate-limit';
 
 /**
  * Error response structure following FastAPI error format
@@ -96,6 +22,14 @@ interface APIErrorResponse {
  * @returns - JSON response with consolidated results data or error details
  */
 export async function GET(request: Request) {
+  const rl = rateLimit(getClientIp(request), { limit: 30, windowMs: 60_000 });
+  if (!rl.success) {
+    return NextResponse.json(
+      { detail: 'Too many requests. Please slow down.' },
+      { status: 429, headers: { 'Retry-After': String(Math.ceil((rl.resetAt - Date.now()) / 1000)) } }
+    );
+  }
+
   try {
     // Extract query parameters
     const { searchParams } = new URL(request.url);
@@ -117,22 +51,22 @@ export async function GET(request: Request) {
       );
     }
 
-    // Validate roll number format (basic validation for demonstration)
-    // const rollNumberRegex = /^[0-9]{1,2}[A-Z][0-9]{2}[A-Z][0-9]{4}$/;
-    // if (!q.test(rollNumber)) {
-    //   return NextResponse.json(
-    //     {
-    //       detail: [
-    //         {
-    //           loc: ["query", "htno"],
-    //           msg: "Invalid hall ticket number format. Expected pattern: 20J25A0501",
-    //           type: "value_error.pattern"
-    //         }
-    //       ]
-    //     } as APIErrorResponse,
-    //     { status: 422 }
-    //   );
-    // }
+    // Validate roll number format
+    const rollNumberRegex = /^[0-9]{1,2}[A-Z]{1,2}[0-9]{2}[A-Z][0-9]{4}$/;
+    if (!rollNumberRegex.test(rollNumber)) {
+      return NextResponse.json(
+        {
+          detail: [
+            {
+              loc: ["query", "htno"],
+              msg: "Invalid hall ticket number format. Expected pattern: 20J25A0501",
+              type: "value_error.pattern"
+            }
+          ]
+        } as APIErrorResponse,
+        { status: 422 }
+      );
+    }
 
     // Make request to external API (using getAllResult endpoint for consolidated results)
     const response = await axios.get(
@@ -157,7 +91,6 @@ export async function GET(request: Request) {
     return NextResponse.json(response.data);
 
   } catch (error) {
-    console.error('Consolidated results request failed:', error);
 
     // Handle Axios errors
     if (axios.isAxiosError(error)) {
@@ -198,7 +131,7 @@ export async function GET(request: Request) {
 
         // Pass through other status codes
         return NextResponse.json(
-          { detail: `External API error: ${axiosError.message}` },
+          { detail: "External service error. Please try again later." },
           { status: status >= 400 && status < 600 ? status : 502 }
         );
       }

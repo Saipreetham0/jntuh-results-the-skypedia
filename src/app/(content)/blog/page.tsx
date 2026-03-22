@@ -37,7 +37,7 @@ export default function BlogIndex() {
 
                 {/* Top Ad */}
                 <div className="mb-16">
-                    <ResponsiveAd adSlot={AD_SLOTS.BLOG.HEADER} format="auto" className="rounded-2xl overflow-hidden shadow-sm" />
+                    <ResponsiveAd adSlot={AD_SLOTS.BLOG.TOP_BANNER} format="auto" className="rounded-2xl overflow-hidden shadow-sm" />
                 </div>
 
                 {/* Content Layout */}

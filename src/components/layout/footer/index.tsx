@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Script from 'next/script';
 import { Mail, MapPin, ArrowRight, Heart, ChevronUp, Github, Instagram, Youtube, Twitter } from 'lucide-react';
 import { siteConfig } from '@/config/site';
 import TrustBadges from '@/components/ui/TrustBadges';
@@ -89,9 +90,11 @@ const Footer: React.FC = () => {
   return (
     <footer className="relative bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 transition-colors duration-300 overflow-hidden">
       {/* JSON-LD for SEO */}
-      <script
+      <Script
+        id="footer-structured-data"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        strategy="afterInteractive"
       />
 
       {/* Decorative Blur Backgrounds */}

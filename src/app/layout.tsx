@@ -23,7 +23,7 @@ import { AnchorAd, AdDebug } from '@/components/adsense';
 
 import AD_SLOTS from '@/config/adSlots';
 
-import '@/app/_shared/styles/globals.css';
+import '@/app/globals.css';
 
 export const metadata: Metadata = generateMetadata();
 
@@ -31,27 +31,30 @@ interface RootLayoutProps {
   readonly children: ReactNode;
 }
 
-import { Inter } from 'next/font/google';
+import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  variable: '--font-display',
+  weight: ['400', '500', '600', '700', '800'],
+  display: 'swap',
+});
 
 export default function RootLayout({
   children,
 }: RootLayoutProps) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
+      <body suppressHydrationWarning className={`${inter.variable} ${plusJakarta.variable} font-sans`}>
+        <AdScript />
         <StructuredData />
         <GoogleTagManager />
-      </head>
-
-      <body suppressHydrationWarning className={`${inter.variable} font-sans`}>
 
         {/* <SpeedInsights /> */}
         <AnalyticsProvider />
         <GoogleTagManagerNoScript />
         <ScrollToTop />
-        <AdScript />
         <AdDebug />
 
         <Providers>

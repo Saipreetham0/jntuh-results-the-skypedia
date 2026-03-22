@@ -1,8 +1,12 @@
 /**
  * Ad Placement Configuration
  *
- * All slot IDs sourced directly from AdSense dashboard for ca-pub-8569567515057281.
+ * All slot IDs sourced directly from AdSense dashboard for ca-pub-4870864326886980.
  * Last synced: Feb 20, 2026
+ *
+ * IMPORTANT: Never reuse the same slot ID more than once on the same page.
+ * Each placement on the same page must use a unique slot ID, otherwise
+ * AdSense will not serve ads and may flag the account.
  */
 
 export const AD_SLOTS = {
@@ -13,16 +17,14 @@ export const AD_SLOTS = {
    * BLOG / ARTICLE PAGES — Primary revenue source
    */
   BLOG: {
-    TOP_BANNER: '1365713287', // Display — "TOP_BANNER"
-    HEADER: '1365713287', // same unit reused
+    TOP_BANNER: '1365713287',   // Display — "TOP_BANNER"
     IN_ARTICLE_1: '3537523006', // In-article — "IN_ARTICLE_1"
-    IN_CONTENT: '3537523006', // reuse in-article
     IN_ARTICLE_2: '2854054771', // In-article — "IN_ARTICLE_2" (money-zone)
     BOTTOM_RECTANGLE: '7970650085', // Display — "BOTTOM_RECTANGLE"
     BOTTOM_BANNER: '8014882116', // Display — "BOTTOM_BANNER"
     SIDEBAR_STICKY: '2032869647', // Display — "SIDEBAR_STICKY"
     MOBILE_ANCHOR: '5042176362', // Display — "ANCHOR_BOTTOM"
-    IN_RELATED: '7970650085', // reuse bottom rect for related section
+    IN_RELATED: '5592333174',   // Display — "BLOG.IN_RELATED"
   },
 
   /**
@@ -40,14 +42,13 @@ export const AD_SLOTS = {
    * CALCULATOR PAGES — Highest RPM ($5-12)
    */
   CALCULATOR: {
-    TOP_BANNER: '1365713287', // Display — "TOP_BANNER"
+    TOP_BANNER: '1365713287',    // Display — "TOP_BANNER"
     MID_RECTANGLE: '3832094528', // Display — "MID_RECTANGLE"
-    RESULT_TOP: '2008818916', // Display — "INLINE_1"
-    RESULT_MIDDLE: '3832094528', // Display — "MID_RECTANGLE"
+    RESULT_TOP: '2008818916',    // Display — "INLINE_1"
     RESULT_BOTTOM: '7970650085', // Display — "BOTTOM_RECTANGLE"
-    BOTTOM_RECTANGLE: '7970650085', // Display — "BOTTOM_RECTANGLE"
     SIDEBAR_STICKY: '2032869647', // Display — "SIDEBAR_STICKY"
-    IN_CONTENT: '1853036550', // In-article — "in artical ads"
+    IN_CONTENT: '1853036550',      // In-article — "in artical ads"
+    RESULT_MIDDLE: '1082242520',   // Display — "CALCULATOR.RESULT_MIDDLE"
   },
 
   /**
@@ -131,13 +132,13 @@ export const AD_SLOTS = {
    */
   TABLE: {
     ABOVE: '8279758421', // In-article — "Table ads"
-    BELOW: '8279758421',
+    BELOW: '3139095070', // Display — "TABLE.BELOW"
   },
 
   COLLEGES: {
     TOP_BANNER: '1365713287',
-    TABLE_TOP: '8279758421', // In-article — "Table ads"
-    TABLE_BOTTOM: '8279758421',
+    TABLE_TOP: '8279758421',     // In-article — "Table ads"
+    TABLE_BOTTOM: '6319792181',  // Display — "COLLEGES.TABLE_BOTTOM"
   },
 
   /**

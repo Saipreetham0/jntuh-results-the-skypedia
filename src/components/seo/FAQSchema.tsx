@@ -14,11 +14,14 @@ interface FAQSchemaProps {
     faqs: { question: string; answer: string }[];
 }
 
+import Script from 'next/script';
+
 export default function FAQSchema({ faqs }: FAQSchemaProps) {
     const schema = generateFAQSchema(faqs);
 
     return (
-        <script
+        <Script
+            id="faq-schema"
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />

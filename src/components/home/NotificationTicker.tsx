@@ -67,7 +67,7 @@ const NotificationTicker = () => {
                                         <Sparkles className="w-4 h-4 text-blue-500 fill-blue-500/10" />
                                     )}
 
-                                    <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 truncate group-hover:text-[#1C61E7] dark:group-hover:text-blue-400 transition-colors">
+                                    <p className="font-display text-sm font-semibold text-gray-800 dark:text-gray-200 truncate group-hover:text-[#1C61E7] dark:group-hover:text-blue-400 transition-colors">
                                         {NOTIFICATIONS[currentIndex].text}
                                     </p>
 

@@ -15,6 +15,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // Main Result Pages - Very High Priority
     {
+      url: `${baseUrl}/jntuh-results-checker-fast-server`,
+      lastModified: currentDate,
+      changeFrequency: 'daily',
+      priority: 1.0,
+    },
+    {
+      url: `${baseUrl}/results-hub`,
+      lastModified: currentDate,
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/mba-results`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/mtech-results`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/jntuh-results`,
       lastModified: currentDate,
       changeFrequency: 'daily',
@@ -47,7 +71,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/jntuh-cgpa-to-percentage-formula`,
+      url: `${baseUrl}/calculators`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.9,
@@ -166,6 +190,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ),
 
     // Additional Tools
+    {
+      url: `${baseUrl}/guides`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/result-alerts`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
     {
       url: `${baseUrl}/compare-performance`,
       lastModified: currentDate,

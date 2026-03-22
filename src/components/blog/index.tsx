@@ -2,75 +2,107 @@
 
 import React from "react";
 import Link from "next/link";
-import { BookOpen, ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BookOpen, Clock } from "lucide-react";
 import { getAllGuides } from "@/lib/content/guides";
-import { MultiplexAd } from "../adsense";
-import AD_SLOTS from "@/config/adSlots";
 
 const HomepageBlog: React.FC = () => {
-  const guides = getAllGuides().slice(0, 3); // Show top 3 guides on homepage
+  const guides = getAllGuides().slice(0, 3);
 
   return (
-    <section className="relative bg-white dark:bg-gray-900 py-12 md:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
+    <section className="py-16 md:py-24 bg-gray-50 dark:bg-gray-950 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-10 md:mb-12 lg:mb-14">
-          <div className="inline-flex items-center px-5 py-2.5 mb-5 bg-blue-50 dark:bg-blue-900/30 rounded-full text-[#1C61E7] dark:text-blue-300 text-sm font-semibold border border-blue-100 dark:border-blue-800">
-            <BookOpen className="w-5 h-5 md:w-4 md:h-4 mr-2" />
-            Knowledge Base
+
+        {/* ── Section header — two-column ─────────────────────────── */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-14">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#1C61E7] dark:text-blue-400 mb-3">
+              Knowledge Base
+            </p>
+            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white tracking-tight">
+              Guides &amp; Insights
+            </h2>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Academic Guides & <span className="text-[#1C61E7]">Insights</span>
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Everything you need to know about JNTUH regulations, exam tips, and career guidance.
-          </p>
+          <div className="flex flex-col sm:flex-row sm:items-end gap-4">
+            <p className="max-w-xs text-base text-gray-500 dark:text-gray-400 leading-relaxed sm:text-right">
+              JNTUH regulations, exam tips, and career guidance — all in one place.
+            </p>
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-sm font-bold text-gray-700 dark:text-gray-300 hover:border-[#1C61E7]/30 hover:text-[#1C61E7] dark:hover:text-blue-400 transition-all whitespace-nowrap shrink-0"
+            >
+              All guides
+              <ArrowUpRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
 
-        {/* Blog posts grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {guides.map((guide) => (
-            <Link key={guide.slug} href={`/blog/${guide.slug}`} className="group">
-              <article className="h-full bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
-                <div className="p-6 flex-1 flex flex-col">
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2 mb-4">
+        {/* ── Article cards ────────────────────────────────────────── */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+          {guides.map((guide, index) => (
+            <Link
+              key={guide.slug}
+              href={`/blog/${guide.slug}`}
+              className="group flex flex-col bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden hover:border-[#1C61E7]/20 dark:hover:border-blue-800/40 hover:shadow-lg hover:shadow-gray-200/50 dark:hover:shadow-black/20 hover:-translate-y-0.5 transition-all duration-300"
+            >
+              {/* Top accent strip */}
+              <div className="h-0.5 bg-gradient-to-r from-[#1C61E7] to-[#2d75f5] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+
+              <div className="p-6 flex flex-col flex-1">
+                {/* Article number + tags row */}
+                <div className="flex items-center justify-between mb-4">
+                  <span className="font-display text-xs font-black text-gray-200 dark:text-gray-700 tabular-nums select-none">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
                     {guide.tags.slice(0, 2).map((tag) => (
-                      <span key={tag} className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300">
+                      <span
+                        key={tag}
+                        className="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-blue-50 dark:bg-blue-900/20 text-[#1C61E7] dark:text-blue-400"
+                      >
                         {tag}
                       </span>
                     ))}
                   </div>
-
-                  <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-[#1C61E7] transition-colors line-clamp-2">
-                    {guide.title}
-                  </h2>
-
-                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3 flex-1">
-                    {guide.description}
-                  </p>
-
-                  <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100 dark:border-gray-700">
-                    <span className="text-xs text-gray-400 font-medium">
-                      {new Date(guide.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-                    </span>
-                    <span className="text-sm font-semibold text-[#1C61E7] flex items-center group-hover:underline">
-                      Read Guide
-                      <ArrowRight className="w-4 h-4 ml-1" />
-                    </span>
-                  </div>
                 </div>
-              </article>
+
+                {/* Title */}
+                <h3 className="font-display text-[16px] font-bold text-gray-900 dark:text-white mb-2.5 group-hover:text-[#1C61E7] dark:group-hover:text-blue-400 transition-colors line-clamp-2 tracking-tight leading-snug">
+                  {guide.title}
+                </h3>
+
+                {/* Excerpt */}
+                <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 leading-relaxed flex-1">
+                  {guide.description}
+                </p>
+
+                {/* Footer */}
+                <div className="flex items-center justify-between mt-5 pt-4 border-t border-gray-50 dark:border-gray-800">
+                  <span className="flex items-center gap-1.5 text-xs text-gray-400 font-medium">
+                    <Clock className="w-3 h-3" />
+                    {new Date(guide.publishedAt).toLocaleDateString('en-US', {
+                      month: 'short',
+                      day: 'numeric',
+                      year: 'numeric',
+                    })}
+                  </span>
+                  <span className="flex items-center gap-1 text-xs font-bold text-[#1C61E7] dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                    Read
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
+                </div>
+              </div>
             </Link>
           ))}
         </div>
 
-        <div className="mt-12 text-center">
+        {/* ── Mobile "all guides" CTA ──────────────────────────────── */}
+        <div className="mt-8 flex justify-center md:hidden">
           <Link
             href="/blog"
-            className="inline-flex items-center px-8 py-4 bg-[#1C61E7] text-white rounded-2xl font-bold hover:scale-105 transition-all shadow-xl shadow-blue-500/20"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-sm font-bold text-gray-700 dark:text-gray-300 hover:border-[#1C61E7]/30 hover:text-[#1C61E7] transition-all"
           >
-            View All Guides
-            <ArrowRight className="w-5 h-5 ml-2" />
+            View all guides
+            <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </div>

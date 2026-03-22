@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useRef } from "react";
-import { Download, Printer, AlertCircle, RefreshCw, GraduationCap, ArrowRight, Zap, Share2 } from "lucide-react";
+import Link from "next/link";
+import { Download, Printer, AlertCircle, RefreshCw, ArrowLeft, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ResponsiveAd, InContentAd } from "@/components/adsense";
@@ -12,62 +13,26 @@ import { BacklogStats } from "./BacklogStats";
 import { BacklogResults } from "./BacklogResults";
 import { BacklogSkeleton } from "./BacklogSkeleton";
 import { SEOContent } from "./SEOContent";
-import { TrendingUpdates } from "./TrendingUpdates";
 import { RelatedTools } from "./RelatedTools";
-import { StudentCounter } from "./StudentCounter";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
 const SITE_DOMAIN = "https://jntuhresults.theskypedia.com";
 
-// Custom Print CSS
 const PrintStyles = () => (
     <style jsx global>{`
       @media print {
         header, nav, footer, .print-hide, button, .ad-container {
           display: none !important;
         }
-        body, html {
-          background-color: white !important;
-        }
-        .print-container {
-          margin: 0 !important;
-          padding: 0 !important;
-          width: 100% !important;
-          max-width: 100% !important;
-        }
-        .print-only {
-          display: block !important;
-        }
-        .print-break-inside-avoid {
-          break-inside: avoid;
-        }
-        .print-header {
-          text-align: center;
-          margin-bottom: 20px;
-        }
-        .print-page-break {
-          page-break-after: always;
-        }
+        body, html { background-color: white !important; }
+        .print-container { margin: 0 !important; padding: 0 !important; width: 100% !important; max-width: 100% !important; }
+        .print-only { display: block !important; }
+        .print-break-inside-avoid { break-inside: avoid; }
+        .print-header { text-align: center; margin-bottom: 20px; }
+        .print-page-break { page-break-after: always; }
       }
-      .print-only {
-        display: none;
-      }
-      .animate-blob {
-        animation: blob 7s infinite;
-      }
-      .animation-delay-2000 {
-        animation-delay: 2s;
-      }
-      .animation-delay-4000 {
-        animation-delay: 4s;
-      }
-      @keyframes blob {
-        0% { transform: translate(0px, 0px) scale(1); }
-        33% { transform: translate(30px, -50px) scale(1.1); }
-        66% { transform: translate(-20px, 20px) scale(0.9); }
-        100% { transform: translate(0px, 0px) scale(1); }
-      }
+      .print-only { display: none; }
     `}</style>
 );
 
@@ -75,9 +40,7 @@ export default function BacklogsPage() {
     const { loading, data, error, fetchBacklogs, clearResults } = useBacklogs();
     const printRef = useRef<HTMLDivElement>(null);
 
-    const handlePrint = () => {
-        window.print();
-    };
+    const handlePrint = () => window.print();
 
     const handleDownload = async () => {
         if (!printRef.current || !data) return;
@@ -98,7 +61,6 @@ export default function BacklogsPage() {
             tempContainer.style.padding = '40px';
             document.body.appendChild(tempContainer);
 
-            // PDF Content Generation
             tempContainer.innerHTML = `
         <div style="font-family: sans-serif; color: #111;">
             <div style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom: 20px;">
@@ -155,19 +117,9 @@ export default function BacklogsPage() {
         </div>
       `;
 
-            const canvas = await html2canvas(tempContainer, {
-                scale: 2,
-                useCORS: true,
-                logging: false,
-                backgroundColor: '#ffffff'
-            });
-
+            const canvas = await html2canvas(tempContainer, { scale: 2, useCORS: true, logging: false, backgroundColor: '#ffffff' });
             const imgData = canvas.toDataURL('image/jpeg', 0.95);
-            const pdf = new jsPDF({
-                orientation: 'portrait',
-                unit: 'mm',
-                format: 'a4',
-            });
+            const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
 
             const pdfWidth = 210;
             const pdfHeight = 297;
@@ -193,165 +145,132 @@ export default function BacklogsPage() {
         } catch (error) {
             console.error('PDF Generation Error:', error);
             alert('Failed to generate PDF. You can use the Print option instead.');
-            const loading = document.querySelector('.fixed.inset-0');
-            if (loading) loading.remove();
+            const loadingEl = document.querySelector('.fixed.inset-0');
+            if (loadingEl) loadingEl.remove();
         }
     };
 
     return (
         <>
             <PrintStyles />
-            <div className="relative min-h-screen bg-gray-50/50 dark:bg-gray-950/50 font-sans selection:bg-blue-100 selection:text-blue-900">
+            <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
 
-                {/* Ad: Leaderboard (Heatmap: Top Visibility) */}
-                <div className="print-hide w-full flex justify-center py-2 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800">
+                {/* Header */}
+                <div className="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 print-hide">
+                    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
+                        <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-[#1C61E7] transition-colors mb-4">
+                            <ArrowLeft className="h-3.5 w-3.5" />
+                            Back to home
+                        </Link>
+                        <p className="text-xs font-semibold uppercase tracking-widest text-[#1C61E7] mb-2">JNTUH Results</p>
+                        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">
+                            Check Backlogs
+                        </h1>
+                        <p className="text-gray-500 dark:text-gray-400">
+                            Get a full report of active and cleared backlogs across every semester.
+                        </p>
+                    </div>
+                </div>
+
+                {/* Top Ad */}
+                <div className="print-hide w-full flex justify-center py-3 border-b border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900">
                     <ResponsiveAd adSlot={AD_SLOTS.RESULTS.TOP_BANNER} format="auto" />
                 </div>
 
-                {/* Engagement: Trending Ticker */}
-                <TrendingUpdates />
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6 print-container">
 
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10 print-container">
-
-                    <div className="text-center space-y-4 mb-8 animate-fade-in print-header">
-                        <div className="inline-flex items-center justify-center p-3 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 mb-2">
-                            <GraduationCap className="w-6 h-6 text-blue-600 mr-2" />
-                            <h1 className="text-2xl md:text-4xl font-black text-gray-900 dark:text-white">
-                                JNTUH Backlogs Checker 2026
-                            </h1>
-                        </div>
-                        <StudentCounter />
+                    {/* Search */}
+                    <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm p-1 print-hide">
+                        <BacklogSearch onSearch={fetchBacklogs} loading={loading} />
                     </div>
 
-                    <div className="grid lg:grid-cols-12 gap-8 items-start">
+                    {/* Error */}
+                    {error && (
+                        <Alert variant="destructive" className="border-red-200 bg-red-50 dark:bg-red-900/10 dark:border-red-900/30 rounded-2xl print-hide">
+                            <AlertCircle className="h-4 w-4" />
+                            <AlertTitle>Unable to Fetch Results</AlertTitle>
+                            <AlertDescription className="flex flex-col gap-2">
+                                <p>{error}</p>
+                                <Button variant="outline" size="sm" onClick={clearResults} className="w-fit mt-2 bg-white dark:bg-gray-800 hover:bg-gray-100 rounded-xl">
+                                    <RefreshCw className="h-3 w-3 mr-2" /> Try Again
+                                </Button>
+                            </AlertDescription>
+                        </Alert>
+                    )}
 
-                        {/* Left Column: Main Content (8 cols) */}
-                        <div className="lg:col-span-8 space-y-6">
+                    {/* Skeleton */}
+                    {loading && <BacklogSkeleton />}
 
-                            {/* Search Card */}
-                            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-1">
-                                <BacklogSearch onSearch={fetchBacklogs} loading={loading} />
+                    {/* Results */}
+                    {!loading && data && (
+                        <div ref={printRef} className="space-y-4">
+
+                            {/* Stats */}
+                            <BacklogStats data={data} />
+
+                            {/* In-content Ad */}
+                            <div className="print-hide">
+                                <InContentAd adSlot={AD_SLOTS.RESULTS.INLINE_1} />
                             </div>
 
-                            {/* Error State */}
-                            {error && (
-                                <Alert variant="destructive" className="animate-slide-up border-red-200 bg-red-50 dark:bg-red-900/10 dark:border-red-900/30">
-                                    <AlertCircle className="h-4 w-4" />
-                                    <AlertTitle>Unable to Fetch Results</AlertTitle>
-                                    <AlertDescription className="flex flex-col gap-2">
-                                        <p>{error}</p>
-                                        <Button variant="outline" size="sm" onClick={clearResults} className="w-fit mt-2 bg-white dark:bg-gray-800 hover:bg-gray-100">
-                                            <RefreshCw className="h-3 w-3 mr-2" /> Try Again
-                                        </Button>
-                                    </AlertDescription>
-                                </Alert>
-                            )}
-
-                            {/* Loading Skeleton */}
-                            {loading && <BacklogSkeleton />}
-
-                            {/* Results Display */}
-                            {!loading && data && (
-                                <div ref={printRef} className="space-y-6 animate-slide-up">
-                                    <div id="backlogsResults" className="space-y-8">
-
-                                        {/* Stats Overview */}
-                                        <BacklogStats data={data} />
-
-                                        {/* Ad: In-Content (Heatmap: High Interaction Point) */}
-                                        <div className="print-hide my-4">
-                                            <InContentAd adSlot={AD_SLOTS.RESULTS.INLINE_1} />
-                                        </div>
-
-                                        {/* Action Bar */}
-                                        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm print-hide">
-                                            <div className="flex items-center gap-2">
-                                                <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-                                                <span className="text-sm font-medium text-gray-600 dark:text-gray-300">Data Synced Successfully</span>
-                                            </div>
-                                            <div className="flex gap-3 w-full sm:w-auto">
-                                                <Button variant="ghost" onClick={() => {
-                                                    if (navigator.share) {
-                                                        navigator.share({
-                                                            title: 'JNTUH Backlogs Checker',
-                                                            text: 'Check your detailed JNTUH backlog history instantly!',
-                                                            url: window.location.href,
-                                                        })
-                                                    }
-                                                }} className="flex-1 sm:flex-none text-blue-600 hover:bg-blue-50">
-                                                    <Share2 className="h-4 w-4 mr-2" /> Share
-                                                </Button>
-                                                <Button variant="outline" onClick={handlePrint} className="flex-1 sm:flex-none">
-                                                    <Printer className="h-4 w-4 mr-2" /> Print
-                                                </Button>
-                                                <Button onClick={handleDownload} className="flex-1 sm:flex-none bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/20">
-                                                    <Download className="h-4 w-4 mr-2" /> PDF
-                                                </Button>
-                                            </div>
-                                        </div>
-
-                                        {/* Detailed Tables */}
-                                        <div className="space-y-4">
-                                            <h2 className="text-xl font-bold text-gray-900 dark:text-white px-1">Detailed Semester Breakdown</h2>
-                                            <BacklogResults semesters={data.results.semesters} />
-                                        </div>
-                                    </div>
+                            {/* Action Bar */}
+                            <div className="print-hide flex flex-col sm:flex-row justify-between items-center gap-3 bg-white dark:bg-gray-900 p-4 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
+                                <div className="flex items-center gap-2">
+                                    <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+                                    <span className="text-sm font-medium text-gray-600 dark:text-gray-300">Data synced from JNTUH server</span>
                                 </div>
-                            )}
-
-                            {/* Engagement: Related Tools Grid */}
-                            <RelatedTools />
-
-                            {/* SEO Content Block */}
-                            <SEOContent />
-
-                        </div>
-
-                        {/* Right Column: Sticky Sidebar (4 cols) - Desktop Only */}
-                        <div className="lg:col-span-4 space-y-6 print-hide">
-                            <div className="sticky top-24 space-y-6">
-
-                                {/* Ad: Sidebar Sticky (Heatmap: Persistent Visibility) */}
-                                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 flex justify-center min-h-[600px] items-center text-gray-400 bg-grid-pattern relative overflow-hidden">
-                                    <div className="absolute top-2 right-2 text-[10px] text-gray-300 uppercase tracking-widest font-semibold">Advertisement</div>
-                                    <ResponsiveAd adSlot={AD_SLOTS.SIDEBAR.STICKY_MIDDLE} format="auto" />
-                                </div>
-
-                                {/* Quick Links Widget */}
-                                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-                                    <div className="px-6 py-4 border-b border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-900/50">
-                                        <h3 className="font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                                            <Zap className="w-4 h-4 text-yellow-500 fill-current" />
-                                            Quick Shortcuts
-                                        </h3>
-                                    </div>
-                                    <div className="p-2">
-                                        {[
-                                            { label: 'SGPA to CGPA Calculator', url: '/sgpa-to-cgpa-calculator' },
-                                            { label: 'Marks to Percentage', url: '/marks-percentage-calculator' },
-                                            { label: 'B.Tech Syllabus (R22/R18)', url: '/syllabus' },
-                                            { label: 'Previous Question Papers', url: '/previous-question-papers' },
-                                        ].map((link, idx) => (
-                                            <a key={idx} href={link.url} className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors group">
-                                                <span className="font-medium text-sm">{link.label}</span>
-                                                <ArrowRight className="w-3 h-3 opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-                                            </a>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Ad: Sidebar Block 2 */}
-                                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 flex justify-center min-h-[300px] items-center text-gray-400 bg-grid-pattern">
-                                    <ResponsiveAd adSlot={AD_SLOTS.SIDEBAR.STICKY_TOP} format="auto" />
+                                <div className="flex gap-2 w-full sm:w-auto">
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        onClick={() => {
+                                            if (navigator.share) {
+                                                navigator.share({
+                                                    title: 'JNTUH Backlogs Checker',
+                                                    text: 'Check your detailed JNTUH backlog history instantly!',
+                                                    url: window.location.href,
+                                                });
+                                            }
+                                        }}
+                                        className="flex-1 sm:flex-none text-blue-600 hover:bg-blue-50 rounded-xl"
+                                    >
+                                        <Share2 className="h-4 w-4 mr-2" /> Share
+                                    </Button>
+                                    <Button variant="outline" size="sm" onClick={handlePrint} className="flex-1 sm:flex-none rounded-xl">
+                                        <Printer className="h-4 w-4 mr-2" /> Print
+                                    </Button>
+                                    <Button
+                                        size="sm"
+                                        onClick={handleDownload}
+                                        className="flex-1 sm:flex-none bg-[#1C61E7] hover:bg-[#1552c4] text-white rounded-xl shadow-sm"
+                                    >
+                                        <Download className="h-4 w-4 mr-2" /> PDF
+                                    </Button>
                                 </div>
                             </div>
-                        </div>
 
+                            {/* Semester Tables */}
+                            <div className="space-y-3">
+                                <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-1">Semester Breakdown</h2>
+                                <BacklogResults semesters={data.results.semesters} />
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Related Tools */}
+                    <div className="print-hide">
+                        <RelatedTools />
                     </div>
+
+                    {/* SEO Content */}
+                    <div className="print-hide">
+                        <SEOContent />
+                    </div>
+
                 </div>
 
-                {/* Ad: Footer (Heatmap: Exit Intent) */}
-                <div className="print-hide w-full flex justify-center py-6 bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 mt-12">
+                {/* Footer Ad */}
+                <div className="print-hide w-full flex justify-center py-6 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 mt-8">
                     <ResponsiveAd adSlot={AD_SLOTS.RESULTS.BOTTOM_BANNER} format="auto" />
                 </div>
 

@@ -1,4 +1,4 @@
-import { Thing, WithContext, WebSite, Organization, BreadcrumbList, SoftwareApplication, FAQPage, Question, HowTo } from 'schema-dts';
+import { WithContext, WebSite, Organization, BreadcrumbList, SoftwareApplication, FAQPage, HowTo } from 'schema-dts';
 
 export function generateWebsiteSchema(): WithContext<WebSite> {
   return {
@@ -92,7 +92,7 @@ export function generateCalculatorSchema(
       name: 'TheSkypedia',
       url: 'https://theskypedia.com',
     },
-    datePublished: '2023-01-01',
+    datePublished: new Date().toISOString().split('T')[0],
     dateModified: new Date().toISOString().split('T')[0],
     inLanguage: 'en-US',
     isAccessibleForFree: true,

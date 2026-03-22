@@ -222,7 +222,7 @@ export default function GuidesHubPage() {
                 </div>
 
                 <div className="my-12">
-                    <ResponsiveAd adSlot={AD_SLOTS.BLOG.IN_CONTENT} format="auto" />
+                    <ResponsiveAd adSlot={AD_SLOTS.BLOG.IN_ARTICLE_1} format="auto" />
                 </div>
 
                 {/* All Guides by Category */}

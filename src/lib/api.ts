@@ -1,4 +1,4 @@
-import { Results, SemesterResult, StudentResult, Subject } from "./types";
+import { Results, SemesterResult, StudentResult, Subject } from "@/types/api";
 
 export class JNTUHService {
   static async getStudentResults(htno: string): Promise<StudentResult> {

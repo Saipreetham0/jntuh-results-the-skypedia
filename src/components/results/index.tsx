@@ -3,7 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../card';
 import RecentlyVisited, { addToHistory } from './RecentlyVisited';
-import { Search, BookOpen, Calculator, FileText, BarChart2, CheckCircle, Users, AlertCircle, FileQuestion, Percent, RefreshCw, Calendar, Clock, Sparkles, X } from 'lucide-react';
+import {
+  Search, BookOpen, Calculator, FileText, BarChart2,
+  CheckCircle, AlertCircle, FileQuestion, Percent,
+  RefreshCw, Calendar, Clock, X, LayoutGrid,
+} from 'lucide-react';
 import { ResponsiveAd } from '../adsense';
 import AD_SLOTS from '@/config/adSlots';
 
@@ -12,286 +16,254 @@ interface CardData {
   content: string;
   url: string;
   icon?: React.ReactNode;
+  category: 'results' | 'calculators' | 'academic';
 }
 
 const cardsData: CardData[] = [
   {
     title: "Consolidated Results",
-    content: "Access All Your Semester Results in One Place",
+    content: "View your complete academic transcript — all semesters, all subjects, in one place.",
     url: "consolidated-results",
-    icon: <FileText className="w-8 h-8 text-[#1C61E7]" />,
+    icon: <FileText className="w-7 h-7 text-[#1C61E7]" />,
+    category: 'results',
   },
   {
-    title: "View Semester-wise Results",
-    content: "Access Results for Specific Semesters",
+    title: "Semester Results",
+    content: "Look up results for any specific semester quickly and accurately.",
     url: "semester-wise-results",
-    icon: <BookOpen className="w-8 h-8 text-[#21C15E]" />,
+    icon: <BookOpen className="w-7 h-7 text-emerald-600" />,
+    category: 'results',
   },
   {
-    title: "Calculate Your CGPA",
-    content: "Calculate Your Cumulative GPA and Detailed Result Performance",
+    title: "CGPA Calculator",
+    content: "Compute your cumulative GPA with R22, R20, and R18 regulation support.",
     url: "cgpa-calculator",
-    icon: <Calculator className="w-8 h-8 text-[#1C61E7]" />,
+    icon: <Calculator className="w-7 h-7 text-[#1C61E7]" />,
+    category: 'calculators',
   },
   {
-    title: "CGPA to Percentage Converter",
-    content: "Convert CGPA to percentage and calculate GPA easily.",
+    title: "CGPA to Percentage",
+    content: "Convert your CGPA to percentage using the official JNTUH formula.",
     url: "cgpa-percentage-converter",
-    icon: <RefreshCw className="w-8 h-8 text-[#21C15E]" />,
+    icon: <RefreshCw className="w-7 h-7 text-emerald-600" />,
+    category: 'calculators',
   },
   {
-    title: "Percentage to CGPA Calculator",
-    content: "Convert percentage to CGPA quickly and accurately.",
+    title: "Percentage to CGPA",
+    content: "Reverse-convert your percentage score to an equivalent CGPA.",
     url: "percentage-to-cgpa-calculator",
-    icon: <Percent className="w-8 h-8 text-[#1C61E7]" />,
+    icon: <Percent className="w-7 h-7 text-[#1C61E7]" />,
+    category: 'calculators',
   },
   {
     title: "Credit Eligibility Check",
-    content: "Verify Your Eligibility for Course Credits Here",
+    content: "Instantly verify whether you meet the credit requirements for promotions.",
     url: "credit-eligibility-check",
-    icon: <CheckCircle className="w-8 h-8 text-[#21C15E]" />,
+    icon: <CheckCircle className="w-7 h-7 text-emerald-600" />,
+    category: 'results',
   },
   {
     title: "Compare Performance",
-    content: "Compare Your Overall Performance with Classmates",
+    content: "Benchmark your CGPA and marks against classmates and batch averages.",
     url: "compare-performance",
-    icon: <BarChart2 className="w-8 h-8 text-[#1C61E7]" />,
+    icon: <BarChart2 className="w-7 h-7 text-[#1C61E7]" />,
+    category: 'results',
   },
   {
     title: "Check Backlogs",
-    content: "View Your Complete List of Pending Courses",
+    content: "Get a full report of active and cleared backlogs across every semester.",
     url: "check-backlogs",
-    icon: <AlertCircle className="w-8 h-8 text-red-500" />,
+    icon: <AlertCircle className="w-7 h-7 text-red-500" />,
+    category: 'results',
   },
   {
     title: "Syllabus",
-    content: "Access the syllabus for each course or semester to plan your studies.",
+    content: "Browse course syllabi by regulation and semester to plan your studies.",
     url: "/syllabus",
-    icon: <BookOpen className="w-8 h-8 text-[#21C15E]" />,
+    icon: <BookOpen className="w-7 h-7 text-emerald-600" />,
+    category: 'academic',
   },
   {
     title: "Previous Question Papers",
-    content: "Download or view previous years' question papers to help with exam preparation.",
+    content: "Download previous years' exam papers to sharpen your exam preparation.",
     url: "/previous-question-papers",
-    icon: <FileQuestion className="w-8 h-8 text-[#1C61E7]" />,
+    icon: <FileQuestion className="w-7 h-7 text-[#1C61E7]" />,
+    category: 'academic',
   },
   {
     title: "Academic Calendar",
-    content: "Stay updated with JNTUH exam dates, semester starting, and holiday lists.",
-    url: "/academic-calendar",
-    icon: <Calendar className="w-8 h-8 text-[#21C15E]" />,
+    content: "Track exam dates, semester schedules, and official JNTUH holidays.",
+    url: "/calendar",
+    icon: <Calendar className="w-7 h-7 text-emerald-600" />,
+    category: 'academic',
   },
   {
-    title: "Exam Timetables",
-    content: "View the latest schedules for regular and supplementary examinations.",
-    url: "/exam-timetable",
-    icon: <Clock className="w-8 h-8 text-[#1C61E7]" />,
-  },
-  {
-    title: "Marks Percentage Calculator",
-    content: "Calculate your percentage based on marks obtained.",
+    title: "Marks to Percentage",
+    content: "Convert marks obtained to a precise percentage in seconds.",
     url: "/marks-percentage-calculator",
-    icon: <Calculator className="w-8 h-8 text-[#21C15E]" />,
+    icon: <Calculator className="w-7 h-7 text-emerald-600" />,
+    category: 'calculators',
   },
   {
-    title: "SGPA to CGPA Calculator",
-    content: "Convert your SGPA to CGPA easily and accurately.",
+    title: "SGPA to CGPA",
+    content: "Aggregate your semester GPAs into an accurate cumulative GPA.",
     url: "/sgpa-to-cgpa-calculator",
-    icon: <RefreshCw className="w-8 h-8 text-[#1C61E7]" />,
+    icon: <RefreshCw className="w-7 h-7 text-[#1C61E7]" />,
+    category: 'calculators',
   },
 ];
+
+const categories = [
+  { id: 'all', name: 'All', icon: LayoutGrid },
+  { id: 'results', name: 'Results' },
+  { id: 'calculators', name: 'Calculators' },
+  { id: 'academic', name: 'Academic' },
+] as const;
 
 const ResultsBox: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredCards, setFilteredCards] = useState<CardData[]>(cardsData);
   const [activeCategory, setActiveCategory] = useState<string>("all");
 
-  // Categories based on card types
-  const categories = [
-    { id: 'all', name: 'All Resources' },
-    { id: 'results', name: 'Results' },
-    { id: 'calculators', name: 'Calculators' },
-    { id: 'academic', name: 'Academic' }
-  ];
-
-  // Robust filtering logic
   useEffect(() => {
     let results = cardsData;
-
-    // First filter by category
     if (activeCategory !== "all") {
-      results = results.filter(card => {
-        const title = card.title.toLowerCase();
-        if (activeCategory === "results") {
-          return title.includes("result") ||
-            title.includes("backlog") ||
-            title.includes("credit");
-        }
-        if (activeCategory === "calculators") {
-          return title.includes("calculator") ||
-            title.includes("convert") ||
-            title.includes("cgpa") ||
-            title.includes("percentage") ||
-            title.includes("sgpa");
-        }
-        if (activeCategory === "academic") {
-          return title.includes("syllabus") ||
-            title.includes("question") ||
-            title.includes("calendar") ||
-            title.includes("timetable");
-        }
-        return true;
-      });
+      results = results.filter(card => card.category === activeCategory);
     }
-
-    // Then filter by search term
-    if (searchTerm) {
+    if (searchTerm.trim()) {
+      const q = searchTerm.toLowerCase();
       results = results.filter(
-        (card) =>
-          card.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          card.content.toLowerCase().includes(searchTerm.toLowerCase())
+        card =>
+          card.title.toLowerCase().includes(q) ||
+          card.content.toLowerCase().includes(q)
       );
     }
-
     setFilteredCards(results);
   }, [searchTerm, activeCategory]);
 
   return (
-    <section className="relative py-12 md:py-32 px-4 overflow-hidden bg-slate-50 dark:bg-[#020617]">
-      {/* Dynamic Background Mesh Gradients - Premium Look */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-400/10 dark:bg-blue-600/10 blur-[100px] animate-blob mix-blend-multiply dark:mix-blend-lighten" />
-        <div className="absolute top-[20%] right-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-400/10 dark:bg-indigo-600/10 blur-[100px] animate-blob animation-delay-2000 mix-blend-multiply dark:mix-blend-lighten" />
-        <div className="absolute bottom-[-10%] left-[20%] w-[50%] h-[50%] rounded-full bg-purple-400/10 dark:bg-purple-600/10 blur-[100px] animate-blob animation-delay-4000 mix-blend-multiply dark:mix-blend-lighten" />
+    <section className="relative py-16 md:py-24 px-4 overflow-hidden bg-white dark:bg-gray-950">
+      {/* Subtle background accent */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div className="absolute -top-32 right-0 w-[600px] h-[600px] bg-blue-50 dark:bg-blue-950/20 rounded-full blur-3xl opacity-60" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-emerald-50 dark:bg-emerald-950/20 rounded-full blur-3xl opacity-40" />
       </div>
 
       <div className="container mx-auto max-w-7xl relative z-10">
-        {/* Header section with enhanced styling - Premium Typography */}
-        <div className="text-center mb-10 md:mb-16 animate-fade-in">
-          <div className="inline-flex items-center px-4 py-1.5 mb-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-full text-blue-600 dark:text-blue-400 text-sm font-semibold shadow-sm hover:shadow-md transition-all duration-300">
-            <Sparkles className="w-4 h-4 mr-2 text-indigo-500" />
-            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-              Power Up Your Academics
-            </span>
+
+        {/* ── Section Header ───────────────────────────────────────── */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#1C61E7] dark:text-blue-400 mb-3">
+              Student Resources
+            </p>
+            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white tracking-tight">
+              Every tool you need,<br className="hidden sm:block" /> in one place.
+            </h2>
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight">
-            Student <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Resources</span>
-          </h2>
-          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed font-light">
-            Everything you need to excel in your academic journey, meticulously crafted for JNTUH students.
+          <p className="max-w-sm text-base text-gray-500 dark:text-gray-400 leading-relaxed md:text-right">
+            14 purpose-built tools covering results, GPA calculations, and academic resources for all JNTUH regulations.
           </p>
         </div>
 
-        {/* Enhanced search and filters - Glassmorphism */}
-        <div className="mb-10 md:mb-16 max-w-4xl mx-auto space-y-6 md:space-y-8 animate-slide-up">
-          {/* Recently Visited Section - Integrated smoothly */}
-          <RecentlyVisited />
+        {/* ── Recently Visited ─────────────────────────────────────── */}
+        <RecentlyVisited />
 
-          {/* Search bar with glassmorphism */}
-          <div className="relative group z-20">
-            <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-            <div className="relative flex items-center bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl border border-white/20 dark:border-white/10 shadow-2xl">
-              <Search className="absolute left-6 text-slate-400 w-6 h-6 group-focus-within:text-blue-500 transition-colors" />
-              <input
-                type="text"
-                placeholder="Search for calculators, results, syllabus..."
-                className="w-full pl-16 pr-6 py-5 bg-transparent border-none focus:ring-0 text-lg text-slate-900 dark:text-white placeholder:text-slate-400 rounded-2xl"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-              {searchTerm && (
-                <button
-                  onClick={() => setSearchTerm('')}
-                  className="absolute right-6 p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              )}
-            </div>
+        {/* ── Search + Filter ──────────────────────────────────────── */}
+        <div className="mb-10 md:mb-12 max-w-4xl space-y-4">
+          {/* Search */}
+          <div className="relative">
+            <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search tools — e.g. CGPA, backlogs, syllabus…"
+              className="w-full pl-14 pr-12 py-4 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 focus:outline-none focus:ring-2 focus:ring-[#1C61E7]/30 focus:border-[#1C61E7]/50 text-base text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-600 transition-all"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            {searchTerm && (
+              <button
+                onClick={() => setSearchTerm('')}
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-1.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                aria-label="Clear search"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
           </div>
 
-          {/* Enhanced category filter tabs - Horizontal scroll on mobile */}
-          <div className="flex flex-nowrap overflow-x-auto pb-4 -mx-4 px-4 md:flex-wrap md:justify-center md:gap-3 md:overflow-visible md:pb-0 md:px-0 scrollbar-hide snap-x">
-            {categories.map((category) => (
+          {/* Category pills */}
+          <div className="flex gap-2 flex-wrap">
+            {categories.map((cat) => (
               <button
-                key={category.id}
-                onClick={() => setActiveCategory(category.id)}
-                className={`
-                  flex-shrink-0 snap-center relative px-6 py-2.5 mx-1.5 md:mx-0 rounded-full text-sm font-semibold transition-all duration-300 whitespace-nowrap
-                  ${activeCategory === category.id
-                    ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-lg scale-105"
-                    : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800"
-                  }
-                `}
+                key={cat.id}
+                onClick={() => setActiveCategory(cat.id)}
+                className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 whitespace-nowrap ${
+                  activeCategory === cat.id
+                    ? "bg-gray-900 dark:bg-white text-white dark:text-gray-900 shadow-sm"
+                    : "bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800 border border-transparent hover:border-gray-200 dark:hover:border-gray-700"
+                }`}
               >
-                {category.name}
+                {'icon' in cat && cat.icon && <cat.icon className="w-3.5 h-3.5" />}
+                {cat.name}
               </button>
             ))}
+
+            {/* Count badge */}
+            {filteredCards.length > 0 && (
+              <span className="ml-auto flex items-center text-sm text-gray-400 dark:text-gray-500 font-medium">
+                <span className="font-bold text-gray-700 dark:text-gray-300">{filteredCards.length}</span>
+                &nbsp;tools
+              </span>
+            )}
           </div>
         </div>
 
-        {/* Results visualization */}
+        {/* ── Cards Grid ───────────────────────────────────────────── */}
         {filteredCards.length > 0 && (
-          <div className="mb-8 flex justify-between items-center px-2">
-            <div className="text-sm font-medium text-slate-500 dark:text-slate-400">
-              Showing <span className="text-slate-900 dark:text-white font-bold">{filteredCards.length}</span> tools
-            </div>
-            {/* Divider line could go here if needed */}
-          </div>
-        )}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+            {filteredCards.map((card, index) => (
+              <React.Fragment key={card.url}>
+                <div
+                  style={{ animationDelay: `${index * 40}ms`, animationFillMode: 'both' }}
+                  className="animate-fade-in"
+                  onClick={() => addToHistory(card.title, card.url)}
+                >
+                  <Card {...card} />
+                </div>
 
-        {/* Cards grid with premium spacing */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 perspective-1000">
-          {filteredCards.map((card, index) => (
-            <React.Fragment key={index}>
-              <div
-                className="animate-fade-in-up"
-                style={{
-                  animationDelay: `${index * 50}ms`,
-                  animationFillMode: 'both'
-                }}
-                onClick={() => addToHistory(card.title, card.url)}
-              >
-                <Card {...card} />
-              </div>
-
-              {/* Intelligent Ad Placement - Less intrusive */}
-              {(index + 1) === 6 && (
-                <div className="col-span-full my-8">
-                  <div className="bg-slate-100/50 dark:bg-slate-900/50 backdrop-blur-sm rounded-3xl border border-slate-200 dark:border-slate-800 p-1 shadow-inner">
-                    <div className="w-full flex justify-center items-center min-h-[100px] rounded-2xl bg-white dark:bg-slate-950/50 overflow-hidden">
-                      <p className="text-[10px] text-slate-400 uppercase tracking-widest absolute top-2 right-4">Ad</p>
+                {/* Mid-grid ad after 6th card */}
+                {(index + 1) === 6 && (
+                  <div className="col-span-full">
+                    <div className="rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 overflow-hidden flex items-center justify-center min-h-[100px]">
                       <ResponsiveAd adSlot={AD_SLOTS.RESULTS.INLINE_1} format="auto" />
                     </div>
                   </div>
-                </div>
-              )}
-            </React.Fragment>
-          ))}
-        </div>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+        )}
 
-        {/* Premium Empty State */}
+        {/* ── Empty State ──────────────────────────────────────────── */}
         {filteredCards.length === 0 && (
-          <div className="text-center py-24 animate-fade-in">
-            <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-slate-100 dark:bg-slate-900 mb-6 shadow-inner relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <Search className="w-10 h-10 text-slate-400 group-hover:text-blue-500 transition-colors duration-300" />
+          <div className="text-center py-20">
+            <div className="w-16 h-16 rounded-2xl bg-gray-100 dark:bg-gray-900 flex items-center justify-center mx-auto mb-5">
+              <Search className="w-7 h-7 text-gray-400" />
             </div>
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">
-              No results found
+            <h3 className="font-display text-xl font-bold text-gray-900 dark:text-white mb-2 tracking-tight">
+              No tools found
             </h3>
-            <p className="text-slate-500 dark:text-slate-400 max-w-md mx-auto mb-8">
-              We couldn't find anything matching <span className="font-semibold text-slate-900 dark:text-white">"{searchTerm}"</span>.
-              Try adjusting your search or filters.
+            <p className="text-gray-500 dark:text-gray-400 mb-6 max-w-xs mx-auto text-sm leading-relaxed">
+              No match for{" "}
+              <span className="font-semibold text-gray-800 dark:text-gray-200">&ldquo;{searchTerm}&rdquo;</span>.
+              Try a different keyword or clear the filters.
             </p>
             <button
-              onClick={() => {
-                setSearchTerm('');
-                setActiveCategory('all');
-              }}
-              className="px-8 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+              onClick={() => { setSearchTerm(''); setActiveCategory('all'); }}
+              className="px-6 py-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl text-sm font-semibold hover:opacity-90 transition-opacity"
             >
-              Clear Filters
+              Clear filters
             </button>
           </div>
         )}
