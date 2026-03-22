@@ -6,6 +6,7 @@ import { AD_SLOTS } from "@/config/adSlots";
 interface AdBannerProps {
   adSlot: string;
   adFormat?: "auto" | "fluid" | "rectangle" | "vertical" | "horizontal";
+  adLayout?: "in-article" | "in-feed";
   fullWidthResponsive?: boolean;
   className?: string;
   publisherId?: string;
@@ -21,6 +22,7 @@ declare global {
 const AdBanner: React.FC<AdBannerProps> = ({
   adSlot,
   adFormat = "auto",
+  adLayout,
   fullWidthResponsive = true,
   className = "",
   publisherId = AD_SLOTS.PUBLISHER_ID,
@@ -68,14 +70,16 @@ const AdBanner: React.FC<AdBannerProps> = ({
     return () => observer.disconnect();
   }, [adSlot]);
 
-  const minHeight =
+  // In-article and in-feed ads use fluid format with no fixed min-height
+  const isFluid = adFormat === "fluid";
+  const minHeight = isFluid ? undefined :
     adFormat === "vertical" ? "600px" :
     adFormat === "horizontal" ? "90px" : "250px";
 
   return (
     <div
       className={`w-full ${className}`}
-      style={{ minHeight, ...style }}
+      style={minHeight ? { minHeight, ...style } : style}
     >
       <ins
         ref={adRef}
@@ -84,7 +88,8 @@ const AdBanner: React.FC<AdBannerProps> = ({
         data-ad-client={publisherId}
         data-ad-slot={adSlot}
         data-ad-format={adFormat}
-        data-full-width-responsive={fullWidthResponsive.toString()}
+        {...(adLayout ? { "data-ad-layout": adLayout } : {})}
+        {...(!isFluid ? { "data-full-width-responsive": fullWidthResponsive.toString() } : {})}
       />
     </div>
   );

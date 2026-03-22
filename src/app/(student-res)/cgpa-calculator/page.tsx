@@ -601,7 +601,7 @@ const CGPACalculator = () => {
 
               {/* In-content ad below result panel */}
               <div className="mt-6">
-                <InContentAd adSlot={AD_SLOTS.CALCULATOR.IN_CONTENT} />
+                <InContentAd adSlot={AD_SLOTS.CALCULATOR.IN_CONTENT} variant="in-article" />
               </div>
             </div>
           </div>

@@ -36,7 +36,7 @@ export default function ContentWithAds({ content }: ContentWithAdsProps) {
         <>
             <div dangerouslySetInnerHTML={{ __html: parts[0] }} />
             <div className="my-10 border-y border-dashed border-slate-200 dark:border-slate-800 py-6">
-                <InContentAd adSlot={AD_SLOTS.BLOG.IN_ARTICLE_1} />
+                <InContentAd adSlot={AD_SLOTS.BLOG.IN_ARTICLE_1} variant="in-article" />
             </div>
             <div dangerouslySetInnerHTML={{ __html: parts[1] }} />
         </>
