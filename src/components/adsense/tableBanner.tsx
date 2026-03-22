@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { AD_SLOTS } from '@/config/adSlots';
 
 interface TableBannerProps {
@@ -13,57 +13,44 @@ const TableBanner: React.FC<TableBannerProps> = ({
   adClient = AD_SLOTS.PUBLISHER_ID,
 }) => {
   const adRef = useRef<HTMLModElement>(null);
-  const [isMounted, setIsMounted] = useState(false);
-  const [adLoaded, setAdLoaded] = useState(false);
+  const pushed = useRef(false);
 
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    if (pushed.current || !adRef.current) return;
 
-  useEffect(() => {
-    if (!isMounted || adLoaded || typeof window === 'undefined' || !adRef.current) return;
-
-    try {
-      if (!window.adsbygoogle) {
-        window.adsbygoogle = [];
-      }
-
-      if (
-        adRef.current.getAttribute('data-adsbygoogle-status') ||
-        adRef.current.getAttribute('data-ad-status') ||
-        adRef.current.children.length > 0
-      ) {
-        setAdLoaded(true);
-        return;
-      }
-
-      if (adRef.current.offsetWidth === 0) {
-        const observer = new ResizeObserver((entries) => {
-          for (let entry of entries) {
-            const node = entry.target as HTMLElement;
-            if (node.offsetWidth > 0) {
-              observer.disconnect();
-              try {
-                window.adsbygoogle.push({});
-                setAdLoaded(true);
-              } catch (e) {
-                console.error('Error loading Google AdSense ad after resize:', e);
-              }
-            }
-          }
-        });
-        observer.observe(adRef.current);
-        return;
-      }
-
-      window.adsbygoogle.push({});
-      setAdLoaded(true);
-    } catch (error) {
-      console.error('Error loading Google AdSense ad:', error);
+    if (
+      adRef.current.getAttribute('data-adsbygoogle-status') ||
+      adRef.current.getAttribute('data-ad-status')
+    ) {
+      pushed.current = true;
+      return;
     }
-  }, [isMounted, adLoaded, adSlot]);
 
-  if (!isMounted) return null;
+    const doPush = () => {
+      if (pushed.current) return;
+      pushed.current = true;
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (e: any) {
+        console.error(`TableBanner (slot ${adSlot}):`, e?.message ?? e);
+      }
+    };
+
+    if (adRef.current.offsetWidth > 0) {
+      doPush();
+      return;
+    }
+
+    const observer = new ResizeObserver(() => {
+      if (adRef.current && adRef.current.offsetWidth > 0) {
+        observer.disconnect();
+        doPush();
+      }
+    });
+    observer.observe(adRef.current);
+
+    return () => observer.disconnect();
+  }, [adSlot]);
 
   return (
     <div className="ad-container w-full min-w-[250px]">

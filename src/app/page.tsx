@@ -74,7 +74,7 @@ export default function Home(): JSX.Element {
         <p className="text-center text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-600 mb-3">
           Supported by
         </p>
-        <div className="ad-container-rect bg-gray-50 dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 flex items-center justify-center overflow-hidden">
+        <div className="ad-container-rect bg-gray-50 dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden">
           <ResponsiveAd adSlot={AD_SLOTS.HOMEPAGE.BOTTOM_BANNER} format="auto" />
         </div>
       </div>

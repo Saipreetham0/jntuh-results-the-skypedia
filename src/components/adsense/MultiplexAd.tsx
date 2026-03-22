@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { AD_SLOTS } from "@/config/adSlots";
 
 interface MultiplexAdProps {
@@ -8,105 +8,59 @@ interface MultiplexAdProps {
   className?: string;
 }
 
-/**
- * Multiplex Ad Component
- * Displays multiple ads in a grid layout (3-6 ads)
- *
- * Best for:
- * - Calculator results pages
- * - After form submissions
- * - Below content sections
- *
- * Features:
- * - Auto-relaxed format (Google optimizes grid)
- * - Responsive grid layout
- * - High engagement
- * - Better CTR than single ads
- *
- * Usage:
- * <MultiplexAd adSlot="YOUR_MULTIPLEX_SLOT_ID" />
- *
- * Note: Create a multiplex ad unit in AdSense dashboard:
- * Ads → By ad unit → Multiplex ads
- */
-const MultiplexAd: React.FC<MultiplexAdProps> = ({
-  adSlot,
-  className = "",
-}) => {
+const MultiplexAd: React.FC<MultiplexAdProps> = ({ adSlot, className = "" }) => {
   const adRef = useRef<HTMLModElement>(null);
-  const [adLoaded, setAdLoaded] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+  const pushed = useRef(false);
 
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    if (pushed.current || !adRef.current) return;
 
-  useEffect(() => {
-    if (!isMounted || adLoaded || typeof window === "undefined" || !adRef.current) {
+    if (
+      adRef.current.getAttribute("data-adsbygoogle-status") ||
+      adRef.current.getAttribute("data-ad-status")
+    ) {
+      pushed.current = true;
       return;
     }
 
-    try {
-      if (!window.adsbygoogle) {
-        window.adsbygoogle = [];
+    const doPush = () => {
+      if (pushed.current) return;
+      pushed.current = true;
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (e: any) {
+        console.error(`MultiplexAd (slot ${adSlot}):`, e?.message ?? e);
       }
+    };
 
-      if (
-        adRef.current.getAttribute('data-adsbygoogle-status') ||
-        adRef.current.getAttribute('data-ad-status') ||
-        adRef.current.children.length > 0
-      ) {
-        setAdLoaded(true);
-        return;
-      }
-
-      if (adRef.current.offsetWidth === 0) {
-        const observer = new ResizeObserver((entries) => {
-          for (let entry of entries) {
-            const node = entry.target as HTMLElement;
-            if (node.offsetWidth > 0) {
-              observer.disconnect();
-              try {
-                window.adsbygoogle.push({});
-                setAdLoaded(true);
-              } catch (e) {
-                console.error("Error loading multiplex ad after resize:", e);
-              }
-            }
-          }
-        });
-        observer.observe(adRef.current);
-        return;
-      }
-
-      window.adsbygoogle.push({});
-      setAdLoaded(true);
-    } catch (error) {
-      console.error("Error loading multiplex ad:", error);
+    if (adRef.current.offsetWidth > 0) {
+      doPush();
+      return;
     }
-  }, [isMounted, adLoaded]);
 
-  if (!isMounted) return null;
+    const observer = new ResizeObserver(() => {
+      if (adRef.current && adRef.current.offsetWidth > 0) {
+        observer.disconnect();
+        doPush();
+      }
+    });
+    observer.observe(adRef.current);
+
+    return () => observer.disconnect();
+  }, [adSlot]);
 
   return (
     <div className={`w-full my-6 ${className}`}>
-      {/* Ad label */}
       <div className="text-center mb-2">
         <p className="text-[10px] text-gray-400 dark:text-gray-600 uppercase tracking-wider">
           Recommended for you
         </p>
       </div>
-
-      {/* Multiplex Ad Container */}
       <div className="w-full overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-2">
         <ins
           ref={adRef}
           className="adsbygoogle"
-          style={{
-            display: "block",
-            textAlign: "center",
-            minHeight: "200px",
-          }}
+          style={{ display: "block", textAlign: "center", minHeight: "200px" }}
           data-ad-client={AD_SLOTS.PUBLISHER_ID}
           data-ad-slot={adSlot}
           data-ad-format="autorelaxed"

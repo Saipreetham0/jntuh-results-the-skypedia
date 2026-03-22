@@ -120,7 +120,7 @@ export default async function BlogPost({ params }: Props) {
 
                         {/* In-Content Ad (Bottom of article) */}
                         <div className="mb-10">
-                            <InContentAd adSlot={AD_SLOTS.BLOG.IN_ARTICLE_1} className="rounded-2xl overflow-hidden" />
+                            <InContentAd adSlot={AD_SLOTS.BLOG.IN_ARTICLE_2} className="rounded-2xl overflow-hidden" />
                         </div>
 
                         {/* Share & CTA */}
