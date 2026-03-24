@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import supabase from "../../../lib/supabase/client";
-// import TableBanner from "@/components/adsense/tableBanner";
 
-import TableBanner from "@/components/adsense/tableBanner";
+import { InContentAd } from "@/components/adsense";
 import { AD_SLOTS } from "@/config/adSlots";
 
 // Define the type for the data fetched from Supabase
@@ -240,7 +239,7 @@ const JntuhTable: React.FC = () => {
         adRows.push(
           <tr key={`ad-${i}`}>
             <td className="px-6 py-4 whitespace-nowrap" colSpan={9}>
-              <TableBanner adSlot={AD_SLOTS.SPECIALIZED.TABLE_ADS} />
+              <InContentAd adSlot={AD_SLOTS.SPECIALIZED.TABLE_ADS} variant="in-article" />
             </td>
           </tr>
         );

@@ -5,5 +5,4 @@ export { default as ResponsiveAd } from './ResponsiveAd';
 export { default as AnchorAd } from './AnchorAd';
 export { default as MultiplexAd } from './MultiplexAd';
 export { default as InFeedAd } from './InFeedAd';
-export { default as ArticleAd, ArticleAdMobileAnchor, ArticleAdDesktopSidebar } from './ArticleAd';
 export { default as AdDebug } from './AdDebug';

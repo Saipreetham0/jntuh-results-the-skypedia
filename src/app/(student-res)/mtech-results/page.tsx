@@ -148,7 +148,7 @@ export default function MTechResultsPage() {
             <FAQSectionDynamic faqs={mtechFaqs} title="M.Tech Results FAQ" />
 
             <div className="max-w-7xl mx-auto px-6 py-8">
-                <MultiplexAd adSlot={AD_SLOTS.RESULTS.BOTTOM_BANNER} />
+                <MultiplexAd adSlot={AD_SLOTS.MULTIPLEX} />
             </div>
         </main>
     );

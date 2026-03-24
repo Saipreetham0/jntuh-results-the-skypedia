@@ -23,7 +23,8 @@ export default function AdDebug() {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        // Only run in client
+        // Only run in development
+        if (process.env.NODE_ENV !== 'development') return;
         if (typeof window === 'undefined') return;
 
         const checkStatus = () => {

@@ -164,7 +164,7 @@ export default function MBAResultsPage() {
             <FAQSectionDynamic faqs={mbaFaqs} title="MBA Results FAQ" />
 
             <div className="max-w-7xl mx-auto px-6 py-8">
-                <MultiplexAd adSlot={AD_SLOTS.RESULTS.BOTTOM_BANNER} />
+                <MultiplexAd adSlot={AD_SLOTS.MULTIPLEX} />
             </div>
         </main>
     );

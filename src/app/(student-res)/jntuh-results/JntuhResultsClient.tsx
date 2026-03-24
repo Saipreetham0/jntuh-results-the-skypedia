@@ -210,7 +210,7 @@ export default function JntuhResultsClient() {
                             </Link>
                         </div>
 
-                        <MultiplexAd adSlot={AD_SLOTS.SEMESTER.SIDEBAR_WIDGET} />
+                        <ResponsiveAd adSlot={AD_SLOTS.SEMESTER.SIDEBAR_WIDGET} format="auto" />
                     </div>
                 </div>
             </section>
@@ -224,7 +224,7 @@ export default function JntuhResultsClient() {
 
             {/* Bottom Ad */}
             <div className="max-w-5xl mx-auto px-4 py-10">
-                <MultiplexAd adSlot={AD_SLOTS.SEMESTER.BOTTOM_BANNER} />
+                <MultiplexAd adSlot={AD_SLOTS.MULTIPLEX} />
             </div>
         </main>
     );

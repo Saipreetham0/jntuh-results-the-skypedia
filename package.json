@@ -6,12 +6,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    
     "start": "next start",
     "lint": "next lint",
     "test": "vitest run",
     "test:watch": "vitest",
     "check:bundle": "node scripts/check-bundle-size.mjs",
-    "build:check": "tsc --noEmit"
+    "build:check": "tsc --noEmit && next build"
   },
   "dependencies": {
     "@getbrevo/brevo": "^5.0.1",

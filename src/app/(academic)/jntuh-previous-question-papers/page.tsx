@@ -223,7 +223,7 @@ export default function PreviousPapersPage() {
                             </div>
                         </div>
 
-                        <MultiplexAd adSlot={AD_SLOTS.RESULTS.BOTTOM_BANNER} />
+                        <MultiplexAd adSlot={AD_SLOTS.QUESTION_PAPERS.MULTIPLEX} />
                     </div>
                 </div>
             </div>

@@ -1,6 +1,8 @@
 
 "use client";
 import React, { useState, useEffect } from 'react';
+import { ResponsiveAd } from '@/components/adsense';
+import AD_SLOTS from '@/config/adSlots';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import {
   ChevronDownIcon,
@@ -447,6 +449,9 @@ const StudentResultsDashboard = () => {
   return (
     <div className="bg-gray-50 dark:bg-gray-900 min-h-screen p-4 sm:p-6">
       <div className="max-w-7xl mx-auto">
+        <div className="mb-4">
+          <ResponsiveAd adSlot={AD_SLOTS.RESULTS.TOP_BANNER} format="auto" />
+        </div>
         {/* Student Header */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow mb-6 p-6">
           <div className="flex flex-col md:flex-row md:justify-between md:items-center">
@@ -579,6 +584,10 @@ const StudentResultsDashboard = () => {
               <p className="text-gray-500 dark:text-gray-400">No semester results available</p>
             </div>
           )}
+        </div>
+
+        <div className="mt-6">
+          <ResponsiveAd adSlot={AD_SLOTS.RESULTS.BOTTOM_BANNER} format="auto" />
         </div>
 
         {/* Footer with API Credit */}
