@@ -51,10 +51,11 @@ export const AD_SLOTS = {
   },
 
   CALCULATOR: {
-    TOP_BANNER:    '1365713287', // Display
-    MID_RECTANGLE: '3832094528', // Display
-    RESULT_BOTTOM: '7970650085', // Display
-    IN_CONTENT:    '1853036550', // In-article ← format=fluid + layout=in-article
+    TOP_BANNER:        '1365713287', // Display
+    MID_RECTANGLE:     '3832094528', // Display
+    RESULT_BOTTOM:     '7970650085', // Display
+    IN_CONTENT:        '1853036550', // In-article ← format=fluid + layout=in-article
+    BETWEEN_SECTIONS:  '5388718770', // Display — between grade ref and pro tip
   },
 
   RESULTS: {

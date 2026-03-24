@@ -20,7 +20,7 @@ import Link from "next/link";
 import confetti from "canvas-confetti";
 import { RWebShare } from "react-web-share";
 
-import { InContentAd } from "@/components/adsense";
+import { InContentAd, ResponsiveAd } from "@/components/adsense";
 import FAQSectionDynamic from "@/components/seo/FAQSectionDynamic";
 import AD_SLOTS from "@/config/adSlots";
 
@@ -547,6 +547,15 @@ export default function SGPAToCGPACalculator() {
                   to calculate
                 </p>
               </div>
+
+              {/* Mid Ad */}
+              <div className="mt-6">
+                <ResponsiveAd
+                  adSlot={AD_SLOTS.CALCULATOR.MID_RECTANGLE}
+                  format="auto"
+                  className="rounded-2xl overflow-hidden"
+                />
+              </div>
             </div>
 
             {/* Right: Result Card */}
@@ -811,6 +820,9 @@ export default function SGPAToCGPACalculator() {
               </motion.div>
             </section>
 
+            {/* Between-sections Ad */}
+            <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.BETWEEN_SECTIONS} format="auto" />
+
             {/* Pro Tip */}
             <section>
               <motion.div
@@ -836,7 +848,7 @@ export default function SGPAToCGPACalculator() {
 
             {/* Ad Slot */}
             <div>
-              <InContentAd adSlot={AD_SLOTS.CALCULATOR.MID_RECTANGLE} />
+              <InContentAd adSlot={AD_SLOTS.CALCULATOR.IN_CONTENT} variant="in-article" />
             </div>
 
             {/* Related Calculators */}

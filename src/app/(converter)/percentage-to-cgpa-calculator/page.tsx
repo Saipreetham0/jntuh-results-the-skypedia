@@ -19,7 +19,7 @@ import confetti from "canvas-confetti";
 import { RWebShare } from "react-web-share";
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { ResponsiveAd } from "@/components/adsense";
+import { ResponsiveAd, InContentAd } from "@/components/adsense";
 import FAQSectionDynamic from "@/components/seo/FAQSectionDynamic";
 import AD_SLOTS from "@/config/adSlots";
 
@@ -620,6 +620,11 @@ export default function PercentageToCGPACalculator() {
             </motion.div>
           </div>
 
+          {/* In-Content Ad after calculator grid */}
+          <div className="mt-8">
+            <InContentAd adSlot={AD_SLOTS.CALCULATOR.IN_CONTENT} variant="in-article" />
+          </div>
+
           {/* Below-grid sections */}
           <div className="mt-12 space-y-12">
 
@@ -695,6 +700,9 @@ export default function PercentageToCGPACalculator() {
                 ))}
               </div>
             </motion.section>
+
+            {/* Between-sections Ad */}
+            <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.BETWEEN_SECTIONS} format="auto" />
 
             {/* 3. Pro Tip */}
             <motion.section
