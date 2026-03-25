@@ -363,7 +363,7 @@ const CGPACalculator = () => {
                   <div className="col-span-1" />
                   <div className="col-span-5">
                     <div className="flex items-center gap-1">
-                      <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">SGPA</p>
+                      <p className="text-xs font-bold uppercase tracking-wider text-gray-400">SGPA</p>
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <HelpCircle className="w-3 h-3 text-gray-300 cursor-help" />
@@ -376,7 +376,7 @@ const CGPACalculator = () => {
                   </div>
                   <div className="col-span-5">
                     <div className="flex items-center gap-1">
-                      <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">Credits</p>
+                      <p className="text-xs font-bold uppercase tracking-wider text-gray-400">Credits</p>
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <HelpCircle className="w-3 h-3 text-gray-300 cursor-help" />
@@ -394,7 +394,7 @@ const CGPACalculator = () => {
                 <div className="space-y-3">
                   {semesters.map((sem, idx) => (
                     <div key={sem.id} className="grid grid-cols-12 gap-2 items-center">
-                      <div className="col-span-1 w-7 h-7 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-[11px] font-black text-gray-500">
+                      <div className="col-span-1 w-8 h-8 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-xs font-black text-gray-500">
                         {idx + 1}
                       </div>
                       <div className="col-span-5">
@@ -405,7 +405,7 @@ const CGPACalculator = () => {
                           inputMode="decimal"
                           value={sem.sgpa}
                           onChange={(e) => updateSemester(sem.id, "sgpa", e.target.value)}
-                          className="w-full px-3 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-semibold text-gray-900 dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1C61E7]/20 focus:border-[#1C61E7]/50 transition-all"
+                          className="w-full px-3 py-3.5 min-h-12 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-semibold text-gray-900 dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1C61E7]/20 focus:border-[#1C61E7]/50 transition-all"
                         />
                       </div>
                       <div className="col-span-5">
@@ -416,7 +416,7 @@ const CGPACalculator = () => {
                           inputMode="numeric"
                           value={sem.credits}
                           onChange={(e) => updateSemester(sem.id, "credits", e.target.value)}
-                          className="w-full px-3 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-semibold text-gray-900 dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1C61E7]/20 focus:border-[#1C61E7]/50 transition-all"
+                          className="w-full px-3 py-3.5 min-h-12 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-semibold text-gray-900 dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1C61E7]/20 focus:border-[#1C61E7]/50 transition-all"
                         />
                       </div>
                       <div className="col-span-1 flex justify-center">
@@ -424,9 +424,9 @@ const CGPACalculator = () => {
                           <button
                             onClick={() => removeSemester(sem.id)}
                             aria-label={`Remove semester ${idx + 1}`}
-                            className="w-7 h-7 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 flex items-center justify-center transition-colors"
+                            className="w-9 h-9 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 flex items-center justify-center transition-colors"
                           >
-                            <Trash2 className="w-3.5 h-3.5" />
+                            <Trash2 className="w-4 h-4" />
                           </button>
                         )}
                       </div>

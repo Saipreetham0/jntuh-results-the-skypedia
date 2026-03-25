@@ -58,7 +58,7 @@ export default function RootLayout({
         <AdDebug />
 
         <Providers>
-          <div className="flex flex-col min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
+          <div className="flex flex-col min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200 pb-20 lg:pb-0">
             <AnnouncementBar
               message="🚀 NEW: Check your Backlogs & Consolidated Results now available!"
               link="/check-backlogs"

@@ -237,7 +237,7 @@ const Navbar: React.FC = () => {
           <div className="lg:hidden flex items-center gap-2">
             <button
               onClick={toggleDarkMode}
-              className="w-9 h-9 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 transition-colors"
+              className="w-11 h-11 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-800 transition-colors"
               aria-label="Toggle theme"
             >
               {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
@@ -246,7 +246,7 @@ const Navbar: React.FC = () => {
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <button
-                  className="w-9 h-9 rounded-lg flex items-center justify-center text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
+                  className="w-11 h-11 rounded-lg flex items-center justify-center text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
                   aria-label="Open menu"
                 >
                   <Menu className="w-5 h-5" />

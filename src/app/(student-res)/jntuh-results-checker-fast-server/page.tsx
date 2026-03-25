@@ -53,15 +53,10 @@ export default function FastServerResultsPage() {
                 </div>
 
                 <ResponsiveAd adSlot={AD_SLOTS.RESULTS.INLINE_1} />
+
+                <ResponsiveAd adSlot={AD_SLOTS.RESULTS.BOTTOM_BANNER} format="auto" />
             </div>
 
-            {/* Bottom Sticky Ad for Mobile */}
-            <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden">
-                <div className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 p-2">
-                    <p className="text-[10px] text-center text-gray-400 mb-1">ADVERTISEMENT</p>
-                    <ResponsiveAd adSlot={AD_SLOTS.MOBILE.ANCHOR_BOTTOM} />
-                </div>
-            </div>
         </main>
     );
 }

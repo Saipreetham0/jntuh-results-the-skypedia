@@ -17,7 +17,7 @@ const AnchorAd: React.FC<AnchorAdProps> = ({ adSlot, className = "" }) => {
 
   useEffect(() => {
     setMounted(true);
-    const check = () => setIsMobile(window.innerWidth < 768);
+    const check = () => setIsMobile(window.innerWidth < 1024);
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);

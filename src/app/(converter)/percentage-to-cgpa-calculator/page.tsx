@@ -374,7 +374,7 @@ export default function PercentageToCGPACalculator() {
                       <button
                         key={key}
                         onClick={() => { setScale(key); setResult(null); }}
-                        className={`flex-1 py-2.5 px-2 rounded-lg text-sm font-bold transition-all leading-tight ${
+                        className={`flex-1 py-3 px-2 min-h-11 rounded-lg text-sm font-bold transition-all leading-tight ${
                           scale === key
                             ? "bg-white dark:bg-gray-700 text-[#1C61E7] shadow-sm"
                             : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
@@ -412,7 +412,7 @@ export default function PercentageToCGPACalculator() {
                         inputMode="decimal"
                         value={percentage}
                         onChange={(e) => { setPercentage(e.target.value); setWarning(""); }}
-                        className="w-full px-4 py-3.5 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-semibold text-gray-900 dark:text-white placeholder:text-gray-400 placeholder:font-normal focus:outline-none focus:ring-2 focus:ring-[#1C61E7]/20 focus:border-[#1C61E7]/50 transition-all"
+                        className="w-full px-4 py-3.5 min-h-12 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-semibold text-gray-900 dark:text-white placeholder:text-gray-400 placeholder:font-normal focus:outline-none focus:ring-2 focus:ring-[#1C61E7]/20 focus:border-[#1C61E7]/50 transition-all"
                       />
                     </TooltipTrigger>
                     <TooltipContent>

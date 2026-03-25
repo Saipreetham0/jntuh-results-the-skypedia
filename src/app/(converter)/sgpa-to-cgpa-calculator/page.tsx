@@ -430,7 +430,7 @@ export default function SGPAToCGPACalculator() {
                           setScale(key);
                           setResult(null);
                         }}
-                        className={`flex-1 py-2.5 rounded-lg text-sm font-bold transition-all ${
+                        className={`flex-1 py-3 min-h-11 rounded-lg text-sm font-bold transition-all ${
                           scale === key
                             ? "bg-white dark:bg-gray-700 text-[#1C61E7] shadow-sm"
                             : "text-gray-500 hover:text-gray-700"
@@ -447,12 +447,12 @@ export default function SGPAToCGPACalculator() {
                   <div className="grid grid-cols-12 gap-2 mb-1">
                     <div className="col-span-1" />
                     <div className="col-span-5">
-                      <label className="text-[10px] font-bold uppercase tracking-[0.1em] text-gray-400">
+                      <label className="text-xs font-bold uppercase tracking-[0.1em] text-gray-400">
                         SGPA
                       </label>
                     </div>
                     <div className="col-span-5">
-                      <label className="text-[10px] font-bold uppercase tracking-[0.1em] text-gray-400">
+                      <label className="text-xs font-bold uppercase tracking-[0.1em] text-gray-400">
                         Credits
                       </label>
                     </div>
@@ -469,35 +469,37 @@ export default function SGPAToCGPACalculator() {
                         transition={{ duration: 0.25 }}
                         className="grid grid-cols-12 gap-2 items-center"
                       >
-                        <div className="col-span-1 flex items-center justify-center w-7 h-7 rounded-lg bg-gray-100 dark:bg-gray-800 text-[11px] font-black text-gray-500">
+                        <div className="col-span-1 flex items-center justify-center w-8 h-8 rounded-lg bg-gray-100 dark:bg-gray-800 text-xs font-black text-gray-500">
                           {idx + 1}
                         </div>
                         <div className="col-span-5">
                           <input
                             type="number"
+                            inputMode="decimal"
                             placeholder="e.g. 8.5"
                             value={sem.sgpa}
                             onChange={(e) => updateSemester(sem.id, "sgpa", e.target.value)}
-                            className="w-full px-3 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#1C61E7]/20 focus:border-[#1C61E7]/50 transition-all"
+                            className="w-full px-3 py-3.5 min-h-12 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#1C61E7]/20 focus:border-[#1C61E7]/50 transition-all"
                           />
                         </div>
                         <div className="col-span-5">
                           <input
                             type="number"
+                            inputMode="numeric"
                             placeholder="e.g. 25"
                             value={sem.credits}
                             onChange={(e) => updateSemester(sem.id, "credits", e.target.value)}
-                            className="w-full px-3 py-3 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#1C61E7]/20 focus:border-[#1C61E7]/50 transition-all"
+                            className="w-full px-3 py-3.5 min-h-12 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#1C61E7]/20 focus:border-[#1C61E7]/50 transition-all"
                           />
                         </div>
                         <div className="col-span-1 flex justify-center">
                           {semesters.length > 1 && (
                             <button
                               onClick={() => removeSemester(sem.id)}
-                              className="w-7 h-7 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center justify-center transition-colors"
+                              className="w-9 h-9 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center justify-center transition-colors"
                               aria-label={`Remove semester ${idx + 1}`}
                             >
-                              <Trash2 className="w-3.5 h-3.5" />
+                              <Trash2 className="w-4 h-4" />
                             </button>
                           )}
                         </div>
