@@ -84,7 +84,7 @@ const AnchorAd: React.FC<AnchorAdProps> = ({ adSlot, className = "" }) => {
         <ins
           ref={adRef}
           className="adsbygoogle"
-          style={{ display: "block", textAlign: "center", minHeight: "50px", maxHeight: "100px" }}
+          style={{ display: "block", width: "100%", minHeight: "50px", maxHeight: "100px" }}
           data-ad-client={AD_SLOTS.PUBLISHER_ID}
           data-ad-slot={adSlot}
           data-ad-format="auto"
