@@ -18,7 +18,6 @@ import { GoogleTagManager, GoogleTagManagerNoScript } from '@/components/layout/
 import { StructuredData } from '@/components/layout/scripts/StructuredData';
 
 
-import AdScript from '@/components/adsense/AdScript';
 import { AnchorAd, AdDebug } from '@/components/adsense';
 
 import AD_SLOTS from '@/config/adSlots';
@@ -46,8 +45,15 @@ export default function RootLayout({
 }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
+      <head>
+        {/* AdSense — plain <script> avoids the data-nscript attribute next/script adds */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4870864326886980"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body suppressHydrationWarning className={`${inter.variable} ${plusJakarta.variable} font-sans`}>
-        <AdScript />
         <StructuredData />
         <GoogleTagManager />
 

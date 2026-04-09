@@ -1,9 +1,7 @@
 import { Metadata } from 'next';
-import Script from 'next/script';
 import { calculatorMetadata } from '@/lib/seo/metadata';
 import { calculatorSchemas, generateBreadcrumbSchema } from '@/lib/seo/schema';
 
-// Generate metadata
 export const metadata: Metadata = calculatorMetadata.cgpaCalculator();
 
 export default function CGPACalculatorLayout({
@@ -11,7 +9,6 @@ export default function CGPACalculatorLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Generate schemas
   const calculatorSchema = calculatorSchemas.cgpaCalculator();
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: 'https://jntuhresults.theskypedia.com' },
@@ -20,22 +17,15 @@ export default function CGPACalculatorLayout({
 
   return (
     <>
-      {/* JSON-LD Schemas */}
-      <Script
+      <script
         id="calculator-schema"
         type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(calculatorSchema),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(calculatorSchema) }}
       />
-      <Script
+      <script
         id="breadcrumb-schema"
         type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbSchema),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       {children}
     </>

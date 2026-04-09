@@ -268,11 +268,6 @@ const CGPACalculator = () => {
 
   return (
     <TooltipProvider>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
-      />
-
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
 
         {/* Page Header */}

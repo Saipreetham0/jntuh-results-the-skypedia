@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import Script from 'next/script';
 import { calculatorMetadata } from '@/lib/seo/metadata';
 import { calculatorSchemas, generateBreadcrumbSchema } from '@/lib/seo/schema';
 
@@ -18,16 +17,14 @@ export default function SgpaToCgpaLayout({
 
   return (
     <>
-      <Script
+      <script
         id="calculator-schema"
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(calculatorSchema) }}
       />
-      <Script
+      <script
         id="breadcrumb-schema"
         type="application/ld+json"
-        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       {children}

@@ -27,7 +27,7 @@ export function generateMetadata(params?: {
 
   const siteTitle = title
     ? `${title} | JNTUH Results`
-    : 'JNTUH Results 2026 — Trusted by 100K+ Students | CGPA, SGPA & More';
+    : 'JNTUH Results 2026 | Check B.Tech Results & CGPA Calculator - TheSkypedia';
 
   const siteDescription = description || siteConfig.description;
   const canonicalUrl = `${siteConfig.url}${path.startsWith('/') ? path : `/${path}`}`.replace(/\/$/, '');

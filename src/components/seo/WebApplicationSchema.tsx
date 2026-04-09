@@ -1,7 +1,3 @@
-"use client";
-
-import React from 'react';
-import Script from 'next/script';
 import { siteConfig } from '@/config/site';
 
 interface WebApplicationSchemaProps {
@@ -13,16 +9,17 @@ interface WebApplicationSchemaProps {
 }
 
 /**
- * WebApplication Schema Component
+ * WebApplication Schema Component (Server)
  * Ideal for tools like calculators, converters, and checkers.
+ * Uses plain <script> tag — correct pattern for server components.
  */
-const WebApplicationSchema: React.FC<WebApplicationSchemaProps> = ({
+const WebApplicationSchema = ({
     name,
     description,
     url,
     applicationCategory = "EducationalApplication",
     operatingSystem = "Any"
-}) => {
+}: WebApplicationSchemaProps) => {
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "WebApplication",
@@ -44,7 +41,7 @@ const WebApplicationSchema: React.FC<WebApplicationSchemaProps> = ({
     };
 
     return (
-        <Script
+        <script
             id={`webapp-schema-${name.toLowerCase().replace(/\s+/g, '-')}`}
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

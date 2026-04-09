@@ -1,9 +1,8 @@
 /**
- * FAQ Schema Component (Server-side)
+ * FAQ Schema Component (Server)
  *
- * Injects FAQPage structured data for pages with FAQ sections.
- * Unlike FAQSectionDynamic, this is a pure server component
- * that only outputs the schema JSON-LD.
+ * Injects FAQPage structured data using a plain <script> tag —
+ * the correct pattern for server components in Next.js App Router.
  *
  * @module components/seo/FAQSchema
  */
@@ -14,13 +13,11 @@ interface FAQSchemaProps {
     faqs: { question: string; answer: string }[];
 }
 
-import Script from 'next/script';
-
 export default function FAQSchema({ faqs }: FAQSchemaProps) {
     const schema = generateFAQSchema(faqs);
 
     return (
-        <Script
+        <script
             id="faq-schema"
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}

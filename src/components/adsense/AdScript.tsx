@@ -1,14 +1,5 @@
-import Script from 'next/script';
-import { AD_SLOTS } from '@/config/adSlots';
-
-const AdScript = () => (
-  <Script
-    id="adsbygoogle-init"
-    async
-    src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${AD_SLOTS.PUBLISHER_ID}`}
-    crossOrigin="anonymous"
-    strategy="afterInteractive"
-  />
-);
-
+// AdSense script is now loaded via a plain <script> in <head> of layout.tsx
+// to avoid the data-nscript attribute that next/script adds (unsupported by AdSense).
+// This file kept for backwards compatibility with any imports.
+const AdScript = () => null;
 export default AdScript;

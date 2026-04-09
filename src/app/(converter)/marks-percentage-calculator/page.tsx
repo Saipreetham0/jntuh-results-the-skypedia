@@ -268,16 +268,6 @@ export default function MarksPercentageCalculator() {
 
   return (
     <TooltipProvider>
-      {/* JSON-LD Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(calculatorSchema) }}
-      />
-
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
 
         {/* Page Header */}

@@ -2,7 +2,6 @@ import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { BookOpen, HelpCircle, CheckCircle2, AlertTriangle, TrendingUp } from 'lucide-react';
-import Script from 'next/script';
 
 export function SEOContent() {
     const schemaData = {
@@ -38,7 +37,7 @@ export function SEOContent() {
 
     return (
         <div className="space-y-12 mt-12 animate-fade-in text-gray-700 dark:text-gray-300">
-            <Script
+            <script
                 id="backlogs-schema"
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}

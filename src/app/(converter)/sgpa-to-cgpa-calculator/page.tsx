@@ -367,15 +367,6 @@ export default function SGPAToCGPACalculator() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(calculatorSchema) }}
-      />
-
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
         {/* Page Header */}
         <div className="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800">

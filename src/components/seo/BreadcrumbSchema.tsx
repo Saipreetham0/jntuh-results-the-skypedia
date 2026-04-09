@@ -1,7 +1,3 @@
-"use client";
-
-import React from 'react';
-import Script from 'next/script';
 import { siteConfig } from '@/config/site';
 
 interface BreadcrumbItem {
@@ -14,10 +10,11 @@ interface BreadcrumbSchemaProps {
 }
 
 /**
- * Breadcrumb Schema Component
+ * Breadcrumb Schema Component (Server)
  * Generates JSON-LD for breadcrumbs to improve SERP appearance.
+ * Uses plain <script> tag — correct pattern for server components.
  */
-const BreadcrumbSchema: React.FC<BreadcrumbSchemaProps> = ({ items }) => {
+const BreadcrumbSchema = ({ items }: BreadcrumbSchemaProps) => {
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
@@ -30,7 +27,7 @@ const BreadcrumbSchema: React.FC<BreadcrumbSchemaProps> = ({ items }) => {
     };
 
     return (
-        <Script
+        <script
             id={`breadcrumb-schema-${items.map(i => i.name).join('-').toLowerCase()}`}
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -18,6 +18,7 @@ import Link from "next/link";
 import confetti from "canvas-confetti";
 import { RWebShare } from "react-web-share";
 
+import Script from "next/script";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { ResponsiveAd } from "@/components/adsense";
 import FAQSectionDynamic from '@/components/seo/FAQSectionDynamic';
@@ -328,8 +329,8 @@ export default function CGPAToPercentageCalculator() {
 
     return (
         <TooltipProvider>
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(calculatorSchema) }} />
+            <Script id="cgpa-howto-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
+            <Script id="cgpa-calculator-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(calculatorSchema) }} />
 
             <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
 
