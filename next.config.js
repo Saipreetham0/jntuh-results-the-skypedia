@@ -49,6 +49,13 @@ const nextConfig = {
     turbopackFileSystemCacheForBuild: false,
   },
 
+  redirects: async () => [
+    { source: '/cookie-policy', destination: '/cookies', permanent: true },
+    { source: '/privacy-policy', destination: '/privacy', permanent: true },
+    { source: '/engineering-specializations-2025', destination: '/btech-colleges-tg', permanent: true },
+    { source: '/forgot-password', destination: '/login', permanent: true },
+  ],
+
   headers: async () => {
     return [
       {

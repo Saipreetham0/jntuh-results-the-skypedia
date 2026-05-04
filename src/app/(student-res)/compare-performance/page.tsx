@@ -1,5 +1,9 @@
-// Example usage in your pages:
+import type { Metadata } from 'next';
 import ComingSoon from "@/components/coming-soon";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 // page.tsx
 export default function FeaturePage() {
