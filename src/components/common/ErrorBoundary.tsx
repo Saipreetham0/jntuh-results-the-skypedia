@@ -23,35 +23,30 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    // Only log HMR-related errors in development
     if (process.env.NODE_ENV === 'development') {
-      const isHMRError = error.message?.includes('module factory') ||
-                         error.message?.includes('HMR');
-
-      if (isHMRError) {
-        console.log('HMR Error detected - page will auto-reload');
-        // Auto-reload the page after HMR error
-        setTimeout(() => {
-          window.location.reload();
-        }, 100);
-      } else {
-        console.error('Error caught by boundary:', error, errorInfo);
-      }
+      console.error('Error caught by boundary:', error, errorInfo);
     }
   }
 
   render() {
     if (this.state.hasError) {
-      return this.props.fallback || (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
-          <div className="text-center p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-              Reloading...
+      if (this.props.fallback) return this.props.fallback;
+
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
+          <div className="text-center p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 max-w-md w-full">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              Something went wrong
             </h2>
-            <p className="text-gray-600 dark:text-gray-400">
-              Detected development update. Refreshing page...
+            <p className="text-gray-500 dark:text-gray-400 mb-6">
+              An unexpected error occurred. Please refresh the page or try again later.
             </p>
-            <div className="mt-4 animate-spin h-8 w-8 mx-auto border-4 border-blue-500 border-t-transparent rounded-full"></div>
+            <button
+              onClick={() => window.location.reload()}
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#1C61E7] hover:bg-[#1552c4] text-white font-medium rounded-xl transition-colors"
+            >
+              Refresh page
+            </button>
           </div>
         </div>
       );

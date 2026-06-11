@@ -1,5 +1,12 @@
-
+import type { Metadata } from 'next';
+import { generateMetadata } from '@/lib/metadata';
 import React from 'react';
+
+export const metadata: Metadata = generateMetadata({
+  title: 'JNTUH Results FAQ | Common Questions About Results, CGPA & Portal',
+  description: 'Answers to the most common questions about JNTUH results, CGPA calculation, grading system, backlog checks, grace marks, and using TheSkypedia results portal.',
+  path: '/faq',
+});
 import Link from "next/link";
 import {
   Accordion,

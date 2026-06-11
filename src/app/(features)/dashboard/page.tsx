@@ -31,7 +31,7 @@ const StudentResultsDashboard = () => {
     setError(null);
 
     try {
-      const response = await fetch(`https://jntuhresults.dhethi.com/api/getAllResult?rollNumber=${rollNum}`);
+      const response = await fetch(`/api/consolidated-results?htno=${rollNum}`);
 
       if (!response.ok) {
         throw new Error(`Failed to fetch results: ${response.status} ${response.statusText}`);

@@ -11,7 +11,6 @@ export class JNTUHService {
 
       return await response.json();
     } catch (error) {
-      console.error("Failed to fetch student results:", error);
       throw error;
     }
   }
@@ -38,10 +37,7 @@ export class JNTUHService {
   // Helper to get all semesters - Fixed with proper null checks
   static getSemestersList(results: Results): string[] {
     // Check if results is null or undefined
-    if (!results) {
-      console.warn('Results is null or undefined in getSemestersList');
-      return [];
-    }
+    if (!results) return [];
 
     try {
       return Object.keys(results).filter(
@@ -49,8 +45,7 @@ export class JNTUHService {
           results[key] !== null &&
           typeof results[key] === "object"
       );
-    } catch (error) {
-      console.error('Error in getSemestersList:', error);
+    } catch {
       return [];
     }
   }

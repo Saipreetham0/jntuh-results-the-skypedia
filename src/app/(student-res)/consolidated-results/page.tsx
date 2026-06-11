@@ -15,6 +15,11 @@ import {
   ArrowLeftIcon,
   DocumentTextIcon,
 } from '@heroicons/react/24/outline';
+import dynamic from 'next/dynamic';
+import { Share2 } from 'lucide-react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine, ResponsiveContainer } from 'recharts';
+
+const ShareCardModal = dynamic(() => import('@/components/results/ShareCardModal'), { ssr: false });
 
 // Module-level cache to prevent duplicate fetches
 const fetchCache = new Map<string, { data: any; timestamp: number }>();
@@ -56,12 +61,60 @@ interface ConsolidatedResult {
   results: SemesterResult[];
 }
 
+// ── SGPA Trend helpers ────────────────────────────────────────────────────────
+const GP: Record<string, number> = { O: 10, 'A+': 9, A: 8, 'B+': 7, B: 6, C: 5, D: 4, F: 0, Ab: 0 };
+
+function semSGPA(sem: SemesterResult): number {
+  const best = new Map<string, { grades: string; credits: number }>();
+  sem.exams.forEach(e =>
+    e.subjects.forEach(s => {
+      const ex = best.get(s.subjectCode);
+      if (!ex || (GP[s.grades] ?? 0) > (GP[ex.grades] ?? 0)) best.set(s.subjectCode, s);
+    })
+  );
+  const main = [...best.values()].filter(s => s.credits > 0);
+  const totalCr = main.reduce((a, s) => a + s.credits, 0);
+  if (!totalCr) return 0;
+  return main.reduce((a, s) => a + (GP[s.grades] ?? 0) * s.credits, 0) / totalCr;
+}
+
+function SGPATrendChart({ results }: { results: ConsolidatedResult }) {
+  const data = results.results.map(sem => ({
+    semester: sem.semester,
+    sgpa: parseFloat(semSGPA(sem).toFixed(2)),
+  }));
+  if (data.length < 2) return null;
+  const avg = data.reduce((s, d) => s + d.sgpa, 0) / data.length;
+
+  return (
+    <div className="print:hidden bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm p-5">
+      <h2 className="font-semibold text-gray-900 dark:text-white text-sm mb-0.5">SGPA Trend</h2>
+      <p className="text-xs text-gray-400 mb-4">Semester-wise SGPA across your academic journey.</p>
+      <ResponsiveContainer width="100%" height={180}>
+        <LineChart data={data} margin={{ top: 4, right: 12, left: -20, bottom: 4 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+          <XAxis dataKey="semester" tick={{ fontSize: 11 }} />
+          <YAxis domain={[0, 10]} tick={{ fontSize: 11 }} />
+          <Tooltip
+            formatter={(v: number) => [v.toFixed(2), 'SGPA']}
+            contentStyle={{ borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 12 }}
+          />
+          <ReferenceLine y={avg} stroke="#f59e0b" strokeDasharray="4 2" label={{ value: `Avg ${avg.toFixed(2)}`, position: 'insideTopRight', fontSize: 10, fill: '#f59e0b' }} />
+          <Line type="monotone" dataKey="sgpa" stroke="#1C61E7" strokeWidth={2.5} dot={{ r: 4, fill: '#1C61E7', strokeWidth: 0 }} activeDot={{ r: 6 }} />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 function ConsolidatedResultsContent() {
   const searchParams = useSearchParams();
   const [rollNumber, setRollNumber] = useState(searchParams?.get('rollNumber') || '');
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<ConsolidatedResult | null>(null);
   const [error, setError] = useState('');
+  const [showShareCard, setShowShareCard] = useState(false);
 
   const hasFetchedRef = useRef(false);
   const lastFetchedRollNumber = useRef<string>('');
@@ -327,8 +380,18 @@ function ConsolidatedResultsContent() {
                 </div>
               )}
 
+              {/* SGPA Trend chart */}
+              <SGPATrendChart results={results} />
+
               {/* Actions */}
-              <div className="print:hidden flex justify-end">
+              <div className="print:hidden flex justify-end gap-2">
+                <button
+                  onClick={() => setShowShareCard(true)}
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-[#1C61E7] hover:bg-[#1552c4] text-white rounded-xl text-sm font-semibold transition-colors"
+                >
+                  <Share2 className="h-4 w-4" />
+                  Share Card
+                </button>
                 <button
                   onClick={handlePrint}
                   className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 rounded-xl text-sm font-medium hover:border-[#1C61E7] hover:text-[#1C61E7] transition-colors"
@@ -337,6 +400,11 @@ function ConsolidatedResultsContent() {
                   Print / Save
                 </button>
               </div>
+
+              {/* Share Card modal */}
+              {showShareCard && results && (
+                <ShareCardModal results={results} onClose={() => setShowShareCard(false)} />
+              )}
 
               {/* In-content Ad */}
               <div className="print:hidden">

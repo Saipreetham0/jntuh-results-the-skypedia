@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import ComingSoon from "@/components/coming-soon";
 
 export const metadata: Metadata = {
-  robots: { index: false, follow: false },
+  robots: { index: false, follow: true },
 };
 
 // page.tsx

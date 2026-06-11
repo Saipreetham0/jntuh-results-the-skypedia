@@ -19,6 +19,15 @@ import jsPDF from "jspdf";
 
 const SITE_DOMAIN = "https://jntuhresults.theskypedia.com";
 
+function esc(value: unknown): string {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 const PrintStyles = () => (
     <style jsx global>{`
       @media print {
@@ -70,10 +79,10 @@ export default function BacklogsPage() {
             <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin-bottom: 30px;">
                 <h2 style="margin: 0 0 15px; font-size: 18px;">Student Details</h2>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    <p style="margin: 0;"><strong>Name:</strong> ${data.details.name}</p>
-                    <p style="margin: 0;"><strong>Roll Number:</strong> ${data.details.rollNumber}</p>
-                    <p style="margin: 0;"><strong>College Code:</strong> ${data.details.collegeCode}</p>
-                    <p style="margin: 0;"><strong>Father's Name:</strong> ${data.details.fatherName}</p>
+                    <p style="margin: 0;"><strong>Name:</strong> ${esc(data.details.name)}</p>
+                    <p style="margin: 0;"><strong>Roll Number:</strong> ${esc(data.details.rollNumber)}</p>
+                    <p style="margin: 0;"><strong>College Code:</strong> ${esc(data.details.collegeCode)}</p>
+                    <p style="margin: 0;"><strong>Father's Name:</strong> ${esc(data.details.fatherName)}</p>
                 </div>
             </div>
             <div style="text-align: center; margin-bottom: 30px;">
@@ -85,8 +94,8 @@ export default function BacklogsPage() {
             ${data.results.semesters.map(sem => `
                 <div style="margin-bottom: 20px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
                     <div style="background: #f1f5f9; padding: 10px 15px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
-                        <h3 style="margin: 0; font-size: 16px;">Semester ${sem.semester}</h3>
-                        <span style="font-size: 14px; font-weight: bold; color: ${sem.backlogs > 0 ? '#dc2626' : '#666'};">${sem.backlogs} Backlogs</span>
+                        <h3 style="margin: 0; font-size: 16px;">Semester ${esc(sem.semester)}</h3>
+                        <span style="font-size: 14px; font-weight: bold; color: ${sem.backlogs > 0 ? '#dc2626' : '#666'};">${esc(sem.backlogs)} Backlogs</span>
                     </div>
                     <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
                         <thead>
@@ -100,10 +109,10 @@ export default function BacklogsPage() {
                         <tbody>
                             ${sem.subjects.map(sub => `
                                 <tr style="border-bottom: 1px solid #f1f5f9;">
-                                    <td style="padding: 8px 10px;">${sub.subjectCode}</td>
-                                    <td style="padding: 8px 10px;">${sub.subjectName}</td>
-                                    <td style="padding: 8px 10px; text-align: center;">${sub.credits}</td>
-                                    <td style="padding: 8px 10px; text-align: center; font-weight: bold; color: ${sub.grades === 'F' || sub.grades === 'Ab' ? '#dc2626' : '#333'};">${sub.grades}</td>
+                                    <td style="padding: 8px 10px;">${esc(sub.subjectCode)}</td>
+                                    <td style="padding: 8px 10px;">${esc(sub.subjectName)}</td>
+                                    <td style="padding: 8px 10px; text-align: center;">${esc(sub.credits)}</td>
+                                    <td style="padding: 8px 10px; text-align: center; font-weight: bold; color: ${sub.grades === 'F' || sub.grades === 'Ab' ? '#dc2626' : '#333'};">${esc(sub.grades)}</td>
                                 </tr>
                             `).join('')}
                         </tbody>

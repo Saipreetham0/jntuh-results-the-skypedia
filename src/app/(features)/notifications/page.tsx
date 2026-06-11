@@ -63,7 +63,7 @@ const NotificationsPage = () => {
 
     try {
       // Build URL with all possible query parameters from the API docs
-      let url = `https://jntuhresults.dhethi.com/api/notifications?page=${page}`;
+      let url = `/api/notifications?page=${page}`;
 
       // Add optional filters if they're set
       if (regulationFilter) url += `&regulation=${regulationFilter}`;
@@ -113,7 +113,7 @@ const NotificationsPage = () => {
     setSubscriptionMessage("");
 
     try {
-      const response = await fetch("/api/notifications/subscribe", {
+      const response = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),

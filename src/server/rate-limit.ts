@@ -62,7 +62,11 @@ export function rateLimit(ip: string, options: RateLimitOptions): RateLimitResul
  */
 export function getClientIp(request: Request): string {
   const forwarded = request.headers.get('x-forwarded-for');
-  if (forwarded) return forwarded.split(',')[0].trim();
+  if (forwarded) {
+    // Take the last entry — added by the trusted edge proxy, not spoofable by the client
+    const ips = forwarded.split(',');
+    return ips[ips.length - 1].trim();
+  }
   const realIp = request.headers.get('x-real-ip');
   if (realIp) return realIp.trim();
   return 'unknown';

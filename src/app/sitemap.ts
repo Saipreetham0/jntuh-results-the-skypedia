@@ -1,17 +1,22 @@
 import { MetadataRoute } from 'next';
+import { siteConfig } from '@/config/site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://jntuhresults.theskypedia.com';
+  const baseUrl = siteConfig.url;
+  // Only truly dynamic pages (result data changes every build) get `now`.
+  // Static-content pages use a fixed date so every deploy doesn't look like a content update.
   const now = new Date();
-  const blogDate = new Date('2026-04-09');
+  const contentDate = new Date('2026-04-09');
+  const blogDate = new Date('2026-06-01');
 
   return [
     // ── Homepage ─────────────────────────────────────────────
     { url: baseUrl, lastModified: now, changeFrequency: 'daily', priority: 1.0 },
 
-    // ── Results pages ─────────────────────────────────────────
+    // ── Results pages (dynamic — update with every build) ─────
     { url: `${baseUrl}/jntuh-results-checker-fast-server`, lastModified: now, changeFrequency: 'daily',  priority: 1.0 },
     { url: `${baseUrl}/jntuh-results`,                     lastModified: now, changeFrequency: 'daily',  priority: 1.0 },
+    { url: `${baseUrl}/jntuh-vercel`,                      lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${baseUrl}/results-hub`,                       lastModified: now, changeFrequency: 'daily',  priority: 0.9 },
     { url: `${baseUrl}/consolidated-results`,              lastModified: now, changeFrequency: 'daily',  priority: 0.9 },
     { url: `${baseUrl}/semester-wise-results`,             lastModified: now, changeFrequency: 'daily',  priority: 0.9 },
@@ -19,35 +24,38 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/mba-results`,                       lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${baseUrl}/mtech-results`,                     lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
 
-    // ── Calculators ───────────────────────────────────────────
-    { url: `${baseUrl}/calculators`,                    lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${baseUrl}/cgpa-calculator`,                lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${baseUrl}/cgpa-percentage-converter`,      lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${baseUrl}/sgpa-to-cgpa-calculator`,        lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${baseUrl}/percentage-to-cgpa-calculator`,  lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${baseUrl}/marks-percentage-calculator`,    lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
+    // ── Calculators (static content) ──────────────────────────
+    { url: `${baseUrl}/calculators`,                    lastModified: contentDate, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${baseUrl}/cgpa-target-planner`,            lastModified: contentDate, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${baseUrl}/cgpa-calculator`,                lastModified: contentDate, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${baseUrl}/cgpa-percentage-converter`,      lastModified: contentDate, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${baseUrl}/sgpa-to-cgpa-calculator`,        lastModified: contentDate, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${baseUrl}/percentage-to-cgpa-calculator`,  lastModified: contentDate, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${baseUrl}/marks-percentage-calculator`,    lastModified: contentDate, changeFrequency: 'weekly', priority: 0.8 },
 
-    // ── Academic resources ────────────────────────────────────
-    { url: `${baseUrl}/jntuh-previous-question-papers`, lastModified: now, changeFrequency: 'weekly',  priority: 0.9 },
-    { url: `${baseUrl}/syllabus`,                        lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/calendar`,                        lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/btech-colleges-tg`,               lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    // ── Academic resources (static content) ───────────────────
+    { url: `${baseUrl}/jntuh-previous-question-papers`, lastModified: contentDate, changeFrequency: 'weekly',  priority: 0.9 },
+    { url: `${baseUrl}/syllabus`,                        lastModified: contentDate, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/calendar`,                        lastModified: contentDate, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/btech-colleges-tg`,               lastModified: contentDate, changeFrequency: 'monthly', priority: 0.7 },
 
-    // ── Tools ─────────────────────────────────────────────────
-    { url: `${baseUrl}/result-alerts`,    lastModified: now, changeFrequency: 'weekly',  priority: 0.9 },
-    { url: `${baseUrl}/guides`,           lastModified: now, changeFrequency: 'weekly',  priority: 0.8 },
-    { url: `${baseUrl}/notifications`,    lastModified: now, changeFrequency: 'weekly',  priority: 0.5 },
+    // ── Tools (static content) ────────────────────────────────
+    { url: `${baseUrl}/grace-marks-eligibility`, lastModified: contentDate, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${baseUrl}/class-toppers`,           lastModified: contentDate, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${baseUrl}/result-alerts`,           lastModified: contentDate, changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${baseUrl}/guides`,           lastModified: contentDate, changeFrequency: 'weekly',  priority: 0.8 },
+    { url: `${baseUrl}/notifications`,    lastModified: contentDate, changeFrequency: 'weekly',  priority: 0.5 },
 
-    // ── Content pages ─────────────────────────────────────────
-    { url: `${baseUrl}/faq`,      lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/about-us`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${baseUrl}/contact`,  lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
+    // ── Content pages (static content) ───────────────────────
+    { url: `${baseUrl}/faq`,      lastModified: contentDate, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/about-us`, lastModified: contentDate, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${baseUrl}/contact`,  lastModified: contentDate, changeFrequency: 'monthly', priority: 0.6 },
 
-    // ── Legal pages ───────────────────────────────────────────
-    { url: `${baseUrl}/privacy`,    lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${baseUrl}/terms`,      lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${baseUrl}/cookies`,    lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${baseUrl}/disclaimer`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
+    // ── Legal pages (static content) ─────────────────────────
+    { url: `${baseUrl}/privacy`,    lastModified: contentDate, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${baseUrl}/terms`,      lastModified: contentDate, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${baseUrl}/cookies`,    lastModified: contentDate, changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${baseUrl}/disclaimer`, lastModified: contentDate, changeFrequency: 'yearly', priority: 0.3 },
 
     // ── Blog index ────────────────────────────────────────────
     { url: `${baseUrl}/blog`, lastModified: blogDate, changeFrequency: 'weekly', priority: 0.8 },

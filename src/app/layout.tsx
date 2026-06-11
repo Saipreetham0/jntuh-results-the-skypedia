@@ -12,6 +12,7 @@ import Footer from '@/components/layout/footer';
 import AnnouncementBar from '@/components/layout/announcement-bar';
 
 import { Providers } from '@/components/layout/providers';
+import { ErrorBoundary } from '@/components/common/ErrorBoundary';
 
 import AnalyticsProvider from '@/components/analytics';
 import { GoogleTagManager, GoogleTagManagerNoScript } from '@/components/layout/scripts/GoogleTagManager';
@@ -19,6 +20,7 @@ import { StructuredData } from '@/components/layout/scripts/StructuredData';
 
 
 import { AnchorAd, AdDebug } from '@/components/adsense';
+import { ServiceWorkerRegistration } from '@/components/common/ServiceWorkerRegistration';
 
 import AD_SLOTS from '@/config/adSlots';
 
@@ -54,6 +56,7 @@ export default function RootLayout({
         />
       </head>
       <body suppressHydrationWarning className={`${inter.variable} ${plusJakarta.variable} font-sans`}>
+        <ServiceWorkerRegistration />
         <StructuredData />
         <GoogleTagManager />
 
@@ -76,7 +79,9 @@ export default function RootLayout({
             <Navbar />
 
             <main className="flex-grow bg-gray-50 dark:bg-gray-900">
-              {children}
+              <ErrorBoundary>
+                {children}
+              </ErrorBoundary>
             </main>
 
             <Footer />
