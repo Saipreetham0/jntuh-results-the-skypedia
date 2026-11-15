@@ -53,7 +53,7 @@ const FeaturesSection: React.FC = () => {
         {/* Section header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#1C61E7] dark:text-blue-400 mb-3">
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-blue-600 dark:text-blue-400 mb-3">
               Why students choose us
             </p>
             <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white tracking-tight">
@@ -82,14 +82,14 @@ const FeaturesSection: React.FC = () => {
                 <feature.icon className="w-6 h-6" />
               </div>
 
-              <h3 className="font-display text-[17px] font-bold text-gray-900 dark:text-white mb-2.5 group-hover:text-[#1C61E7] dark:group-hover:text-blue-400 transition-colors leading-snug">
+              <h3 className="font-display text-[17px] font-bold text-gray-900 dark:text-white mb-2.5 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug">
                 {feature.title}
               </h3>
               <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed flex-1">
                 {feature.description}
               </p>
 
-              <div className="mt-5 flex items-center text-sm font-semibold text-[#1C61E7] dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              <div className="mt-5 flex items-center text-sm font-semibold text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                 <span>Explore</span>
                 <ArrowUpRight className="w-4 h-4 ml-1" />
               </div>

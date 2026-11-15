@@ -21,6 +21,10 @@ const homepageFaqs = [
     answer: "For R18/R22 regulations, a student needs to secure a minimum of 35% marks in the internal exams and 35% in the external exams, with an aggregate of 40% to pass a subject.",
   },
   {
+    question: "How can I convert my CGPA to percentage?",
+    answer: "For JNTUH, the formula to convert CGPA to percentage is: Percentage = (CGPA - 0.5) * 10. For instance, an 8.0 CGPA equals 75.0%. Try our free CGPA to Percentage Converter at jntuhresults.theskypedia.com/cgpa-percentage-converter for instant, accurate conversion.",
+  },
+  {
     question: "How can I check my complete backlog history?",
     answer: "You can view your complete history of backlogs, including cleared and active ones, using the Check Backlogs tool at jntuhresults.theskypedia.com/check-backlogs. Simply enter your Hall Ticket Number to get a detailed report.",
   },
@@ -49,7 +53,9 @@ export default function Home(): JSX.Element {
 
       {/* Mid-page ad */}
       <div className="container mx-auto px-4 py-6 max-w-5xl">
-        <InFeedAd adSlot={AD_SLOTS.HOMEPAGE.MID_RECTANGLE} />
+        <div className="min-h-[280px] flex items-center justify-center overflow-hidden">
+          <InFeedAd adSlot={AD_SLOTS.HOMEPAGE.MID_RECTANGLE} />
+        </div>
       </div>
 
       {/* Blog / Guides */}
@@ -60,7 +66,9 @@ export default function Home(): JSX.Element {
 
       {/* Pre-FAQ ad */}
       <div className="container mx-auto px-4 py-6 max-w-5xl">
-        <InFeedAd adSlot={AD_SLOTS.SPECIALIZED.HOMEPAGE_MIDDLE} />
+        <div className="min-h-[280px] flex items-center justify-center overflow-hidden">
+          <InFeedAd adSlot={AD_SLOTS.SPECIALIZED.HOMEPAGE_MIDDLE} />
+        </div>
       </div>
 
       {/* FAQ */}
@@ -71,7 +79,7 @@ export default function Home(): JSX.Element {
         <p className="text-center text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-600 mb-3">
           Supported by
         </p>
-        <div className="ad-container-rect bg-gray-50 dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden">
+        <div className="ad-container-rect min-h-[90px] md:min-h-[100px] flex items-center justify-center bg-gray-50 dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden">
           <ResponsiveAd adSlot={AD_SLOTS.HOMEPAGE.BOTTOM_BANNER} format="auto" />
         </div>
       </div>

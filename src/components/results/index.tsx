@@ -23,71 +23,71 @@ const cardsData: CardData[] = [
   {
     title: "Consolidated Results",
     content: "View your complete academic transcript — all semesters, all subjects, in one place.",
-    url: "consolidated-results",
-    icon: <FileText className="w-7 h-7 text-[#1C61E7]" />,
+    url: "/consolidated-results",
+    icon: <FileText className="w-7 h-7 text-blue-600 dark:text-blue-400" />,
     category: 'results',
   },
   {
     title: "Semester Results",
     content: "Look up results for any specific semester quickly and accurately.",
-    url: "semester-wise-results",
+    url: "/semester-wise-results",
     icon: <BookOpen className="w-7 h-7 text-emerald-600" />,
     category: 'results',
   },
   {
     title: "CGPA Calculator",
     content: "Compute your cumulative GPA with R22, R20, and R18 regulation support.",
-    url: "cgpa-calculator",
-    icon: <Calculator className="w-7 h-7 text-[#1C61E7]" />,
+    url: "/cgpa-calculator",
+    icon: <Calculator className="w-7 h-7 text-blue-600 dark:text-blue-400" />,
     category: 'calculators',
   },
   {
     title: "CGPA to Percentage",
     content: "Convert your CGPA to percentage using the official JNTUH formula.",
-    url: "cgpa-percentage-converter",
+    url: "/cgpa-percentage-converter",
     icon: <RefreshCw className="w-7 h-7 text-emerald-600" />,
     category: 'calculators',
   },
   {
     title: "Percentage to CGPA",
     content: "Reverse-convert your percentage score to an equivalent CGPA.",
-    url: "percentage-to-cgpa-calculator",
-    icon: <Percent className="w-7 h-7 text-[#1C61E7]" />,
+    url: "/percentage-to-cgpa-calculator",
+    icon: <Percent className="w-7 h-7 text-blue-600 dark:text-blue-400" />,
     category: 'calculators',
   },
   {
     title: "Credit Eligibility Check",
     content: "Instantly verify whether you meet the credit requirements for promotions.",
-    url: "credit-eligibility-check",
+    url: "/credit-eligibility-check",
     icon: <CheckCircle className="w-7 h-7 text-emerald-600" />,
     category: 'results',
   },
   {
     title: "Compare Performance",
     content: "Benchmark your CGPA and marks against classmates and batch averages.",
-    url: "compare-performance",
-    icon: <BarChart2 className="w-7 h-7 text-[#1C61E7]" />,
+    url: "/compare-performance",
+    icon: <BarChart2 className="w-7 h-7 text-blue-600 dark:text-blue-400" />,
     category: 'results',
   },
   {
     title: "Check Backlogs",
     content: "Get a full report of active and cleared backlogs across every semester.",
-    url: "check-backlogs",
+    url: "/check-backlogs",
     icon: <AlertCircle className="w-7 h-7 text-red-500" />,
     category: 'results',
   },
   {
-    title: "Syllabus",
-    content: "Browse course syllabi by regulation and semester to plan your studies.",
+    title: "Syllabus Repository",
+    content: "Browse and download official course syllabi (518 PDFs across R22, R18, R16).",
     url: "/syllabus",
-    icon: <BookOpen className="w-7 h-7 text-emerald-600" />,
+    icon: <BookOpen className="w-7 h-7 text-indigo-600 dark:text-indigo-400" />,
     category: 'academic',
   },
   {
     title: "Previous Question Papers",
     content: "Download previous years' exam papers to sharpen your exam preparation.",
     url: "/jntuh-previous-question-papers",
-    icon: <FileQuestion className="w-7 h-7 text-[#1C61E7]" />,
+    icon: <FileQuestion className="w-7 h-7 text-blue-600 dark:text-blue-400" />,
     category: 'academic',
   },
   {
@@ -108,7 +108,7 @@ const cardsData: CardData[] = [
     title: "SGPA to CGPA",
     content: "Aggregate your semester GPAs into an accurate cumulative GPA.",
     url: "/sgpa-to-cgpa-calculator",
-    icon: <RefreshCw className="w-7 h-7 text-[#1C61E7]" />,
+    icon: <RefreshCw className="w-7 h-7 text-blue-600 dark:text-blue-400" />,
     category: 'calculators',
   },
 ];
@@ -153,7 +153,7 @@ const ResultsBox: React.FC = () => {
         {/* ── Section Header ───────────────────────────────────────── */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#1C61E7] dark:text-blue-400 mb-3">
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-blue-600 dark:text-blue-400 mb-3">
               Student Resources
             </p>
             <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white tracking-tight">
@@ -174,9 +174,11 @@ const ResultsBox: React.FC = () => {
           <div className="relative">
             <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
             <input
+              id="tool-search-input"
               type="text"
+              aria-label="Search tools and academic resources"
               placeholder="Search tools — e.g. CGPA, backlogs, syllabus…"
-              className="w-full pl-14 pr-12 py-4 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 focus:outline-none focus:ring-2 focus:ring-[#1C61E7]/30 focus:border-[#1C61E7]/50 text-base text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-600 transition-all"
+              className="w-full pl-14 pr-12 py-4 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 text-base text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 transition-all"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />

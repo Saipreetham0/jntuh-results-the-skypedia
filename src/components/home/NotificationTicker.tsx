@@ -60,14 +60,17 @@ const NotificationTicker = () => {
                                 transition={{ duration: 0.4, ease: "easeOut" }}
                                 className="absolute inset-0 flex items-center"
                             >
-                                <div className="flex items-center gap-3 w-full group cursor-pointer">
+                                <Link
+                                    href="/notifications"
+                                    className="flex items-center gap-3 w-full group cursor-pointer focus:outline-none"
+                                >
                                     {NOTIFICATIONS[currentIndex].type === 'result' ? (
-                                        <Zap className="w-4 h-4 text-amber-500 fill-amber-500/10" />
+                                        <Zap className="w-4 h-4 text-amber-500 fill-amber-500/10 shrink-0" />
                                     ) : (
-                                        <Sparkles className="w-4 h-4 text-blue-500 fill-blue-500/10" />
+                                        <Sparkles className="w-4 h-4 text-blue-500 fill-blue-500/10 shrink-0" />
                                     )}
 
-                                    <p className="font-display text-sm font-semibold text-gray-800 dark:text-gray-200 truncate group-hover:text-[#1C61E7] dark:group-hover:text-blue-400 transition-colors">
+                                    <p className="font-display text-sm font-semibold text-gray-800 dark:text-gray-200 truncate group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                                         {NOTIFICATIONS[currentIndex].text}
                                     </p>
 
@@ -75,12 +78,12 @@ const NotificationTicker = () => {
                                         <motion.span
                                             initial={{ scale: 0.8 }}
                                             animate={{ scale: 1 }}
-                                            className="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black bg-[#1C61E7] text-white shadow-lg shadow-blue-500/20"
+                                            className="flex-shrink-0 inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black bg-blue-600 text-white shadow-md shadow-blue-500/20"
                                         >
                                             NEW
                                         </motion.span>
                                     )}
-                                </div>
+                                </Link>
                             </motion.div>
                         </AnimatePresence>
                     </div>
@@ -88,7 +91,7 @@ const NotificationTicker = () => {
                     {/* Interactive View All Button */}
                     <Link
                         href="/notifications"
-                        className="hidden md:flex flex-shrink-0 items-center gap-1 text-[11px] font-bold uppercase tracking-widest text-[#1C61E7] hover:bg-[#1C61E7]/5 px-3 py-1.5 rounded-lg transition-all"
+                        className="hidden md:flex flex-shrink-0 items-center gap-1 text-[11px] font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/40 px-3 py-1.5 rounded-lg transition-all"
                     >
                         All Updates
                         <ChevronRight className="w-3.5 h-3.5" />
@@ -97,7 +100,7 @@ const NotificationTicker = () => {
                     {/* Mobile Icon Button */}
                     <Link
                         href="/notifications"
-                        className="md:hidden flex-shrink-0 p-1.5 text-gray-400 hover:text-[#1C61E7] transition-colors"
+                        className="md:hidden flex-shrink-0 p-1.5 text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                     >
                         <Bell className="w-5 h-5" />
                     </Link>

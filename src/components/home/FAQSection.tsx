@@ -15,7 +15,7 @@ const faqs: FAQItem[] = [
     answer: (
       <>
         JNTUH typically releases results 45–60 days after the completion of exams. This timeline varies by semester and academic calendar. Check our{" "}
-        <Link href="/consolidated-results" className="text-[#1C61E7] font-medium hover:underline underline-offset-2">Consolidated Results</Link>{" "}
+        <Link href="/consolidated-results" className="text-blue-600 dark:text-blue-400 font-medium hover:underline underline-offset-2">Consolidated Results</Link>{" "}
         tool for the latest updates.
       </>
     ),
@@ -25,7 +25,7 @@ const faqs: FAQItem[] = [
     answer: (
       <>
         The formula is: <strong className="text-gray-900 dark:text-white">CGPA = Σ(Cᵢ × Sᵢ) / ΣCᵢ</strong>, where <em>Cᵢ</em> is credits and <em>Sᵢ</em> is SGPA per semester. Use our{" "}
-        <Link href="/cgpa-calculator" className="text-[#1C61E7] font-medium hover:underline underline-offset-2">CGPA Calculator</Link>{" "}
+        <Link href="/cgpa-calculator" className="text-blue-600 dark:text-blue-400 font-medium hover:underline underline-offset-2">CGPA Calculator</Link>{" "}
         for an instant, regulation-aware result.
       </>
     ),
@@ -40,7 +40,7 @@ const faqs: FAQItem[] = [
     answer: (
       <>
         For JNTUH, use <strong className="text-gray-900 dark:text-white">Percentage = (CGPA − 0.5) × 10</strong>. Try our{" "}
-        <Link href="/cgpa-percentage-converter" className="text-[#1C61E7] font-medium hover:underline underline-offset-2">CGPA to Percentage Converter</Link>{" "}
+        <Link href="/cgpa-percentage-converter" className="text-blue-600 dark:text-blue-400 font-medium hover:underline underline-offset-2">CGPA to Percentage Converter</Link>{" "}
         for instant, accurate conversion.
       </>
     ),
@@ -50,7 +50,7 @@ const faqs: FAQItem[] = [
     answer: (
       <>
         Use our{" "}
-        <Link href="/check-backlogs" className="text-[#1C61E7] font-medium hover:underline underline-offset-2">Check Backlogs</Link>{" "}
+        <Link href="/check-backlogs" className="text-blue-600 dark:text-blue-400 font-medium hover:underline underline-offset-2">Check Backlogs</Link>{" "}
         tool — enter your Hall Ticket Number to get a full report of active and cleared backlogs across all semesters.
       </>
     ),
@@ -71,7 +71,7 @@ const FAQSection: React.FC = () => {
 
         {/* Section header */}
         <div className="mb-12 md:mb-14">
-          <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#1C61E7] dark:text-blue-400 mb-3">
+          <p className="text-xs font-bold uppercase tracking-[0.14em] text-blue-600 dark:text-blue-400 mb-3">
             FAQ
           </p>
           <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 dark:text-white tracking-tight">
@@ -86,27 +86,35 @@ const FAQSection: React.FC = () => {
         <div className="divide-y divide-gray-100 dark:divide-gray-800 border-t border-b border-gray-100 dark:border-gray-800">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
+            const questionId = `faq-heading-${index}`;
+            const answerId = `faq-region-${index}`;
             return (
               <div key={index}>
                 <button
-                  className="w-full text-left py-5 flex items-start justify-between gap-6 focus-visible:outline-none group"
+                  id={questionId}
+                  type="button"
+                  className="w-full text-left py-5 flex items-start justify-between gap-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 rounded-lg group"
                   onClick={() => setOpenIndex(isOpen ? null : index)}
                   aria-expanded={isOpen}
+                  aria-controls={answerId}
                 >
-                  <span className={`font-display text-[15px] md:text-base font-semibold leading-snug transition-colors duration-150 ${isOpen ? "text-[#1C61E7] dark:text-blue-400" : "text-gray-900 dark:text-white group-hover:text-[#1C61E7] dark:group-hover:text-blue-400"}`}>
+                  <span className={`font-display text-[15px] md:text-base font-semibold leading-snug transition-colors duration-150 ${isOpen ? "text-blue-600 dark:text-blue-400" : "text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400"}`}>
                     {faq.question}
                   </span>
-                  <span className={`flex-shrink-0 mt-0.5 w-6 h-6 rounded-full flex items-center justify-center transition-colors duration-150 ${isOpen ? "bg-[#1C61E7] text-white" : "bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 group-hover:bg-[#1C61E7]/10 group-hover:text-[#1C61E7]"}`}>
+                  <span className={`flex-shrink-0 mt-0.5 w-6 h-6 rounded-full flex items-center justify-center transition-colors duration-150 ${isOpen ? "bg-blue-600 text-white" : "bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 group-hover:bg-blue-600/10 group-hover:text-blue-600"}`}>
                     {isOpen ? <Minus className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
                   </span>
                 </button>
 
                 <div
+                  id={answerId}
+                  role="region"
+                  aria-labelledby={questionId}
                   className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? "max-h-80 pb-5 opacity-100" : "max-h-0 opacity-0"}`}
                 >
-                  <p className="text-sm md:text-[15px] text-gray-600 dark:text-gray-400 leading-relaxed">
+                  <div className="text-sm md:text-[15px] text-gray-600 dark:text-gray-400 leading-relaxed">
                     {faq.answer}
-                  </p>
+                  </div>
                 </div>
               </div>
             );

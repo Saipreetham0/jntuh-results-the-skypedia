@@ -17,8 +17,11 @@ const RecentlyVisited: React.FC = () => {
     try {
       const stored = localStorage.getItem("skypedia_recent_tools");
       if (stored) {
-        const parsed = JSON.parse(stored).slice(0, 4);
-        requestAnimationFrame(() => setItems(parsed));
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) {
+          const sliced = parsed.slice(0, 4);
+          requestAnimationFrame(() => setItems(sliced));
+        }
       }
     } catch {
       // localStorage unavailable (SSR / private browsing) — silent fail
@@ -40,7 +43,7 @@ const RecentlyVisited: React.FC = () => {
           <Link
             key={item.url}
             href={item.url}
-            className="inline-flex items-center px-3.5 py-1.5 bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 hover:border-[#1C61E7]/40 hover:text-[#1C61E7] dark:hover:text-blue-400 transition-all duration-150"
+            className="inline-flex items-center px-3.5 py-1.5 bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 hover:border-blue-600/40 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-150"
           >
             {item.title}
           </Link>
@@ -55,8 +58,14 @@ export default RecentlyVisited;
 export const addToHistory = (title: string, url: string) => {
   try {
     const stored = localStorage.getItem("skypedia_recent_tools");
-    let items: VisitedItem[] = stored ? JSON.parse(stored) : [];
-    items = items.filter(i => i.url !== url);
+    let items: VisitedItem[] = [];
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed)) {
+        items = parsed;
+      }
+    }
+    items = items.filter(i => i && i.url !== url);
     items.unshift({ title, url, timestamp: Date.now() });
     localStorage.setItem("skypedia_recent_tools", JSON.stringify(items.slice(0, 5)));
   } catch {
