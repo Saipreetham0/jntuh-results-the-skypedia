@@ -13,6 +13,7 @@ import {
   BookOpen,
   ArrowRight,
 } from "lucide-react";
+import { trackGAEvent } from "@/components/analytics/GoogleAnalytics";
 
 const quickLinks = [
   {
@@ -63,6 +64,7 @@ export const Hero: React.FC = () => {
       router.push("/consolidated-results");
       return;
     }
+    trackGAEvent("search", { search_term: trimmed, search_type: "hero_hall_ticket" });
     router.push(`/consolidated-results?rollNumber=${encodeURIComponent(trimmed)}`);
   };
 

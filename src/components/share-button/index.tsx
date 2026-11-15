@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Share2, X, Copy, Check, Twitter, Facebook, Linkedin, Mail, Send, MessageCircle } from "lucide-react";
 import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
+import { trackGAEvent } from "@/components/analytics/GoogleAnalytics";
 
 // Dynamically import QRCode component with no SSR
 const QRCodeSVG = dynamic(
@@ -94,6 +95,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
           text: activeText,
           url: resolvedUrl,
         });
+        trackGAEvent("share", { method: "native", item_id: resolvedUrl });
         setIsSharing(false);
         return; // User completed native share
       } catch (error: unknown) {
@@ -128,6 +130,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
         document.execCommand("copy");
         document.body.removeChild(textArea);
       }
+      trackGAEvent("share", { method: "copy_link", item_id: resolvedUrl });
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -141,56 +144,66 @@ const ShareButton: React.FC<ShareButtonProps> = ({
       name: "WhatsApp",
       icon: MessageCircle,
       color: "bg-[#25D366] hover:bg-[#20bd5a]",
-      action: () =>
+      action: () => {
+        trackGAEvent("share", { method: "whatsapp", item_id: shareUrl });
         window.open(
           `https://api.whatsapp.com/send?text=${encodeURIComponent(`${activeTitle}\n${shareUrl}`)}`,
           "_blank",
           "noopener,noreferrer"
-        ),
+        );
+      },
     },
     {
       name: "Telegram",
       icon: Send,
       color: "bg-[#0088cc] hover:bg-[#0077b5]",
-      action: () =>
+      action: () => {
+        trackGAEvent("share", { method: "telegram", item_id: shareUrl });
         window.open(
           `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(activeTitle)}`,
           "_blank",
           "noopener,noreferrer"
-        ),
+        );
+      },
     },
     {
       name: "X (Twitter)",
       icon: Twitter,
       color: "bg-black hover:bg-neutral-800 text-white",
-      action: () =>
+      action: () => {
+        trackGAEvent("share", { method: "twitter", item_id: shareUrl });
         window.open(
           `https://x.com/intent/tweet?text=${encodeURIComponent(activeTitle)}&url=${encodeURIComponent(shareUrl)}`,
           "_blank",
           "noopener,noreferrer"
-        ),
+        );
+      },
     },
     {
       name: "Facebook",
       icon: Facebook,
       color: "bg-[#1877F2] hover:bg-[#166fe5]",
-      action: () =>
+      action: () => {
+        trackGAEvent("share", { method: "facebook", item_id: shareUrl });
         window.open(
           `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`,
           "_blank",
           "noopener,noreferrer"
-        ),
+        );
+      },
     },
     {
       name: "LinkedIn",
       icon: Linkedin,
       color: "bg-[#0A66C2] hover:bg-[#095196]",
-      action: () =>
+      action: () => {
+        trackGAEvent("share", { method: "linkedin", item_id: shareUrl });
         window.open(
           `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`,
           "_blank",
           "noopener,noreferrer"
-        ),
+        );
+      },
     },
     {
       name: "Email",
