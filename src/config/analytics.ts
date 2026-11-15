@@ -1,7 +1,8 @@
 export const analyticsConfig = {
     googleAnalytics: {
         enabled: true,
-        measurementId: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX',
+        measurementId: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-N1FJ0X03GL',
+        streamId: '5987695278',
     },
     microsoftClarity: {
         enabled: false,

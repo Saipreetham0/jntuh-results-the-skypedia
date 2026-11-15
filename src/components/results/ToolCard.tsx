@@ -43,9 +43,9 @@ export const ToolCard: React.FC<ToolCardProps> = ({ title, content, url, icon })
         </p>
 
         {/* Footer CTA */}
-        <div className="mt-5 pt-4 border-t border-gray-50 dark:border-gray-800 flex items-center gap-1 text-xs font-bold uppercase tracking-[0.08em] text-gray-400 dark:text-gray-500 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
+        <div className="mt-5 pt-4 border-t border-gray-50 dark:border-gray-800 flex items-center gap-1 text-xs font-bold uppercase tracking-[0.08em] text-gray-600 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
           <span>{isExternal ? 'Visit' : 'Open'}</span>
-          <ArrowUpRight className="w-3.5 h-3.5" />
+          <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
         </div>
       </div>
     </div>
@@ -53,14 +53,14 @@ export const ToolCard: React.FC<ToolCardProps> = ({ title, content, url, icon })
 
   if (isExternal) {
     return (
-      <a href={url} target="_blank" rel="noopener noreferrer" className="h-full block">
+      <a href={url} target="_blank" rel="noopener noreferrer" className="motion-safe:animate-reveal h-full block">
         {cardContent}
       </a>
     );
   }
 
   return (
-    <Link href={url} className="h-full block">
+    <Link href={url} className="motion-safe:animate-reveal h-full block">
       {cardContent}
     </Link>
   );

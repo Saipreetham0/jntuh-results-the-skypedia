@@ -20,7 +20,6 @@ export default function SubscriptionForm({
   className = "",
   compact = false,
 }: SubscriptionFormProps) {
-  const [rollNumber, setRollNumber] = useState("");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -31,8 +30,8 @@ export default function SubscriptionForm({
     setError("");
     setSuccess(false);
 
-    if (!rollNumber || !email) {
-      setError("Please enter both roll number and email");
+    if (!email) {
+      setError("Please enter your email");
       return;
     }
 
@@ -54,10 +53,9 @@ export default function SubscriptionForm({
 
       if (response.ok && data.success) {
         setSuccess(true);
-        setRollNumber("");
         setEmail("");
       } else {
-        setError(data.detail || "Failed to subscribe. Please try again.");
+        setError(data.message || data.detail || "Failed to subscribe. Please try again.");
       }
     } catch (err) {
       setError("Something went wrong. Please try again.");
@@ -68,7 +66,7 @@ export default function SubscriptionForm({
 
   if (compact) {
     return (
-      <section className={`relative w-full overflow-hidden bg-[#1C61E7] ${className}`}>
+      <section className={`relative w-full overflow-hidden bg-blue-600 ${className}`}>
         {/* Background decorations */}
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
           <div className="absolute top-0 left-0 w-full h-full bg-grid-white/10" />
@@ -77,7 +75,7 @@ export default function SubscriptionForm({
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center motion-safe:animate-reveal">
 
             {/* ── Left: Copy ──────────────────────────────────────── */}
             <div>
@@ -121,14 +119,14 @@ export default function SubscriptionForm({
                   {["A", "B", "C", "D", "E"].map((letter, i) => (
                     <div
                       key={letter}
-                      className="w-9 h-9 rounded-full border-2 border-[#1C61E7] bg-white/20 flex items-center justify-center text-white font-bold text-xs"
+                      className="w-9 h-9 rounded-full border-2 border-blue-600 bg-white/20 flex items-center justify-center text-white font-bold text-xs"
                       style={{ zIndex: 5 - i }}
                     >
                       {letter}
                     </div>
                   ))}
                   <div
-                    className="w-9 h-9 rounded-full border-2 border-[#1C61E7] bg-white/10 flex items-center justify-center text-[9px] font-black text-white"
+                    className="w-9 h-9 rounded-full border-2 border-blue-600 bg-white/10 flex items-center justify-center text-[9px] font-black text-white"
                     style={{ zIndex: 0 }}
                   >
                     +9k
@@ -163,7 +161,7 @@ export default function SubscriptionForm({
                     </p>
                     <button
                       onClick={() => setSuccess(false)}
-                      className="mt-6 text-xs font-bold text-[#1C61E7] hover:underline underline-offset-2"
+                      className="mt-6 text-xs font-bold text-blue-600 hover:underline underline-offset-2"
                     >
                       Subscribe another roll number
                     </button>
@@ -184,32 +182,19 @@ export default function SubscriptionForm({
                     </h3>
 
                     <form onSubmit={handleSubmit} className="space-y-4">
-                      {/* Roll number */}
-                      <div className="space-y-1.5">
-                        <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-[0.1em]">
-                          Hall Ticket Number
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="e.g. 21J21A0501"
-                          value={rollNumber}
-                          onChange={(e) => setRollNumber(e.target.value.toUpperCase())}
-                          className="w-full px-4 py-3.5 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm font-bold text-gray-900 dark:text-white uppercase placeholder:text-gray-400 placeholder:font-normal focus:outline-none focus:ring-2 focus:ring-[#1C61E7]/25 focus:border-[#1C61E7]/50 transition-all"
-                          required
-                        />
-                      </div>
-
                       {/* Email */}
                       <div className="space-y-1.5">
-                        <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-[0.1em]">
+                        <label htmlFor="alert-email-compact" className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-[0.1em]">
                           Email Address
                         </label>
                         <input
+                          id="alert-email-compact"
                           type="email"
+                          autoComplete="email"
                           placeholder="your.email@example.com"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="w-full px-4 py-3.5 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1C61E7]/25 focus:border-[#1C61E7]/50 transition-all"
+                          className="w-full px-4 py-3.5 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-base text-gray-900 dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-600/25 focus:border-blue-600/50 transition-all"
                           required
                         />
                       </div>
@@ -233,7 +218,7 @@ export default function SubscriptionForm({
                       <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-[#1C61E7] hover:bg-[#1a56d1] active:scale-[0.99] text-white font-display font-bold py-4 rounded-xl transition-all shadow-lg shadow-[#1C61E7]/25 hover:shadow-[#1C61E7]/40 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm mt-1"
+                        className="w-full bg-blue-600 hover:bg-blue-700 active:scale-[0.99] text-white font-display font-bold py-4 rounded-xl transition-all shadow-lg shadow-blue-600/25 hover:shadow-blue-600/40 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm mt-1"
                       >
                         {loading ? (
                           <>
@@ -275,7 +260,7 @@ export default function SubscriptionForm({
       >
         <div className="grid grid-cols-1 lg:grid-cols-5 h-full">
           {/* Sidebar Area */}
-          <div className="lg:col-span-2 bg-gradient-to-br from-[#1C61E7] to-indigo-700 p-10 flex flex-col text-white relative overflow-hidden">
+          <div className="lg:col-span-2 bg-gradient-to-br from-blue-600 to-indigo-700 p-10 flex flex-col text-white relative overflow-hidden">
             {/* Background elements */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
             <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-400/10 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2"></div>
@@ -347,7 +332,7 @@ export default function SubscriptionForm({
                   </p>
                   <button
                     onClick={() => setSuccess(false)}
-                    className="text-[#1C61E7] font-bold text-sm hover:underline"
+                    className="text-blue-600 font-bold text-sm hover:underline"
                   >
                     Subscribe another roll number
                   </button>
@@ -365,34 +350,19 @@ export default function SubscriptionForm({
 
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="space-y-2">
-                      <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Roll Number</label>
+                      <label htmlFor="alert-email" className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest ml-1">Email Address</label>
                       <div className="relative group">
                         <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
-                          <CheckCircleIcon className="h-5 w-5 text-gray-300 group-focus-within:text-[#1C61E7] transition-colors" />
+                          <EnvelopeIcon className="h-5 w-5 text-gray-300 group-focus-within:text-blue-600 transition-colors" />
                         </div>
                         <input
-                          type="text"
-                          placeholder="e.g. 21J21A0501"
-                          value={rollNumber}
-                          onChange={(e) => setRollNumber(e.target.value.toUpperCase())}
-                          className="w-full pl-14 pr-6 py-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-2xl text-lg font-bold uppercase focus:ring-4 focus:ring-[#1C61E7]/10 focus:border-[#1C61E7] transition-all outline-none text-gray-900 dark:text-white shadow-sm"
-                          required
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <label className="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">Email Address</label>
-                      <div className="relative group">
-                        <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
-                          <EnvelopeIcon className="h-5 w-5 text-gray-300 group-focus-within:text-[#1C61E7] transition-colors" />
-                        </div>
-                        <input
+                          id="alert-email"
                           type="email"
+                          autoComplete="email"
                           placeholder="your.email@example.com"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="w-full pl-14 pr-6 py-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-2xl text-lg focus:ring-4 focus:ring-[#1C61E7]/10 focus:border-[#1C61E7] transition-all outline-none text-gray-900 dark:text-white shadow-sm"
+                          className="w-full pl-14 pr-6 py-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-2xl text-lg focus:ring-4 focus:ring-blue-600/10 focus:border-blue-600 transition-all outline-none text-gray-900 dark:text-white shadow-sm"
                           required
                         />
                       </div>
@@ -401,7 +371,7 @@ export default function SubscriptionForm({
                     <button
                       type="submit"
                       disabled={loading}
-                      className="w-full bg-[#1C61E7] hover:bg-blue-600 active:scale-[0.98] text-white font-extrabold py-5 rounded-2xl transition-all shadow-2xl shadow-blue-500/30 disabled:opacity-50 flex items-center justify-center gap-3 text-lg group"
+                      className="w-full bg-blue-600 hover:bg-blue-600 active:scale-[0.98] text-white font-extrabold py-5 rounded-2xl transition-all shadow-2xl shadow-blue-500/30 disabled:opacity-50 flex items-center justify-center gap-3 text-lg group"
                     >
                       {loading ? (
                         <div className="flex items-center gap-3">

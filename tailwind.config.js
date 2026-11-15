@@ -97,6 +97,14 @@ export default {
   					height: '0'
   				}
   			},
+  			'fade-up': {
+  				from: { opacity: '0', transform: 'translateY(12px)' },
+  				to: { opacity: '1', transform: 'none' }
+  			},
+  			reveal: {
+  				from: { opacity: '0', transform: 'translateY(24px) scale(0.98)' },
+  				to: { opacity: '1', transform: 'none' }
+  			},
   			shimmer: {
   				'0%': {
   					transform: 'translateX(-100%)'
@@ -125,6 +133,7 @@ export default {
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out',
+  			'fade-up': 'fade-up 0.5s ease-out both',
   			shimmer: 'shimmer 3s linear infinite',
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out'
@@ -135,5 +144,18 @@ export default {
     require("@tailwindcss/forms"),
     require("@tailwindcss/typography"),
     require("tailwindcss-animate"),
+    // Scroll-driven reveal: `motion-safe:animate-reveal`. animation-timeline must follow the
+    // `animation` shorthand, so it lives in one utility. ponytail: Firefox lacks view() → no animation, content just shows.
+    require("tailwindcss/plugin")(({ addUtilities }) => {
+      addUtilities({
+        '.animate-reveal': {
+          '@supports (animation-timeline: view())': {
+            animation: 'reveal linear both',
+            'animation-timeline': 'view()',
+            'animation-range': 'entry 0% entry 60%',
+          },
+        },
+      });
+    }),
   ],
 };

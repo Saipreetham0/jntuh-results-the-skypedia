@@ -67,6 +67,8 @@ export const siteConfig = {
   google: {
     tagManagerId: 'GTM-W6TSKNVX',
     verificationCode: 'w6urUAImoYyrv-5UIio0rfpmxsgVLwTlDg6KxWyeV_o',
+    analyticsId: 'G-N1FJ0X03GL',
+    streamId: '5987695278',
   },
 
   /**

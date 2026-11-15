@@ -8,8 +8,6 @@ import {
   CheckCircle, AlertCircle, FileQuestion, Percent,
   RefreshCw, Calendar, Clock, X, LayoutGrid,
 } from 'lucide-react';
-import { ResponsiveAd } from '../adsense';
-import AD_SLOTS from '@/config/adSlots';
 
 interface CardData {
   title: string;
@@ -151,7 +149,7 @@ const ResultsBox: React.FC = () => {
       <div className="container mx-auto max-w-7xl relative z-10">
 
         {/* ── Section Header ───────────────────────────────────────── */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16 motion-safe:animate-reveal">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.14em] text-blue-600 dark:text-blue-400 mb-3">
               Student Resources
@@ -161,7 +159,7 @@ const ResultsBox: React.FC = () => {
             </h2>
           </div>
           <p className="max-w-sm text-base text-gray-500 dark:text-gray-400 leading-relaxed md:text-right">
-            14 purpose-built tools covering results, GPA calculations, and academic resources for all JNTUH regulations.
+            {cardsData.length} purpose-built tools covering results, GPA calculations, and academic resources for all JNTUH regulations.
           </p>
         </div>
 
@@ -172,7 +170,7 @@ const ResultsBox: React.FC = () => {
         <div className="mb-10 md:mb-12 max-w-4xl space-y-4">
           {/* Search */}
           <div className="relative">
-            <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" aria-hidden="true" />
             <input
               id="tool-search-input"
               type="text"
@@ -184,6 +182,7 @@ const ResultsBox: React.FC = () => {
             />
             {searchTerm && (
               <button
+                type="button"
                 onClick={() => setSearchTerm('')}
                 className="absolute right-4 top-1/2 -translate-y-1/2 p-1.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                 aria-label="Clear search"
@@ -198,6 +197,8 @@ const ResultsBox: React.FC = () => {
             {categories.map((cat) => (
               <button
                 key={cat.id}
+                type="button"
+                aria-pressed={activeCategory === cat.id}
                 onClick={() => setActiveCategory(cat.id)}
                 className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 whitespace-nowrap ${
                   activeCategory === cat.id
@@ -212,7 +213,7 @@ const ResultsBox: React.FC = () => {
 
             {/* Count badge */}
             {filteredCards.length > 0 && (
-              <span className="ml-auto flex items-center text-sm text-gray-400 dark:text-gray-500 font-medium">
+              <span className="ml-auto flex items-center text-sm text-gray-500 dark:text-gray-400 font-medium" aria-live="polite">
                 <span className="font-bold text-gray-700 dark:text-gray-300">{filteredCards.length}</span>
                 &nbsp;tools
               </span>
@@ -233,14 +234,6 @@ const ResultsBox: React.FC = () => {
                   <ToolCard {...card} />
                 </div>
 
-                {/* Mid-grid ad after 6th card */}
-                {(index + 1) === 6 && (
-                  <div className="col-span-full">
-                    <div className="rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 overflow-hidden flex items-center justify-center min-h-[100px]">
-                      <ResponsiveAd adSlot={AD_SLOTS.RESULTS.INLINE_1} format="auto" />
-                    </div>
-                  </div>
-                )}
               </React.Fragment>
             ))}
           </div>

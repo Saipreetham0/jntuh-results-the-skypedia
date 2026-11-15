@@ -7,8 +7,6 @@ import {
   Search,
   TrendingUp,
   Award,
-  Users,
-  Zap,
   FileText,
   Calculator,
   AlertCircle,
@@ -79,7 +77,7 @@ export const Hero: React.FC = () => {
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-10 md:pt-16 md:pb-14 lg:pt-20 lg:pb-16">
         {/* Trust badge */}
-        <div className="flex justify-center mb-6 md:mb-7 animate-fade-in">
+        <div className="flex justify-center mb-6 md:mb-7 motion-safe:animate-fade-up">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800/60 text-blue-600 dark:text-blue-400 text-sm font-semibold">
             <Award className="w-4 h-4 text-blue-600 dark:text-blue-400" />
             Trusted by 100,000+ JNTUH students
@@ -87,7 +85,7 @@ export const Hero: React.FC = () => {
         </div>
 
         {/* Headline */}
-        <div className="text-center mb-8 md:mb-10 animate-fade-in">
+        <div className="text-center mb-8 md:mb-10 motion-safe:animate-fade-up motion-safe:delay-75">
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 dark:text-white leading-[1.08] tracking-tight px-2">
             Your JNTUH Academic{" "}
             <span className="relative inline-block mt-1">
@@ -112,21 +110,27 @@ export const Hero: React.FC = () => {
         </div>
 
         {/* 1-Click Instant Hall Ticket Search Form */}
-        <div className="max-w-2xl mx-auto mb-10 px-4 animate-fade-in">
+        <div className="max-w-2xl mx-auto mb-12 px-4 motion-safe:animate-fade-up motion-safe:delay-150">
           <form
             onSubmit={handleSearch}
             className="flex flex-col sm:flex-row items-center gap-2 p-2 sm:p-2.5 rounded-2xl sm:rounded-3xl bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-800 shadow-xl shadow-blue-500/5 focus-within:border-blue-600 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all"
           >
             <div className="flex items-center gap-3 w-full px-3 py-1">
-              <Search className="w-5 h-5 text-gray-400 shrink-0" />
+              <Search className="w-5 h-5 text-gray-400 shrink-0" aria-hidden="true" />
               <input
                 id="hero-htno-input"
                 type="text"
-                placeholder="Enter Hall Ticket Number (e.g. 21J21A0501)..."
+                placeholder="Enter Hall Ticket Number (e.g. 21J21A0501)"
                 aria-label="Hall Ticket Number for instant results"
+                maxLength={10}
+                pattern="[A-Za-z0-9]{10}"
+                title="Hall Ticket Number must be 10 letters/digits, e.g. 21J21A0501"
+                autoComplete="off"
+                autoCapitalize="characters"
+                spellCheck={false}
                 value={rollNumber}
                 onChange={(e) => setRollNumber(e.target.value.toUpperCase())}
-                className="w-full bg-transparent text-sm sm:text-base font-bold text-gray-900 dark:text-white uppercase placeholder:text-gray-400 placeholder:normal-case placeholder:font-normal focus:outline-none"
+                className="w-full bg-transparent border-0 px-0 focus:ring-0 text-base font-bold text-gray-900 dark:text-white uppercase placeholder:text-gray-400 placeholder:normal-case placeholder:font-normal focus:outline-none"
               />
             </div>
             <button
@@ -138,48 +142,11 @@ export const Hero: React.FC = () => {
             </button>
           </form>
 
-          {/* Quick Shortcuts under Search */}
-          <div className="flex flex-wrap items-center justify-center gap-3 mt-4 text-xs font-semibold text-gray-500 dark:text-gray-400">
-            <span>Popular tools:</span>
-            <Link href="/cgpa-calculator" className="text-blue-600 dark:text-blue-400 hover:underline">
-              CGPA Calculator
-            </Link>
-            <span>•</span>
-            <Link href="/check-backlogs" className="text-blue-600 dark:text-blue-400 hover:underline">
-              Check Backlogs
-            </Link>
-            <span>•</span>
-            <Link href="/syllabus" className="text-blue-600 dark:text-blue-400 hover:underline">
-              R22/R18 Syllabus
-            </Link>
-          </div>
-        </div>
-
-        {/* Stats row */}
-        <div className="grid grid-cols-3 gap-3 md:gap-6 mb-12 max-w-2xl mx-auto">
-          {[
-            { icon: Users, label: "Active Students", value: "100K+" },
-            { icon: Search, label: "Searches Done", value: "500K+" },
-            { icon: Zap, label: "Avg. Response", value: "<2s" },
-          ].map((stat) => (
-            <div
-              key={stat.label}
-              className="flex flex-col items-center text-center p-3.5 sm:p-4 md:p-5 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800"
-            >
-              <stat.icon className="w-5 h-5 md:w-6 md:h-6 mb-1.5 text-blue-600 dark:text-blue-400" />
-              <div className="text-lg sm:text-xl md:text-2xl font-extrabold text-gray-900 dark:text-white font-display tracking-tight">
-                {stat.value}
-              </div>
-              <div className="text-[11px] sm:text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-0.5 font-medium">
-                {stat.label}
-              </div>
-            </div>
-          ))}
         </div>
 
         {/* Quick access links (5 primary tools including Syllabus) */}
-        <div className="max-w-4xl mx-auto">
-          <p className="text-center text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-4">
+        <div className="max-w-4xl mx-auto motion-safe:animate-fade-up motion-safe:delay-200">
+          <p className="text-center text-xs font-bold uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-4">
             Quick Access
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
