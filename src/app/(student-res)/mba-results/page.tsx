@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ResponsiveAd, InContentAd, MultiplexAd } from "@/components/adsense";
 import { AD_SLOTS } from "@/config/adSlots";
 import FAQSectionDynamic from "@/components/seo/FAQSectionDynamic";
+import ShareButton from "@/components/share-button";
 
 export const metadata: Metadata = generateMetadata({
     title: "JNTUH MBA Results 2025 - All Semesters Regular/Supply",
@@ -129,9 +130,11 @@ export default function MBAResultsPage() {
                                 <a href="https://wa.me/919550421866" className="block text-center py-4 bg-white text-[#1C61E7] font-bold rounded-2xl hover:scale-105 transition-all">
                                     Join WhatsApp
                                 </a>
-                                <button className="flex items-center justify-center gap-2 w-full py-4 text-sm font-bold border border-white/30 rounded-2xl hover:bg-white/10 transition-colors">
-                                    <Share2 size={16} /> Share With Classmates
-                                </button>
+                                <ShareButton title="Check JNTUH MBA Results & Updates" className="w-full">
+                                    <span className="flex items-center justify-center gap-2 w-full py-4 text-sm font-bold border border-white/30 rounded-2xl hover:bg-white/10 transition-colors cursor-pointer">
+                                        <Share2 size={16} /> Share With Classmates
+                                    </span>
+                                </ShareButton>
                             </div>
                         </div>
 

@@ -26,6 +26,7 @@ import Link from "next/link";
 import { ResponsiveAd, InContentAd } from "@/components/adsense";
 import { AD_SLOTS } from "@/config/adSlots";
 import allPdfsFlat from "@/data/all_syllabus_pdfs_flat.json";
+import ShareButton from "@/components/share-button";
 
 interface SyllabusItem {
   title: string;
@@ -220,8 +221,8 @@ export default function SyllabusPage() {
             Instant access to 500+ official curriculum guides, course structures, and PDFs across R22, R18, R16, and all departments.
           </motion.p>
 
-          {/* Quick Stats Badges */}
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs font-semibold text-gray-600 dark:text-gray-300">
+          {/* Quick Stats Badges & Share */}
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs font-semibold text-gray-600 dark:text-gray-300">
             <span className="px-3 py-1.5 rounded-full bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
               ⚡ 518 Official PDFs
             </span>
@@ -234,6 +235,7 @@ export default function SyllabusPage() {
             <span className="px-3 py-1.5 rounded-full bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
               🏛️ 10 Degree Programs
             </span>
+            <ShareButton title="JNTUH Official Syllabus Repository (R22, R18, R16)" />
           </div>
         </div>
       </section>

@@ -221,7 +221,7 @@ const Navbar: React.FC = () => {
               {isDarkMode ? <Sun className="w-4.5 h-4.5" /> : <Moon className="w-4.5 h-4.5" />}
             </button>
 
-            <ShareButton url="https://jntuhresults.theskypedia.com" />
+            <ShareButton />
 
             <SubscribeModal
               trigger={
@@ -397,7 +397,7 @@ const Navbar: React.FC = () => {
                     />
                     <div className="flex items-center justify-between">
                       <p className="text-xs text-gray-400 font-medium">Share with friends</p>
-                      <ShareButton url="https://jntuhresults.theskypedia.com" />
+                      <ShareButton />
                     </div>
                   </div>
 

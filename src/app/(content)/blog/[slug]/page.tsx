@@ -10,6 +10,7 @@ import { GlassCard } from '@/components/ui/glass-card';
 import { Calendar, Tag, ChevronLeft, Clock, Share2, Calculator, ArrowRight } from 'lucide-react';
 import { siteConfig } from '@/config/site';
 import { generateArticleSchema } from '@/lib/seo/schema';
+import ShareButton from '@/components/share-button';
 
 type Props = {
     params: Promise<{
@@ -160,9 +161,11 @@ export default async function BlogPost({ params }: Props) {
                                 >
                                     <Calculator className="w-5 h-5 mr-2" /> Calculate CGPA
                                 </Link>
-                                <button className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-blue-500/30 backdrop-blur-md text-white font-bold border border-white/20 hover:bg-blue-500/40 transition-all">
-                                    <Share2 className="w-5 h-5 mr-2" /> Share Guide
-                                </button>
+                                <ShareButton title={`${guide.title} | JNTUH Results`} className="inline-block">
+                                    <span className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-blue-500/30 backdrop-blur-md text-white font-bold border border-white/20 hover:bg-blue-500/40 transition-all cursor-pointer">
+                                        <Share2 className="w-5 h-5 mr-2" /> Share Guide
+                                    </span>
+                                </ShareButton>
                             </div>
                         </GlassCard>
                     </article>

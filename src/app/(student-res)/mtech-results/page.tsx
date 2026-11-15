@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ResponsiveAd, InContentAd, MultiplexAd } from "@/components/adsense";
 import { AD_SLOTS } from "@/config/adSlots";
 import FAQSectionDynamic from "@/components/seo/FAQSectionDynamic";
+import ShareButton from "@/components/share-button";
 
 export const metadata: Metadata = generateMetadata({
     title: "JNTUH M.Tech Results 2025 - All Regulations R22, R21, R19",
@@ -113,9 +114,11 @@ export default function MTechResultsPage() {
                                 <a href="https://wa.me/919550421866" className="block text-center py-4 bg-white text-emerald-600 font-bold rounded-2xl hover:scale-105 transition-all">
                                     Class & Result Group
                                 </a>
-                                <button className="flex items-center justify-center gap-2 w-full py-4 text-sm font-bold border border-white/30 rounded-2xl hover:bg-white/10 transition-colors">
-                                    <Share2 size={16} /> Invite Colleagues
-                                </button>
+                                <ShareButton title="Check JNTUH M.Tech Results & Updates" className="w-full">
+                                    <span className="flex items-center justify-center gap-2 w-full py-4 text-sm font-bold border border-white/30 rounded-2xl hover:bg-white/10 transition-colors cursor-pointer">
+                                        <Share2 size={16} /> Invite Colleagues
+                                    </span>
+                                </ShareButton>
                             </div>
                         </div>
 
