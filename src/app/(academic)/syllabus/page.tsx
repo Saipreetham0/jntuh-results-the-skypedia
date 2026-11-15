@@ -187,17 +187,17 @@ export default function SyllabusPage() {
   }, [searchQuery, isGlobalSearch, selectedRegFilter]);
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] dark:bg-black transition-colors duration-300">
+    <div className="min-h-screen bg-slate-50 dark:bg-gray-950 transition-colors duration-300">
       {/* Hero Header */}
       <section className="relative pt-24 pb-14 px-4 sm:px-6 overflow-hidden bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#1C61E7]/6 rounded-full blur-[120px] -z-10" />
-        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#21C15E]/5 rounded-full blur-[100px] -z-10" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 dark:bg-blue-600/20 rounded-full blur-[120px] -z-10" />
+        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-emerald-500/10 dark:bg-emerald-500/15 rounded-full blur-[100px] -z-10" />
 
         <div className="max-w-5xl mx-auto text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 mb-5 bg-[#1C61E7]/10 text-[#1C61E7] dark:text-blue-400 rounded-full text-xs sm:text-sm font-bold tracking-tight border border-[#1C61E7]/20"
+            className="inline-flex items-center gap-2 px-4 py-1.5 mb-5 bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 rounded-full text-xs sm:text-sm font-bold tracking-tight border border-blue-200 dark:border-blue-800/60"
           >
             <GraduationCap className="w-4 h-4" />
             Official JNTUH Academic Hub
@@ -209,7 +209,7 @@ export default function SyllabusPage() {
             transition={{ delay: 0.1 }}
             className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-white mb-4 tracking-tight leading-tight"
           >
-            JNTUH <span className="text-[#1C61E7] bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-[#1C61E7]">Syllabus</span> Repository
+            JNTUH <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500">Syllabus</span> Repository
           </motion.h1>
 
           <motion.p
@@ -245,7 +245,7 @@ export default function SyllabusPage() {
         {/* Universal Search & Quick Filters */}
         <div className="space-y-4 mb-8">
           <div className="relative group max-w-3xl mx-auto">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-[#1C61E7] transition-colors" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-blue-600 dark:group-focus-within:text-blue-400 transition-colors" />
             <input
               id="syllabus-search"
               type="text"
@@ -256,7 +256,7 @@ export default function SyllabusPage() {
               onKeyDown={(e) => {
                 if (e.key === "Escape") setSearchQuery("");
               }}
-              className="w-full pl-12 pr-12 py-4 bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-800 rounded-2xl sm:rounded-3xl text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100 focus:outline-none focus:border-[#1C61E7] focus:ring-4 focus:ring-blue-500/10 transition-all shadow-md placeholder:text-gray-400 dark:placeholder:text-gray-500"
+              className="w-full pl-12 pr-12 py-4 bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-800 rounded-2xl sm:rounded-3xl text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100 focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-500/15 transition-all shadow-md placeholder:text-gray-400 dark:placeholder:text-gray-500"
             />
             {searchQuery && (
               <button
@@ -281,8 +281,8 @@ export default function SyllabusPage() {
                 onClick={() => setSearchQuery(sc.query)}
                 className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-all border ${
                   searchQuery.toLowerCase() === sc.query.toLowerCase()
-                    ? "bg-[#1C61E7] text-white border-[#1C61E7]"
-                    : "bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-800 hover:border-[#1C61E7]/40 hover:bg-blue-50/50 dark:hover:bg-blue-900/20"
+                    ? "bg-blue-600 text-white border-blue-600 shadow-sm"
+                    : "bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-800 hover:border-blue-500/40 hover:bg-blue-50 dark:hover:bg-blue-950/40"
                 }`}
               >
                 {sc.label}
@@ -296,9 +296,9 @@ export default function SyllabusPage() {
           <div className="space-y-6">
             <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-sm">
               <div className="flex items-center gap-2">
-                <FileText className="w-5 h-5 text-[#1C61E7]" />
+                <FileText className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                 <h2 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white">
-                  Found <span className="text-[#1C61E7]">{globalSearchResults.length}</span> documents for &ldquo;{searchQuery}&rdquo;
+                  Found <span className="text-blue-600 dark:text-blue-400">{globalSearchResults.length}</span> documents for &ldquo;{searchQuery}&rdquo;
                 </h2>
               </div>
 
@@ -311,7 +311,7 @@ export default function SyllabusPage() {
                     onClick={() => setSelectedRegFilter(reg)}
                     className={`px-2.5 py-1 rounded-lg text-xs font-bold uppercase transition-colors ${
                       selectedRegFilter === reg
-                        ? "bg-[#1C61E7] text-white"
+                        ? "bg-blue-600 text-white shadow-sm"
                         : "bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
                     }`}
                   >
@@ -330,7 +330,7 @@ export default function SyllabusPage() {
                 </p>
                 <button
                   onClick={() => setSearchQuery("")}
-                  className="mt-4 px-4 py-2 bg-[#1C61E7] text-white text-xs font-bold rounded-xl hover:bg-blue-600 transition-colors"
+                  className="mt-4 px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-xl hover:bg-blue-700 transition-colors shadow-sm"
                 >
                   Clear Search Filter
                 </button>
@@ -343,7 +343,7 @@ export default function SyllabusPage() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: Math.min(idx * 0.02, 0.3) }}
-                    className="p-5 rounded-2xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 hover:border-[#1C61E7]/30 hover:shadow-lg transition-all flex flex-col justify-between group"
+                    className="p-5 rounded-2xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 hover:border-blue-500/40 hover:shadow-lg transition-all flex flex-col justify-between group"
                   >
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-2">
@@ -361,7 +361,7 @@ export default function SyllabusPage() {
                         </span>
                       </div>
 
-                      <h3 className="text-sm sm:text-base font-bold text-gray-900 dark:text-white group-hover:text-[#1C61E7] transition-colors leading-snug line-clamp-2 mb-1.5">
+                      <h3 className="text-sm sm:text-base font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug line-clamp-2 mb-1.5">
                         {pdf.title.replace(/\.pdf$/i, '')}
                       </h3>
                       <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-1 mb-4">
@@ -374,7 +374,7 @@ export default function SyllabusPage() {
                         href={pdf.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-bold text-white bg-[#1C61E7] hover:bg-blue-600 rounded-xl transition-colors shadow-sm"
+                        className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-colors shadow-sm"
                       >
                         <Download className="w-3.5 h-3.5" />
                         Download PDF
@@ -384,14 +384,14 @@ export default function SyllabusPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="View PDF online"
-                        className="p-2 text-gray-500 dark:text-gray-400 hover:text-[#1C61E7] hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors border border-gray-200/60 dark:border-gray-700"
+                        className="p-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors border border-gray-200/60 dark:border-gray-700"
                       >
                         <ExternalLink className="w-3.5 h-3.5" />
                       </a>
                       <button
                         onClick={(e) => handleCopyLink(pdf.url, e)}
                         aria-label="Copy PDF link"
-                        className="p-2 text-gray-500 dark:text-gray-400 hover:text-[#1C61E7] hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors border border-gray-200/60 dark:border-gray-700"
+                        className="p-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors border border-gray-200/60 dark:border-gray-700"
                       >
                         {copiedUrl === pdf.url ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                       </button>
@@ -405,14 +405,14 @@ export default function SyllabusPage() {
           /* Interactive Folder Explorer Mode */
           <div className="space-y-6">
             {/* Sticky Navigation & Breadcrumbs Bar */}
-            <div className="flex items-center justify-between gap-4 sticky top-20 z-40 bg-[#F8FAFC]/90 dark:bg-black/90 backdrop-blur-md py-3 px-4 rounded-2xl border border-gray-200/70 dark:border-gray-800 shadow-sm">
+            <div className="flex items-center justify-between gap-4 sticky top-20 z-40 bg-slate-50/90 dark:bg-gray-950/90 backdrop-blur-md py-3 px-4 rounded-2xl border border-gray-200/70 dark:border-gray-800 shadow-sm">
               <nav className="flex items-center overflow-x-auto no-scrollbar py-1 max-w-full text-xs sm:text-sm font-semibold">
                 <button
                   onClick={() => handleBreadcrumbClick(-1)}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl transition-all ${
                     breadcrumbs.length === 0
-                      ? "bg-[#1C61E7] text-white font-bold shadow-sm"
-                      : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-100 dark:border-gray-700 hover:text-[#1C61E7]"
+                      ? "bg-blue-600 text-white font-bold shadow-sm"
+                      : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-100 dark:border-gray-700 hover:text-blue-600 dark:hover:text-blue-400"
                   }`}
                 >
                   <BookOpen className="w-3.5 h-3.5" />
@@ -433,8 +433,8 @@ export default function SyllabusPage() {
                         onClick={() => handleBreadcrumbClick(idx)}
                         className={`px-3 py-1.5 rounded-xl transition-all whitespace-nowrap ${
                           idx === breadcrumbs.length - 1
-                            ? "bg-[#1C61E7] text-white font-bold shadow-sm"
-                            : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-100 dark:border-gray-700 hover:text-[#1C61E7]"
+                            ? "bg-blue-600 text-white font-bold shadow-sm"
+                            : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-100 dark:border-gray-700 hover:text-blue-600 dark:hover:text-blue-400"
                         }`}
                       >
                         {crumb.title.replace(/^[0-9]+\./, '')}
@@ -448,7 +448,7 @@ export default function SyllabusPage() {
                 <button
                   onClick={() => handleBreadcrumbClick(breadcrumbs.length - 2)}
                   aria-label="Go back to previous folder level"
-                  className="shrink-0 flex items-center gap-1 text-xs font-bold text-gray-500 hover:text-[#1C61E7] transition-colors"
+                  className="shrink-0 flex items-center gap-1 text-xs font-bold text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
                   Back
@@ -480,7 +480,7 @@ export default function SyllabusPage() {
                   </p>
                   <button
                     onClick={() => handleBreadcrumbClick(-1)}
-                    className="flex items-center gap-2 px-6 py-2.5 bg-[#1C61E7] text-white text-xs font-bold rounded-xl hover:bg-blue-600 transition-all shadow-md"
+                    className="flex items-center gap-2 px-6 py-2.5 bg-blue-600 text-white text-xs font-bold rounded-xl hover:bg-blue-700 transition-all shadow-md"
                   >
                     <ArrowLeft className="w-3.5 h-3.5" />
                     Return to All Courses
@@ -492,7 +492,7 @@ export default function SyllabusPage() {
                   <p className="text-gray-500 dark:text-gray-400 font-bold text-base">No items found in this section</p>
                   <button
                     onClick={() => handleBreadcrumbClick(-1)}
-                    className="mt-3 text-xs text-[#1C61E7] font-bold hover:underline"
+                    className="mt-3 text-xs text-blue-600 dark:text-blue-400 font-bold hover:underline"
                   >
                     Back to All Courses
                   </button>
@@ -510,7 +510,7 @@ export default function SyllabusPage() {
                         className={`group p-5 rounded-3xl cursor-pointer transition-all duration-300 border flex flex-col justify-between ${
                           item.isPdf
                             ? "bg-white dark:bg-gray-900 border-red-100/60 dark:border-red-950/40 hover:shadow-xl hover:shadow-red-500/5 hover:border-red-300"
-                            : "bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800 hover:shadow-xl hover:shadow-blue-500/5 hover:border-[#1C61E7]/40"
+                            : "bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800 hover:shadow-xl hover:shadow-blue-500/5 hover:border-blue-500/40"
                         }`}
                       >
                         <div>
@@ -518,7 +518,7 @@ export default function SyllabusPage() {
                             <div className={`p-3.5 rounded-2xl ${
                               item.isPdf
                                 ? "bg-red-50 dark:bg-red-950/30 text-red-500"
-                                : "bg-blue-50 dark:bg-blue-950/30 text-[#1C61E7]"
+                                : "bg-blue-50 dark:bg-blue-950/30 text-blue-600 dark:text-blue-400"
                             }`}>
                               {item.isPdf ? <FileText className="w-6 h-6" /> : <FolderOpen className="w-6 h-6" />}
                             </div>
@@ -528,13 +528,13 @@ export default function SyllabusPage() {
                                 PDF
                               </span>
                             ) : (
-                              <span className="text-gray-300 dark:text-gray-700 group-hover:text-[#1C61E7] transition-colors">
+                              <span className="text-gray-300 dark:text-gray-700 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                                 <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                               </span>
                             )}
                           </div>
 
-                          <h3 className="text-sm sm:text-base font-bold text-gray-900 dark:text-white leading-snug mb-1 group-hover:text-[#1C61E7] transition-colors break-words line-clamp-2">
+                          <h3 className="text-sm sm:text-base font-bold text-gray-900 dark:text-white leading-snug mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors break-words line-clamp-2">
                             {item.title.replace(/^[0-9]+\./, '').replace(/\.pdf$/i, '')}
                           </h3>
                           <p className="text-[11px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
@@ -548,7 +548,7 @@ export default function SyllabusPage() {
                               <Download className="w-3.5 h-3.5" /> Download
                             </div>
                           ) : (
-                            <div className="flex items-center gap-1 text-xs font-bold text-[#1C61E7]">
+                            <div className="flex items-center gap-1 text-xs font-bold text-blue-600 dark:text-blue-400">
                               Open Folder
                             </div>
                           )}
@@ -572,7 +572,7 @@ export default function SyllabusPage() {
         {/* Informational Academic Guidance Footer */}
         <div className="mt-16 p-6 sm:p-8 rounded-3xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-sm">
           <div className="flex flex-col md:flex-row items-center gap-6">
-            <div className="w-14 h-14 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-[#1C61E7] flex items-center justify-center shrink-0">
+            <div className="w-14 h-14 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
               <Calendar className="w-7 h-7" />
             </div>
             <div className="text-center md:text-left">
@@ -586,7 +586,7 @@ export default function SyllabusPage() {
             <div className="md:ml-auto flex items-center gap-2">
               <Link
                 href="/syllabus/cse"
-                className="px-4 py-2 bg-[#1C61E7] text-white text-xs font-bold rounded-xl hover:bg-blue-600 transition-colors shadow-sm whitespace-nowrap"
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition-colors shadow-sm whitespace-nowrap"
               >
                 CSE Syllabus
               </Link>
@@ -605,7 +605,7 @@ export default function SyllabusPage() {
         {/* Frequently Asked Questions Section */}
         <section className="mt-12 p-6 sm:p-8 rounded-3xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-sm">
           <div className="flex items-center gap-2 mb-6">
-            <BookOpen className="w-5 h-5 text-[#1C61E7]" />
+            <BookOpen className="w-5 h-5 text-blue-600 dark:text-blue-400" />
             <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white">
               Frequently Asked Questions about JNTUH Syllabus
             </h3>

@@ -45,7 +45,7 @@ export default async function BranchSyllabusPage({ params }: SyllabusPageProps) 
     const name = branchData.fullName;
 
     return (
-        <main className="min-h-screen bg-[#F8FAFC] dark:bg-black">
+        <main className="min-h-screen bg-slate-50 dark:bg-gray-950 transition-colors duration-300">
             <BreadcrumbSchema
                 items={[
                     { name: "Home", path: "/" },
@@ -56,14 +56,14 @@ export default async function BranchSyllabusPage({ params }: SyllabusPageProps) 
 
             {/* Hero Section */}
             <section className="relative pt-24 pb-16 px-6 overflow-hidden bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800">
-                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#1C61E7]/5 rounded-full blur-[120px] -z-10" />
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 dark:bg-blue-600/20 rounded-full blur-[120px] -z-10" />
                 <div className="max-w-7xl mx-auto text-center relative z-10">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-[#1C61E7]/10 text-[#1C61E7] rounded-full text-sm font-bold border border-[#1C61E7]/20">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 rounded-full text-sm font-bold border border-blue-200 dark:border-blue-800/60">
                         <BookOpen className="w-4 h-4" />
                         Official Course Curriculum
                     </div>
                     <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight">
-                        JNTUH <span className="text-[#1C61E7]">{branch.toUpperCase()}</span> Syllabus PDF
+                        JNTUH <span className="text-blue-600 dark:text-blue-400">{branch.toUpperCase()}</span> Syllabus PDF
                     </h1>
                     <p className="text-gray-500 dark:text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed font-medium">
                         Complete and updated syllabus for {name}. Download the latest R22 regulation curriculum along with previous R18 and R16 versions.
@@ -82,12 +82,12 @@ export default async function BranchSyllabusPage({ params }: SyllabusPageProps) 
                             {branchData.regulations.map((reg) => (
                                 <div
                                     key={reg.regulation}
-                                    className="bg-white dark:bg-gray-900 rounded-[32px] border border-gray-100 dark:border-gray-800 p-6 md:p-8 shadow-sm transition-all hover:border-[#1C61E7]/30"
+                                    className="bg-white dark:bg-gray-900 rounded-[32px] border border-gray-100 dark:border-gray-800 p-6 md:p-8 shadow-sm transition-all hover:border-blue-500/30"
                                 >
                                     {/* Header */}
                                     <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-gray-100 dark:border-gray-800">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-900/30 text-[#1C61E7] flex items-center justify-center font-bold text-xl">
+                                            <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-xl">
                                                 {reg.regulation}
                                             </div>
                                             <div>
@@ -124,7 +124,7 @@ export default async function BranchSyllabusPage({ params }: SyllabusPageProps) 
                                                 <div>
                                                     <div className="flex items-start justify-between gap-2 mb-2">
                                                         <div className="flex items-center gap-2 text-sm font-bold text-gray-900 dark:text-white">
-                                                            <FileText className="w-4 h-4 text-[#1C61E7] shrink-0" />
+                                                            <FileText className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
                                                             {doc.yearTitle}
                                                         </div>
                                                         {doc.fileSize && (
@@ -143,7 +143,7 @@ export default async function BranchSyllabusPage({ params }: SyllabusPageProps) 
                                                         href={doc.pdfUrl}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-bold text-white bg-[#1C61E7] hover:bg-blue-600 rounded-xl transition-colors shadow-sm"
+                                                        className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-colors shadow-sm"
                                                     >
                                                         <Download className="w-3.5 h-3.5" />
                                                         Download PDF
@@ -153,7 +153,7 @@ export default async function BranchSyllabusPage({ params }: SyllabusPageProps) 
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                         aria-label={`View ${doc.yearTitle} online`}
-                                                        className="p-2 text-gray-500 dark:text-gray-400 hover:text-[#1C61E7] dark:hover:text-blue-400 hover:bg-white dark:hover:bg-gray-800 rounded-xl transition-colors border border-gray-200/60 dark:border-gray-700"
+                                                        className="p-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-400 hover:bg-white dark:hover:bg-gray-800 rounded-xl transition-colors border border-gray-200/60 dark:border-gray-700"
                                                     >
                                                         <ExternalLink className="w-3.5 h-3.5" />
                                                     </a>
@@ -171,7 +171,7 @@ export default async function BranchSyllabusPage({ params }: SyllabusPageProps) 
                         {/* Informational SEO Guide */}
                         <article className="prose prose-lg dark:prose-invert max-w-none bg-blue-50/30 dark:bg-blue-900/10 p-8 rounded-[32px] border border-blue-50 dark:border-blue-900/20">
                             <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                                <Sparkles className="w-6 h-6 text-[#1C61E7]" />
+                                <Sparkles className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                                 About {name} Curriculum
                             </h2>
                             <p>
@@ -204,7 +204,7 @@ export default async function BranchSyllabusPage({ params }: SyllabusPageProps) 
                                 </div>
                                 <Link
                                     href="/syllabus"
-                                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#1C61E7] text-white text-xs font-bold rounded-xl hover:bg-blue-600 transition-colors"
+                                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl hover:bg-blue-600 transition-colors"
                                 >
                                     Browse All Courses
                                     <ChevronRight className="w-4 h-4" />
@@ -217,7 +217,7 @@ export default async function BranchSyllabusPage({ params }: SyllabusPageProps) 
                     <aside className="lg:col-span-4 space-y-8">
                         <div className="bg-white dark:bg-gray-900 rounded-[32px] p-8 border border-gray-100 dark:border-gray-800 shadow-sm">
                             <h3 className="font-bold text-lg mb-6 flex items-center gap-2">
-                                <ChevronRight className="w-5 h-5 text-[#1C61E7]" />
+                                <ChevronRight className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                                 Other Branches
                             </h3>
                             <div className="grid grid-cols-1 gap-3">
@@ -229,7 +229,7 @@ export default async function BranchSyllabusPage({ params }: SyllabusPageProps) 
                                             className="p-4 rounded-2xl bg-gray-50 dark:bg-gray-800/50 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors flex items-center justify-between group"
                                         >
                                             <div>
-                                                <span className="font-bold text-gray-700 dark:text-gray-300 group-hover:text-[#1C61E7] block">
+                                                <span className="font-bold text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:text-blue-400 block">
                                                     {slug.toUpperCase()}
                                                 </span>
                                                 <span className="text-xs text-gray-400 dark:text-gray-500 line-clamp-1">
@@ -243,7 +243,7 @@ export default async function BranchSyllabusPage({ params }: SyllabusPageProps) 
                             </div>
                         </div>
 
-                        <div className="bg-gradient-to-br from-[#21C15E] to-emerald-700 rounded-[32px] p-8 text-white shadow-xl">
+                        <div className="bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-[32px] p-8 text-white shadow-xl">
                             <h3 className="font-bold text-xl mb-3">Check Your Results</h3>
                             <p className="text-emerald-50 text-sm mb-6">
                                 Compare your marks with the new syllabus guidelines and calculate your CGPA instantly.
