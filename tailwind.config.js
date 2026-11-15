@@ -10,7 +10,7 @@ export default {
     // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: ["selector", "class"],
+  darkMode: "class",
   theme: {
   	extend: {
   		fontFamily: {

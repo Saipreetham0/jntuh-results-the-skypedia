@@ -256,7 +256,7 @@ export default function SyllabusPage() {
               onKeyDown={(e) => {
                 if (e.key === "Escape") setSearchQuery("");
               }}
-              className="w-full pl-12 pr-12 py-4 bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-800 rounded-2xl sm:rounded-3xl text-sm sm:text-base font-medium focus:outline-none focus:border-[#1C61E7] focus:ring-4 focus:ring-blue-500/10 transition-all shadow-md placeholder:text-gray-400"
+              className="w-full pl-12 pr-12 py-4 bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-800 rounded-2xl sm:rounded-3xl text-sm sm:text-base font-medium text-gray-900 dark:text-gray-100 focus:outline-none focus:border-[#1C61E7] focus:ring-4 focus:ring-blue-500/10 transition-all shadow-md placeholder:text-gray-400 dark:placeholder:text-gray-500"
             />
             {searchQuery && (
               <button

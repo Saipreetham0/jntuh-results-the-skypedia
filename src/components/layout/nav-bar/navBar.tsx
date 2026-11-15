@@ -101,15 +101,17 @@ const Navbar: React.FC = () => {
   const [hoveredNavItem, setHoveredNavItem] = useState<string | null>(null);
   const [mobileExpandedItem, setMobileExpandedItem] = useState<string | null>(null);
   const pathname = usePathname();
-  const { theme, setTheme, systemTheme } = useTheme();
-  const isDarkMode = (theme === "system" ? systemTheme : theme) === "dark";
+  const { theme, setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const handleScroll = () => setScrolled(window.scrollY > 12);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const isDarkMode = mounted ? (resolvedTheme || theme) === "dark" : false;
   const toggleDarkMode = () => setTheme(isDarkMode ? "light" : "dark");
 
   return (
