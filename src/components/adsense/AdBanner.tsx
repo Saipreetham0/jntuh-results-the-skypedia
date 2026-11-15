@@ -43,26 +43,41 @@ const AdBanner: React.FC<AdBannerProps> = ({
       return;
     }
 
+    const MIN_AD_WIDTH = Math.min(
+      250,
+      typeof window !== "undefined" ? Math.max(120, window.innerWidth - 32) : 250
+    );
+
     const doPush = () => {
-      if (pushed.current) return;
+      if (pushed.current || !adRef.current) return;
+      if (adRef.current.offsetWidth < MIN_AD_WIDTH) return;
       pushed.current = true;
       try {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
       } catch (e: any) {
+        // If AdSense threw an availableWidth error during mid-layout, reset to allow retry
+        if (typeof e?.message === "string" && e.message.includes("No slot size for availableWidth")) {
+          pushed.current = false;
+          return;
+        }
         console.error(`AdBanner (slot ${adSlot}):`, e?.message ?? e);
       }
     };
 
-    if (adRef.current.offsetWidth > 0) {
+    if (adRef.current.offsetWidth >= MIN_AD_WIDTH) {
       doPush();
       return;
     }
 
-    // Container has zero width — wait for layout before pushing
-    const observer = new ResizeObserver(() => {
-      if (adRef.current && adRef.current.offsetWidth > 0) {
-        observer.disconnect();
-        doPush();
+    // Container is smaller than minimum required width or still laying out — wait for resize
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const width = entry.contentRect.width || (adRef.current ? adRef.current.offsetWidth : 0);
+        if (width >= MIN_AD_WIDTH) {
+          observer.disconnect();
+          doPush();
+          break;
+        }
       }
     });
     observer.observe(adRef.current);

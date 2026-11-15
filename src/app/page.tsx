@@ -27,8 +27,8 @@ export default function Home(): JSX.Element {
 
       {/* Mid-page ad */}
       <div className="container mx-auto px-4 py-6 max-w-5xl">
-        <div className="min-h-[280px] flex items-center justify-center overflow-hidden">
-          <InFeedAd adSlot={AD_SLOTS.HOMEPAGE.MID_RECTANGLE} />
+        <div className="min-h-[280px] w-full flex items-center justify-center overflow-hidden">
+          <InFeedAd adSlot={AD_SLOTS.HOMEPAGE.MID_RECTANGLE} className="w-full" />
         </div>
       </div>
 
@@ -46,8 +46,8 @@ export default function Home(): JSX.Element {
         <p className="text-center text-xs font-bold uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-3">
           Supported by
         </p>
-        <div className="ad-container-rect min-h-[90px] md:min-h-[100px] flex items-center justify-center bg-gray-50 dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden">
-          <ResponsiveAd adSlot={AD_SLOTS.HOMEPAGE.BOTTOM_BANNER} format="auto" />
+        <div className="ad-container-rect w-full min-h-[90px] md:min-h-[100px] flex items-center justify-center bg-gray-50 dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden">
+          <ResponsiveAd adSlot={AD_SLOTS.HOMEPAGE.BOTTOM_BANNER} format="auto" className="w-full" />
         </div>
       </div>
     </div>
