@@ -1,16 +1,13 @@
 import { Metadata } from 'next';
+import { generateMetadata } from '@/lib/metadata';
 import { SubscriptionForm } from '@/components/features/result-alerts';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = generateMetadata({
   title: 'Result Alerts - Get Instant Notifications | JNTUH Results',
   description: 'Subscribe to JNTUH result alerts and get instant email notifications when results are declared. Never miss a result declaration again!',
+  path: '/result-alerts',
   keywords: ['JNTUH result alerts', 'JNTUH notifications', 'result notification', 'email alerts', 'JNTUH updates'],
-  openGraph: {
-    title: 'JNTUH Result Alerts - Never Miss a Result',
-    description: 'Get instant notifications when JNTUH results are declared. Subscribe for free!',
-    type: 'website',
-  }
-};
+});
 
 export default function ResultAlertsPage() {
   return (

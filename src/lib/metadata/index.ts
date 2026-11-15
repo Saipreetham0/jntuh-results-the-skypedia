@@ -22,8 +22,9 @@ export function generateMetadata(params?: {
   path?: string;
   image?: string;
   noIndex?: boolean;
+  keywords?: string[];
 }): Metadata {
-  const { title, description, path = '', image, noIndex = false } = params || {};
+  const { title, description, path = '', image, noIndex = false, keywords } = params || {};
 
   const siteTitle = title
     ? `${title} | JNTUH Results`
@@ -55,7 +56,7 @@ export function generateMetadata(params?: {
     // ========================================================================
     // Keywords for SEO
     // ========================================================================
-    keywords: [...siteConfig.keywords],
+    keywords: keywords ? [...keywords, ...siteConfig.keywords] : [...siteConfig.keywords],
 
     // ========================================================================
     // Authors and Publisher

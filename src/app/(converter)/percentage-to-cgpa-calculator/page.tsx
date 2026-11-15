@@ -197,8 +197,10 @@ export default function PercentageToCGPACalculator() {
       try {
         const { percentage: savedPercentage, scale: savedScale } = JSON.parse(savedData);
         if (savedPercentage) {
-          setPercentage(savedPercentage);
-          setScale(savedScale || "10.0");
+          requestAnimationFrame(() => {
+            setPercentage(savedPercentage);
+            setScale(savedScale || "10.0");
+          });
         }
       } catch {}
     }

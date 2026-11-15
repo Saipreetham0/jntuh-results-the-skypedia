@@ -54,7 +54,7 @@ export default function ResultCheckerHero({ onSearch }: ResultCheckerHeroProps) 
 
                 {/* Ad above search */}
                 <div className="mb-5">
-                    <ResponsiveAd adSlot={AD_SLOTS.ACTIONS.TOP_BEFORE_BUTTON} showLabel={false} />
+                    <ResponsiveAd adSlot={AD_SLOTS.ACTIONS.TOP_BEFORE_BUTTON} />
                 </div>
 
                 {/* Search card */}
@@ -101,7 +101,7 @@ export default function ResultCheckerHero({ onSearch }: ResultCheckerHeroProps) 
                         </div>
                         <button
                             type="submit"
-                            className="bg-[#1C61E7] hover:bg-[#1552c4] active:scale-95 text-white font-bold px-7 py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 whitespace-nowrap shadow-sm"
+                            className="bg-[#1C61E7] hover:bg-[#1552c4] active:scale-95 text-white font-bold px-7 py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 whitespace-nowrap shadow-sm cursor-pointer"
                         >
                             <CheckCircle2 className="w-4 h-4" />
                             {searchType === 'consolidated' ? 'Check All Results' : 'Check Latest'}
@@ -114,11 +114,11 @@ export default function ResultCheckerHero({ onSearch }: ResultCheckerHeroProps) 
                             {error}
                         </div>
                     )}
+                </div>
 
-                    {/* Ad below button */}
-                    <div className="mt-1 px-1">
-                        <ResponsiveAd adSlot={AD_SLOTS.ACTIONS.TOP_AFTER_BUTTON} showLabel={false} />
-                    </div>
+                {/* Ad below search card */}
+                <div className="mt-6">
+                    <ResponsiveAd adSlot={AD_SLOTS.ACTIONS.TOP_AFTER_BUTTON} />
                 </div>
 
                 {/* Trust badges */}

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import axios from 'axios';
 import { rateLimit, getClientIp } from '@/server/rate-limit';
+import { getUpstreamHeaders } from '@/server/upstream';
 
 export async function GET(request: Request) {
   const rl = rateLimit(getClientIp(request), { limit: 20, windowMs: 60_000 });
@@ -22,7 +23,7 @@ export async function GET(request: Request) {
 
     const response = await axios.get(
       `https://jntuhresults.dhethi.com/api/getResultContrast?rollNumber1=${rollNumber1}&rollNumber2=${rollNumber2}`,
-      { timeout: 20000, headers: { 'User-Agent': 'JNTUHResultsPortal/1.0' } }
+      { timeout: 20000, headers: getUpstreamHeaders() }
     );
 
     return NextResponse.json(response.data);

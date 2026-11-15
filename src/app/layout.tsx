@@ -7,22 +7,18 @@ import type { Metadata } from 'next';
 
 import { generateMetadata } from '@/lib/metadata';
 
-import Navbar from '@/components/layout/nav-bar/navBar';
-import Footer from '@/components/layout/footer';
-import AnnouncementBar from '@/components/layout/announcement-bar';
-
-import { Providers } from '@/components/layout/providers';
-import { ErrorBoundary } from '@/components/common/ErrorBoundary';
-
+import {
+  Navbar,
+  Footer,
+  AnnouncementBar,
+  Providers,
+  GoogleTagManager,
+  GoogleTagManagerNoScript,
+  StructuredData,
+} from '@/components/layout';
+import { ErrorBoundary, ServiceWorkerRegistration } from '@/components/common';
+import { AdDebug } from '@/components/adsense';
 import AnalyticsProvider from '@/components/analytics';
-import { GoogleTagManager, GoogleTagManagerNoScript } from '@/components/layout/scripts/GoogleTagManager';
-import { StructuredData } from '@/components/layout/scripts/StructuredData';
-
-
-import { AnchorAd, AdDebug } from '@/components/adsense';
-import { ServiceWorkerRegistration } from '@/components/common/ServiceWorkerRegistration';
-
-import AD_SLOTS from '@/config/adSlots';
 
 import '@/app/globals.css';
 
@@ -50,6 +46,7 @@ export default function RootLayout({
       <head>
         {/* AdSense — plain <script> avoids the data-nscript attribute next/script adds */}
         <script
+          id="adsbygoogle-init"
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4870864326886980"
           crossOrigin="anonymous"
@@ -60,7 +57,6 @@ export default function RootLayout({
         <StructuredData />
         <GoogleTagManager />
 
-        {/* <SpeedInsights /> */}
         <AnalyticsProvider />
         <GoogleTagManagerNoScript />
         <ScrollToTop />
@@ -86,9 +82,6 @@ export default function RootLayout({
 
             <Footer />
           </div>
-
-
-          <AnchorAd adSlot={AD_SLOTS.MOBILE.ANCHOR_BOTTOM} />
         </Providers>
       </body>
     </html>

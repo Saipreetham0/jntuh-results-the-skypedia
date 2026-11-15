@@ -1,11 +1,13 @@
 import { Metadata } from 'next';
+import { generateMetadata } from '@/lib/metadata';
 import Link from 'next/link';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = generateMetadata({
     title: 'Cookie Policy | JNTUH Results - The Skypedia',
     description: 'Cookie Policy for JNTUH Results. Learn how we use cookies and tracking technologies.',
+    path: '/cookies',
     keywords: ['cookie policy', 'cookies', 'tracking', 'JNTUH Results', 'privacy'],
-};
+});
 
 export default function CookiePolicyPage() {
     return (

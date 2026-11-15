@@ -8,6 +8,8 @@ import ContentWithAds from '@/components/adsense/ContentWithAds';
 import AD_SLOTS from '@/config/adSlots';
 import { GlassCard } from '@/components/ui/glass-card';
 import { Calendar, Tag, ChevronLeft, Clock, Share2, Calculator, ArrowRight } from 'lucide-react';
+import { siteConfig } from '@/config/site';
+import { generateArticleSchema } from '@/lib/seo/schema';
 
 type Props = {
     params: Promise<{
@@ -25,15 +27,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         };
     }
 
+    const url = `${siteConfig.url}/blog/${slug}`;
+
     return {
         title: `${guide.title} | JNTUH Results Blog`,
         description: guide.description,
+        alternates: {
+            canonical: url,
+        },
         openGraph: {
             type: 'article',
+            url,
             title: guide.title,
             description: guide.description,
             publishedTime: guide.publishedAt,
             tags: guide.tags,
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: guide.title,
+            description: guide.description,
         },
     };
 }
@@ -55,9 +68,22 @@ export default async function BlogPost({ params }: Props) {
         notFound();
     }
 
+    const articleUrl = `${siteConfig.url}/blog/${slug}`;
+    const articleSchema = generateArticleSchema({
+        title: guide.title,
+        description: guide.description,
+        url: articleUrl,
+        datePublished: guide.publishedAt,
+        tags: guide.tags,
+    });
+
     return (
         <div className="min-h-screen bg-[#F8FAFC] dark:bg-[#020617] relative overflow-hidden font-sans selection:bg-blue-100 dark:selection:bg-blue-900/30">
-            {/* Background Mesh Gradients Removed */}
+            {/* Structured Data */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+            />
 
             {/* Reading Progress Bar */}
             <div className="fixed top-0 left-0 w-full h-1 z-50 bg-transparent">

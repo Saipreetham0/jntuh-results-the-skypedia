@@ -304,16 +304,6 @@ export default function Signup() {
                         </div>
                       </div>
 
-                      {/* {fatherName && (
-                        <div className="flex items-center">
-                          <UserIcon className="h-5 w-5 text-indigo-500 mr-2" />
-                          <div className="text-sm text-gray-900 dark:text-gray-200">
-                            <span className="text-gray-500 dark:text-gray-400 text-xs mr-1">Father's Name:</span>
-                            {fatherName}
-                          </div>
-                        </div>
-                      )} */}
-
                       <div className="flex items-center">
                         <IdentificationIcon className="h-5 w-5 text-indigo-500 mr-2" />
                         <div className="text-sm text-gray-900 dark:text-gray-200">

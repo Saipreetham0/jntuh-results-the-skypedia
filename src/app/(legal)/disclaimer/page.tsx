@@ -1,11 +1,13 @@
 import { Metadata } from 'next';
+import { generateMetadata } from '@/lib/metadata';
 import Link from 'next/link';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = generateMetadata({
     title: 'Disclaimer | JNTUH Results - The Skypedia',
     description: 'Disclaimer for JNTUH Results. Important information about the accuracy and use of our services.',
+    path: '/disclaimer',
     keywords: ['disclaimer', 'legal notice', 'JNTUH Results', 'accuracy notice'],
-};
+});
 
 export default function DisclaimerPage() {
     return (

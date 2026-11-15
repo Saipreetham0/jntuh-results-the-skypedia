@@ -133,8 +133,10 @@ export default function MarksPercentageCalculator() {
       try {
         const { totalMarks: savedTotal, obtainedMarks: savedObtained } = JSON.parse(savedData);
         if (savedTotal && savedObtained) {
-          setTotalMarks(savedTotal);
-          setObtainedMarks(savedObtained);
+          requestAnimationFrame(() => {
+            setTotalMarks(savedTotal);
+            setObtainedMarks(savedObtained);
+          });
         }
       } catch {}
     }
@@ -149,17 +151,6 @@ export default function MarksPercentageCalculator() {
       );
     }
   }, [totalMarks, obtainedMarks]);
-
-  // Keyboard shortcut
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.key === "Enter" && !loading && totalMarks && obtainedMarks) {
-        handleCalculate();
-      }
-    };
-    window.addEventListener("keypress", handleKeyPress);
-    return () => window.removeEventListener("keypress", handleKeyPress);
-  }, [totalMarks, obtainedMarks, loading]);
 
   // Handlers
   const getPerformanceDetails = (percentage: number) => {
@@ -252,6 +243,17 @@ export default function MarksPercentageCalculator() {
       }
     }, 800);
   };
+
+  // Keyboard shortcut
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.key === "Enter" && !loading && totalMarks && obtainedMarks) {
+        handleCalculate();
+      }
+    };
+    window.addEventListener("keypress", handleKeyPress);
+    return () => window.removeEventListener("keypress", handleKeyPress);
+  }, [totalMarks, obtainedMarks, loading]);
 
   const handleReset = () => {
     setTotalMarks("");

@@ -52,8 +52,8 @@ const MultiplexAd: React.FC<MultiplexAdProps> = ({ adSlot, className = "" }) => 
   return (
     <div className={`w-full my-6 ${className}`}>
       <div className="text-center mb-2">
-        <p className="text-[10px] text-gray-400 dark:text-gray-600 uppercase tracking-wider">
-          Recommended for you
+        <p className="text-[10px] text-gray-400 dark:text-gray-500 uppercase tracking-widest font-medium">
+          Sponsored
         </p>
       </div>
       <div className="w-full overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-2">

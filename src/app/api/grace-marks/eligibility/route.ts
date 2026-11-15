@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import axios from 'axios';
 import { rateLimit, getClientIp } from '@/server/rate-limit';
+import { getUpstreamHeaders } from '@/server/upstream';
 
 export async function GET(request: Request) {
   const rl = rateLimit(getClientIp(request), { limit: 30, windowMs: 60_000 });
@@ -21,10 +22,14 @@ export async function GET(request: Request) {
 
     const response = await axios.get(
       `https://jntuhresults.dhethi.com/api/grace-marks/eligibility?rollNumber=${rollNumber}`,
-      { timeout: 15000, headers: { 'User-Agent': 'JNTUHResultsPortal/1.0' } }
+      { timeout: 15000, headers: getUpstreamHeaders() }
     );
 
-    return NextResponse.json(response.data);
+    return NextResponse.json(response.data, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=1800, stale-while-revalidate=86400',
+      },
+    });
   } catch (error) {
     if (axios.isAxiosError(error)) {
       if (error.code === 'ECONNABORTED') {

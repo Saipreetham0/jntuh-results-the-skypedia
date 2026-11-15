@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { generateMetadata } from '@/lib/metadata';
 import Link from 'next/link';
 import { BookOpen, TrendingUp, Clock, ArrowRight, Star, Lightbulb } from 'lucide-react';
 import { ResponsiveAd } from '@/components/adsense';
@@ -7,11 +8,12 @@ import Breadcrumbs from '@/components/ui/Breadcrumbs';
 import YouMightAlsoNeed from '@/components/ui/YouMightAlsoNeed';
 import NextStepCTA from '@/components/ui/NextStepCTA';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = generateMetadata({
     title: 'JNTUH Guides Hub | Complete How-To Guides & Tutorials',
     description: 'Comprehensive guides for JNTUH students. Learn how to calculate CGPA, download certificates, check results, understand regulations, and more.',
-    keywords: 'JNTUH guides, how-to tutorials, CGPA calculation, mark sheet download, regulations guide, JNTUH help',
-};
+    path: '/guides',
+    keywords: ['JNTUH guides', 'how-to tutorials', 'CGPA calculation', 'mark sheet download', 'regulations guide', 'JNTUH help'],
+});
 
 const guideCategories = [
     {

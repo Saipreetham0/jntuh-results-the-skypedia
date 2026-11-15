@@ -1,11 +1,13 @@
 import { Metadata } from 'next';
+import { generateMetadata } from '@/lib/metadata';
 import Link from 'next/link';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = generateMetadata({
     title: 'Terms of Service | JNTUH Results - The Skypedia',
     description: 'Terms of Service for JNTUH Results. Read our terms and conditions for using our services.',
+    path: '/terms',
     keywords: ['terms of service', 'terms and conditions', 'JNTUH Results', 'user agreement'],
-};
+});
 
 export default function TermsOfServicePage() {
     return (

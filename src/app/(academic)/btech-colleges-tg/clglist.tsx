@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
-// import supabase from "../../../lib/supabase/client";
+"use client";
 
+import React, { useState, useMemo } from "react";
+import { Search, Building2, MapPin, Filter, ArrowUpDown } from "lucide-react";
 import { InContentAd } from "@/components/adsense";
 import { AD_SLOTS } from "@/config/adSlots";
+import collegesRaw from "@/data/telangana_colleges.json";
 
-// Define the type for the data fetched from Supabase
 interface College {
   S_no: number;
   code: string;
@@ -17,387 +18,230 @@ interface College {
   Mode: string;
 }
 
-// const JntuhTable: React.FC = () => {
-//   const [data, setData] = useState<College[]>([]);
-//   const [error, setError] = useState<string | null>(null);
-
-//   const adFrequency = 20; // Define ad frequency here
-
-//   useEffect(() => {
-//     async function fetchData() {
-//       const { data, error } = await supabase.from("college_list").select("*");
-
-//       if (error) {
-//         console.error("Supabase Error fetching data:", error);
-//         setError(error.message);
-//       } else {
-//         setData(data);
-//         console.log("All rows:", data);
-//       }
-//     }
-
-//     fetchData();
-//   }, []);
-
-//   const insertAds = (list: College[]) => {
-//     const adRows: JSX.Element[] = [];
-//     let adCount = 0;
-
-//     for (let i = adFrequency; i < list.length; i += adFrequency) {
-//       if (adCount === 0) {
-//         adRows.push(
-//           <tr key={`ad-${i}`}>
-//             <td className="px-6 py-4 whitespace-nowrap" colSpan={9}>
-//               <TableBanner adSlot="8279758421" />
-//             </td>
-//           </tr>
-//         );
-//         adCount++;
-//       }
-//     }
-//     return adRows;
-//   };
-
-//   return (
-//     <div className="max-w-screen-xl mx-auto px-4 md:px-8">
-//       <div>
-//         <h3 className="text-gray-800 text-xl font-bold sm:text-2xl dark:text-white">
-//           Institute-wise Courses offered in Telangana
-//         </h3>
-//         <p className="text-gray-600 mt-2 dark:text-white">
-//           <span className="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
-//             OU = Osmania University
-//           </span>
-//           <span className="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
-//             NA = Not Applicable
-//           </span>
-//           <span className="bg-indigo-100 text-indigo-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">
-//             COED = Co-Education
-//           </span>
-//         </p>
-//       </div>
-
-//       <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto">
-//         <table className="min-w-full table-auto text-sm text-left ">
-//           <thead className="bg-gray-50 text-gray-600 font-medium border-b border-gray-300 dark:bg-gray-700 dark:text-white">
-//             <tr>
-//               <th
-//                 scope="col"
-//                 className="py-3 pl-4 pr-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 sm:pl-6 dark:text-white"
-//               >
-//                 S.No
-//               </th>
-//               <th
-//                 scope="col"
-//                 className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
-//               >
-//                 Code
-//               </th>
-//               <th
-//                 scope="col"
-//                 className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
-//               >
-//                 Institute
-//               </th>
-//               <th
-//                 scope="col"
-//                 className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
-//               >
-//                 Place
-//               </th>
-//               <th
-//                 scope="col"
-//                 className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
-//               >
-//                 District
-//               </th>
-//               <th
-//                 scope="col"
-//                 className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
-//               >
-//                 Region
-//               </th>
-//               <th
-//                 scope="col"
-//                 className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
-//               >
-//                 Type
-//               </th>
-//               <th
-//                 scope="col"
-//                 className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
-//               >
-//                 Minority
-//               </th>
-//               <th
-//                 scope="col"
-//                 className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
-//               >
-//                 Mode
-//               </th>
-//             </tr>
-//           </thead>
-
-//           <tbody className="text-gray-600 divide-y border border-gray-200 dark:bg-gray-800 dark:text-white">
-//             {data.map((item, idx) => (
-//               <React.Fragment key={idx}>
-//                 {idx % adFrequency === 0 &&
-//                   idx > 0 &&
-//                   insertAds(data).length > 0 &&
-//                   insertAds(data)}
-
-//                 <tr>
-//                   <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 dark:text-white">
-//                     {item.S_no}
-//                   </td>
-//                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
-//                     {item.code}
-//                   </td>
-//                   <td className="whitespace-normal break-words px-3 py-4 text-sm text-gray-500 dark:text-white">
-//                     {item.Institute}
-//                   </td>
-//                   <td className="whitespace-normal break-words px-3 py-4 text-sm text-gray-500 dark:text-white">
-//                     {item.Place}
-//                   </td>
-//                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
-//                     {item.Dist}
-//                   </td>
-//                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
-//                     <span
-//                       className={`${
-//                         item.Region === "OU"
-//                           ? "bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"
-//                           : "bg-pink-100 text-pink-800 mr-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300"
-//                       }`}
-//                     >
-//                       {item.Region}
-//                     </span>
-//                   </td>
-//                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
-//                     <span
-//                       className={`${
-//                         item.Type === "PVT"
-//                           ? "bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300"
-//                           : "bg-pink-100 text-pink-800 mr-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300"
-//                       }`}
-//                     >
-//                       {item.Type}
-//                     </span>
-//                   </td>
-//                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
-//                     <span
-//                       className={`${
-//                         item.Minority === "NA"
-//                           ? "bg-green-100 text-green-800 mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"
-//                           : "bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300"
-//                       }`}
-//                     >
-//                       {item.Minority}
-//                     </span>
-//                   </td>
-//                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
-//                     <span
-//                       className={`${
-//                         item.Mode === "COED"
-//                           ? "bg-indigo-100 text-indigo-800 mr-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300"
-//                           : "bg-pink-100 text-pink-800 mr-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300"
-//                       }`}
-//                     >
-//                       {item.Mode}
-//                     </span>
-//                   </td>
-//                 </tr>
-//               </React.Fragment>
-//             ))}
-//           </tbody>
-//         </table>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default JntuhTable;
-
+const collegesData = collegesRaw as College[];
 
 const JntuhTable: React.FC = () => {
-  const [data, setData] = useState<College[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
+  const [filterType, setFilterType] = useState<string>("ALL");
+  const [filterMode, setFilterMode] = useState<string>("ALL");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemsPerPage = 25;
 
-  const adFrequency = 20; // Define ad frequency here
+  const filtered = useMemo(() => {
+    return collegesData.filter((c) => {
+      const matchSearch =
+        search === "" ||
+        c.Institute.toLowerCase().includes(search.toLowerCase()) ||
+        c.code.toLowerCase().includes(search.toLowerCase()) ||
+        c.Dist.toLowerCase().includes(search.toLowerCase());
 
-  useEffect(() => {
-    // Supabase integration disabled
-    setData([]);
-  }, []);
+      const matchType = filterType === "ALL" || c.Type === filterType;
+      const matchMode = filterMode === "ALL" || c.Mode === filterMode;
 
-  const insertAds = (list: College[]) => {
-    const adRows: React.ReactNode[] = [];
-    let adCount = 0;
+      return matchSearch && matchType && matchMode;
+    });
+  }, [search, filterType, filterMode]);
 
-    for (let i = adFrequency; i < list.length; i += adFrequency) {
-      if (adCount === 0) {
-        adRows.push(
-          <tr key={`ad-${i}`}>
-            <td className="px-6 py-4 whitespace-nowrap" colSpan={9}>
-              <InContentAd adSlot={AD_SLOTS.SPECIALIZED.TABLE_ADS} variant="in-article" />
-            </td>
-          </tr>
-        );
-        adCount++;
-      }
-    }
-    return adRows;
+  const totalPages = Math.ceil(filtered.length / itemsPerPage);
+  const paginated = useMemo(() => {
+    const start = (currentPage - 1) * itemsPerPage;
+    return filtered.slice(start, start + itemsPerPage);
+  }, [filtered, currentPage]);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+    setCurrentPage(1);
   };
 
   return (
-    <div className="max-w-screen-xl mx-auto px-4 md:px-8">
-      <div>
-        <h3 className="text-gray-800 text-xl font-bold sm:text-2xl dark:text-white">
-          Institute-wise Courses offered in Telangana
-        </h3>
-        <p className="text-gray-600 mt-2 dark:text-white">
-          <span className="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
-            OU = Osmania University
-          </span>
-          <span className="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
-            NA = Not Applicable
-          </span>
-          <span className="bg-indigo-100 text-indigo-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">
-            COED = Co-Education
-          </span>
-        </p>
+    <div className="w-full space-y-6">
+      {/* Search and Filters */}
+      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-4 sm:p-6 shadow-sm">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Search Box */}
+          <div className="relative md:col-span-1">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <input
+              type="text"
+              value={search}
+              onChange={handleSearchChange}
+              placeholder="Search by college name, code (e.g. 8P, CBIT)..."
+              className="w-full pl-9 pr-4 py-2.5 text-sm bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          {/* Type Filter */}
+          <div className="flex items-center gap-2">
+            <Building2 className="w-4 h-4 text-gray-400 shrink-0" />
+            <select
+              value={filterType}
+              onChange={(e) => {
+                setFilterType(e.target.value);
+                setCurrentPage(1);
+              }}
+              className="w-full py-2.5 px-3 text-sm bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="ALL">All College Types (Govt & Private)</option>
+              <option value="GOVT">Government / University</option>
+              <option value="PVT">Private Affiliated</option>
+            </select>
+          </div>
+
+          {/* Mode Filter */}
+          <div className="flex items-center gap-2">
+            <Filter className="w-4 h-4 text-gray-400 shrink-0" />
+            <select
+              value={filterMode}
+              onChange={(e) => {
+                setFilterMode(e.target.value);
+                setCurrentPage(1);
+              }}
+              className="w-full py-2.5 px-3 text-sm bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="ALL">All Genders (Co-Ed & Women)</option>
+              <option value="COED">Co-Education (COED)</option>
+              <option value="WOMEN">Women Only</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Legend & Stats */}
+        <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-800 flex flex-wrap items-center justify-between gap-3 text-xs text-gray-500 dark:text-gray-400">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="font-semibold text-gray-700 dark:text-gray-300">
+              Showing {filtered.length} of {collegesData.length} colleges
+            </span>
+            <span>•</span>
+            <span className="px-2 py-0.5 rounded bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
+              OU = Osmania University Region
+            </span>
+            <span className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300">
+              COED = Co-Education
+            </span>
+          </div>
+          {search && (
+            <button
+              onClick={() => {
+                setSearch("");
+                setFilterType("ALL");
+                setFilterMode("ALL");
+                setCurrentPage(1);
+              }}
+              className="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
+            >
+              Reset filters
+            </button>
+          )}
+        </div>
       </div>
 
-      <div className="mt-12 shadow-sm border rounded-lg overflow-x-auto">
-        <table className="min-w-full table-auto text-sm text-left ">
-          <thead className="bg-gray-50 text-gray-600 font-medium border-b border-gray-300 dark:bg-gray-700 dark:text-white">
-            <tr>
-              <th
-                scope="col"
-                className="py-3 pl-4 pr-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 sm:pl-6 dark:text-white"
-              >
-                S.No
-              </th>
-              <th
-                scope="col"
-                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
-              >
-                Code
-              </th>
-              <th
-                scope="col"
-                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
-              >
-                Institute
-              </th>
-              <th
-                scope="col"
-                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
-              >
-                Place
-              </th>
-              <th
-                scope="col"
-                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
-              >
-                District
-              </th>
-              <th
-                scope="col"
-                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
-              >
-                Region
-              </th>
-              <th
-                scope="col"
-                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
-              >
-                Type
-              </th>
-              <th
-                scope="col"
-                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
-              >
-                Minority
-              </th>
-              <th
-                scope="col"
-                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-900 dark:text-white"
-              >
-                Mode
-              </th>
-            </tr>
-          </thead>
-
-          <tbody className="text-gray-600 divide-y border border-gray-200 dark:bg-gray-800 dark:text-white">
-            {data.map((item, idx) => (
-              <React.Fragment key={idx}>
-                {idx % adFrequency === 0 &&
-                  idx > 0 &&
-                  insertAds(data).length > 0 &&
-                  insertAds(data)}
-
+      {/* Colleges Table */}
+      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden shadow-sm">
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-800 text-left text-sm">
+            <thead className="bg-gray-50 dark:bg-gray-800/60 font-semibold text-gray-700 dark:text-gray-300">
+              <tr>
+                <th className="py-3.5 pl-4 pr-3 sm:pl-6">#</th>
+                <th className="px-3 py-3.5">Code</th>
+                <th className="px-3 py-3.5">College Name</th>
+                <th className="px-3 py-3.5">District</th>
+                <th className="px-3 py-3.5">Region</th>
+                <th className="px-3 py-3.5">Type</th>
+                <th className="px-3 py-3.5">Gender</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100 dark:divide-gray-800 text-gray-600 dark:text-gray-300">
+              {paginated.length > 0 ? (
+                paginated.map((item, idx) => (
+                  <React.Fragment key={`${item.code}-${item.S_no}`}>
+                    {idx === 12 && (
+                      <tr>
+                        <td colSpan={7} className="p-4 bg-gray-50/50 dark:bg-gray-800/30">
+                          <InContentAd adSlot={AD_SLOTS.SPECIALIZED.TABLE_ADS} variant="in-article" />
+                        </td>
+                      </tr>
+                    )}
+                    <tr className="hover:bg-gray-50/70 dark:hover:bg-gray-800/50 transition-colors">
+                      <td className="whitespace-nowrap py-3.5 pl-4 pr-3 sm:pl-6 text-gray-400 font-mono text-xs">
+                        {item.S_no}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-3.5 font-bold text-gray-900 dark:text-white font-mono">
+                        <span className="px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-blue-600 dark:text-blue-400 border border-gray-200 dark:border-gray-700">
+                          {item.code}
+                        </span>
+                      </td>
+                      <td className="px-3 py-3.5 font-medium text-gray-900 dark:text-white max-w-md">
+                        {item.Institute}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-3.5 text-gray-600 dark:text-gray-400 flex items-center gap-1.5 pt-4">
+                        <MapPin className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                        {item.Dist}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-3.5">
+                        <span className="px-2 py-0.5 rounded text-xs font-semibold bg-blue-50 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 border border-blue-200/50 dark:border-blue-800/50">
+                          {item.Region}
+                        </span>
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-3.5">
+                        <span
+                          className={`px-2 py-0.5 rounded text-xs font-semibold border ${
+                            item.Type === "GOVT"
+                              ? "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-900/30 dark:text-emerald-300 dark:border-emerald-800"
+                              : "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-900/30 dark:text-amber-300 dark:border-amber-800"
+                          }`}
+                        >
+                          {item.Type}
+                        </span>
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-3.5">
+                        <span
+                          className={`px-2 py-0.5 rounded text-xs font-semibold border ${
+                            item.Mode === "COED"
+                              ? "bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-900/30 dark:text-indigo-300 dark:border-indigo-800"
+                              : "bg-pink-50 text-pink-700 border-pink-200 dark:bg-pink-900/30 dark:text-pink-300 dark:border-pink-800"
+                          }`}
+                        >
+                          {item.Mode}
+                        </span>
+                      </td>
+                    </tr>
+                  </React.Fragment>
+                ))
+              ) : (
                 <tr>
-                  <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 dark:text-white">
-                    {item.S_no}
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
-                    {item.code}
-                  </td>
-                  <td className="whitespace-normal break-words px-3 py-4 text-sm text-gray-500 dark:text-white">
-                    {item.Institute}
-                  </td>
-                  <td className="whitespace-normal break-words px-3 py-4 text-sm text-gray-500 dark:text-white">
-                    {item.Place}
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
-                    {item.Dist}
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
-                    <span
-                      className={`${item.Region === "OU"
-                        ? "bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"
-                        : "bg-pink-100 text-pink-800 mr-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300"
-                        }`}
-                    >
-                      {item.Region}
-                    </span>
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
-                    <span
-                      className={`${item.Type === "PVT"
-                        ? "bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300"
-                        : "bg-pink-100 text-pink-800 mr-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300"
-                        }`}
-                    >
-                      {item.Type}
-                    </span>
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
-                    <span
-                      className={`${item.Minority === "NA"
-                        ? "bg-green-100 text-green-800 mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"
-                        : "bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300"
-                        }`}
-                    >
-                      {item.Minority}
-                    </span>
-                  </td>
-                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-white">
-                    <span
-                      className={`${item.Mode === "COED"
-                        ? "bg-indigo-100 text-indigo-800 mr-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300"
-                        : "bg-pink-100 text-pink-800 mr-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300"
-                        }`}
-                    >
-                      {item.Mode}
-                    </span>
+                  <td colSpan={7} className="py-12 text-center text-gray-500 dark:text-gray-400">
+                    No colleges match your search "{search}". Try searching by code or district.
                   </td>
                 </tr>
-              </React.Fragment>
-            ))}
-          </tbody>
-        </table>
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="px-4 py-3 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-sm">
+            <span className="text-xs text-gray-500 dark:text-gray-400">
+              Page {currentPage} of {totalPages}
+            </span>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="px-3 py-1 rounded border border-gray-200 dark:border-gray-700 text-xs font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              >
+                Previous
+              </button>
+              <button
+                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+                className="px-3 py-1 rounded border border-gray-200 dark:border-gray-700 text-xs font-medium disabled:opacity-40 disabled:cursor-not-allowed hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

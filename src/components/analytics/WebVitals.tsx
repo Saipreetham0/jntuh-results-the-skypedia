@@ -25,13 +25,6 @@ export default function WebVitals() {
                 non_interaction: true, // avoids affecting bounce rate
             });
         }
-
-        // You can also send to a custom endpoint using navigator.sendBeacon
-        // const body = JSON.stringify(metric);
-        // const url = '/api/v1/analytics/performance';
-        // if (navigator.sendBeacon) {
-        //   navigator.sendBeacon(url, body);
-        // }
     });
 
     return null;

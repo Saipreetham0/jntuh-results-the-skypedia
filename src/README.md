@@ -1,396 +1,121 @@
-# 📂 Source Code Organization
+# 📂 Source Code Architecture & Organization
 
-Professional folder structure for the JNTUH Results application source code.
+Authoritative directory layout, patterns, and conventions for the **JNTUH Results The Skypedia** codebase.
 
 ---
 
-## 📁 Folder Structure
+## 📁 Root Directory Layout
 
 ```
 src/
-├── app/                          # Next.js 16 App Router
-│   ├── (converter)/             # Calculator route group (public)
-│   ├── (student-res)/           # Student features route group
-│   ├── api/                     # API routes
-│   ├── auth/                    # Authentication pages
-│   └── [other-routes]/          # Individual pages
+├── app/                  # Next.js 16 App Router (grouped routes, APIs, pages)
+│   ├── (academic)/       # Syllabus, Question Papers, Telangana Colleges
+│   ├── (auth)/           # Authentication (Login, Signup)
+│   ├── (content)/        # Editorial & Informational (Blog, Guides, FAQs, Contact)
+│   ├── (converter)/      # Mark & Grade Converters (CGPA, SGPA, Percentage)
+│   ├── (features)/       # Interactive utilities (Calendar, Alerts, Notifications)
+│   ├── (legal)/          # Mandatory AdSense policy pages (Privacy, Terms, Cookies)
+│   ├── (student-res)/    # Primary Result Portals (Consolidated, Backlogs, Toppers)
+│   ├── admin/            # Admin tools & examination timetable management
+│   ├── api/              # Edge API Route Handlers (cached upstream proxies)
+│   ├── layout.tsx        # Root HTML layout with providers & global fonts
+│   ├── page.tsx          # Main high-performance landing page
+│   ├── robots.ts         # Dynamic robots.txt generation
+│   └── sitemap.ts        # Comprehensive dynamic sitemap generator
 │
-├── components/                   # React components
-│   ├── layout/                  # Layout components
-│   ├── common/                  # Shared/utility components
-│   ├── features/                # Feature-specific components
-│   ├── calendar/                # Calendar-related components
-│   ├── ui/                      # shadcn/ui components
-│   ├── Adsense/                 # AdSense ad components
-│   └── [other-categories]/      # Additional component groups
+├── components/           # Modular React 19 UI Components
+│   ├── adsense/          # Compliant AdSense units with CLS reservation & ad slots
+│   ├── analytics/        # WebVitals, Google Analytics & tracking integrations
+│   ├── blog/             # Blog article viewers and post cards
+│   ├── calendar/         # Academic calendar & Google Calendar modals
+│   ├── common/           # Shared utilities (ErrorBoundary, ServiceWorkerRegistration)
+│   ├── emails/           # React email notification templates
+│   ├── features/         # Complex feature widgets (StudentResultsTables, alerts)
+│   ├── home/             # Homepage components (Hero, FAQSection, Ticker, Features)
+│   ├── layout/           # Global chrome (Navbar, Footer, AnnouncementBar, Providers)
+│   ├── results/          # Search input cards, marksheets, shareable result cards
+│   ├── seo/              # Dynamic JSON-LD structured schemas (FAQ, Breadcrumbs)
+│   └── ui/               # shadcn/ui & Radix UI accessible primitive components
 │
-├── lib/                         # Core libraries & utilities
-│   ├── email/                   # Email services
-│   ├── seo/                     # SEO utilities
-│   └── [services]/              # Other services
+├── config/               # Application-wide Static Configuration
+│   ├── adSlots.ts        # Google AdSense ad unit mapping
+│   ├── analytics.ts      # Google Analytics, GTM, and Tag configuration
+│   └── site.ts           # Domain canonicals, metadata, and brand constants
 │
-├── types/                       # TypeScript type definitions
-│   ├── alerts.ts                # Alert/notification types
-│   ├── calendar.ts              # Calendar types
-│   ├── index.ts                 # Central type exports
-│   └── env.d.ts                 # Environment variable types
+├── data/                 # Bundled Static Data & Scraped Catalogs
+│   ├── branch_codes.json # B.Tech / B.Pharm branch mappings
+│   ├── college_codes.json# JNTUH affiliated college directory
+│   ├── syllabus.json     # R18 & R22 regulation subject syllabi
+│   └── telangana_colleges.json # 515 Accredited Telangana Engineering Colleges
 │
-├── config/                      # Configuration files
-│   └── adSlots.ts              # AdSense slot configuration
+├── hooks/                # Custom React Client Hooks
+│   ├── useBacklogs.ts    # Backlog status querying & local caching
+│   └── useConsolidatedResults.ts # Hall ticket marksheet fetching & offline sync
 │
-├── hooks/                       # Custom React hooks
+├── lib/                  # Shared Business Logic & Helpers
+│   ├── api.ts            # Client-side HTTP fetch helpers
+│   ├── metadata/         # OpenGraph & SEO dynamic metadata builders
+│   ├── seo/              # Schema.org structured data generators
+│   └── utils.ts          # Tailwind merge (`cn`), date formatters, math calculations
 │
-└── lib/                         # Core libraries & utilities (includes supabase/)
-
+├── server/               # Server-Only Modules (Never bundled to client)
+│   ├── rate-limit.ts     # IP-based token bucket rate limiter
+│   └── upstream.ts       # JNTUH upstream scraper proxy with timeout & failover
+│
+└── types/                # Central TypeScript Interfaces & Type Declarations
+    ├── api.ts            # Result payload & API error definitions
+    ├── env.d.ts          # Environment variables typing
+    ├── html2pdf.d.ts     # PDF generation canvas definitions
+    ├── index.ts          # Consolidated re-exports
+    └── results.ts        # Student marksheet & semester subject models
 ```
 
 ---
 
-## 📦 Component Organization
+## 🧭 App Router Route Groups
 
-### 🎨 Layout Components (`components/layout/`)
-Components that define the page structure and navigation:
-- **NavBar/** - Main navigation bar
-- **Footer/** - Site footer
-- **Header/** - Page headers
-- **AnnouncementBar/** - Top announcement banner
-- **InstallPWA.tsx** - PWA install prompt
+Next.js route groups `(name)` organize routes without affecting the public URL:
 
-**Import pattern:**
-```tsx
-import { NavBar } from '@/components/layout/NavBar';
-import { Footer } from '@/components/layout/Footer';
-```
+| Route Group | Example URL Path | Description |
+| :--- | :--- | :--- |
+| `(student-res)` | `/consolidated-results`, `/check-backlogs`, `/cgpa-calculator` | Core JNTUH student grade & marksheet lookups |
+| `(academic)` | `/syllabus`, `/btech-colleges-tg`, `/jntuh-previous-question-papers` | Syllabi, college directories, and question banks |
+| `(converter)` | `/cgpa-percentage-converter`, `/marks-percentage-calculator` | Interactive score conversion & target planners |
+| `(content)` | `/blog`, `/guides`, `/faq`, `/about-us`, `/results-hub` | SEO landing pages and student advisory guides |
+| `(features)` | `/result-alerts`, `/calendar`, `/dashboard` | Email alerts, examination calendar, and saved profiles |
+| `(legal)` | `/privacy`, `/terms`, `/disclaimer`, `/cookies` | Required compliance and Google AdSense transparency |
+| `(auth)` | `/login`, `/signup` | User account management |
 
 ---
 
-### 🔧 Common Components (`components/common/`)
-Reusable utility components used across the application:
-- **ErrorBoundary.tsx** - Error boundary wrapper
-- **Button.jsx** - Custom button component
-- **ResultsCard.tsx** - Results display card
-- **SyllabusCard.tsx** - Syllabus card component
-- **theme-provider.tsx** - Dark mode theme provider
+## ⚡ Component Import Conventions
 
-**Import pattern:**
+Use the configured TypeScript `@/*` path aliases:
+
 ```tsx
-import { ErrorBoundary } from '@/components/common/ErrorBoundary';
-import { ResultsCard } from '@/components/common/ResultsCard';
-```
+// Layout & Chrome
+import { Navbar, Footer, AnnouncementBar } from '@/components/layout';
 
----
+// Homepage Sections
+import { Hero, FAQSection, NotificationTicker, FeaturesSection } from '@/components/home';
 
-### ⚡ Feature Components (`components/features/`)
-Feature-specific components with complex logic:
-- **ResultAlerts/** - Email alert subscription system
-- **AcademicReport/** - Academic report display
-- **BacklogsPage/** - Backlog checking interface
-- **StudentResultsTables.tsx** - Comprehensive results tables
-
-**Import pattern:**
-```tsx
-import { SubscriptionForm } from '@/components/features/ResultAlerts';
-import { AcademicReport } from '@/components/features/AcademicReport';
-```
-
----
-
-### 📅 Calendar Components (`components/calendar/`)
-Exam calendar and Google Calendar integration:
-- **ExamCalendar.tsx** - Main exam calendar component
-- **ExamCalendarWithAuth.tsx** - Calendar with authentication
-- **ExamEventModal.tsx** - Event details modal
-- **GoogleCalendarAuth.tsx** - Google Calendar OAuth
-
-**Import pattern:**
-```tsx
-import { ExamCalendar } from '@/components/calendar/ExamCalendar';
-```
-
----
-
-### 🎯 UI Components (`components/ui/`)
-shadcn/ui primitive components:
-- button, card, input, select, dialog, etc.
-- Radix UI-based with Tailwind styling
-
-**Import pattern:**
-```tsx
+// UI Primitives
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-```
+import { Card, CardHeader, CardContent } from '@/components/ui/card';
 
----
-
-### 💰 AdSense Components (`components/Adsense/`)
-Google AdSense ad integration:
-- **AdScript.tsx** - AdSense script loader
-- **AdBanner.tsx** - Banner ads
-- **ResponsiveAd.tsx** - Responsive ad units
-- **StickyAd.tsx** - Sticky sidebar ads
-- **AnchorAd.tsx** - Mobile anchor ads
-- **MultiplexAd.tsx** - Grid ad units
-- **InArticleAd.tsx** - In-article ads
-- **InContentAd.tsx** - Content-embedded ads
-
-**Import pattern:**
-```tsx
-import { ResponsiveAd } from '@/components/Adsense';
+// AdSense Units
+import { ResponsiveAd, MultiplexAd, InFeedAd } from '@/components/adsense';
 import { AD_SLOTS } from '@/config/adSlots';
+
+// Common Utilities
+import { ErrorBoundary, themeProvider } from '@/components/common';
 ```
 
 ---
 
-### 📝 Other Component Categories
-
-**Alert/** - Alert/notification components
-**Card/** - Card-based UI components
-**Hero/** - Hero/landing sections
-**Theme/** - Theme switcher
-**ShareButton/** - Social sharing buttons
-**PdfModal/** - PDF viewer modal
-**Blog-seo/** - Blog SEO components
-**blog/** - Blog-specific components
-**newsletter/** - Newsletter subscription
-**results/** - Results display components
-**emails/** - Email templates
-**ComingSoon/** - Coming soon pages
-
----
-
-## 📚 Libraries (`lib/`)
-
-### Core Services
-- **api.ts** - JNTUH API client (legacy/commented)
-- **supabase.ts** - Supabase client setup
-- **supabase/** - Supabase client/server/middleware utilities
-- **redis.js** - Redis caching client
-- **subscribers-storage.ts** - **Shared email subscription storage** ⚠️ Important!
-
-### Email Services (`lib/email/`)
-- Email sending utilities
-- Resend API integration
-
-### SEO Utilities (`lib/seo/`)
-- Metadata generators
-- Schema.org structured data
-- Open Graph helpers
-
-### Important Notes
-- **subscribers-storage.ts** is a singleton - never create separate instances
-- Most API files contain commented-out code - check before implementing
-
----
-
-## 🎯 Types (`types/`)
-
-Centralized TypeScript type definitions:
-
-- **alerts.ts** - Result alert subscription types
-- **calendar.ts** - Calendar event types
-- **index.ts** - Central type exports
-- **env.d.ts** - Environment variable types
-
-**Note:** There's also `src/app/types/index.ts` - consider consolidating
-
-**Import pattern:**
-```tsx
-import type { ResultAlert } from '@/types/alerts';
-import type { CalendarEvent } from '@/types/calendar';
-```
-
----
-
-## ⚙️ Configuration (`config/`)
-
-Application configuration files:
-
-- **adSlots.ts** - AdSense slot IDs and configuration
-  ```tsx
-  import { AD_SLOTS } from '@/config/adSlots';
-  ```
-
----
-
-## 🎣 Hooks (`hooks/`)
-
-Custom React hooks for reusable logic:
-
-**Import pattern:**
-```tsx
-import { useCustomHook } from '@/hooks/useCustomHook';
-```
-
----
-
-## 🛠️ Utilities (`utils/`)
-
-Helper functions and utilities:
-
-### Supabase Utilities (`lib/supabase/`)
-- **client.ts** - Browser client
-- **server.ts** - Server-side client
-- **middleware.ts** - Auth middleware
-
-**Import pattern:**
-```tsx
-import { createClient } from '@/lib/supabase/client';
-import { createClient as createServerClient } from '@/lib/supabase/server';
-```
-
----
-
-## 📋 App Router Structure (`app/`)
-
-### Route Groups
-
-#### `(converter)/` - Calculator Tools (Public)
-- cgpa-percentage-converter
-- percentage-to-cgpa-calculator
-- sgpa-to-cgpa-calculator
-- marks-percentage-calculator
-
-#### `(student-res)/` - Student Features
-- cgpa-calculator
-- consolidated-results
-- semester-wise-results
-- check-backlogs
-- credit-eligibility-check
-- compare-performance
-- previous-question-papers
-
-### API Routes (`api/`)
-- **consolidated-results/** - Fetch student results (CORS proxy)
-- **semester-wise-results/** - Semester-specific results
-- **backlogs/** - Backlog checking
-- **credit-eligibility/** - Credit verification (CORS proxy)
-- **result-alerts/subscribe/** - Email subscription
-- **result-alerts/verify/** - Email verification
-- **auth/google/** - Google OAuth flow
-- **calendar/sync/** - Google Calendar sync
-- **contact/** - Contact form
-
-**Important:** Many API routes use internal proxy pattern to avoid CORS:
-```
-Browser → /api/internal-route → External API
-```
-
----
-
-## 🎨 Styling
-
-### Global Styles
-- **app/styles/globals.css** - Global CSS and Tailwind directives
-
-### Tailwind Configuration
-- Uses Tailwind CSS 3.4 utility-first framework
-- Custom theme configuration in `tailwind.config.ts`
-- Dark mode support via `next-themes`
-
----
-
-## 🚀 Import Aliases
-
-The project uses TypeScript path aliases:
-
-```tsx
-import { Component } from '@/components/...'  // → src/components/...
-import { utils } from '@/lib/...'              // → src/lib/...
-import type { Type } from '@/types/...'       // → src/types/...
-import { config } from '@/config/...'         // → src/config/...
-```
-
-Configured in `tsconfig.json`:
-```json
-{
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    }
-  }
-}
-```
-
----
-
-## 📝 Best Practices
-
-### Component Organization
-1. **Layout components** → General page structure
-2. **Common components** → Reusable utilities
-3. **Feature components** → Complex, feature-specific logic
-4. **UI components** → Primitive building blocks
-
-### File Naming
-- **Components:** PascalCase folders and files (`NavBar/NavBar.tsx`)
-- **Utilities:** camelCase files (`api.ts`, `utils.ts`)
-- **Types:** camelCase files (`alerts.ts`, `calendar.ts`)
-- **Config:** camelCase files (`adSlots.ts`)
-
-### Import Order
-```tsx
-// 1. External packages
-import React from 'react';
-import { NextResponse } from 'next/server';
-
-// 2. Internal components
-import { NavBar } from '@/components/layout/NavBar';
-
-// 3. Internal utilities
-import { createClient } from '@/lib/supabase/client';
-
-// 4. Types
-import type { ResultAlert } from '@/types/alerts';
-
-// 5. Styles
-import './styles.css';
-```
-
-### Server vs Client Components
-- **Default to Server Components** (no 'use client')
-- **Use Client Components** when you need:
-  - useState, useEffect, event handlers
-  - Browser APIs (localStorage, window)
-  - Third-party libraries requiring browser
-
----
-
-## ⚠️ Known Issues
-
-1. **Duplicate types folders:** `src/types/` and `src/app/types/` - consider consolidating
-2. **lib/types.ts exists:** Conflicts with `types/` folder - should be consolidated
-3. **lib/ResultScraper.ts empty:** Placeholder file, may need implementation
-4. **Many commented API routes:** Check before implementing new features
-5. **In-memory storage:** `lib/subscribers-storage.ts` needs database for production
-
----
-
-## 🔍 Finding Code
-
-### Search by Feature
-- **Results checking:** `app/(student-res)/` + `components/features/`
-- **Calculators:** `app/(converter)/`
-- **Email alerts:** `components/features/ResultAlerts/` + `lib/subscribers-storage.ts`
-- **AdSense:** `components/Adsense/` + `config/adSlots.ts`
-- **Authentication:** `app/auth/` + `lib/supabase/`
-
-### Search by Type
-- **Pages:** `app/**/*.tsx` (excluding components)
-- **API Routes:** `app/api/**/route.ts`
-- **Components:** `components/**/*.tsx`
-- **Types:** `types/**/*.ts`
-- **Utilities:** `lib/**/*.ts`
-
----
-
-## 📚 Related Documentation
-
-- [Main README](../README.md) - Project overview
-- [CLAUDE.md](../CLAUDE.md) - Development guide
-- [docs/](../docs/) - Complete documentation
-
----
-
-**Last Updated:** November 28, 2025
-**Structure Version:** 2.0 (Organized)
+## 🛡️ Coding & Architectural Standards
+
+1. **Server Components First**: All route pages in `src/app/` are React Server Components by default. Add `'use client'` strictly to interactive leaf components.
+2. **Offline-Resilient**: Hall ticket lookups cache successfully fetched marksheets to `localStorage` for offline access during server downtimes.
+3. **No Cumulative Layout Shift (CLS)**: All ad slots define explicit minimum heights matching Google AdSense responsive unit specifications.
+4. **Edge Cache Headers**: Upstream API proxies in `src/app/api/` enforce `Cache-Control: public, s-maxage=1800, stale-while-revalidate=86400` to prevent rate-limiting from university origin servers.

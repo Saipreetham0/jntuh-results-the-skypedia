@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { generateMetadata } from '@/lib/metadata';
 import Link from 'next/link';
 import { Calculator, TrendingUp, Clock, ArrowRight, Star } from 'lucide-react';
 import { ResponsiveAd } from '@/components/adsense';
@@ -7,18 +8,18 @@ import Breadcrumbs from '@/components/ui/Breadcrumbs';
 import YouMightAlsoNeed from '@/components/ui/YouMightAlsoNeed';
 import NextStepCTA from '@/components/ui/NextStepCTA';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = generateMetadata({
     title: 'JNTUH CGPA Calculators & Tools Hub | R22, R20, R18 Regulations',
     description: 'Complete collection of CGPA calculators for JNTUH students. Calculate CGPA, convert to percentage, calculate marks percentage, and more. Free tools for R22, R20, R18 regulations.',
-    keywords: 'JNTUH CGPA calculator, CGPA to percentage, marks percentage, SGPA to CGPA, percentage to CGPA, R22, R20, R18',
-};
+    path: '/calculators',
+});
 
 // Hub data
 const calculators = [
     {
         title: 'CGPA to Percentage Converter',
         description: 'Convert your CGPA to percentage instantly with our accurate calculator. Works for all regulations.',
-        href: '/cgpa-to-percentage',
+        href: '/cgpa-percentage-converter',
         readTime: '2 min',
         popularity: 98,
         category: 'Featured',
@@ -78,7 +79,7 @@ const guides = [
     },
     {
         title: 'CGPA vs Percentage: Conversion Formula Explained',
-        href: '/blog/cgpa-to-percentage-conversion',
+        href: '/blog/jntuh-cgpa-to-percentage-formula',
     },
     {
         title: 'Understanding JNTUH Grading System',

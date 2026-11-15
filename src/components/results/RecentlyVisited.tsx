@@ -17,7 +17,8 @@ const RecentlyVisited: React.FC = () => {
     try {
       const stored = localStorage.getItem("skypedia_recent_tools");
       if (stored) {
-        setItems(JSON.parse(stored).slice(0, 4));
+        const parsed = JSON.parse(stored).slice(0, 4);
+        requestAnimationFrame(() => setItems(parsed));
       }
     } catch {
       // localStorage unavailable (SSR / private browsing) — silent fail

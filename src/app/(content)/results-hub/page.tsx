@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { generateMetadata } from '@/lib/metadata';
 import Link from 'next/link';
 import { FileSearch, TrendingUp, Clock, ArrowRight, Star, BookOpen } from 'lucide-react';
 import { ResponsiveAd } from '@/components/adsense';
@@ -7,11 +8,12 @@ import Breadcrumbs from '@/components/ui/Breadcrumbs';
 import YouMightAlsoNeed from '@/components/ui/YouMightAlsoNeed';
 import NextStepCTA from '@/components/ui/NextStepCTA';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = generateMetadata({
     title: 'JNTUH Results Hub | Check B.Tech, B.Pharmacy, MBA, M.Tech Results',
     description: 'One-stop hub for all JNTUH results. Check regular, supply, and fast server results. Download mark sheets and check backlogs.',
-    keywords: 'JNTUH results, B.Tech results, supply results, fast results, mark sheet download, JNTUH exam results',
-};
+    path: '/results-hub',
+    keywords: ['JNTUH results', 'B.Tech results', 'supply results', 'fast results', 'mark sheet download', 'JNTUH exam results'],
+});
 
 const resultCategories = [
     {

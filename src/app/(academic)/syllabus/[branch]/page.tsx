@@ -27,15 +27,15 @@ const branchNames: Record<string, string> = {
     it: "Information Technology",
 };
 
-// export async function generateMetadata({ params }: SyllabusPageProps): Promise<Metadata> {
-//     const { branch } = await params;
-//     const name = branchNames[branch] || branch.toUpperCase();
-//     return constructMetadata({
-//         title: `JNTUH ${name} Syllabus PDF - R22, R18 Official`,
-//         description: `Download official JNTUH ${name} syllabus for all semesters and regulations (R22, R18, R16). Branch-wise curriculum guides for B.Tech students.`,
-//         path: `/syllabus/${branch}`,
-//     });
-// }
+export async function generateMetadata({ params }: SyllabusPageProps): Promise<Metadata> {
+    const { branch } = await params;
+    const name = branchNames[branch] || branch.toUpperCase();
+    return constructMetadata({
+        title: `JNTUH ${name} Syllabus PDF - R22, R18 Official`,
+        description: `Download official JNTUH ${name} syllabus for all semesters and regulations (R22, R18, R16). Branch-wise curriculum guides for B.Tech students.`,
+        path: `/syllabus/${branch}`,
+    });
+}
 
 export default async function BranchSyllabusPage({ params }: SyllabusPageProps) {
     const { branch } = await params;
@@ -43,13 +43,13 @@ export default async function BranchSyllabusPage({ params }: SyllabusPageProps) 
 
     return (
         <main className="min-h-screen bg-[#F8FAFC] dark:bg-black">
-            {/* <BreadcrumbSchema
+            <BreadcrumbSchema
                 items={[
                     { name: "Home", path: "/" },
                     { name: "Syllabus", path: "/syllabus" },
                     { name: `${branch.toUpperCase()} Syllabus`, path: `/syllabus/${branch}` },
                 ]}
-            /> */}
+            />
 
             {/* Hero Section */}
             <section className="relative pt-24 pb-16 px-6 overflow-hidden bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800">
@@ -81,13 +81,13 @@ export default async function BranchSyllabusPage({ params }: SyllabusPageProps) 
                             </h2>
 
                             <div className="mb-6">
-                                <ResponsiveAd adSlot={AD_SLOTS.ACTIONS.BOTTOM_BEFORE_BUTTON} showLabel={false} />
+                                <ResponsiveAd adSlot={AD_SLOTS.ACTIONS.BOTTOM_BEFORE_BUTTON} />
                             </div>
 
                             {/* ... */}
 
                             <div className="mt-8">
-                                <ResponsiveAd adSlot={AD_SLOTS.ACTIONS.BOTTOM_AFTER_BUTTON} showLabel={false} />
+                                <ResponsiveAd adSlot={AD_SLOTS.ACTIONS.BOTTOM_AFTER_BUTTON} />
                             </div>
                         </div>
 

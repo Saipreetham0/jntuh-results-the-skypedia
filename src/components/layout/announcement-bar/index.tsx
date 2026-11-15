@@ -31,9 +31,16 @@ const AnnouncementBar: React.FC<AnnouncementBarProps> = ({
 }) => {
   const [isVisible, setIsVisible] = useState(false);
 
+  const handleDismiss = () => {
+    setIsVisible(false);
+    sessionStorage.setItem(DISMISS_KEY, "1");
+  };
+
   useEffect(() => {
     const dismissed = sessionStorage.getItem(DISMISS_KEY);
-    if (!dismissed) setIsVisible(true);
+    if (!dismissed) {
+      requestAnimationFrame(() => setIsVisible(true));
+    }
   }, []);
 
   useEffect(() => {
@@ -42,11 +49,6 @@ const AnnouncementBar: React.FC<AnnouncementBarProps> = ({
       return () => clearTimeout(timer);
     }
   }, [duration, isVisible]);
-
-  const handleDismiss = () => {
-    setIsVisible(false);
-    sessionStorage.setItem(DISMISS_KEY, "1");
-  };
 
   const inner = (
     <div className="flex items-center gap-2.5">

@@ -1,4 +1,4 @@
-import { WithContext, WebSite, Organization, BreadcrumbList, SoftwareApplication, FAQPage, HowTo } from 'schema-dts';
+import { WithContext, WebSite, Organization, BreadcrumbList, SoftwareApplication, FAQPage, HowTo, Article } from 'schema-dts';
 
 export function generateWebsiteSchema(): WithContext<WebSite> {
   return {
@@ -13,9 +13,9 @@ export function generateWebsiteSchema(): WithContext<WebSite> {
       name: 'TheSkypedia',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://jntuhresults.theskypedia.com/logo.png',
-        width: '250',
-        height: '60',
+        url: 'https://jntuhresults.theskypedia.com/android-chrome-512x512.png',
+        width: '512',
+        height: '512',
       },
     },
   };
@@ -102,6 +102,43 @@ export function generateFAQSchema(faqs: { question: string; answer: string }[]):
         text: faq.answer,
       },
     })),
+  };
+}
+
+export function generateArticleSchema(article: {
+  title: string;
+  description: string;
+  url: string;
+  datePublished: string;
+  dateModified?: string;
+  tags?: string[];
+}): WithContext<Article> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.title,
+    description: article.description,
+    url: article.url,
+    datePublished: article.datePublished,
+    dateModified: article.dateModified || article.datePublished,
+    keywords: article.tags?.join(', '),
+    publisher: {
+      '@type': 'Organization',
+      name: 'TheSkypedia',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://jntuhresults.theskypedia.com/android-chrome-512x512.png',
+      },
+    },
+    author: {
+      '@type': 'Organization',
+      name: 'TheSkypedia Team',
+      url: 'https://jntuhresults.theskypedia.com',
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': article.url,
+    },
   };
 }
 

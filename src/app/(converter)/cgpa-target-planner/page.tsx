@@ -2,8 +2,6 @@
 
 import React, { useState, useMemo } from 'react';
 import { Target, TrendingUp, AlertTriangle, CheckCircle2, Info } from 'lucide-react';
-import { ResponsiveAd } from '@/components/adsense';
-import AD_SLOTS from '@/config/adSlots';
 
 const TOTAL_SEMS_OPTIONS = [6, 8] as const; // Diploma / B.Tech
 
@@ -81,8 +79,6 @@ export default function CGPATargetPlannerPage() {
             Find out the SGPA you need each remaining semester to hit your CGPA goal.
           </p>
         </div>
-
-        <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.TOP_BANNER} />
 
         {/* Calculator card */}
         <div className="mt-6 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm p-6 space-y-5">
@@ -235,10 +231,6 @@ export default function CGPATargetPlannerPage() {
             </div>
           </div>
         )}
-
-        <div className="mt-6">
-          <ResponsiveAd adSlot={AD_SLOTS.CALCULATOR.RESULT_BOTTOM} />
-        </div>
 
         {/* Formula note */}
         <div className="mt-6 p-4 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 text-xs text-gray-500 dark:text-gray-400 space-y-1">

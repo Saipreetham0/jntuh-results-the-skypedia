@@ -71,16 +71,6 @@ export default function SemesterResultsClient({
     const hasFetchedRef = useRef(false);
     const lastFetchedRollNumber = useRef<string>('');
 
-    useEffect(() => {
-        const urlRollNumber = searchParams?.get('rollNumber') || defaultRollNumber;
-        if (urlRollNumber && !hasFetchedRef.current) {
-            setRollNumber(urlRollNumber);
-            hasFetchedRef.current = true;
-            fetchResults(urlRollNumber);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
     const fetchResults = async (roll: string) => {
         const cached = fetchCache.get(roll);
         if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
@@ -149,6 +139,16 @@ export default function SemesterResultsClient({
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        const urlRollNumber = searchParams?.get('rollNumber') || defaultRollNumber;
+        if (urlRollNumber && !hasFetchedRef.current) {
+            setRollNumber(urlRollNumber);
+            hasFetchedRef.current = true;
+            fetchResults(urlRollNumber);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const handleSearch = async (e: React.FormEvent) => {
         e.preventDefault();

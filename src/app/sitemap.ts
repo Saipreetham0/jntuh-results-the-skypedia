@@ -36,6 +36,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // ── Academic resources (static content) ───────────────────
     { url: `${baseUrl}/jntuh-previous-question-papers`, lastModified: contentDate, changeFrequency: 'weekly',  priority: 0.9 },
     { url: `${baseUrl}/syllabus`,                        lastModified: contentDate, changeFrequency: 'monthly', priority: 0.8 },
+    ...(['cse', 'ece', 'eee', 'me', 'ce', 'it'] as const).map(branch => ({
+      url: `${baseUrl}/syllabus/${branch}`,
+      lastModified: contentDate,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    })),
     { url: `${baseUrl}/calendar`,                        lastModified: contentDate, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/btech-colleges-tg`,               lastModified: contentDate, changeFrequency: 'monthly', priority: 0.7 },
 

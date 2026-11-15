@@ -277,10 +277,16 @@ export async function GET(request: NextRequest) {
     const scraper = new JNTUHScraper();
     if (nested || maxDepth > 0) {
       const tree = await scraper.crawl(type, level, l123, maxDepth, 0, new Set(), path);
-      return NextResponse.json({ type: 'nested', tree });
+      return NextResponse.json(
+        { type: 'nested', tree },
+        { headers: { 'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=604800' } }
+      );
     } else {
       const result = await scraper.fetchLevel(type, level, l123, path);
-      return NextResponse.json(result);
+      return NextResponse.json(
+        result,
+        { headers: { 'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=604800' } }
+      );
     }
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Unknown error';

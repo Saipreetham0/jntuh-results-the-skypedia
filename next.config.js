@@ -2,6 +2,7 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   reactStrictMode: true,
   compress: true,
 
@@ -63,6 +64,7 @@ const nextConfig = {
     { source: '/cgpa', destination: '/cgpa-calculator', permanent: true },
     { source: '/check-result', destination: '/jntuh-results', permanent: true },
     { source: '/semester-results', destination: '/jntuh-results', permanent: true },
+    { source: '/previous-question-papers', destination: '/jntuh-previous-question-papers', permanent: true },
   ],
 
   headers: async () => {

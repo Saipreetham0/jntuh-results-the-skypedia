@@ -25,13 +25,15 @@ const ShareButton: React.FC<ShareButtonProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [shareUrl, setShareUrl] = useState("");
+  const [shareUrl, setShareUrl] = useState(url || "");
   const [isSharing, setIsSharing] = useState(false);
   const [shareTab, setShareTab] = useState<'link' | 'qr'>('link');
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setShareUrl(url || (typeof window !== 'undefined' ? window.location.href : ''));
+    if (!url && typeof window !== 'undefined') {
+      requestAnimationFrame(() => setShareUrl(window.location.href));
+    }
 
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);

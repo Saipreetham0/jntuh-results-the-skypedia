@@ -1,11 +1,13 @@
 import { Metadata } from 'next';
+import { generateMetadata } from '@/lib/metadata';
 import Link from 'next/link';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = generateMetadata({
     title: 'Privacy Policy | JNTUH Results - The Skypedia',
     description: 'Privacy Policy for JNTUH Results. Learn how we collect, use, and protect your personal information.',
+    path: '/privacy',
     keywords: ['privacy policy', 'data protection', 'JNTUH Results', 'user privacy'],
-};
+});
 
 export default function PrivacyPolicyPage() {
     return (

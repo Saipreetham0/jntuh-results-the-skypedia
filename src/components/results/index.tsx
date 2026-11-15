@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import Card from '../card';
+import React, { useState, useMemo } from 'react';
+import ToolCard from './ToolCard';
 import RecentlyVisited, { addToHistory } from './RecentlyVisited';
 import {
   Search, BookOpen, Calculator, FileText, BarChart2,
@@ -86,7 +86,7 @@ const cardsData: CardData[] = [
   {
     title: "Previous Question Papers",
     content: "Download previous years' exam papers to sharpen your exam preparation.",
-    url: "/previous-question-papers",
+    url: "/jntuh-previous-question-papers",
     icon: <FileQuestion className="w-7 h-7 text-[#1C61E7]" />,
     category: 'academic',
   },
@@ -122,10 +122,9 @@ const categories = [
 
 const ResultsBox: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredCards, setFilteredCards] = useState<CardData[]>(cardsData);
   const [activeCategory, setActiveCategory] = useState<string>("all");
 
-  useEffect(() => {
+  const filteredCards = useMemo(() => {
     let results = cardsData;
     if (activeCategory !== "all") {
       results = results.filter(card => card.category === activeCategory);
@@ -138,7 +137,7 @@ const ResultsBox: React.FC = () => {
           card.content.toLowerCase().includes(q)
       );
     }
-    setFilteredCards(results);
+    return results;
   }, [searchTerm, activeCategory]);
 
   return (
@@ -229,7 +228,7 @@ const ResultsBox: React.FC = () => {
                   className="animate-fade-in"
                   onClick={() => addToHistory(card.title, card.url)}
                 >
-                  <Card {...card} />
+                  <ToolCard {...card} />
                 </div>
 
                 {/* Mid-grid ad after 6th card */}

@@ -34,8 +34,8 @@ import {
   SheetDescription,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import ShareButton from "../../share-button";
-import { SubscribeModal } from "../../features/result-alerts";
+import ShareButton from "@/components/share-button";
+import { SubscribeModal } from "@/components/features/result-alerts";
 
 interface SubMenuItem {
   name: string;

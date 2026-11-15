@@ -67,9 +67,9 @@ export default function ContactPage() {
         {/* Left Column: Info */}
         <div className="space-y-8 lg:sticky lg:top-24">
           <div>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
+            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
               Get in touch
-            </h2>
+            </h1>
             <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">
               Have questions about your results? Want to report a bug? We're here to help. Send us a message and we'll respond within 24 hours.
             </p>

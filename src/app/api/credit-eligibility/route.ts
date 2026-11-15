@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import axios, { AxiosError } from 'axios';
 import { rateLimit, getClientIp } from '@/server/rate-limit';
+import { getUpstreamHeaders } from '@/server/upstream';
 
 /**
  * Error response structure following FastAPI error format
@@ -72,9 +73,7 @@ export async function GET(request: Request) {
       `https://jntuhresults.dhethi.com/api/getCreditsChecker?rollNumber=${rollNumber}`,
       {
         timeout: 15000, // 15 second timeout
-        headers: {
-          'User-Agent': 'JNTUHResultsPortal/1.0'
-        }
+        headers: getUpstreamHeaders(),
       }
     );
 
@@ -87,7 +86,11 @@ export async function GET(request: Request) {
     }
 
     // Return the response data
-    return NextResponse.json(response.data);
+    return NextResponse.json(response.data, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=1800, stale-while-revalidate=86400',
+      },
+    });
 
   } catch (error) {
 

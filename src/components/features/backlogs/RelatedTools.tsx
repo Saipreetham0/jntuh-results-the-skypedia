@@ -30,7 +30,7 @@ const tools = [
     {
         title: "Previous Papers",
         desc: "Download last 5 years QPs",
-        href: "/previous-question-papers",
+        href: "/jntuh-previous-question-papers",
         icon: FileText,
         bg: "bg-orange-50 dark:bg-orange-900/20",
         text: "text-orange-600 dark:text-orange-400"

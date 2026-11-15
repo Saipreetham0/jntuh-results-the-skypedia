@@ -72,8 +72,32 @@ export default function SyllabusPage() {
   }, []);
 
   useEffect(() => {
-    fetchLevel();
-  }, [fetchLevel]);
+    let ignore = false;
+    const loadInitial = async () => {
+      try {
+        const response = await axios.get('/api/syllabus?l123=0');
+        if (!ignore) {
+          if (response.data.error) {
+            setError(response.data.error);
+            setItems([]);
+          } else {
+            setItems(response.data.items || []);
+          }
+        }
+      } catch (err) {
+        if (!ignore) {
+          console.error("Fetch Error:", err);
+          setError("Failed to fetch syllabus data. Please try again later.");
+        }
+      } finally {
+        if (!ignore) setLoading(false);
+      }
+    };
+    loadInitial();
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   const handleItemClick = (item: SyllabusItem) => {
     if (item.isPdf) {

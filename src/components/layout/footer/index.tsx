@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Script from 'next/script';
 import { Mail, MapPin, ArrowRight, Heart, ChevronUp, Github, Instagram, Youtube, Twitter } from 'lucide-react';
 import { siteConfig } from '@/config/site';
 import TrustBadges from '@/components/ui/TrustBadges';
@@ -60,7 +59,7 @@ const quickLinks: FooterLink[] = [
 // Resource links for students
 const resourceLinks: FooterLink[] = [
   { name: "CGPA Calculator", href: "/cgpa-calculator" },
-  { name: "CGPA to Percentage", href: "/jntuh-cgpa-to-percentage-formula" },
+  { name: "CGPA to Percentage", href: "/cgpa-percentage-converter" },
   { name: "Marks to Percentage", href: "/marks-percentage-calculator" },
   { name: "Previous Question Papers", href: "/jntuh-previous-question-papers" },
   { name: "JNTUH Syllabus", href: "/syllabus" },
@@ -70,33 +69,8 @@ const resourceLinks: FooterLink[] = [
 ];
 
 const Footer: React.FC = () => {
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": siteConfig.name,
-    "url": siteConfig.url,
-    "logo": `${siteConfig.url}/favicon.ico`,
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "email": siteConfig.contact.email,
-      "contactType": "customer support"
-    },
-    "sameAs": [
-      siteConfig.social.instagram,
-      siteConfig.social.github,
-      siteConfig.social.youtube
-    ]
-  };
   return (
     <footer className="relative bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 transition-colors duration-300 overflow-hidden">
-      {/* JSON-LD for SEO */}
-      <Script
-        id="footer-structured-data"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        strategy="afterInteractive"
-      />
-
       {/* Decorative Blur Backgrounds */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#1C61E7]/5 rounded-full blur-[100px] -z-10 animate-pulse" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#21C15E]/5 rounded-full blur-[80px] -z-10" />

@@ -1,9 +1,6 @@
-import Hero from "@/components/hero";
+import { Hero, FAQSection, NotificationTicker, FeaturesSection } from "@/components/home";
 import ResultsBox from "@/components/results";
 import HomepageBlog from "@/components/blog";
-import FAQSection from "@/components/home/FAQSection";
-import NotificationTicker from "@/components/home/NotificationTicker";
-import FeaturesSection from "@/components/home/FeaturesSection";
 import { ResponsiveAd, InFeedAd } from "@/components/adsense";
 import { SubscriptionForm } from "@/components/features/result-alerts";
 import AD_SLOTS from "@/config/adSlots";

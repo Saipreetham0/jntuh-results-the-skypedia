@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import axios, { AxiosError } from 'axios';
 import { rateLimit, getClientIp } from '@/server/rate-limit';
+import { getUpstreamHeaders } from '@/server/upstream';
 
 export async function GET(request: Request) {
   const rl = rateLimit(getClientIp(request), { limit: 20, windowMs: 60_000 });
@@ -25,9 +26,11 @@ export async function GET(request: Request) {
   try {
     const response = await axios.get(
       `https://jntuhresults.dhethi.com/api/notifications?${upstream.toString()}`,
-      { timeout: 15_000, headers: { 'User-Agent': 'JNTUHResultsPortal/1.0' } }
+      { timeout: 15_000, headers: getUpstreamHeaders() }
     );
-    return NextResponse.json(response.data);
+    return NextResponse.json(response.data, {
+      headers: { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600' }
+    });
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const axiosErr = error as AxiosError;

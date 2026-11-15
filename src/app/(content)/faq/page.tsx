@@ -1,13 +1,9 @@
 import type { Metadata } from 'next';
 import { generateMetadata } from '@/lib/metadata';
 import React from 'react';
-
-export const metadata: Metadata = generateMetadata({
-  title: 'JNTUH Results FAQ | Common Questions About Results, CGPA & Portal',
-  description: 'Answers to the most common questions about JNTUH results, CGPA calculation, grading system, backlog checks, grace marks, and using TheSkypedia results portal.',
-  path: '/faq',
-});
 import Link from "next/link";
+import FAQSchema from "@/components/seo/FAQSchema";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import {
   Accordion,
   AccordionContent,
@@ -15,8 +11,13 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import { CardContent, CardHeader } from "@/components/ui/card";
+
+export const metadata: Metadata = generateMetadata({
+  title: 'JNTUH Results FAQ | Common Questions About Results, CGPA & Portal',
+  description: 'Answers to the most common questions about JNTUH results, CGPA calculation, grading system, backlog checks, grace marks, and using TheSkypedia results portal.',
+  path: '/faq',
+});
 
 // Types
 interface FAQItem {
@@ -212,24 +213,52 @@ const faqs: FAQItem[] = [
   }
 ];
 
+const faqSchemaData = [
+  {
+    question: "What is Consolidated Results?",
+    answer: "Consolidated results refer to the overall performance of a student in all the semesters of a particular course or program, taking into account all semester results with overall CGPA.",
+  },
+  {
+    question: "What is Sem Results?",
+    answer: "Semester results contain subject-wise marks, grades, and credits, along with SGPA for the selected semester.",
+  },
+  {
+    question: "What is Get Multiple Results?",
+    answer: "Multiple Results provides subject-wise marks, grades, and SGPA comparison for multiple students in a particular semester.",
+  },
+  ...faqs.slice(3).map((f) => ({
+    question: f.question,
+    answer: typeof f.answer === "string" ? f.answer : "",
+  })),
+];
+
 const FAQPage = () => {
+  const breadcrumbItems = [
+    { name: "Home", path: "/" },
+    { name: "FAQ", path: "/faq" },
+  ];
+
   return (
     <div className="container mx-auto px-4 py-16">
+      <BreadcrumbSchema items={breadcrumbItems} />
+      <FAQSchema faqs={faqSchemaData} />
       <div className="max-w-4xl mx-auto">
-        <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-bold">
+        <CardHeader className="text-center pb-6">
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
             Frequently Asked Questions
-          </CardTitle>
-          {/* <Separator className="w-24 mx-auto mt-4" /> */}
+          </h1>
+          <p className="mt-2 text-base text-gray-600 dark:text-gray-300">
+            Find answers to common questions about JNTUH results, grading system, SGPA/CGPA calculation, and portal tools.
+          </p>
         </CardHeader>
         <CardContent className="space-y-6">
           <Accordion type="single" collapsible className="w-full">
             {faqs.map((faq) => (
               <AccordionItem key={faq.id} value={faq.id}>
-                <AccordionTrigger className="text-left">
+                <AccordionTrigger className="text-left font-semibold">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">
+                <AccordionContent className="text-muted-foreground text-sm leading-relaxed">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
@@ -238,8 +267,8 @@ const FAQPage = () => {
 
           <div className="flex justify-center mt-8">
             <Button asChild>
-              <Link href="https://theskypedia.com/telegram">
-                Ask Questions
+              <Link href="https://theskypedia.com/telegram" target="_blank" rel="noopener noreferrer">
+                Ask Questions on Telegram
               </Link>
             </Button>
           </div>
