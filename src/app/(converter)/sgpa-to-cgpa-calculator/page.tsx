@@ -111,20 +111,6 @@ export default function SGPAToCGPACalculator() {
     }
   }, [semesters, scale]);
 
-  // Keyboard shortcut: Enter to calculate
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.key === "Enter" && !loading) {
-        const hasData = semesters.some((s) => s.sgpa && s.credits);
-        if (hasData) {
-          handleCalculate();
-        }
-      }
-    };
-    window.addEventListener("keypress", handleKeyPress);
-    return () => window.removeEventListener("keypress", handleKeyPress);
-  }, [semesters, loading]);
-
   // SEO Structured Data
   const howToSchema = {
     "@context": "https://schema.org",
@@ -364,6 +350,20 @@ export default function SGPAToCGPACalculator() {
     setWarning("");
     localStorage.removeItem("sgpa-calculator-data");
   };
+
+  // Keyboard shortcut: Enter to calculate
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.key === "Enter" && !loading) {
+        const hasData = semesters.some((s) => s.sgpa && s.credits);
+        if (hasData) {
+          handleCalculate();
+        }
+      }
+    };
+    window.addEventListener("keypress", handleKeyPress);
+    return () => window.removeEventListener("keypress", handleKeyPress);
+  }, [semesters, loading, handleCalculate]);
 
   return (
     <>

@@ -3,6 +3,7 @@ import axios from 'axios';
 import * as cheerio from 'cheerio';
 import https from 'https';
 import { rateLimit, getClientIp } from '@/server/rate-limit';
+import syllabusCatalog from '@/data/syllabus.json';
 
 export const dynamic = 'force-dynamic';
 
@@ -10,11 +11,10 @@ const BASE_URL = 'https://studentservices.jntuh.ac.in/oss/';
 
 // Note: JNTUH's server (studentservices.jntuh.ac.in) uses a self-signed / expired certificate.
 // rejectUnauthorized is intentionally kept false for this government server only.
-// Track resolution at: https://github.com/your-repo/issues (replace with actual issue link)
 const jntuhHttpsAgent = new https.Agent({ rejectUnauthorized: false });
 
 const axiosInstance = axios.create({
-  timeout: 55000,
+  timeout: 12000, // 12s timeout for fast failover to local catalog
   headers: {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
@@ -283,17 +283,103 @@ export async function GET(request: NextRequest) {
       );
     } else {
       const result = await scraper.fetchLevel(type, level, l123, path);
+      if (result.items && result.items.length > 0) {
+        return NextResponse.json(
+          result,
+          { headers: { 'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=604800' } }
+        );
+      }
+      // If live returned 0 items due to transient JNTUH server issue, fall back to verified catalog
+      const fallbackItems = getLocalSyllabus(level, l123, path);
+      if (fallbackItems.length > 0) {
+        return NextResponse.json(
+          { items: fallbackItems, breadcrumb: result.breadcrumb },
+          { headers: { 'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=604800' } }
+        );
+      }
       return NextResponse.json(
         result,
         { headers: { 'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=604800' } }
       );
     }
-  } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : 'Unknown error';
-    // Only log, don't expose internal error details to client
-    void message;
+  } catch (_error: unknown) {
+    // If live scraping fails (timeout, JNTUH server down), serve verified local syllabus catalog
+    const fallbackItems = getLocalSyllabus(level, l123, path);
+    if (fallbackItems.length > 0) {
+      const breadcrumb = [
+        ...path.map(p => ({ title: p.replace(/^[0-9]+\./, ''), link: '' })),
+        ...(level ? [{ title: level.replace(/^[0-9]+\./, ''), link: '' }] : [])
+      ];
+      return NextResponse.json(
+        { items: fallbackItems, breadcrumb },
+        { headers: { 'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=604800' } }
+      );
+    }
     return NextResponse.json({ error: 'Failed to fetch syllabus data. Please try again later.' }, { status: 500 });
   }
+}
+
+function getLocalSyllabus(level: string | null, l123: string, path: string[] = []): SyllabusNode[] {
+  const data = syllabusCatalog as unknown as Array<{
+    course?: string;
+    syllabusName?: string;
+    name?: string;
+    title?: string;
+    link?: string;
+    children?: any[];
+  }>;
+
+  if (!level) {
+    return data.map((item, idx) => ({
+      title: item.course || item.title || item.name || `Course ${idx + 1}`,
+      link: item.link || `https://studentservices.jntuh.ac.in/oss/syllabus_action.html?level=${idx + 1}.${item.course}&l123=0&type=syllabus`,
+      isPdf: false,
+      params: {
+        type: 'syllabus',
+        level: `${idx + 1}.${item.course}`,
+        l123: '0',
+      },
+    }));
+  }
+
+  const clean = (s: string) => (s || '').replace(/^[0-9]+\./, '').trim().toLowerCase();
+  const searchSegments = Array.from(new Set([...path.map(clean), clean(level)].filter(Boolean)));
+
+  let currentItems = data;
+  let targetNode: any = null;
+
+  for (const seg of searchSegments) {
+    const found = currentItems.find(item => {
+      const name = clean(item.course || item.syllabusName || item.name || item.title || '');
+      return name === seg || name.includes(seg) || seg.includes(name);
+    });
+    if (found) {
+      targetNode = found;
+      currentItems = found.children || [];
+    }
+  }
+
+  if (targetNode && targetNode.children) {
+    return targetNode.children.map((child: any, idx: number) => {
+      const link = child.link || '';
+      const isPdf = link.toLowerCase().endsWith('.pdf');
+      const title = child.name || child.syllabusName || child.course || child.title || `Item ${idx + 1}`;
+      return {
+        title,
+        link,
+        isPdf,
+        params: isPdf
+          ? undefined
+          : {
+              type: 'syllabus',
+              level: child.course || child.syllabusName || `${idx + 1}.${title}`,
+              l123: String(Number(l123) + 1),
+            },
+      };
+    });
+  }
+
+  return [];
 }
 
 function extractBreadcrumbs($: cheerio.CheerioAPI) {

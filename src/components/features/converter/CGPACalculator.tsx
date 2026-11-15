@@ -163,17 +163,6 @@ export default function CGPAToPercentageCalculator() {
         }
     }, [cgpa, scale]);
 
-    // Keyboard shortcut: Enter to calculate
-    useEffect(() => {
-        const handleKeyPress = (e: KeyboardEvent) => {
-            if (e.key === 'Enter' && !loading && cgpa) {
-                handleCalculate();
-            }
-        };
-        window.addEventListener('keypress', handleKeyPress);
-        return () => window.removeEventListener('keypress', handleKeyPress);
-    }, [cgpa, loading]);
-
     // Handlers
     const getPerformanceDetails = (percentage: number) => {
         if (percentage >= 90) return { label: "Outstanding", color: "text-emerald-500", bg: "bg-emerald-500/10", border: "border-emerald-500/20" };
@@ -268,6 +257,17 @@ export default function CGPAToPercentageCalculator() {
             }
         }, 800);
     };
+
+    // Keyboard shortcut: Enter to calculate
+    useEffect(() => {
+        const handleKeyPress = (e: KeyboardEvent) => {
+            if (e.key === 'Enter' && !loading && cgpa) {
+                handleCalculate();
+            }
+        };
+        window.addEventListener('keypress', handleKeyPress);
+        return () => window.removeEventListener('keypress', handleKeyPress);
+    }, [cgpa, loading]);
 
     const handleReset = () => {
         setCgpa("");

@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Link from "next/link";
 import {
   UserIcon,
   EnvelopeIcon,
@@ -156,12 +157,12 @@ export default function Signup() {
               <p className="mt-2 text-gray-600 dark:text-gray-400">
                 Please check your email to verify your account.
               </p>
-              <button
-                onClick={() => (window.location.href = "/login")}
+              <Link
+                href="/login"
                 className="mt-6 inline-flex items-center px-6 py-3 border border-transparent rounded-lg shadow-md text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
               >
                 Go to Login
-              </button>
+              </Link>
             </div>
           ) : (
             <div>
